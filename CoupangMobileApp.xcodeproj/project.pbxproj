@@ -1,0 +1,655 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B452EB1825336C15003968FC /* StartupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1725336C15003968FC /* StartupView.swift */; };
+		B452EB1D25336CB6003968FC /* RunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* RunView.swift */; };
+		B452EB2225337110003968FC /* ConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB2125337110003968FC /* ConfigureView.swift */; };
+		B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769C253114D100962CC1 /* AppDelegate.swift */; };
+		B4A9769F253114D100962CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769E253114D100962CC1 /* ContentView.swift */; };
+		B4A976A1253114D200962CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A0253114D200962CC1 /* Assets.xcassets */; };
+		B4A976A4253114D200962CC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A3253114D200962CC1 /* Preview Assets.xcassets */; };
+		B4A976A7253114D200962CC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A5253114D200962CC1 /* Main.storyboard */; };
+		B4A976B3253114D300962CC1 /* CoupangMobileAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976B2253114D300962CC1 /* CoupangMobileAppTests.swift */; };
+		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
+		B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4A976E0253116C900962CC1 /* AndroidEmulator */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B4A976AF253114D300962CC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4A97691253114D100962CC1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B4A97698253114D100962CC1;
+			remoteInfo = CoupangMobileApp;
+		};
+		B4A976BA253114D300962CC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4A97691253114D100962CC1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B4A97698253114D100962CC1;
+			remoteInfo = CoupangMobileApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B40062352533A68D002E0B2A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B452EB1725336C15003968FC /* StartupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupView.swift; sourceTree = "<group>"; };
+		B452EB1C25336CB6003968FC /* RunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunView.swift; sourceTree = "<group>"; };
+		B452EB2125337110003968FC /* ConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureView.swift; sourceTree = "<group>"; };
+		B4A97699253114D100962CC1 /* CoupangMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoupangMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4A9769C253114D100962CC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B4A9769E253114D100962CC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B4A976A0253114D200962CC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B4A976A3253114D200962CC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B4A976A6253114D200962CC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B4A976A8253114D200962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4A976A9253114D200962CC1 /* CoupangMobileApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoupangMobileApp.entitlements; sourceTree = "<group>"; };
+		B4A976AE253114D300962CC1 /* CoupangMobileAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoupangMobileAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4A976B2253114D300962CC1 /* CoupangMobileAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppTests.swift; sourceTree = "<group>"; };
+		B4A976B4253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4A976B9253114D300962CC1 /* CoupangMobileAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoupangMobileAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppUITests.swift; sourceTree = "<group>"; };
+		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B4A97696253114D100962CC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4A976AB253114D300962CC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4A976B6253114D300962CC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B4A97690253114D100962CC1 = {
+			isa = PBXGroup;
+			children = (
+				B4A9769B253114D100962CC1 /* CoupangMobileApp */,
+				B4A976B1253114D300962CC1 /* CoupangMobileAppTests */,
+				B4A976BC253114D300962CC1 /* CoupangMobileAppUITests */,
+				B4A9769A253114D100962CC1 /* Products */,
+				B4A976CF2531160300962CC1 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B4A9769A253114D100962CC1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B4A97699253114D100962CC1 /* CoupangMobileApp.app */,
+				B4A976AE253114D300962CC1 /* CoupangMobileAppTests.xctest */,
+				B4A976B9253114D300962CC1 /* CoupangMobileAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B4A9769B253114D100962CC1 /* CoupangMobileApp */ = {
+			isa = PBXGroup;
+			children = (
+				B4A9769C253114D100962CC1 /* AppDelegate.swift */,
+				B4A9769E253114D100962CC1 /* ContentView.swift */,
+				B452EB1725336C15003968FC /* StartupView.swift */,
+				B452EB1C25336CB6003968FC /* RunView.swift */,
+				B452EB2125337110003968FC /* ConfigureView.swift */,
+				B4A976A0253114D200962CC1 /* Assets.xcassets */,
+				B4A976A5253114D200962CC1 /* Main.storyboard */,
+				B4A976A8253114D200962CC1 /* Info.plist */,
+				B4A976A9253114D200962CC1 /* CoupangMobileApp.entitlements */,
+				B4A976A2253114D200962CC1 /* Preview Content */,
+			);
+			path = CoupangMobileApp;
+			sourceTree = "<group>";
+		};
+		B4A976A2253114D200962CC1 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B4A976A3253114D200962CC1 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B4A976B1253114D300962CC1 /* CoupangMobileAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				B4A976B2253114D300962CC1 /* CoupangMobileAppTests.swift */,
+				B4A976B4253114D300962CC1 /* Info.plist */,
+			);
+			path = CoupangMobileAppTests;
+			sourceTree = "<group>";
+		};
+		B4A976BC253114D300962CC1 /* CoupangMobileAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */,
+				B4A976BF253114D300962CC1 /* Info.plist */,
+			);
+			path = CoupangMobileAppUITests;
+			sourceTree = "<group>";
+		};
+		B4A976CF2531160300962CC1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B4A97698253114D100962CC1 /* CoupangMobileApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4A976C2253114D300962CC1 /* Build configuration list for PBXNativeTarget "CoupangMobileApp" */;
+			buildPhases = (
+				B4A97695253114D100962CC1 /* Sources */,
+				B4A97696253114D100962CC1 /* Frameworks */,
+				B4A97697253114D100962CC1 /* Resources */,
+				B40062352533A68D002E0B2A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoupangMobileApp;
+			packageProductDependencies = (
+				B4A976E0253116C900962CC1 /* AndroidEmulator */,
+			);
+			productName = CoupangMobileApp;
+			productReference = B4A97699253114D100962CC1 /* CoupangMobileApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B4A976AD253114D300962CC1 /* CoupangMobileAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4A976C5253114D300962CC1 /* Build configuration list for PBXNativeTarget "CoupangMobileAppTests" */;
+			buildPhases = (
+				B4A976AA253114D300962CC1 /* Sources */,
+				B4A976AB253114D300962CC1 /* Frameworks */,
+				B4A976AC253114D300962CC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B4A976B0253114D300962CC1 /* PBXTargetDependency */,
+			);
+			name = CoupangMobileAppTests;
+			productName = CoupangMobileAppTests;
+			productReference = B4A976AE253114D300962CC1 /* CoupangMobileAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B4A976B8253114D300962CC1 /* CoupangMobileAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4A976C8253114D300962CC1 /* Build configuration list for PBXNativeTarget "CoupangMobileAppUITests" */;
+			buildPhases = (
+				B4A976B5253114D300962CC1 /* Sources */,
+				B4A976B6253114D300962CC1 /* Frameworks */,
+				B4A976B7253114D300962CC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B4A976BB253114D300962CC1 /* PBXTargetDependency */,
+			);
+			name = CoupangMobileAppUITests;
+			productName = CoupangMobileAppUITests;
+			productReference = B4A976B9253114D300962CC1 /* CoupangMobileAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B4A97691253114D100962CC1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					B4A97698253114D100962CC1 = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+					B4A976AD253114D300962CC1 = {
+						CreatedOnToolsVersion = 12.0.1;
+						TestTargetID = B4A97698253114D100962CC1;
+					};
+					B4A976B8253114D300962CC1 = {
+						CreatedOnToolsVersion = 12.0.1;
+						TestTargetID = B4A97698253114D100962CC1;
+					};
+				};
+			};
+			buildConfigurationList = B4A97694253114D100962CC1 /* Build configuration list for PBXProject "CoupangMobileApp" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B4A97690253114D100962CC1;
+			productRefGroup = B4A9769A253114D100962CC1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B4A97698253114D100962CC1 /* CoupangMobileApp */,
+				B4A976AD253114D300962CC1 /* CoupangMobileAppTests */,
+				B4A976B8253114D300962CC1 /* CoupangMobileAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B4A97697253114D100962CC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4A976A7253114D200962CC1 /* Main.storyboard in Resources */,
+				B4A976A4253114D200962CC1 /* Preview Assets.xcassets in Resources */,
+				B4A976A1253114D200962CC1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4A976AC253114D300962CC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4A976B7253114D300962CC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B4A97695253114D100962CC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B452EB1D25336CB6003968FC /* RunView.swift in Sources */,
+				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
+				B452EB2225337110003968FC /* ConfigureView.swift in Sources */,
+				B452EB1825336C15003968FC /* StartupView.swift in Sources */,
+				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4A976AA253114D300962CC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4A976B3253114D300962CC1 /* CoupangMobileAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4A976B5253114D300962CC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B4A976B0253114D300962CC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B4A97698253114D100962CC1 /* CoupangMobileApp */;
+			targetProxy = B4A976AF253114D300962CC1 /* PBXContainerItemProxy */;
+		};
+		B4A976BB253114D300962CC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B4A97698253114D100962CC1 /* CoupangMobileApp */;
+			targetProxy = B4A976BA253114D300962CC1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B4A976A5253114D200962CC1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B4A976A6253114D200962CC1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B4A976C0253114D300962CC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B4A976C1253114D300962CC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		B4A976C3253114D300962CC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CoupangMobileApp/CoupangMobileApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"CoupangMobileApp/Preview Content\"";
+				DEVELOPMENT_TEAM = ZP9MK28FYU;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/sparkle",
+				);
+				INFOPLIST_FILE = CoupangMobileApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coupang.CoupangMobileApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B4A976C4253114D300962CC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CoupangMobileApp/CoupangMobileApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"CoupangMobileApp/Preview Content\"";
+				DEVELOPMENT_TEAM = ZP9MK28FYU;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/sparkle",
+				);
+				INFOPLIST_FILE = CoupangMobileApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coupang.CoupangMobileApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B4A976C6253114D300962CC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = CoupangMobileAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coupang.CoupangMobileAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoupangMobileApp.app/Contents/MacOS/CoupangMobileApp";
+			};
+			name = Debug;
+		};
+		B4A976C7253114D300962CC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = CoupangMobileAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coupang.CoupangMobileAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoupangMobileApp.app/Contents/MacOS/CoupangMobileApp";
+			};
+			name = Release;
+		};
+		B4A976C9253114D300962CC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = CoupangMobileAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.coupang.CoupangMobileAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = CoupangMobileApp;
+			};
+			name = Debug;
+		};
+		B4A976CA253114D300962CC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = CoupangMobileAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.coupang.CoupangMobileAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = CoupangMobileApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B4A97694253114D100962CC1 /* Build configuration list for PBXProject "CoupangMobileApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4A976C0253114D300962CC1 /* Debug */,
+				B4A976C1253114D300962CC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4A976C2253114D300962CC1 /* Build configuration list for PBXNativeTarget "CoupangMobileApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4A976C3253114D300962CC1 /* Debug */,
+				B4A976C4253114D300962CC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4A976C5253114D300962CC1 /* Build configuration list for PBXNativeTarget "CoupangMobileAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4A976C6253114D300962CC1 /* Debug */,
+				B4A976C7253114D300962CC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4A976C8253114D300962CC1 /* Build configuration list for PBXNativeTarget "CoupangMobileAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4A976C9253114D300962CC1 /* Debug */,
+				B4A976CA253114D300962CC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B4A976E0253116C900962CC1 /* AndroidEmulator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AndroidEmulator;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = B4A97691253114D100962CC1 /* Project object */;
+}
