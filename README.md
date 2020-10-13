@@ -11,11 +11,8 @@ https://github.coupang.net/vlsolome/CoupangMobileApp/releases/download/v0.1/Coup
 ## Start emulator
 Click `start` button.
 
-## Stop emulator
-Click `stop` button.
-
 ## Install Coupang app
-Drag & drop `apk` file into emulator window.
+Click `install apk` button.
 
 ## Problems?
 Click `configure` button.
