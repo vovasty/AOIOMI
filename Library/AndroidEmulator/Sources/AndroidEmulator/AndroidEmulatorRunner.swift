@@ -197,6 +197,7 @@ class AndroidEmulatorRunner {
                 }
             }
             self.delegate?.created(runner: self, success: true)
+            self.start()
         }
     }
 

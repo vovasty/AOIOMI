@@ -51,6 +51,9 @@ function install_gapps {
     "$ADB" push $ROOT/gapps/framework /system
     "$ADB" push $ROOT/gapps/app /system
     "$ADB" push $ROOT/gapps/priv-app /system
+}
+
+function reboot {
     "$ADB" reboot
     wait_booted
 }
@@ -79,8 +82,6 @@ function install_ca {
     "$ADB" shell "mount -o rw,remount /"
     "$ADB" push "$NEWNAMEANDPATH" /system/etc/security/cacerts
     "$ADB" shell "chmod 664 /system/etc/security/cacerts/$NEWNAME"
-    "$ADB" reboot
-    wait_booted
 }
 
 function run {
@@ -120,6 +121,9 @@ case "${COMMAND}" in
         ;;
         install_apk)
         install_apk "$1"
+        ;;
+        reboot)
+        reboot
         ;;
         *)
         echo "error: wrong command: ${command}"

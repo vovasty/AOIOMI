@@ -85,6 +85,14 @@
                 "name": "stop emulator",
                 "command": "app.sh",
                 "arguments": [
+                    {"predefined": "reboot"}
+                ],
+                "async": false
+            },
+            {
+                "name": "stop emulator",
+                "command": "app.sh",
+                "arguments": [
                     {"predefined": "stop"}
                 ],
                 "async": false
