@@ -17,14 +17,7 @@ public class AndroidEmulator: ObservableObject {
     private var runner: AndroidEmulatorRunner
 
     public init() throws {
-        let CAPath = FileManager.default.urls(for: .applicationSupportDirectory,
-                                              in: .userDomainMask)
-            .first!
-            .appendingPathComponent("Charles")
-            .appendingPathComponent("ca")
-            .appendingPathComponent("charles-proxy-ssl-proxying-certificate.pem").path
-
-        runner = try AndroidEmulatorRunner(rootPath: Bundle.module.path(forResource: "emulator", ofType: "")!, caPath: CAPath, httpProxy: "10.0.2.2:8888")
+        runner = try AndroidEmulatorRunner(rootPath: Bundle.module.url(forResource: "emulator", withExtension: "")!)
         runner.delegate = self
     }
 
@@ -42,9 +35,25 @@ public class AndroidEmulator: ObservableObject {
         runner.isCreated()
     }
 
-    public func configure() {
+    public func install(apk: String) {
+        runner.install(apk: apk)
+    }
+
+    public func configure(caPath: String, proxy: String) {
         state = .configuring
-        runner.configure()
+        runner.configure(caPath: caPath, proxy: proxy)
+    }
+
+    public func configure() {
+        let caPath = FileManager.default.urls(for: .applicationSupportDirectory,
+                                              in: .userDomainMask)
+            .first!
+            .appendingPathComponent("Charles")
+            .appendingPathComponent("ca")
+            .appendingPathComponent("charles-proxy-ssl-proxying-certificate.pem").path
+
+        let proxy = "10.0.2.2:8888"
+        configure(caPath: caPath, proxy: proxy)
     }
 }
 

@@ -118,6 +118,9 @@ case "${COMMAND}" in
         install_gapps)
         install_gapps
         ;;
+        install_apk)
+        install_apk "$1"
+        ;;
         *)
         echo "error: wrong command: ${command}"
         exit 1

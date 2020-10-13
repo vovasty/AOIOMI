@@ -4,7 +4,7 @@
             "name": "check emulator",
             "command": "app.sh",
             "arguments": [
-                "is_created"
+                {"predefined": "is_created"}
             ],
             "async": false
         },
@@ -12,7 +12,15 @@
             "name": "start emulator",
             "command": "app.sh",
             "arguments": [
-                "start"
+                {"predefined": "start"}
+            ],
+            "async": true
+        },
+        "install_apk": {
+            "name": "install apk",
+            "command": "app.sh",
+            "arguments": [
+                {"install_apk": "?"}
             ],
             "async": true
         },
@@ -21,7 +29,7 @@
                 "name": "stop emulator",
                 "command": "app.sh",
                 "arguments": [
-                    "stop"
+                    {"predefined": "stop"}
                 ],
                 "async": false
             },
@@ -29,7 +37,7 @@
                 "name": "create emulator",
                 "command": "app.sh",
                 "arguments": [
-                    "create"
+                    {"predefined": "create"}
                 ],
                 "async": false
             },
@@ -37,7 +45,7 @@
                 "name": "start emulator",
                 "command": "app.sh",
                 "arguments": [
-                    "start"
+                    {"predefined": "start"}
                 ],
                 "async": true
             },
@@ -45,7 +53,7 @@
                 "name": "wait emulator booted",
                 "command": "app.sh",
                 "arguments": [
-                    "wait_booted"
+                    {"predefined": "wait_booted"}
                 ],
                 "async": false
             },
@@ -53,8 +61,7 @@
                 "name": "set emulator proxy",
                 "command": "app.sh",
                 "arguments": [
-                    "set_proxy",
-                    "{{HTTP_PROXY}}"
+                    {"set_proxy": "?"}
                 ],
                 "async": false
             },
@@ -62,8 +69,7 @@
                 "name": "install root ca into emulator",
                 "command": "app.sh",
                 "arguments": [
-                    "install_ca",
-                    "{{CA_FILE}}"
+                    {"install_ca": "?"}
                 ],
                 "async": false
             },
@@ -71,7 +77,7 @@
                 "name": "install gapps",
                 "command": "app.sh",
                 "arguments": [
-                    "install_gapps"
+                    {"predefined": "install_gapps"}
                 ],
                 "async": false
             },
@@ -79,7 +85,7 @@
                 "name": "stop emulator",
                 "command": "app.sh",
                 "arguments": [
-                    "stop"
+                    {"predefined": "stop"}
                 ],
                 "async": false
             }

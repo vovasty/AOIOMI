@@ -24,11 +24,23 @@ struct RunView: View {
             }
             HStack {
                 Button(action: {
-                    emulator.stop()
+                    let dialog = NSOpenPanel()
+                    dialog.title = "Choose an apk to install"
+                    dialog.showsResizeIndicator = true
+                    dialog.showsHiddenFiles = false
+                    dialog.allowsMultipleSelection = false
+                    dialog.canChooseDirectories = false
+                    dialog.allowedFileTypes = ["apk"]
+
+                    guard dialog.runModal() == .OK else { return }
+
+                    guard let path = dialog.url?.path else { return }
+                    emulator.install(apk: path)
+
                 }) {
-                    Text("stop")
+                    Text("install apk")
                 }
-                .disabled(emulator.state == .notConfigured || emulator.state != .started)
+                .disabled(emulator.state != .started)
             }
             HStack {
                 Button(action: {
@@ -45,6 +57,6 @@ struct RunView: View {
 
 struct RunView_Previews: PreviewProvider {
     static var previews: some View {
-        RunView()
+        RunView().environmentObject(try! AndroidEmulator())
     }
 }
