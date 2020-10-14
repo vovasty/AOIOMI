@@ -3,7 +3,7 @@
 This is a wrapper for android emulator. It doesn't have any external dependencies.
 Emulator is preconfigured with `Charles` certificates and proxy settings.
 
-https://github.coupang.net/vlsolome/CoupangMobileApp/releases/download/v0.1/CoupangMobileApp-0.1.zip
+https://github.coupang.net/vlsolome/CoupangMobileApp/releases/download/v0.2/CoupangMobileApp-0.2.zip
 
 
 # Usage
