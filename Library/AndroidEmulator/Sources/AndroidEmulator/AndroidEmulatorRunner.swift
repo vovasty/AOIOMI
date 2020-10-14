@@ -167,7 +167,7 @@ class AndroidEmulatorRunner {
                 self.delegate?.isCreated(runner: self, isCreated: true)
             } catch {
                 print("error", error)
-                self.delegate?.created(runner: self, success: false)
+                self.delegate?.isCreated(runner: self, isCreated: false)
             }
         }
     }
