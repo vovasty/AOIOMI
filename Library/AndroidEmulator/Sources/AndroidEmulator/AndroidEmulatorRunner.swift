@@ -18,6 +18,7 @@ public struct AndroidEmulatorConfig: Decodable {
         var start: Command
         var install_apk: Command
         var create: [Command]
+        var run_app: Command
     }
 
     var commands: Commands
@@ -148,6 +149,20 @@ class AndroidEmulatorRunner {
             do {
                 let command = self.config.commands.install_apk
                 let parameters = try self.parametrize(parameters: command.arguments, apkPath: apk)
+                let output = try self.run(command: command.command, parameters: parameters)
+                print("stdout", output)
+            } catch {
+                print("error", error)
+            }
+        }
+    }
+    
+    public func runApp() {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self = self else { return }
+            do {
+                let command = self.config.commands.run_app
+                let parameters = try self.parametrize(parameters: command.arguments)
                 let output = try self.run(command: command.command, parameters: parameters)
                 print("stdout", output)
             } catch {

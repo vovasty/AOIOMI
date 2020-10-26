@@ -43,6 +43,10 @@ public class AndroidEmulator: ObservableObject {
         state = .configuring
         runner.configure(caPath: caPath, proxy: proxy)
     }
+    
+    public func runApp() {
+        runner.runApp()
+    }
 
     public func configure() {
         let caPath = FileManager.default.urls(for: .applicationSupportDirectory,

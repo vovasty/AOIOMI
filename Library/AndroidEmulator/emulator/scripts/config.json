@@ -24,6 +24,15 @@
             ],
             "async": true
         },
+        "run_app": {
+            "name": "run app",
+            "command": "app.sh",
+            "arguments": [
+                {"predefined": "run_app"},
+                {"predefined": "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity"}
+            ],
+            "async": true
+        },
         "create": [
             {
                 "name": "stop emulator",

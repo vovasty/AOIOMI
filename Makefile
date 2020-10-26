@@ -1,4 +1,4 @@
-BUILD_DIR=.build/archive
+BUILD_DIR=.build
 ARCHIVE_PATH=$(BUILD_DIR)/app.xcarchive
 APP_PATH=$(BUILD_DIR)/CoupangMobileApp.app
 ZIP_PATH=$(BUILD_DIR)/CoupangMobileApp.zip

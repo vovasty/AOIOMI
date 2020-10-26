@@ -22,7 +22,7 @@ AVDMANAGER=$ANDROID_SDK_ROOT/cmdline-tools/tools/bin/avdmanager
 AVD_NAME=coupang$ANDROID_VERSION
 
 function start {
-    "$EMULATOR" -avd coupang$ANDROID_VERSION -writable-system
+    "$EMULATOR" -avd "$AVD_NAME" -writable-system
 }
 
 function stop {
@@ -88,6 +88,10 @@ function run {
     "$ADB" shell am start -n com.coupang.mobile/android.intent.action.MAIN
 }
 
+function run_app {
+    "$ADB" shell am start -n "$1" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
+}
+
 case "${COMMAND}" in
         start) 
         start
@@ -124,6 +128,9 @@ case "${COMMAND}" in
         ;;
         reboot)
         reboot
+        ;;
+        run_app)
+        run_app "$1"
         ;;
         *)
         echo "error: wrong command: ${command}"

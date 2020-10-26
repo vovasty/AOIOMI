@@ -44,6 +44,14 @@ struct RunView: View {
             }
             HStack {
                 Button(action: {
+                    emulator.runApp()
+                }) {
+                    Text("run app")
+                }
+                .disabled(emulator.state == .checking || emulator.state == .configuring)
+            }
+            HStack {
+                Button(action: {
                     emulator.configure()
                 }) {
                     Text("configure")
