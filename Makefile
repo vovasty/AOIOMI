@@ -1,7 +1,7 @@
 BUILD_DIR=.build
 ARCHIVE_PATH=$(BUILD_DIR)/app.xcarchive
-APP_PATH=$(BUILD_DIR)/CoupangMobileApp.app
-ZIP_PATH=$(BUILD_DIR)/CoupangMobileApp.zip
+BUILDED_APP_PATH=$(ARCHIVE_PATH)/Products/Applications/CoupangMobileApp.app
+ZIP_PATH=$(BUILD_DIR)/../CoupangMobileApp.zip
 DERIVED_PATH=$(BUILD_DIR)/derived
 
 
@@ -11,14 +11,18 @@ all: archive
 .PHONY: build
 build:
 	xcodebuild -workspace CoupangMobileApp.xcworkspace -config Release -scheme CoupangMobileApp -derivedDataPath $(DERIVED_PATH) -archivePath $(ARCHIVE_PATH) archive
-
-.PHONY: export
-export: build
-	xcodebuild -archivePath $(ARCHIVE_PATH) -exportArchive -exportPath $(APP_PATH)  -exportOptionsPlist exportOptions.plist
+	
+# .PHONY: export
+# export: build
+# 	xcodebuild -archivePath $(ARCHIVE_PATH) -exportArchive -exportPath $(APP_PATH)  -exportOptionsPlist exportOptions.plist
 
 .PHONY: archive
-archive: export
-	ditto -c -k --sequesterRsrc --keepParent $(APP_PATH) $(ZIP_PATH)	
+archive: build
+	ditto -c -k --sequesterRsrc --keepParent $(BUILDED_APP_PATH) $(ZIP_PATH)
+	
+.PHONY: emulator
+emulator:
+	 $(MAKE) -C AndroidEmulator all
 
 .PHONY: clean
 clean:

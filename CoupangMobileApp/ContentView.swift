@@ -16,8 +16,12 @@ struct ContentView: View {
             switch emulator.state {
             case .checking:
                 StartupView()
-            case .configuring, .notConfigured:
+            case .configuring:
                 ConfigureView()
+            case .notConfigured:
+                Button("configure") {
+                    emulator.configure()
+                }
             case .started, .stopped, .starting, .stopping:
                 RunView()
             }
@@ -25,6 +29,7 @@ struct ContentView: View {
         .onAppear {
             emulator.check()
         }
+        .frame(width: 200, height: 200)
     }
 }
 

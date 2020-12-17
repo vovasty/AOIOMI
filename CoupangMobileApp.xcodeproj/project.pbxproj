@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
 		B452EB1825336C15003968FC /* StartupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1725336C15003968FC /* StartupView.swift */; };
 		B452EB1D25336CB6003968FC /* RunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* RunView.swift */; };
 		B452EB2225337110003968FC /* ConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB2125337110003968FC /* ConfigureView.swift */; };
@@ -18,6 +19,7 @@
 		B4A976B3253114D300962CC1 /* CoupangMobileAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976B2253114D300962CC1 /* CoupangMobileAppTests.swift */; };
 		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
 		B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4A976E0253116C900962CC1 /* AndroidEmulator */; };
+		B4C0A8D2258D3F1B007886B8 /* AppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C0A8D1258D3F1B007886B8 /* AppStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,9 +53,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B452EB1725336C15003968FC /* StartupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupView.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* RunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunView.swift; sourceTree = "<group>"; };
 		B452EB2125337110003968FC /* ConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureView.swift; sourceTree = "<group>"; };
+		B46D02452584072800076EDE /* AndroidEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AndroidEmulator; sourceTree = "<group>"; };
 		B4A97699253114D100962CC1 /* CoupangMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoupangMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A9769C253114D100962CC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4A9769E253114D100962CC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 		B4A976B9253114D300962CC1 /* CoupangMobileAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoupangMobileAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppUITests.swift; sourceTree = "<group>"; };
 		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4C0A8D1258D3F1B007886B8 /* AppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +104,7 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B46D02452584072800076EDE /* AndroidEmulator */,
 				B4A9769B253114D100962CC1 /* CoupangMobileApp */,
 				B4A976B1253114D300962CC1 /* CoupangMobileAppTests */,
 				B4A976BC253114D300962CC1 /* CoupangMobileAppUITests */,
@@ -125,6 +131,8 @@
 				B452EB1725336C15003968FC /* StartupView.swift */,
 				B452EB1C25336CB6003968FC /* RunView.swift */,
 				B452EB2125337110003968FC /* ConfigureView.swift */,
+				B4C0A8D1258D3F1B007886B8 /* AppStateView.swift */,
+				B449209E258D4F6A00457272 /* Button.swift */,
 				B4A976A0253114D200962CC1 /* Assets.xcassets */,
 				B4A976A5253114D200962CC1 /* Main.storyboard */,
 				B4A976A8253114D200962CC1 /* Info.plist */,
@@ -301,8 +309,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B449209F258D4F6A00457272 /* Button.swift in Sources */,
 				B452EB1D25336CB6003968FC /* RunView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
+				B4C0A8D2258D3F1B007886B8 /* AppStateView.swift in Sources */,
 				B452EB2225337110003968FC /* ConfigureView.swift in Sources */,
 				B452EB1825336C15003968FC /* StartupView.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,

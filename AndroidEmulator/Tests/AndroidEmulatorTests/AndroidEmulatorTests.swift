@@ -2,8 +2,8 @@
 import XCTest
 
 final class AndroidEmulatorTests: XCTestCase {
-    func testExample() {
-        let x = AndroidEmulator()
+    func testExample() throws {
+        let x = try AndroidEmulator()
         x.start()
         print("1")
     }

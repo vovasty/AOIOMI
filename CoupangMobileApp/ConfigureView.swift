@@ -16,9 +16,9 @@ struct ConfigureView: View {
             Text("Configuring emulator ...")
         }
         .onAppear {
-            if emulator.state == .notConfigured {
-                emulator.configure()
-            }
+//            if emulator.state == .notConfigured {
+//                emulator.configure()
+//            }
         }
         .frame(width: 200, height: 200)
     }

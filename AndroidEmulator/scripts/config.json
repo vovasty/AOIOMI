@@ -29,7 +29,32 @@
             "command": "app.sh",
             "arguments": [
                 {"predefined": "run_app"},
-                {"predefined": "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity"}
+                {"app_activity_id": "?"}
+            ],
+            "async": true
+        },
+        "is_app_installed": {
+            "name": "is app installed",
+            "command": "app.sh",
+            "arguments": [
+                {"predefined": "is_app_installed"},
+                {"app_package_id": "?"}
+            ],
+            "async": true
+        },
+        "get_emulator_pid": {
+            "name": "get emulator pid",
+            "command": "app.sh",
+            "arguments": [
+                {"predefined": "get_emulator_pid"}
+            ],
+            "async": true
+        },
+        "wait_booted": {
+            "name": "wait emulator booted",
+            "command": "app.sh",
+            "arguments": [
+                {"predefined": "wait_booted"}
             ],
             "async": true
         },
@@ -91,7 +116,7 @@
                 "async": false
             },
             {
-                "name": "stop emulator",
+                "name": "reboot emulator",
                 "command": "app.sh",
                 "arguments": [
                     {"predefined": "reboot"}
@@ -99,13 +124,42 @@
                 "async": false
             },
             {
-                "name": "stop emulator",
+                "name": "wait emulator booted",
                 "command": "app.sh",
                 "arguments": [
-                    {"predefined": "stop"}
+                    {"predefined": "wait_booted"}
+                ],
+                "async": false
+            }
+        ],
+        "get_file": [
+            {
+                "name": "root",
+                "command": "app.sh",
+                "arguments": [
+                    {"predefined": "adb_root"}
+                ],
+                "async": false
+            },
+            {
+                "name": "get file",
+                "command": "app.sh",
+                "arguments": [
+                    {"predefined": "adb"},
+                    {"predefined": "pull"},
+                    {"get_file_path": ["?", "?"]}
+                ],
+                "async": false
+            },
+            {
+                "name": "unroot",
+                "command": "app.sh",
+                "arguments": [
+                    {"predefined": "adb_unroot"}
                 ],
                 "async": false
             }
         ]
     }
 }
+

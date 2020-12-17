@@ -10,55 +10,31 @@ import SwiftUI
 
 struct RunView: View {
     @EnvironmentObject var emulator: AndroidEmulator
-    // case started, starting, stopped, stopping, configuring, checking, notConfigured
 
     var body: some View {
         VStack {
-            HStack {
-                Button(action: {
+            switch emulator.state {
+            case .started:
+                AppStateView()
+            case let .stopped(error):
+                Button("start") {
                     emulator.start()
-                }) {
-                    Text("start")
                 }
-                .disabled(emulator.state == .notConfigured || emulator.state != .stopped)
+                if let error = error {
+                    Text("Error: \(error.localizedDescription)")
+                }
+            case .stopping:
+                Text("stopping")
+            case .starting:
+                Text("starting")
+            case .configuring, .checking, .notConfigured:
+                Text("not reachable")
             }
-            HStack {
-                Button(action: {
-                    let dialog = NSOpenPanel()
-                    dialog.title = "Choose an apk to install"
-                    dialog.showsResizeIndicator = true
-                    dialog.showsHiddenFiles = false
-                    dialog.allowsMultipleSelection = false
-                    dialog.canChooseDirectories = false
-                    dialog.allowedFileTypes = ["apk"]
-
-                    guard dialog.runModal() == .OK else { return }
-
-                    guard let path = dialog.url?.path else { return }
-                    emulator.install(apk: path)
-
-                }) {
-                    Text("install apk")
-                }
-                .disabled(emulator.state != .started)
-            }
-            HStack {
-                Button(action: {
-                    emulator.runApp()
-                }) {
-                    Text("run app")
-                }
-                .disabled(emulator.state == .checking || emulator.state == .configuring)
-            }
-            HStack {
-                Button(action: {
-                    emulator.configure()
-                }) {
-                    Text("configure")
-                }
-                .disabled(emulator.state == .checking || emulator.state == .configuring)
+            Button("configure") {
+                emulator.configure()
             }
         }
+
         .frame(width: 200, height: 200)
     }
 }

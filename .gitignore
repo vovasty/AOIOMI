@@ -3,4 +3,4 @@
 Packages
 xcuserdata/
 .swiftpm
-Library/AndroidEmulator/Sources/AndroidEmulator/Resources/emulator
+AndroidEmulator/Sources/AndroidEmulator/Resources/emulator

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 
 ROOT=$(dirname "$0")
 COMMAND=$1
@@ -44,8 +44,7 @@ function create {
 }
 
 function install_gapps {
-    "$ADB" root
-    "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+    adb_root
     "$ADB" shell "mount -o rw,remount /"
     "$ADB" push $ROOT/gapps/etc /system
     "$ADB" push $ROOT/gapps/framework /system
@@ -68,17 +67,16 @@ function set_proxy {
 }
 
 function install_apk {
-     "$ADB" install $1
+     "$ADB" install "$1"
 }
 
 function install_ca {
     HASH=$(openssl x509 -inform PEM -subject_hash_old -in "$1" | head -1)
     NEWNAME=$HASH.0
     NEWNAMEANDPATH=$TMPDIR/$NEWNAME
-    
+
     cp "$1" "$NEWNAMEANDPATH"
-    "$ADB" root
-    "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+    adb_root
     "$ADB" shell "mount -o rw,remount /"
     "$ADB" push "$NEWNAMEANDPATH" /system/etc/security/cacerts
     "$ADB" shell "chmod 664 /system/etc/security/cacerts/$NEWNAME"
@@ -92,14 +90,40 @@ function run_app {
     "$ADB" shell am start -n "$1" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
 }
 
+function adb {
+    "$ADB" $@
+}
+
+function adb_root {
+    "$ADB" root
+    "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+}
+
+function adb_unroot {
+    "$ADB" unroot
+    "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+}
+
+function get_emulator_pid {
+    PID=$(ps x | grep $ROOT/adk/emulator/qemu/darwin-x86_64/qemu-system-x86_64 | grep -v grep | cut -d " " -f 1)
+    [ -n "$PID" ] || exit 1
+    echo $PID
+}
+
+function is_app_installed {
+    INSTALLED=$("$ADB" shell pm list packages | grep "$1")
+    [ -n "$INSTALLED" ] || exit 1
+    echo $INSTALLED
+}
+
 case "${COMMAND}" in
-        start) 
+        start)
         start
         ;;
-        stop) 
+        stop)
         stop
         ;;
-        set_proxy) 
+        set_proxy)
         set_proxy "$1"
         ;;
         install_ca)
@@ -132,8 +156,24 @@ case "${COMMAND}" in
         run_app)
         run_app "$1"
         ;;
+        adb_root)
+        adb_root
+        ;;
+        adb_unroot)
+        adb_unroot
+        ;;
+        adb)
+        adb $@
+        ;;
+        get_emulator_pid)
+        get_emulator_pid
+        ;;
+        is_app_installed)
+        is_app_installed "$1"
+        ;;
         *)
         echo "error: wrong command: ${command}"
         exit 1
         ;;
 esac
+

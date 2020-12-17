@@ -15,7 +15,6 @@ struct StartupView: View {
         VStack {
             Text("Checking...")
         }
-        .frame(width: 200, height: 200)
     }
 }
 

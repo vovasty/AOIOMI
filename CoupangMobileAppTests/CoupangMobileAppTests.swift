@@ -5,11 +5,10 @@
 //  Created by vlsolome on 10/9/20.
 //
 
-import XCTest
 @testable import CoupangMobileApp
+import XCTest
 
 class CoupangMobileAppTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -25,9 +24,8 @@ class CoupangMobileAppTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

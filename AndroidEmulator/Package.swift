@@ -15,11 +15,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kareman/SwiftShell.git", from: "5.1.0"),
+        .package(url: "https://github.com/drmohundro/SWXMLHash.git", from: "5.0.1"),
     ],
     targets: [
         .target(
             name: "AndroidEmulator",
-            dependencies: ["SwiftShell"],
+            dependencies: ["SwiftShell", "SWXMLHash"],
             exclude: ["emulator"],
             resources: [
                 .copy("Resources/emulator"),
