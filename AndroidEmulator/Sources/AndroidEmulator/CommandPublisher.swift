@@ -7,11 +7,11 @@
 
 import Combine
 import Foundation
-import SwiftShell
 import os
+import SwiftShell
 
 private let subsystem = "com.coupand.CoupangMobileApp"
-struct Log {
+enum Log {
     static let table = OSLog(subsystem: subsystem, category: "CommandPublisher")
 }
 
@@ -144,6 +144,6 @@ final class AsyncCommandSubscription<SubscriberType: Subscriber>: Subscription w
 
 extension CommandError: LocalizedError {
     public var errorDescription: String? {
-        return description
+        description
     }
 }

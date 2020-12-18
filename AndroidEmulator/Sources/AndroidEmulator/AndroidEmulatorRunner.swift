@@ -91,7 +91,7 @@ public extension AndroidEmulatorConfig.Command.Parameter {
 
 public extension Array where Element == AndroidEmulatorConfig.Command.Parameter {
     var asString: [String] {
-        map { $0.asString }.flatMap { $0 }
+        flatMap(\.asString)
     }
 }
 
@@ -271,18 +271,18 @@ class AndroidEmulatorRunner {
 
         return commands.serialize()!
             .collect()
-            .flatMap{ _ in
+            .flatMap { _ in
                 self.isRunning()
             }
             .eraseToAnyPublisher()
     }
 
     private func expand(command: String) -> String {
-        return rootPath.appendingPathComponent(command, isDirectory: false).path
+        rootPath.appendingPathComponent(command, isDirectory: false).path
     }
 
     private func parametrize(parameters: [AndroidEmulatorConfig.Command.Parameter], apkPath: String? = nil, caPath: String? = nil, proxy: String? = nil, appActivityId: String? = nil, appPackageId: String? = nil, getFilePath: (String, String)? = nil) throws -> [AndroidEmulatorConfig.Command.Parameter] {
-        return try parameters.map { parameter -> AndroidEmulatorConfig.Command.Parameter in
+        try parameters.map { parameter -> AndroidEmulatorConfig.Command.Parameter in
             switch parameter {
             case .install_apk:
                 guard let path = apkPath else { throw Error.unexpectedParameter(parameter) }
