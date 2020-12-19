@@ -27,3 +27,4 @@ emulator:
 .PHONY: clean
 clean:
 	rm -fr $(BUILD_DIR)
+	$(MAKE) -C AndroidEmulator clean

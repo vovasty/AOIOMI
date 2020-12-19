@@ -1,6 +1,6 @@
-export ROOT_DIR = Sources/AndroidEmulator/Resources/emulator
-export JAVA_HOME = $(ROOT_DIR)/jdk
-export ANDROID_SDK_ROOT = $(ROOT_DIR)/adk
+export INSTALL_DIR = Sources/AndroidEmulator/Resources/emulator
+export JAVA_HOME = $(INSTALL_DIR)/jdk
+export ANDROID_SDK_ROOT = $(INSTALL_DIR)/adk
 ANDROID_SDK_TOOLS = $(ANDROID_SDK_ROOT)/cmdline-tools/tools/bin
 
 .PHONY: all
@@ -16,15 +16,15 @@ endif
 
 .PHONY: structure
 structure:
-	mkdir -p "$(ROOT_DIR)" "$(ROOT_DIR)/gapps"
+	mkdir -p "$(INSTALL_DIR)" "$(INSTALL_DIR)/gapps"
 	
 .PHONY: install-scripts
 install-scripts: structure
 ifndef ANDROID_VERSION
 	$(error ANDROID_VERSION is not set)
 endif
-	cp scripts/* $(ROOT_DIR)/ && \
-	echo ANDROID_VERSION=$(ANDROID_VERSION) > $(ROOT_DIR)/env.sh
+	cp scripts/* $(INSTALL_DIR)/ && \
+	echo ANDROID_VERSION=$(ANDROID_VERSION) > $(INSTALL_DIR)/env.sh
 	
 .PHONY: install-adk
 install-adk: structure
@@ -47,8 +47,8 @@ install-gapps: structure
 ifndef GAPPS
 	$(error GAPPS is not set)
 endif
-	cp $(GAPPS)/Core/*  $(ROOT_DIR)/gapps && \
-	cd $(ROOT_DIR)/gapps && \
+	cp $(GAPPS)/Core/*  $(INSTALL_DIR)/gapps && \
+	cd $(INSTALL_DIR)/gapps && \
 	rm setup* && \
 	lzip -d *.lz && \
 	for f in $$(ls *.tar) ; do \
@@ -58,9 +58,9 @@ endif
 
 .PHONY: clean
 clean:
-	rm -fr $(ROOT_DIR)
+	rm -fr $(INSTALL_DIR)
 
 .PHONY: clean
 test:
-	export ROOT_DIR
+	export INSTALL_DIR
 	tests/test.sh
