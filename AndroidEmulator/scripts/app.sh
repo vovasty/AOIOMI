@@ -105,7 +105,7 @@ function adb_unroot {
 }
 
 function get_emulator_pid {
-    PID=$(ps x | grep $ROOT/adk/emulator/qemu/darwin-x86_64/qemu-system-x86_64 | grep -v grep | cut -d " " -f 1)
+    PID=$(ps x | grep $ROOT/adk/emulator/qemu/darwin-x86_64/qemu-system-x86_64 | grep -v grep | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f 1)
     [ -n "$PID" ] || exit 1
     echo $PID
 }
