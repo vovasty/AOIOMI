@@ -34,4 +34,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_: Notification) {
         // Insert code here to tear down your application
     }
+
+    // hide window instead of close
+    // http://iswwwup.com/t/4904b499b7a1/osx-how-to-handle-applicationshouldhandlereopen-in-a-non-document-based-st.html
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        guard !flag else { return true }
+
+        for window in sender.windows {
+            window.makeKeyAndOrderFront(self)
+        }
+
+        return true
+    }
 }
