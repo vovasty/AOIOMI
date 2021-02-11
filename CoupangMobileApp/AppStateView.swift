@@ -25,7 +25,6 @@ private struct InstallAppView: View {
 
             guard let path = dialog.url?.path else { return }
             emulator.install(apk: path)
-
         }
     }
 }
@@ -34,7 +33,7 @@ private struct RunAppView: View {
     @EnvironmentObject var emulator: AndroidEmulator
 
     var body: some View {
-        Button("run app"){
+        Button("run app") {
             emulator.runApp()
         }
     }
