@@ -17,8 +17,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_: Notification) {
         // Create the SwiftUI view that provides the window contents.
         let emulator = try! AndroidEmulator()
-        let simulator = try! iOSSimulator(simulatorId: UserDefaults.standard.string(forKey: "ios_simulator_uuid"))
-        let contentView = ContentView().environmentObject(emulator).environmentObject(simulator)
+        let simulatorId = (Bundle.main.bundleIdentifier ?? "com.coupang.CoupangMobile") + ".Simulator"
+        let simulator = try! iOSSimulator(simulatorName: simulatorId)
+        let iosDefaults = AppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": "127.0.0.1", "port": 8888])
+        let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang", defaults: iosDefaults)
+        let contentView = ContentView()
+            .environmentObject(emulator)
+            .environmentObject(simulator)
+            .environmentObject(iosAppManager)
 
         // Create the window and set the content view.
         window = NSWindow(

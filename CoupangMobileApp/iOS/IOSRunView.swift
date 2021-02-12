@@ -5,27 +5,25 @@
 //  Created by vlsolome on 2/11/21.
 //
 
-import SwiftUI
 import iOSSimulator
+import SwiftUI
 
 struct IOSRunView: View {
     @EnvironmentObject var simulator: iOSSimulator
-    
+
     var body: some View {
-        switch simulator.simulatorState {
+        switch simulator.state {
         case .started:
             IOSAppStateView()
         case let .stopped(error):
             Button("start") {
                 simulator.start()
             }
-            if let error = error {
-                Text("Error: \(error.localizedDescription)")
-            }
+            ErrorView(error: error)
         case .stopping:
-            Text("stopping")
+            ProgressView(title: "Stopping...")
         case .starting:
-            Text("starting")
+            ProgressView(title: "Starting...")
         case .configuring, .checking, .notConfigured:
             Text("not reachable")
         }

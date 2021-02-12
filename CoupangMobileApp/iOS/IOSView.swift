@@ -5,15 +5,15 @@
 //  Created by vlsolome on 2/11/21.
 //
 
-import SwiftUI
 import iOSSimulator
+import SwiftUI
 
 struct IOSView: View {
     @EnvironmentObject var simulator: iOSSimulator
-    
+
     var body: some View {
         ZStack {
-            switch simulator.simulatorState {
+            switch simulator.state {
             case .checking:
                 StartupView()
             case .configuring:

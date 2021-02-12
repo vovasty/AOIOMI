@@ -19,8 +19,8 @@ struct CreateSimulatorCommand: Command {
         parameters = ["create", name, deviceType.name]
     }
 
-    func parse(output: [String]) throws -> String {
-        guard let udid = output.first, !udid.isEmpty else {
+    func parse(stdout: [String]) throws -> String {
+        guard let udid = stdout.first, !udid.isEmpty else {
             throw Error.invalidData
         }
 

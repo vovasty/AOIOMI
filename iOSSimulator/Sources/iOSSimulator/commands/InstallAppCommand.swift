@@ -7,15 +7,13 @@
 
 import Foundation
 
-struct BootSimulatorCommand: Command {
+struct InstallAppCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]?
 
-    init(id: String) {
-        parameters = ["start", id]
+    init(id: String, path: URL) {
+        parameters = ["install", id, path.path]
     }
 
-    func parse(stdout _: [String]) throws {
-        ()
-    }
+    func parse(stdout _: [String]) throws {}
 }

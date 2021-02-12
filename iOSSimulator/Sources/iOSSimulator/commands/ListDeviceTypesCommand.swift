@@ -19,11 +19,11 @@ struct ListDeviceTypesCommand: Command {
         parameters = ["list"]
     }
 
-    func parse(output: [String]) throws -> [SimctlList.DeviceType] {
-        guard let data = output.joined(separator: "\n").data(using: .utf8) else {
+    func parse(stdout: [String]) throws -> [SimctlList.DeviceType] {
+        guard let data = stdout.joined(separator: "\n").data(using: .utf8) else {
             throw Error.invalidData
         }
-        
+
         do {
             let result = try JSONDecoder().decode(SimctlList.self, from: data)
             return result.devicetypes

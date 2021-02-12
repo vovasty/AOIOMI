@@ -21,12 +21,12 @@ struct CheckSimulatorCommand: Command {
         parameters = ["list"]
     }
 
-    func parse(output: [String]) throws -> SimctlList.DeviceState {
-        guard let data = output.joined(separator: "\n").data(using: .utf8) else {
+    func parse(stdout: [String]) throws -> SimctlList.DeviceState {
+        guard let data = stdout.joined(separator: "\n").data(using: .utf8) else {
             throw Error.invalidData
         }
         let result = try JSONDecoder().decode(SimctlList.self, from: data)
-        if let device = result.devices.values.first(where: { $0.first(where: { $0.udid == id }) != nil })?.first {
+        if let device = result.devices.values.first(where: { $0.first(where: { $0.name == id }) != nil })?.first {
             return device.state
         } else {
             return .notCreated

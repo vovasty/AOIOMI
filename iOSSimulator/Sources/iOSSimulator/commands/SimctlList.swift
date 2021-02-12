@@ -29,9 +29,8 @@ public struct SimctlList: Decodable {
     public let devicetypes: [DeviceType]
 }
 
-
-extension SimctlList.DeviceType {
-    public static let empty = SimctlList.DeviceType(name: "")
+public extension SimctlList.DeviceType {
+    static let empty = SimctlList.DeviceType(name: "")
 }
 
 extension SimctlList.DeviceState: Decodable {
@@ -49,6 +48,4 @@ extension SimctlList.DeviceState: Decodable {
     }
 }
 
-extension SimctlList.DeviceState: Equatable {
-    
-}
+extension SimctlList.DeviceState: Equatable {}

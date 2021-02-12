@@ -5,13 +5,13 @@
 //  Created by vlsolome on 2/11/21.
 //
 
-import SwiftUI
 import iOSSimulator
+import SwiftUI
 
 struct IOSConfigureView: View {
     @EnvironmentObject var simulator: iOSSimulator
-    @State var deviceType:  SimctlList.DeviceType = .empty
-    
+    @State var deviceType: SimctlList.DeviceType = .empty
+
     var body: some View {
         VStack {
             Picker("device", selection: $deviceType) {

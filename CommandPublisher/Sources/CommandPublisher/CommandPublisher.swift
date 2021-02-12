@@ -58,7 +58,7 @@ final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
         guard demand > 0 else { return }
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
-            let output = self.context.run(self.command, self.parameters ?? [], combineOutput: true)
+            let output = self.context.run(self.command, self.parameters ?? [], combineOutput: false)
             if let error = output.error {
                 self.subscriber?.receive(completion: .failure(error))
                 return

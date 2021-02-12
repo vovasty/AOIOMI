@@ -8,112 +8,79 @@ public class iOSSimulator: ObservableObject {
         case notCreated
     }
 
-    public enum SimulatorState {
+    public enum State {
         case stopped(Swift.Error?), started, starting, stopping, configuring, checking, notConfigured
     }
 
-    @Published public private(set) var simulatorState: SimulatorState = .stopped(nil)
+    @Published public private(set) var state: State = .stopped(nil)
     @Published public private(set) var deviceTypes: [SimctlList.DeviceType] = []
-    @Published public private(set) var simulatorId: String?
+    public private(set) var simulatorName: String
     private let helperPath: URL
-    private let context: Context & CommandRunning
+    private let context = CustomContext(main)
     private var cancellables: [AnyCancellable] = []
 
-    public init(simulatorId: String?) throws {
-        self.simulatorId = simulatorId
-        context = CustomContext(main)
+    public init(simulatorName: String) throws {
+        self.simulatorName = simulatorName
         helperPath = Bundle.module.url(forResource: "helper", withExtension: "sh")!
     }
 
     public func start() {
-        guard let simulatorId = simulatorId else {
-            simulatorState = .notConfigured
-            return
-        }
-
-        simulatorState = .starting
-        let command = BootSimulatorCommand(id: simulatorId)
-        run(command: command)
+        state = .starting
+        let command = BootSimulatorCommand(id: simulatorName)
+        command.run(helperPath: helperPath, context: context)
             .map { _ in .started }
             .catch { error in Just(.stopped(error)) }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.simulatorState, on: self)
+            .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
     public func stop() {
-        guard let simulatorId = simulatorId else {
-            simulatorState = .notConfigured
-            return
-        }
-
-        simulatorState = .starting
-        let command = ShutdownSimulatorCommand(id: simulatorId)
-        run(command: command)
+        state = .starting
+        let command = ShutdownSimulatorCommand(id: simulatorName)
+        command.run(helperPath: helperPath, context: context)
             .map { _ in .stopped(nil) }
             .catch { error in Just(.stopped(error)) }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.simulatorState, on: self)
+            .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
     public func configure(deviceType: SimctlList.DeviceType) {
-        simulatorState = .configuring
-        let command = CreateSimulatorCommand(name: "iOSSimulator_\(deviceType.name)", deviceType: deviceType)
-        run(command: command)
+        state = .configuring
+        let command = CreateSimulatorCommand(name: simulatorName, deviceType: deviceType)
+        command.run(helperPath: helperPath, context: context)
             .receive(on: DispatchQueue.main)
-            .map {
-                self.simulatorId = $0
-                return .stopped(nil)
-            }
+            .map { _ in .stopped(nil) }
             .catch { error in Just(.stopped(error)) }
-            .assign(to: \.simulatorState, on: self)
+            .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
     public func check() {
-        simulatorState = .checking
-        if let simulatorId = simulatorId {
-            run(command: CheckSimulatorCommand(id: simulatorId))
-                .map {
-                    switch $0 {
-                    case .shutdown:
-                        return .stopped(nil)
-                    case .booted:
-                        return .started
-                    case .notCreated:
-                        return .notConfigured
-                    case .unknown:
-                        return .notConfigured
-                    }
+        state = .checking
+        CheckSimulatorCommand(id: simulatorName).run(helperPath: helperPath, context: context)
+            .map {
+                switch $0 {
+                case .shutdown:
+                    return .stopped(nil)
+                case .booted:
+                    return .started
+                case .notCreated:
+                    return .notConfigured
+                case .unknown:
+                    return .notConfigured
                 }
-                .catch { error in Just(SimulatorState.stopped(error)) }
-                .receive(on: DispatchQueue.main)
-                .assign(to: \.simulatorState, on: self)
-                .store(in: &cancellables)
-        } else {
-            simulatorState = .notConfigured
-        }
+            }
+            .catch { error in Just(State.stopped(error)) }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.state, on: self)
+            .store(in: &cancellables)
 
-        run(command: ListDeviceTypesCommand())
+        ListDeviceTypesCommand().run(helperPath: helperPath, context: context)
             .replaceError(with: [])
             .receive(on: DispatchQueue.main)
             .assign(to: \.deviceTypes, on: self)
             .store(in: &cancellables)
-    }
-
-    private func run<CommandType: Command>(command: CommandType) -> AnyPublisher<CommandType.Result, Swift.Error> {
-        let executable: String
-        switch command.executable {
-        case .helper:
-            executable = helperPath.path
-        }
-        return CommandPublisher(context: context,
-                                command: executable,
-                                parameters: command.parameters)
-            .tryMap {
-                try command.parse(output: $0.stdout.lines())
-            }
-            .eraseToAnyPublisher()
     }
 }

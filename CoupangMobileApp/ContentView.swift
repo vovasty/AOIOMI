@@ -11,6 +11,7 @@ struct ContentView: View {
     enum Page: Int {
         case aos, ios
     }
+
     @State var segment: Page = .aos
 
     var body: some View {
