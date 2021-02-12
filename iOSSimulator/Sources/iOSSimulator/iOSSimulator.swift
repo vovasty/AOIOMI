@@ -14,7 +14,7 @@ public class iOSSimulator: ObservableObject {
     @Published public private(set) var state: State = .stopped(nil)
     @Published public private(set) var deviceTypes: [SimctlList.DeviceType] = []
     public private(set) var simulatorName: String
-    private var cancellables: [AnyCancellable] = []
+    private var cancellables = Set<AnyCancellable>()
     private let commander: Commander
 
     public init(simulatorName: String) throws {

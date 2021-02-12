@@ -26,9 +26,6 @@ struct AOSView: View {
                 AOSRunView()
             }
         }
-        .onAppear {
-            emulator.check()
-        }
     }
 }
 

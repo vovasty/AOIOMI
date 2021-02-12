@@ -24,9 +24,6 @@ struct IOSView: View {
                 IOSRunView()
             }
         }
-        .onAppear {
-            simulator.check()
-        }
     }
 }
 

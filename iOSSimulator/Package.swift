@@ -21,7 +21,7 @@ let package = Package(
     targets: [
         .target(
             name: "iOSSimulator",
-            dependencies: ["SwiftShell", "CommandPublisher"],
+            dependencies: ["CommandPublisher"],
             resources: [
                 .copy("Resources/helper.sh"),
             ]
