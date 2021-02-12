@@ -5,31 +5,30 @@
 //  Created by vlsolome on 10/9/20.
 //
 
-import AndroidEmulator
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var emulator: AndroidEmulator
+    enum Page: Int {
+        case aos, ios
+    }
+    @State var segment: Page = .aos
 
     var body: some View {
-        ZStack {
-            switch emulator.state {
-            case .checking:
-                StartupView()
-            case .configuring:
-                ConfigureView()
-            case .notConfigured:
-                Button("configure") {
-                    emulator.configure()
-                }
-            case .started, .stopped, .starting, .stopping:
-                RunView()
+        VStack {
+            Picker("", selection: $segment) {
+                Text("AOS").tag(Page.aos)
+                Text("iOS").tag(Page.ios)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            switch segment {
+            case .aos:
+                AOSView()
+                    .frame(width: 200, height: 200)
+            case .ios:
+                IOSView()
+                    .frame(width: 200, height: 200)
             }
         }
-        .onAppear {
-            emulator.check()
-        }
-        .frame(width: 200, height: 200)
     }
 }
 

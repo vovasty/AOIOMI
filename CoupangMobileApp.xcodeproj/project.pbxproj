@@ -20,6 +20,12 @@
 		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
 		B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4A976E0253116C900962CC1 /* AndroidEmulator */; };
 		B4C0A8D2258D3F1B007886B8 /* AppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C0A8D1258D3F1B007886B8 /* AppStateView.swift */; };
+		B4F3F17825D5E35C006ADB7A /* iOSSimulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4F3F17725D5E35C006ADB7A /* iOSSimulator */; };
+		B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */; };
+		B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F17F25D5E974006ADB7A /* IOSView.swift */; };
+		B4F3F19025D5EF1F006ADB7A /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F18F25D5EF1F006ADB7A /* IOSConfigureView.swift */; };
+		B4F3F19425D5FBE5006ADB7A /* IOSRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F19325D5FBE5006ADB7A /* IOSRunView.swift */; };
+		B4F3F19825D5FD46006ADB7A /* IOSAppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F19725D5FD46006ADB7A /* IOSAppStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +79,12 @@
 		B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppUITests.swift; sourceTree = "<group>"; };
 		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4C0A8D1258D3F1B007886B8 /* AppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateView.swift; sourceTree = "<group>"; };
+		B4F3F17425D5E34D006ADB7A /* iOSSimulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iOSSimulator; sourceTree = "<group>"; };
+		B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSView.swift; sourceTree = "<group>"; };
+		B4F3F17F25D5E974006ADB7A /* IOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSView.swift; sourceTree = "<group>"; };
+		B4F3F18F25D5EF1F006ADB7A /* IOSConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureView.swift; sourceTree = "<group>"; };
+		B4F3F19325D5FBE5006ADB7A /* IOSRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSRunView.swift; sourceTree = "<group>"; };
+		B4F3F19725D5FD46006ADB7A /* IOSAppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +93,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */,
+				B4F3F17825D5E35C006ADB7A /* iOSSimulator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +117,7 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B4F3F17425D5E34D006ADB7A /* iOSSimulator */,
 				B46D02452584072800076EDE /* AndroidEmulator */,
 				B4A9769B253114D100962CC1 /* CoupangMobileApp */,
 				B4A976B1253114D300962CC1 /* CoupangMobileAppTests */,
@@ -128,6 +142,8 @@
 			children = (
 				B4A9769C253114D100962CC1 /* AppDelegate.swift */,
 				B4A9769E253114D100962CC1 /* ContentView.swift */,
+				B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */,
+				B4F3F18525D5EE22006ADB7A /* iOS */,
 				B452EB1725336C15003968FC /* StartupView.swift */,
 				B452EB1C25336CB6003968FC /* RunView.swift */,
 				B452EB2125337110003968FC /* ConfigureView.swift */,
@@ -175,6 +191,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B4F3F18525D5EE22006ADB7A /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B4F3F17F25D5E974006ADB7A /* IOSView.swift */,
+				B4F3F18F25D5EF1F006ADB7A /* IOSConfigureView.swift */,
+				B4F3F19325D5FBE5006ADB7A /* IOSRunView.swift */,
+				B4F3F19725D5FD46006ADB7A /* IOSAppStateView.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -194,6 +221,7 @@
 			name = CoupangMobileApp;
 			packageProductDependencies = (
 				B4A976E0253116C900962CC1 /* AndroidEmulator */,
+				B4F3F17725D5E35C006ADB7A /* iOSSimulator */,
 			);
 			productName = CoupangMobileApp;
 			productReference = B4A97699253114D100962CC1 /* CoupangMobileApp.app */;
@@ -311,11 +339,16 @@
 			files = (
 				B449209F258D4F6A00457272 /* Button.swift in Sources */,
 				B452EB1D25336CB6003968FC /* RunView.swift in Sources */,
+				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
+				B4F3F19825D5FD46006ADB7A /* IOSAppStateView.swift in Sources */,
 				B4C0A8D2258D3F1B007886B8 /* AppStateView.swift in Sources */,
 				B452EB2225337110003968FC /* ConfigureView.swift in Sources */,
 				B452EB1825336C15003968FC /* StartupView.swift in Sources */,
+				B4F3F19025D5EF1F006ADB7A /* IOSConfigureView.swift in Sources */,
+				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
+				B4F3F19425D5FBE5006ADB7A /* IOSRunView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +691,10 @@
 		B4A976E0253116C900962CC1 /* AndroidEmulator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AndroidEmulator;
+		};
+		B4F3F17725D5E35C006ADB7A /* iOSSimulator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = iOSSimulator;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

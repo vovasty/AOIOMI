@@ -7,6 +7,7 @@
 
 import AndroidEmulator
 import Cocoa
+import iOSSimulator
 import SwiftUI
 
 @NSApplicationMain
@@ -16,7 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_: Notification) {
         // Create the SwiftUI view that provides the window contents.
         let emulator = try! AndroidEmulator()
-        let contentView = ContentView().environmentObject(emulator)
+        let simulator = try! iOSSimulator(simulatorId: UserDefaults.standard.string(forKey: "ios_simulator_uuid"))
+        let contentView = ContentView().environmentObject(emulator).environmentObject(simulator)
 
         // Create the window and set the content view.
         window = NSWindow(
