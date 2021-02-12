@@ -5,6 +5,7 @@
 //  Created by vlsolome on 2/11/21.
 //
 
+import CommandPublisher
 import Foundation
 
 struct InstallAppCommand: Command {

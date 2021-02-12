@@ -7,7 +7,6 @@
 
 import Combine
 import CommandPublisher
-import SwiftShell
 import SwiftUI
 
 public class AppManager: ObservableObject {
@@ -32,17 +31,16 @@ public class AppManager: ObservableObject {
     @Published public var state: State = .notInstalled(nil)
     public let simulatorId: String
     public let bundleId: String
-    private let helperPath: URL
-    private let context = CustomContext(main)
     private var cancellables: [AnyCancellable] = []
     private var dataPath: URL?
     private var defaults: Defaults?
+    private let commander: Commander
 
     public init(simulatorId: String, bundleId: String, defaults: Defaults? = nil) {
         self.simulatorId = simulatorId
         self.bundleId = bundleId
         self.defaults = defaults
-        helperPath = Bundle.module.url(forResource: "helper", withExtension: "sh")!
+        commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
     }
 
     public func install(app: URL) {
@@ -50,7 +48,7 @@ public class AppManager: ObservableObject {
             self.state = .installing
         }
         let command = InstallAppCommand(id: simulatorId, path: app)
-        command.run(helperPath: helperPath, context: context)
+        commander.run(command: command)
             .map { State.installing }
             .flatMap { state -> AnyPublisher<State, Error> in
                 switch state {
@@ -102,7 +100,7 @@ public class AppManager: ObservableObject {
 
     private func checkAppState() -> AnyPublisher<State, Error> {
         let command = GetAppContainerPathCommand(id: simulatorId, bundleId: bundleId, type: .data)
-        return command.run(helperPath: helperPath, context: context)
+        return commander.run(command: command)
             .map { [weak self] in
                 self?.dataPath = $0
                 return .installed
@@ -115,7 +113,7 @@ public class AppManager: ObservableObject {
             self.state = .starting
         }
         let command = RunAppcommand(id: simulatorId, bundleId: bundleId)
-        command.run(helperPath: helperPath, context: context)
+        commander.run(command: command)
             .map { _ in .installed }
             .catch { error in Just(.notInstalled(error)) }
             .receive(on: DispatchQueue.main)

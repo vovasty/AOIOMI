@@ -5,14 +5,15 @@
 //  Created by vlsolome on 2/11/21.
 //
 
+import CommandPublisher
 import Foundation
 
-struct BootSimulatorCommand: Command {
+struct ShutdownSimulatorCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]?
 
     init(id: String) {
-        parameters = ["start", id]
+        parameters = ["stop", id]
     }
 
     func parse(stdout _: [String]) throws {
