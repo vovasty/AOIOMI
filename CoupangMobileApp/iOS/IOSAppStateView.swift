@@ -31,6 +31,7 @@ private struct InstallAppView: View {
 
 struct IOSAppStateView: View {
     @EnvironmentObject var appManager: AppManager
+    @State private var dragOver = false
 
     var body: some View {
         VStack {
@@ -48,6 +49,15 @@ struct IOSAppStateView: View {
             case .installing:
                 ProgressView(title: "Installing...")
             }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onDrop(of: ["public.file-url"], isTargeted: $dragOver) { providers -> Bool in
+            providers.first?.loadDataRepresentation(forTypeIdentifier: "public.file-url", completionHandler: { data, _ in
+                guard let data = data, let path = String(data: data, encoding: .utf8), let url = URL(string: path) else { return }
+                guard url.path.hasSuffix(".app") else { return }
+                appManager.install(app: url)
+            })
+            return true
         }
         .onAppear {
             appManager.check()

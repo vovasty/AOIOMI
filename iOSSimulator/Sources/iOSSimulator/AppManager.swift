@@ -46,7 +46,9 @@ public class AppManager: ObservableObject {
     }
 
     public func install(app: URL) {
-        state = .installing
+        DispatchQueue.main.async {
+            self.state = .installing
+        }
         let command = InstallAppCommand(id: simulatorId, path: app)
         command.run(helperPath: helperPath, context: context)
             .map { State.installing }
@@ -109,7 +111,9 @@ public class AppManager: ObservableObject {
     }
 
     public func start() {
-        state = .starting
+        DispatchQueue.main.async {
+            self.state = .starting
+        }
         let command = RunAppcommand(id: simulatorId, bundleId: bundleId)
         command.run(helperPath: helperPath, context: context)
             .map { _ in .installed }
