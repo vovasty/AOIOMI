@@ -15,15 +15,15 @@ struct AOSView: View {
         ZStack {
             switch emulator.state {
             case .checking:
-                StartupView()
+                ProgressView(title: "Checking...")
             case .configuring:
-                ConfigureView()
+                ProgressView(title: "Configuring...")
             case .notConfigured:
                 Button("configure") {
                     emulator.configure()
                 }
             case .started, .stopped, .starting, .stopping:
-                RunView()
+                AOSRunView()
             }
         }
         .onAppear {

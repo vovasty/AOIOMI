@@ -10,9 +10,7 @@
 		B403451825D62ABC00C2146D /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451725D62ABC00C2146D /* ProgressView.swift */; };
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
 		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
-		B452EB1825336C15003968FC /* StartupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1725336C15003968FC /* StartupView.swift */; };
-		B452EB1D25336CB6003968FC /* RunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* RunView.swift */; };
-		B452EB2225337110003968FC /* ConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB2125337110003968FC /* ConfigureView.swift */; };
+		B452EB1D25336CB6003968FC /* AOSRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSRunView.swift */; };
 		B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769C253114D100962CC1 /* AppDelegate.swift */; };
 		B4A9769F253114D100962CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769E253114D100962CC1 /* ContentView.swift */; };
 		B4A976A1253114D200962CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A0253114D200962CC1 /* Assets.xcassets */; };
@@ -21,7 +19,7 @@
 		B4A976B3253114D300962CC1 /* CoupangMobileAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976B2253114D300962CC1 /* CoupangMobileAppTests.swift */; };
 		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
 		B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4A976E0253116C900962CC1 /* AndroidEmulator */; };
-		B4C0A8D2258D3F1B007886B8 /* AppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C0A8D1258D3F1B007886B8 /* AppStateView.swift */; };
+		B4C0A8D2258D3F1B007886B8 /* AOSAppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */; };
 		B4F3F17825D5E35C006ADB7A /* iOSSimulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4F3F17725D5E35C006ADB7A /* iOSSimulator */; };
 		B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */; };
 		B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F17F25D5E974006ADB7A /* IOSView.swift */; };
@@ -64,9 +62,7 @@
 		B403451725D62ABC00C2146D /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
-		B452EB1725336C15003968FC /* StartupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupView.swift; sourceTree = "<group>"; };
-		B452EB1C25336CB6003968FC /* RunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunView.swift; sourceTree = "<group>"; };
-		B452EB2125337110003968FC /* ConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureView.swift; sourceTree = "<group>"; };
+		B452EB1C25336CB6003968FC /* AOSRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRunView.swift; sourceTree = "<group>"; };
 		B46D02452584072800076EDE /* AndroidEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AndroidEmulator; sourceTree = "<group>"; };
 		B4A97699253114D100962CC1 /* CoupangMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoupangMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A9769C253114D100962CC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,7 +78,7 @@
 		B4A976B9253114D300962CC1 /* CoupangMobileAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoupangMobileAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppUITests.swift; sourceTree = "<group>"; };
 		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B4C0A8D1258D3F1B007886B8 /* AppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateView.swift; sourceTree = "<group>"; };
+		B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSAppStateView.swift; sourceTree = "<group>"; };
 		B4F3F17425D5E34D006ADB7A /* iOSSimulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iOSSimulator; sourceTree = "<group>"; };
 		B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSView.swift; sourceTree = "<group>"; };
 		B4F3F17F25D5E974006ADB7A /* IOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSView.swift; sourceTree = "<group>"; };
@@ -118,6 +114,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B403452725D71B9800C2146D /* AOS */ = {
+			isa = PBXGroup;
+			children = (
+				B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */,
+				B452EB1C25336CB6003968FC /* AOSRunView.swift */,
+				B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */,
+			);
+			path = AOS;
+			sourceTree = "<group>";
+		};
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
@@ -146,14 +152,10 @@
 			children = (
 				B4A9769C253114D100962CC1 /* AppDelegate.swift */,
 				B4A9769E253114D100962CC1 /* ContentView.swift */,
-				B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */,
+				B403452725D71B9800C2146D /* AOS */,
 				B4F3F18525D5EE22006ADB7A /* iOS */,
-				B452EB1725336C15003968FC /* StartupView.swift */,
 				B403451725D62ABC00C2146D /* ProgressView.swift */,
 				B403451B25D62B9500C2146D /* ErrorView.swift */,
-				B452EB1C25336CB6003968FC /* RunView.swift */,
-				B452EB2125337110003968FC /* ConfigureView.swift */,
-				B4C0A8D1258D3F1B007886B8 /* AppStateView.swift */,
 				B449209E258D4F6A00457272 /* Button.swift */,
 				B4A976A0253114D200962CC1 /* Assets.xcassets */,
 				B4A976A5253114D200962CC1 /* Main.storyboard */,
@@ -344,13 +346,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B449209F258D4F6A00457272 /* Button.swift in Sources */,
-				B452EB1D25336CB6003968FC /* RunView.swift in Sources */,
+				B452EB1D25336CB6003968FC /* AOSRunView.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
 				B4F3F19825D5FD46006ADB7A /* IOSAppStateView.swift in Sources */,
-				B4C0A8D2258D3F1B007886B8 /* AppStateView.swift in Sources */,
-				B452EB2225337110003968FC /* ConfigureView.swift in Sources */,
-				B452EB1825336C15003968FC /* StartupView.swift in Sources */,
+				B4C0A8D2258D3F1B007886B8 /* AOSAppStateView.swift in Sources */,
 				B4F3F19025D5EF1F006ADB7A /* IOSConfigureView.swift in Sources */,
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
@@ -529,11 +529,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CoupangMobileApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZP9MK28FYU;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
-					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/sparkle",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CoupangMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -557,11 +553,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CoupangMobileApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZP9MK28FYU;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
-					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/sparkle",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CoupangMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -76,7 +76,7 @@ private struct PCIDView: View {
     }
 }
 
-struct AppStateView: View {
+struct AOSAppStateView: View {
     @EnvironmentObject var emulator: AndroidEmulator
 
     var body: some View {
@@ -121,8 +121,8 @@ struct AppStateView: View {
     }
 }
 
-struct AppStateView_Previews: PreviewProvider {
+struct AOSAppStateView_Previews: PreviewProvider {
     static var previews: some View {
-        AppStateView()
+        AOSAppStateView()
     }
 }

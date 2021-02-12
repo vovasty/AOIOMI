@@ -15,9 +15,9 @@ struct IOSView: View {
         ZStack {
             switch simulator.state {
             case .checking:
-                StartupView()
+                ProgressView(title: "Checking...")
             case .configuring:
-                ConfigureView()
+                ProgressView(title: "Configuring...")
             case .notConfigured:
                 IOSConfigureView()
             case .started, .stopped, .starting, .stopping:

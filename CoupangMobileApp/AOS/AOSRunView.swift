@@ -8,14 +8,14 @@
 import AndroidEmulator
 import SwiftUI
 
-struct RunView: View {
+struct AOSRunView: View {
     @EnvironmentObject var emulator: AndroidEmulator
 
     var body: some View {
         VStack {
             switch emulator.state {
             case .started:
-                AppStateView()
+                AOSAppStateView()
             case let .stopped(error):
                 Button("start") {
                     emulator.start()
@@ -39,8 +39,8 @@ struct RunView: View {
     }
 }
 
-struct RunView_Previews: PreviewProvider {
+struct AOSRunView_Previews: PreviewProvider {
     static var previews: some View {
-        RunView().environmentObject(try! AndroidEmulator())
+        AOSRunView().environmentObject(try! AndroidEmulator())
     }
 }
