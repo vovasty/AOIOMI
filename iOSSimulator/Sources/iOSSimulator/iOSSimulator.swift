@@ -83,6 +83,8 @@ public class iOSSimulator: ObservableObject {
                         return .started
                     case .notCreated:
                         return .notConfigured
+                    case .unknown:
+                        return .notConfigured
                     }
                 }
                 .catch { error in Just(SimulatorState.stopped(error)) }

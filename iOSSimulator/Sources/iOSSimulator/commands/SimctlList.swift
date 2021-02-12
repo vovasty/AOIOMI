@@ -8,9 +8,10 @@
 import Foundation
 
 public struct SimctlList: Decodable {
-    public enum DeviceState: String, Decodable {
-        case shutdown = "Shutdown"
-        case booted = "Booted"
+    public enum DeviceState {
+        case shutdown
+        case booted
+        case unknown(String)
         case notCreated
     }
 
@@ -29,6 +30,25 @@ public struct SimctlList: Decodable {
 }
 
 
-public extension SimctlList.DeviceType {
-    static let empty = SimctlList.DeviceType(name: "")
+extension SimctlList.DeviceType {
+    public static let empty = SimctlList.DeviceType(name: "")
+}
+
+extension SimctlList.DeviceState: Decodable {
+    public init(from decoder: Decoder) throws {
+        let value = try decoder.singleValueContainer()
+        let decoded = try value.decode(String.self)
+        switch decoded {
+        case "Shutdown":
+            self = .shutdown
+        case "Booted":
+            self = .booted
+        default:
+            self = .unknown(decoded)
+        }
+    }
+}
+
+extension SimctlList.DeviceState: Equatable {
+    
 }
