@@ -45,6 +45,7 @@ public class AndroidEmulator: ObservableObject {
         // com.apple.iphonesimulator
         state = .starting
         startEmulator()
+            .map { _ in .started }
             .catch { error in Just(.stopped(error)) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
@@ -73,12 +74,13 @@ public class AndroidEmulator: ObservableObject {
             .catch { error in Just(.notConfigured(error)) }
             .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
-                    return Just(.stopped(nil))
+                    return Just(state)
                         .eraseToAnyPublisher()
                 }
                 switch state {
                 case .configuring:
                     return self.startEmulator()
+                        .map { _ in .started }
                         .catch { error in Just(.stopped(error)) }
                         .eraseToAnyPublisher()
                 default:
@@ -91,7 +93,7 @@ public class AndroidEmulator: ObservableObject {
             .store(in: &cancellables)
     }
 
-    private func startEmulator() -> AnyPublisher<State, Swift.Error> {
+    private func startEmulator() -> AnyPublisher<Void, Swift.Error> {
         process = commander.run(command: StartCommand())
         process?.onCompletion { _ in
             DispatchQueue.main.async { [weak self] in
@@ -101,8 +103,9 @@ public class AndroidEmulator: ObservableObject {
             }
         }
 
-        return waitBooted()
-            .map { _ -> State in .started }
+        let command = WaitBootedCommand()
+        return commander.run(command: command)
+            .timeout(.seconds(Config.waitBootingTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.bootingTimeout })
             .eraseToAnyPublisher()
     }
 
@@ -128,13 +131,6 @@ public class AndroidEmulator: ObservableObject {
             }
             .collect()
             .map { $0.last ?? .notConfigured(nil) }
-            .eraseToAnyPublisher()
-    }
-
-    private func waitBooted() -> AnyPublisher<Void, Swift.Error> {
-        let command = WaitBootedCommand()
-        return commander.run(command: command)
-            .timeout(.seconds(Config.waitBootingTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.bootingTimeout })
             .eraseToAnyPublisher()
     }
 }

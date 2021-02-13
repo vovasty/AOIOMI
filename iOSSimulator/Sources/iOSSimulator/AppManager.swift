@@ -11,7 +11,7 @@ import Foundation
 
 public class AppManager: ObservableObject {
     public enum State {
-        case notInstalled(Error?), installed, installing, starting
+        case notInstalled(Error?), installed(Error?), installing, starting
     }
 
     public enum AppManagerError: Swift.Error {
@@ -33,58 +33,56 @@ public class AppManager: ObservableObject {
     public let bundleId: String
     private var cancellables: [AnyCancellable] = []
     private var dataPath: URL?
-    private var defaults: Defaults?
     private let commander: Commander
 
-    public init(simulatorId: String, bundleId: String, defaults: Defaults? = nil) {
+    public init(simulatorId: String, bundleId: String) {
         self.simulatorId = simulatorId
         self.bundleId = bundleId
-        self.defaults = defaults
         commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
     }
 
-    public func install(app: URL) {
+    public func install(app: URL, defaults: Defaults? = nil) {
         DispatchQueue.main.async {
             self.state = .installing
         }
         let command = InstallAppCommand(id: simulatorId, path: app)
         commander.run(command: command)
             .map { State.installing }
-            .flatMap { state -> AnyPublisher<State, Error> in
+            .catch { Just(State.notInstalled($0)) }
+            .flatMap { state -> AnyPublisher<State, Never> in
                 switch state {
-                case .notInstalled:
-                    return Future<State, Error> { promise in
-                        promise(.success(state))
-                    }
-                    .eraseToAnyPublisher()
-                default:
+                case .installing:
                     return self.checkAppState()
-                        .flatMap { [weak self] state -> AnyPublisher<State, Error> in
+                        .map { State.installing }
+                        .catch { Just(State.notInstalled($0)) }
+                        .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                             guard let self = self else {
-                                return Future<State, Error> { promise in
-                                    promise(.success(state))
-                                }
-                                .eraseToAnyPublisher()
+                                return Just(state)
+                                    .eraseToAnyPublisher()
                             }
 
                             switch state {
-                            case .notInstalled:
-                                return Future<State, Error> { promise in
-                                    promise(.success(state))
+                            case .installing:
+                                guard let defaults = defaults else {
+                                    return Just(State.installed(nil))
+                                        .eraseToAnyPublisher()
                                 }
-                                .eraseToAnyPublisher()
+                                return self.writeDefaults(defaults: defaults)
+                                    .map { .installed(nil) }
+                                    .catch { Just(State.notInstalled($0)) }
+                                    .eraseToAnyPublisher()
                             default:
-                                return self.writeDefaults()
-                                    .map { .installed }
+                                return Just(state)
                                     .eraseToAnyPublisher()
                             }
                         }
                         .eraseToAnyPublisher()
+                default:
+                    return Just(state)
+                        .eraseToAnyPublisher()
                 }
             }
             .catch { Just(State.notInstalled($0)) }
-            .collect()
-            .map { $0.last ?? .notInstalled(nil) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -92,18 +90,18 @@ public class AppManager: ObservableObject {
 
     public func check() {
         checkAppState()
+            .map { _ in State.installed(nil) }
             .catch { error in Just(.notInstalled(error)) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
-    private func checkAppState() -> AnyPublisher<State, Error> {
+    private func checkAppState() -> AnyPublisher<Void, Error> {
         let command = GetAppContainerPathCommand(id: simulatorId, bundleId: bundleId, type: .data)
         return commander.run(command: command)
             .map { [weak self] in
                 self?.dataPath = $0
-                return .installed
             }
             .eraseToAnyPublisher()
     }
@@ -114,14 +112,14 @@ public class AppManager: ObservableObject {
         }
         let command = RunAppcommand(id: simulatorId, bundleId: bundleId)
         commander.run(command: command)
-            .map { _ in .installed }
+            .map { _ in .installed(nil) }
             .catch { error in Just(.notInstalled(error)) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
-    private func writeDefaults() -> AnyPublisher<Void, Error> {
+    private func writeDefaults(defaults: Defaults) -> AnyPublisher<Void, Error> {
         guard let dataPath = dataPath else {
             return Fail(error: AppManagerError.wrongPath)
                 .eraseToAnyPublisher()
@@ -133,12 +131,8 @@ public class AppManager: ObservableObject {
 
         return Future<Void, Error> { [weak self] promise in
             guard let self = self else { return }
-            guard let defaults = self.defaults else {
-                promise(.success(()))
-                return
-            }
-
-            DispatchQueue.global(qos: .background).async {
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self = self else { return }
                 do {
                     try self.write(defaults: defaults, path: defaultsFile)
                     promise(.success(()))

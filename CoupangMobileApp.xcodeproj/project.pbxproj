@@ -121,6 +121,7 @@
 		B403452725D71B9800C2146D /* AOS */ = {
 			isa = PBXGroup;
 			children = (
+				B403454025D7682400C2146D /* AppManager.swift */,
 				B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */,
 				B452EB1C25336CB6003968FC /* AOSRunView.swift */,
 				B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */,
@@ -162,7 +163,6 @@
 				B403451B25D62B9500C2146D /* ErrorView.swift */,
 				B449209E258D4F6A00457272 /* Button.swift */,
 				B403453A25D7664800C2146D /* ProxyManager.swift */,
-				B403454025D7682400C2146D /* AppManager.swift */,
 				B4A976A0253114D200962CC1 /* Assets.xcassets */,
 				B4A976A5253114D200962CC1 /* Main.storyboard */,
 				B4A976A8253114D200962CC1 /* Info.plist */,

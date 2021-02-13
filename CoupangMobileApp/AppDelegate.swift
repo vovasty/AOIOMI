@@ -23,8 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         emulator = try! AndroidEmulator()
         let simulatorId = (Bundle.main.bundleIdentifier ?? "com.coupang.CoupangMobile") + ".Simulator"
         simulator = try! iOSSimulator(simulatorName: simulatorId)
-        let iosDefaults = AppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": "127.0.0.1", "port": 8888])
-        let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang", defaults: iosDefaults)
+        let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
         let aosAppManager = AppManager(activityId: "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity", packageId: "com.coupang.mobile", preferencesPath: "/data/data/com.coupang.mobile/shared_prefs/com.coupang.mobile_preferences.xml")
         let proxyManager = ProxyManager()
         let contentView = ContentView()
