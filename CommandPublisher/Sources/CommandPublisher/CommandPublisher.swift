@@ -11,7 +11,7 @@ import os
 import SwiftShell
 
 public struct CommandPublisher: Publisher {
-    public typealias Output = RunOutput
+    public typealias Output = SwiftShell.AsyncCommand
     public typealias Failure = Error
 
     public let context: Context & CommandRunning
@@ -34,45 +34,45 @@ public struct CommandPublisher: Publisher {
 }
 
 final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
-    SubscriberType.Input == RunOutput,
+    SubscriberType.Input == SwiftShell.AsyncCommand,
     SubscriberType.Failure == Error
 {
     private let subscriber: SubscriberType?
-    private let context: Context & CommandRunning
-    private let command: String
-    private let parameters: [String]?
+    private var asyncCommand: SwiftShell.AsyncCommand?
 
     public struct CommandError: Error {
-        let error: Error
-        let output: [String]
+        public let errorCode: Int
+        public let stdout: LazySequence<AnySequence<String>>
+        public let stderror: LazySequence<AnySequence<String>>
     }
 
     init(subscriber: SubscriberType, context: Context & CommandRunning, command: String, parameters: [String]?) {
         self.subscriber = subscriber
-        self.context = context
-        self.command = command
-        self.parameters = parameters
-    }
-
-    func request(_ demand: Subscribers.Demand) {
-        guard demand > 0 else { return }
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        let debugCommand = command + " " + (parameters ?? []).joined(separator: " ")
+        print("running", debugCommand)
+        asyncCommand = context.runAsync(command, parameters ?? [])
+        asyncCommand?.onCompletion { [weak self] cmd in
+            print("finished", cmd.exitcode(), debugCommand)
+            print("stdout", debugCommand, cmd.stdout.lines())
+            print("stderr", debugCommand, cmd.stdout.lines())
             guard let self = self else { return }
-            let output = self.context.run(self.command, self.parameters ?? [], combineOutput: false)
-            if let error = output.error {
-                print("=========stdout===========")
-                print(output.stdout)
-                print("=========stderror===========")
-                print(output.stderror)
+            if cmd.exitcode() == 0 {
+                _ = self.subscriber?.receive(cmd)
+                self.subscriber?.receive(completion: .finished)
+            } else {
+                let error = CommandError(errorCode: cmd.exitcode(),
+                                         stdout: cmd.stdout.lines(),
+                                         stderror: cmd.stderror.lines())
                 self.subscriber?.receive(completion: .failure(error))
-                return
             }
-            _ = self.subscriber?.receive(output)
-            self.subscriber?.receive(completion: .finished)
         }
     }
 
-    func cancel() {}
+    func request(_: Subscribers.Demand) {}
+
+    func cancel() {
+        asyncCommand?.stop()
+    }
 }
 
 extension CommandError: LocalizedError {

@@ -21,10 +21,11 @@ public class AndroidEmulator: ObservableObject {
         case bootingTimeout
         case configuringTimeout
     }
-    
+
     enum Config {
         static let waitBootingTimeout = 30
         static let configuringTimeout = 180
+        static let startingTimeout = 30
     }
 
     @Published public private(set) var state: State = .stopped(nil)
@@ -57,6 +58,8 @@ public class AndroidEmulator: ObservableObject {
     }
 
     public func configure(proxy: String, caPath: URL) {
+        process?.onCompletion { _ in }
+        process = nil
         state = .configuring
         commander.run(command: CreateEmulatorCommand(proxy: proxy, caPath: caPath))
             .timeout(.seconds(Config.configuringTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.configuringTimeout })
@@ -84,11 +87,12 @@ public class AndroidEmulator: ObservableObject {
 
     private func startEmulator() -> AnyPublisher<State, Swift.Error> {
         process = commander.run(command: StartCommand())
-        process?.onCompletion{ command in
-            DispatchQueue.main.async {
-                self.state = .stopped(nil)
+        process?.onCompletion { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.state = .stopped(nil)
             }
         }
+
         return waitBooted()
             .map { _ -> State in .started }
             .eraseToAnyPublisher()

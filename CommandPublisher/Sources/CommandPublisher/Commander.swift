@@ -27,7 +27,7 @@ public struct Commander {
                                 command: executable,
                                 parameters: command.parameters)
             .tryMap {
-                try command.parse(stdout: $0.stdout.lines())
+                try command.parse(stdout: Array($0.stdout.lines()))
             }
             .eraseToAnyPublisher()
     }
