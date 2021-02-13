@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by vlsolome on 2/13/21.
 //
@@ -12,16 +12,17 @@ class SimulatorApp {
     var isRunning: Bool {
         !(app?.isTerminated ?? true)
     }
+
     private var app: NSRunningApplication?
 
     func open() {
         let configuration = NSWorkspace.OpenConfiguration()
         configuration.activates = true
         configuration.createsNewApplicationInstance = false
-        NSWorkspace.shared.open(appURL, configuration: configuration) { [weak self] app, error in
+        NSWorkspace.shared.open(appURL, configuration: configuration) { [weak self] app, _ in
             self?.app = app
         }
     }
-    
-    static let shared: SimulatorApp = SimulatorApp()
+
+    static let shared = SimulatorApp()
 }

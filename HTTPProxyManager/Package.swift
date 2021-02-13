@@ -11,15 +11,20 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/drmohundro/SWXMLHash.git", from: "5.0.1"),
+
     ],
     targets: [
         .target(
             name: "HTTPProxyManager",
-            dependencies: []
+            dependencies: ["SWXMLHash"]
         ),
         .testTarget(
             name: "HTTPProxyManagerTests",
-            dependencies: ["HTTPProxyManager"]
+            dependencies: ["HTTPProxyManager"],
+            resources: [
+                .copy("Resources"),
+            ]
         ),
     ]
 )

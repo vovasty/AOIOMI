@@ -12,8 +12,8 @@ struct CreateEmulatorCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]?
 
-    init(proxy: String, caPath: URL) {
-        parameters = ["create", proxy, caPath.path]
+    init(proxy: String?, caPath: URL?) {
+        parameters = ["create", proxy, caPath?.path].compactMap { $0 == nil ? "none" : $0 }
     }
 
     func parse(stdout _: [String]) throws {}

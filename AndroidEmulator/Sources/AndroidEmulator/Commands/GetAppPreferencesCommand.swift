@@ -30,7 +30,10 @@ struct GetAppPreferencesCommand: Command {
     func parse(stdout _: [String]) throws -> XMLIndexer {
         let data = try Data(contentsOf: tmpFilePath)
         try FileManager.default.removeItem(at: tmpFilePath)
-        let xml = SWXMLHash.parse(data)
+        let xml = SWXMLHash.config {
+            config in
+            config.shouldProcessLazily = true
+        }.parse(data)
         return xml
     }
 }

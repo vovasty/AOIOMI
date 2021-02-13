@@ -104,7 +104,11 @@ function is_created {
 }
 
 function set_proxy {
-     "$ADB" shell settings put global http_proxy $1
+    if [ "$1" == "none" ]; then
+        return
+    fi
+
+    "$ADB" shell settings put global http_proxy $1
 }
 
 function install_apk {
@@ -112,6 +116,10 @@ function install_apk {
 }
 
 function install_ca {
+    if [ "$1" == "none" ]; then
+        return
+    fi
+
     HASH=$(openssl x509 -inform PEM -subject_hash_old -in "$1" | head -1)
     NEWNAME=$HASH.0
     NEWNAMEANDPATH=$TMPDIR/$NEWNAME

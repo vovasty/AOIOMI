@@ -48,7 +48,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_: Notification) {
-        // Insert code here to tear down your application
+        simulator.stop()
+        emulator.stop()
     }
 
     // hide window instead of close
@@ -61,27 +62,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         return true
-    }
-
-    func applicationShouldTerminate(_: NSApplication) -> NSApplication.TerminateReply {
-        simulator.stop()
-
-        switch emulator.state {
-        case .checking, .starting, .configuring, .started:
-            emulator.stop()
-            emulator.$state.sink { state in
-                switch state {
-                case .stopped:
-                    NSApplication.shared.terminate(self)
-//                    sender.terminate(self)
-                default:
-                    break
-                }
-            }
-            .store(in: &cancellables)
-            return .terminateLater
-        case .notConfigured, .stopped, .stopping:
-            return .terminateNow
-        }
     }
 }

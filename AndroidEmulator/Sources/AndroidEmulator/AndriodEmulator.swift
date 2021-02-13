@@ -62,7 +62,7 @@ public class AndroidEmulator: ObservableObject {
         process?.stop()
     }
 
-    public func configure(proxy: String, caPath: URL) {
+    public func configure(proxy: String?, caPath: URL?) {
         process?.onCompletion { _ in }
         process = nil
         state = .configuring

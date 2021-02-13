@@ -23,7 +23,7 @@ struct AOSView: View {
             case let .notConfigured(error):
                 ErrorView(error: error)
                 Button("configure") {
-                    emulator.configure(proxy: proxyManager.proxy(type: .aos).asString, caPath: proxyManager.caPath)
+                    emulator.configure(proxy: proxyManager.proxy(type: .aos)?.asString, caPath: proxyManager.caURL)
                 }
             case .started, .stopped, .starting, .stopping:
                 AOSRunView()

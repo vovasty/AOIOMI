@@ -31,7 +31,7 @@ struct AOSRunView: View {
                 Text("not reachable")
             }
             Button("configure") {
-                emulator.configure(proxy: proxyManager.proxy(type: .aos).asString, caPath: proxyManager.caPath)
+                emulator.configure(proxy: proxyManager.proxy(type: .aos)?.asString, caPath: proxyManager.caURL)
             }
         }
 

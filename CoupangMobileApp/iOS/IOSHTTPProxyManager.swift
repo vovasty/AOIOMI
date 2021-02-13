@@ -10,8 +10,8 @@ import HTTPProxyManager
 import iOSSimulator
 
 extension HTTPProxyManager {
-    var iosDefaults: AppManager.Defaults {
-        let p = proxy(type: .ios)
+    var iosDefaults: AppManager.Defaults? {
+        guard let p = proxy(type: .ios) else { return nil }
         return AppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": p.host, "port": p.port])
     }
 }
