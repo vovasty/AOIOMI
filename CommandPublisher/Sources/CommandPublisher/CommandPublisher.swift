@@ -52,9 +52,16 @@ final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
         print("running", debugCommand)
         asyncCommand = context.runAsync(command, parameters ?? [])
         asyncCommand?.onCompletion { [weak self] cmd in
-            print("finished", cmd.exitcode(), debugCommand)
-            print("stdout", debugCommand, cmd.stdout.lines())
-            print("stderr", debugCommand, cmd.stdout.lines())
+            let report = """
+            finished \(cmd.exitcode()) \(debugCommand)
+            === stdout ===
+            \(Array(cmd.stdout.lines()).joined(separator: "\n"))
+            ==============
+            === stderr ===
+            \(Array(cmd.stderror.lines()).joined(separator: "\n"))
+            ==============
+            """
+            print(report)
             guard let self = self else { return }
             if cmd.exitcode() == 0 {
                 _ = self.subscriber?.receive(cmd)

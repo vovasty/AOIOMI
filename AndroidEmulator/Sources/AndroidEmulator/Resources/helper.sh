@@ -21,29 +21,37 @@ ADB=$ANDROID_SDK_ROOT/platform-tools/adb
 AVDMANAGER=$ANDROID_SDK_ROOT/cmdline-tools/tools/bin/avdmanager
 AVD_NAME=coupang$ANDROID_VERSION
 
+debug() { printf "=== ${FUNCNAME[1]}: %s\n" "$*" >&2; }
+
 function start {
+    debug $AVD_NAME
     "$EMULATOR" -avd "$AVD_NAME" -writable-system
 }
 
 function stop {
+    debug
     "$ADB" devices | grep emulator | cut -f1 | while read line; do $ADB -s $line emu kill; done
 }
 
 function delete {
+    debug $AVD_NAME
     "$AVDMANAGER" --verbose delete avd --name "$AVD_NAME"
 }
 
 function wait_booted {
+    debug
     while [ "`$ADB shell getprop sys.boot_completed | tr -d '\r' `" != "1" ] ; do sleep 1; done
 }
 
 function init {
+    debug
     mkdir -p "$ANDROID_EMULATOR_HOME" "$ANDROID_AVD_HOME"
     echo "no" | "$AVDMANAGER" --verbose create avd --force --name "$AVD_NAME" -d pixel_3_xl --package "system-images;android-$ANDROID_VERSION;default;x86" --tag "default" --abi "x86"
     echo hw.keyboard=yes >> "$ANDROID_AVD_HOME/$AVD_NAME.avd/config.ini"
 }
 
 function shutdown {
+    debug
     PID=$(get_emulator_pid)
     "$ADB" shell su root 'am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN'
     while [ -n "$PID" ]; do
@@ -53,38 +61,33 @@ function shutdown {
 }
 
 function create {
+    debug
 # shutdown emulator on exit cause child process holds swiftshell forever
     trap 'emergency_exit' EXIT
     function emergency_exit {
       stop
       exit 1
     }
-    echo "== stopping"
     stop
-    echo "== creating"
     init
-    echo "== starting"
     start &
-    echo "== waiting boot"
     wait_booted
-    echo "== installing gapps"
     install_gapps
-    echo "== setting proxy $1"
     set_proxy "$1"
-    echo "== setting CA $2"
     install_ca "$2"
-    echo "== shutting down"
     shutdown
 #crear trap to avoid erroneous exit code
     trap '' EXIT
 }
 
 function get_file {
+    debug $@
     adb_root
     "$ADB" pull "$1" "$2"
 }
 
 function install_gapps {
+    debug
     adb_root
     "$ADB" shell "mount -o rw,remount /"
     "$ADB" push $ROOT/gapps/etc /system
@@ -94,16 +97,19 @@ function install_gapps {
 }
 
 function reboot {
+    debug
     "$ADB" reboot
     wait_booted
 }
 
 function is_created {
+    debug
     _is_created=$("$AVDMANAGER" list avd -c | grep $AVD_NAME)
     [ -n $_is_created ] || exit 1
 }
 
 function set_proxy {
+    debug $@
     if [ "$1" == "none" ]; then
         return
     fi
@@ -112,10 +118,12 @@ function set_proxy {
 }
 
 function install_apk {
-     "$ADB" install "$1"
+    debug $@
+    "$ADB" install "$1"
 }
 
 function install_ca {
+    debug $@
     if [ "$1" == "none" ]; then
         return
     fi
@@ -132,106 +140,44 @@ function install_ca {
 }
 
 function run {
+    debug $@
     "$ADB" shell am start -n com.coupang.mobile/android.intent.action.MAIN
 }
 
 function run_app {
+    debug $@
     "$ADB" shell am start -n "$1" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
 }
 
 function adb {
+    debug $@
     "$ADB" $@
 }
 
 function adb_root {
+    debug $@
     "$ADB" root
     "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
 }
 
 function adb_unroot {
+    debug $@
     "$ADB" unroot
     "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
 }
 
 function get_emulator_pid {
+    debug $@
     PID=$(ps x | grep $ROOT/adk/emulator/qemu/darwin-x86_64/qemu-system-x86_64 | grep -v grep | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f 1)
     [ -n "$PID" ] || exit 1
     echo -n $PID
 }
 
 function is_app_installed {
+    debug $@
     INSTALLED=$("$ADB" shell pm list packages | grep "$1")
     [ -n "$INSTALLED" ] || exit 1
     echo $INSTALLED
 }
 
-case "${COMMAND}" in
-        start)
-        start
-        ;;
-        stop)
-        stop
-        ;;
-        set_proxy)
-        set_proxy "$1"
-        ;;
-        install_ca)
-        install_ca "$1"
-        ;;
-        create)
-        create "$1" "$2"
-        ;;
-        delete)
-        delete
-        ;;
-        wait_booted)
-        wait_booted
-        ;;
-        is_created)
-        is_created
-        ;;
-        run)
-        run
-        ;;
-        install_gapps)
-        install_gapps
-        ;;
-        install_apk)
-        install_apk "$1"
-        ;;
-        reboot)
-        reboot
-        ;;
-        run_app)
-        run_app "$1"
-        ;;
-        adb_root)
-        adb_root
-        ;;
-        adb_unroot)
-        adb_unroot
-        ;;
-        adb)
-        adb $@
-        ;;
-        get_emulator_pid)
-        get_emulator_pid
-        ;;
-        is_app_installed)
-        is_app_installed "$1"
-        ;;
-        init)
-        init
-        ;;
-        shutdown)
-        shutdown
-        ;;
-        get_file)
-        get_file "$1" "$2"
-        ;;
-        *)
-        echo "error: wrong command: ${command}"
-        exit 1
-        ;;
-esac
-
+${COMMAND} "$@"
