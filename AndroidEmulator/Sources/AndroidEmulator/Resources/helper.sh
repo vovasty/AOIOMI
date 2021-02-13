@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-ROOT=$(dirname "$0")
+ROOT=$(dirname "$0")/emulator
 COMMAND=$1
 source $ROOT/env.sh
 
@@ -37,10 +37,51 @@ function wait_booted {
     while [ "`$ADB shell getprop sys.boot_completed | tr -d '\r' `" != "1" ] ; do sleep 1; done
 }
 
-function create {
+function init {
     mkdir -p "$ANDROID_EMULATOR_HOME" "$ANDROID_AVD_HOME"
     echo "no" | "$AVDMANAGER" --verbose create avd --force --name "$AVD_NAME" -d pixel_3_xl --package "system-images;android-$ANDROID_VERSION;default;x86" --tag "default" --abi "x86"
     echo hw.keyboard=yes >> "$ANDROID_AVD_HOME/$AVD_NAME.avd/config.ini"
+}
+
+function shutdown {
+    PID=$(get_emulator_pid)
+    "$ADB" shell su root 'am start -a com.android.internal.intent.action.REQUEST_SHUTDOWN'
+    while [ -n "$PID" ]; do
+        sleep 1;
+        PID=$(get_emulator_pid) || true
+    done
+}
+
+function create {
+# shutdown emulator on exit cause child process holds swiftshell forever
+    trap 'emergency_exit' EXIT
+    function emergency_exit {
+      stop
+      exit 1
+    }
+    echo "== stopping"
+    stop
+    echo "== creating"
+    init
+    echo "== starting"
+    start &
+    echo "== waiting boot"
+    wait_booted
+    echo "== installing gapps"
+    install_gapps
+    echo "== setting proxy $1"
+    set_proxy "$1"
+    echo "== setting CA $2"
+    install_ca "$2"
+    echo "== shutting down"
+    shutdown
+#crear trap to avoid erroneous exit code
+    trap '' EXIT
+}
+
+function get_file {
+    adb_root
+    "$ADB" pull "$1" "$2"
 }
 
 function install_gapps {
@@ -107,7 +148,7 @@ function adb_unroot {
 function get_emulator_pid {
     PID=$(ps x | grep $ROOT/adk/emulator/qemu/darwin-x86_64/qemu-system-x86_64 | grep -v grep | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f 1)
     [ -n "$PID" ] || exit 1
-    echo $PID
+    echo -n $PID
 }
 
 function is_app_installed {
@@ -130,7 +171,7 @@ case "${COMMAND}" in
         install_ca "$1"
         ;;
         create)
-        create
+        create "$1" "$2"
         ;;
         delete)
         delete
@@ -170,6 +211,15 @@ case "${COMMAND}" in
         ;;
         is_app_installed)
         is_app_installed "$1"
+        ;;
+        init)
+        init
+        ;;
+        shutdown)
+        shutdown
+        ;;
+        get_file)
+        get_file "$1" "$2"
         ;;
         *)
         echo "error: wrong command: ${command}"

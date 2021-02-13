@@ -7,7 +7,7 @@
 
 import Combine
 import CommandPublisher
-import SwiftUI
+import Foundation
 
 public class AppManager: ObservableObject {
     public enum State {

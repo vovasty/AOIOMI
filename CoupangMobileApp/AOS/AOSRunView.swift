@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AOSRunView: View {
     @EnvironmentObject var emulator: AndroidEmulator
+    @EnvironmentObject var proxyManager: ProxyManager
 
     var body: some View {
         VStack {
@@ -17,11 +18,9 @@ struct AOSRunView: View {
             case .started:
                 AOSAppStateView()
             case let .stopped(error):
+                ErrorView(error: error)
                 Button("start") {
                     emulator.start()
-                }
-                if let error = error {
-                    Text("Error: \(error.localizedDescription)")
                 }
             case .stopping:
                 Text("stopping")
@@ -31,7 +30,7 @@ struct AOSRunView: View {
                 Text("not reachable")
             }
             Button("configure") {
-                emulator.configure()
+                emulator.configure(proxy: proxyManager.proxy, caPath: proxyManager.caPath)
             }
         }
 

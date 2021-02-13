@@ -9,7 +9,7 @@ import AndroidEmulator
 import SwiftUI
 
 private struct InstallAppView: View {
-    @EnvironmentObject var emulator: AndroidEmulator
+    @EnvironmentObject var appManager: AppManager
 
     var body: some View {
         Button("install apk") {
@@ -23,24 +23,24 @@ private struct InstallAppView: View {
 
             guard dialog.runModal() == .OK else { return }
 
-            guard let path = dialog.url?.path else { return }
-            emulator.install(apk: path)
+            guard let path = dialog.url else { return }
+            appManager.install(apk: path)
         }
     }
 }
 
 private struct RunAppView: View {
-    @EnvironmentObject var emulator: AndroidEmulator
+    @EnvironmentObject var appManager: AppManager
 
     var body: some View {
         Button("run app") {
-            emulator.runApp()
+            appManager.start()
         }
     }
 }
 
 private struct PCIDView: View {
-    @EnvironmentObject var emulator: AndroidEmulator
+    @EnvironmentObject var appManager: AppManager
     let pcid: String?
 
     var body: some View {
@@ -67,7 +67,7 @@ private struct PCIDView: View {
             HStack(spacing: 8) {
                 Text("Can't get pcid.\nTry to run the app.")
                 SwiftUI.Button("check") {
-                    self.emulator.checkApp()
+                    self.appManager.check()
                 }
                 .buttonStyle(DefaultButtonStyle())
                 .font(.caption)
@@ -77,10 +77,10 @@ private struct PCIDView: View {
 }
 
 struct AOSAppStateView: View {
-    @EnvironmentObject var emulator: AndroidEmulator
+    @EnvironmentObject var appManager: AppManager
 
     var body: some View {
-        switch emulator.appState {
+        switch appManager.state {
         case .installing:
             InstallAppView()
                 .disabled(true)
@@ -106,16 +106,16 @@ struct AOSAppStateView: View {
                     Text("app is not installed")
                 }
                 SwiftUI.Button("check") {
-                    self.emulator.checkApp()
+                    self.appManager.check()
                 }
                 .buttonStyle(DefaultButtonStyle())
                 .font(.caption)
             }
             .frame(height: 50)
-        case let .installed(pcid):
+        case .installed:
             InstallAppView()
             RunAppView()
-            PCIDView(pcid: pcid)
+            PCIDView(pcid: appManager.pcid)
                 .frame(height: 50)
         }
     }

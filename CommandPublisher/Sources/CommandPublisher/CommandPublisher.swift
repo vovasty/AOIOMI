@@ -60,6 +60,10 @@ final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
             guard let self = self else { return }
             let output = self.context.run(self.command, self.parameters ?? [], combineOutput: false)
             if let error = output.error {
+                print("=========stdout===========")
+                print(output.stdout)
+                print("=========stderror===========")
+                print(output.stderror)
                 self.subscriber?.receive(completion: .failure(error))
                 return
             }

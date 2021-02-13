@@ -34,6 +34,7 @@ struct ContentView: View {
                     .frame(width: 200, height: 200)
             }
         }
+        .padding()
         .onAppear {
             simulator.check()
             emulator.check()

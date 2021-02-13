@@ -15,7 +15,6 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/kareman/SwiftShell.git", from: "5.1.0"),
         .package(path: "../CommandPublisher"),
     ],
     targets: [

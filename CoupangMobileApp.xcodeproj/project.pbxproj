@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B403451825D62ABC00C2146D /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451725D62ABC00C2146D /* ProgressView.swift */; };
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
+		B403453B25D7664800C2146D /* ProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403453A25D7664800C2146D /* ProxyManager.swift */; };
+		B403454125D7682400C2146D /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403454025D7682400C2146D /* AppManager.swift */; };
 		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
 		B452EB1D25336CB6003968FC /* AOSRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSRunView.swift */; };
 		B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769C253114D100962CC1 /* AppDelegate.swift */; };
@@ -61,6 +63,8 @@
 /* Begin PBXFileReference section */
 		B403451725D62ABC00C2146D /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		B403453A25D7664800C2146D /* ProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyManager.swift; sourceTree = "<group>"; };
+		B403454025D7682400C2146D /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRunView.swift; sourceTree = "<group>"; };
 		B46D02452584072800076EDE /* AndroidEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AndroidEmulator; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				B403451725D62ABC00C2146D /* ProgressView.swift */,
 				B403451B25D62B9500C2146D /* ErrorView.swift */,
 				B449209E258D4F6A00457272 /* Button.swift */,
+				B403453A25D7664800C2146D /* ProxyManager.swift */,
+				B403454025D7682400C2146D /* AppManager.swift */,
 				B4A976A0253114D200962CC1 /* Assets.xcassets */,
 				B4A976A5253114D200962CC1 /* Main.storyboard */,
 				B4A976A8253114D200962CC1 /* Info.plist */,
@@ -352,9 +358,11 @@
 				B4F3F19825D5FD46006ADB7A /* IOSAppStateView.swift in Sources */,
 				B4C0A8D2258D3F1B007886B8 /* AOSAppStateView.swift in Sources */,
 				B4F3F19025D5EF1F006ADB7A /* IOSConfigureView.swift in Sources */,
+				B403454125D7682400C2146D /* AppManager.swift in Sources */,
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
+				B403453B25D7664800C2146D /* ProxyManager.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSRunView.swift in Sources */,
 				B403451825D62ABC00C2146D /* ProgressView.swift in Sources */,
 			);

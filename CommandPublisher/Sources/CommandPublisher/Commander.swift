@@ -31,4 +31,13 @@ public struct Commander {
             }
             .eraseToAnyPublisher()
     }
+
+    public func run(command: AsyncCommand) -> SwiftShell.AsyncCommand {
+        let executable: String
+        switch command.executable {
+        case .helper:
+            executable = helperPath.path
+        }
+        return context.runAsync(executable, command.parameters ?? [])
+    }
 }
