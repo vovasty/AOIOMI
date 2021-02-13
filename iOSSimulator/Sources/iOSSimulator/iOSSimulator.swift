@@ -31,6 +31,7 @@ public class iOSSimulator: ObservableObject {
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
+        SimulatorApp.shared.open()
     }
 
     public func stop() {

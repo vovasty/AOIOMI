@@ -117,6 +117,7 @@ public class AppManager: ObservableObject {
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
+        SimulatorApp.shared.open()
     }
 
     private func writeDefaults(defaults: Defaults) -> AnyPublisher<Void, Error> {
