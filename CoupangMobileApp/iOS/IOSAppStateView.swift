@@ -5,11 +5,13 @@
 //  Created by vlsolome on 2/11/21.
 //
 
+import HTTPProxyManager
 import iOSSimulator
 import SwiftUI
 
 private struct InstallAppView: View {
     @EnvironmentObject var appManager: AppManager
+    @EnvironmentObject var httpProxyManager: HTTPProxyManager
 
     var body: some View {
         Button("install app") {
@@ -24,13 +26,14 @@ private struct InstallAppView: View {
             guard dialog.runModal() == .OK else { return }
 
             guard let url = dialog.url else { return }
-            appManager.install(app: url)
+            appManager.install(app: url, defaults: httpProxyManager.iosDefaults)
         }
     }
 }
 
 struct IOSAppStateView: View {
     @EnvironmentObject var appManager: AppManager
+    @EnvironmentObject var httpProxyManager: HTTPProxyManager
     @State private var dragOver = false
 
     var body: some View {
@@ -55,7 +58,7 @@ struct IOSAppStateView: View {
             providers.first?.loadDataRepresentation(forTypeIdentifier: "public.file-url", completionHandler: { data, _ in
                 guard let data = data, let path = String(data: data, encoding: .utf8), let url = URL(string: path) else { return }
                 guard url.path.hasSuffix(".app") else { return }
-                appManager.install(app: url)
+                appManager.install(app: url, defaults: httpProxyManager.iosDefaults)
             })
             return true
         }

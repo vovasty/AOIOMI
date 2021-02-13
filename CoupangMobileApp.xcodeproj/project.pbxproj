@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B403451825D62ABC00C2146D /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451725D62ABC00C2146D /* ProgressView.swift */; };
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
-		B403453B25D7664800C2146D /* ProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403453A25D7664800C2146D /* ProxyManager.swift */; };
 		B403454125D7682400C2146D /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403454025D7682400C2146D /* AppManager.swift */; };
 		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
 		B452EB1D25336CB6003968FC /* AOSRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSRunView.swift */; };
@@ -22,6 +21,9 @@
 		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
 		B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4A976E0253116C900962CC1 /* AndroidEmulator */; };
 		B4C0A8D2258D3F1B007886B8 /* AOSAppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */; };
+		B4D225B225D8530C00746557 /* HTTPProxyManager in Frameworks */ = {isa = PBXBuildFile; productRef = B4D225B125D8530C00746557 /* HTTPProxyManager */; };
+		B4D225B625D854DB00746557 /* IOSHTTPProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D225B525D854DB00746557 /* IOSHTTPProxyManager.swift */; };
+		B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */; };
 		B4F3F17825D5E35C006ADB7A /* iOSSimulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4F3F17725D5E35C006ADB7A /* iOSSimulator */; };
 		B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */; };
 		B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F17F25D5E974006ADB7A /* IOSView.swift */; };
@@ -63,7 +65,6 @@
 /* Begin PBXFileReference section */
 		B403451725D62ABC00C2146D /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
-		B403453A25D7664800C2146D /* ProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyManager.swift; sourceTree = "<group>"; };
 		B403454025D7682400C2146D /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRunView.swift; sourceTree = "<group>"; };
@@ -83,6 +84,9 @@
 		B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppUITests.swift; sourceTree = "<group>"; };
 		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSAppStateView.swift; sourceTree = "<group>"; };
+		B4D225AE25D852FB00746557 /* HTTPProxyManager */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPProxyManager; sourceTree = "<group>"; };
+		B4D225B525D854DB00746557 /* IOSHTTPProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSHTTPProxyManager.swift; sourceTree = "<group>"; };
+		B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSHTTPProxyManager.swift; sourceTree = "<group>"; };
 		B4F3F17425D5E34D006ADB7A /* iOSSimulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iOSSimulator; sourceTree = "<group>"; };
 		B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSView.swift; sourceTree = "<group>"; };
 		B4F3F17F25D5E974006ADB7A /* IOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSView.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */,
+				B4D225B225D8530C00746557 /* HTTPProxyManager in Frameworks */,
 				B4F3F17825D5E35C006ADB7A /* iOSSimulator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,6 +130,7 @@
 				B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */,
 				B452EB1C25336CB6003968FC /* AOSRunView.swift */,
 				B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */,
+				B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */,
 			);
 			path = AOS;
 			sourceTree = "<group>";
@@ -132,6 +138,7 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B4D225AE25D852FB00746557 /* HTTPProxyManager */,
 				B4F3F17425D5E34D006ADB7A /* iOSSimulator */,
 				B46D02452584072800076EDE /* AndroidEmulator */,
 				B4A9769B253114D100962CC1 /* CoupangMobileApp */,
@@ -162,7 +169,6 @@
 				B403451725D62ABC00C2146D /* ProgressView.swift */,
 				B403451B25D62B9500C2146D /* ErrorView.swift */,
 				B449209E258D4F6A00457272 /* Button.swift */,
-				B403453A25D7664800C2146D /* ProxyManager.swift */,
 				B4A976A0253114D200962CC1 /* Assets.xcassets */,
 				B4A976A5253114D200962CC1 /* Main.storyboard */,
 				B4A976A8253114D200962CC1 /* Info.plist */,
@@ -212,6 +218,7 @@
 				B4F3F18F25D5EF1F006ADB7A /* IOSConfigureView.swift */,
 				B4F3F19325D5FBE5006ADB7A /* IOSRunView.swift */,
 				B4F3F19725D5FD46006ADB7A /* IOSAppStateView.swift */,
+				B4D225B525D854DB00746557 /* IOSHTTPProxyManager.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -236,6 +243,7 @@
 			packageProductDependencies = (
 				B4A976E0253116C900962CC1 /* AndroidEmulator */,
 				B4F3F17725D5E35C006ADB7A /* iOSSimulator */,
+				B4D225B125D8530C00746557 /* HTTPProxyManager */,
 			);
 			productName = CoupangMobileApp;
 			productReference = B4A97699253114D100962CC1 /* CoupangMobileApp.app */;
@@ -353,6 +361,7 @@
 			files = (
 				B449209F258D4F6A00457272 /* Button.swift in Sources */,
 				B452EB1D25336CB6003968FC /* AOSRunView.swift in Sources */,
+				B4D225B625D854DB00746557 /* IOSHTTPProxyManager.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
 				B4F3F19825D5FD46006ADB7A /* IOSAppStateView.swift in Sources */,
@@ -360,9 +369,9 @@
 				B4F3F19025D5EF1F006ADB7A /* IOSConfigureView.swift in Sources */,
 				B403454125D7682400C2146D /* AppManager.swift in Sources */,
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
+				B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
-				B403453B25D7664800C2146D /* ProxyManager.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSRunView.swift in Sources */,
 				B403451825D62ABC00C2146D /* ProgressView.swift in Sources */,
 			);
@@ -699,6 +708,10 @@
 		B4A976E0253116C900962CC1 /* AndroidEmulator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AndroidEmulator;
+		};
+		B4D225B125D8530C00746557 /* HTTPProxyManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HTTPProxyManager;
 		};
 		B4F3F17725D5E35C006ADB7A /* iOSSimulator */ = {
 			isa = XCSwiftPackageProductDependency;

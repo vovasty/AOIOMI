@@ -6,11 +6,12 @@
 //
 
 import AndroidEmulator
+import HTTPProxyManager
 import SwiftUI
 
 struct AOSView: View {
     @EnvironmentObject var emulator: AndroidEmulator
-    @EnvironmentObject var proxyManager: ProxyManager
+    @EnvironmentObject var proxyManager: HTTPProxyManager
 
     var body: some View {
         VStack {
@@ -22,7 +23,7 @@ struct AOSView: View {
             case let .notConfigured(error):
                 ErrorView(error: error)
                 Button("configure") {
-                    emulator.configure(proxy: proxyManager.proxy, caPath: proxyManager.caPath)
+                    emulator.configure(proxy: proxyManager.proxy(type: .aos).asString, caPath: proxyManager.caPath)
                 }
             case .started, .stopped, .starting, .stopping:
                 AOSRunView()

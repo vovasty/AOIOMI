@@ -8,6 +8,7 @@
 import AndroidEmulator
 import Cocoa
 import Combine
+import HTTPProxyManager
 import iOSSimulator
 import SwiftUI
 
@@ -25,13 +26,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         simulator = try! iOSSimulator(simulatorName: simulatorId)
         let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
         let aosAppManager = AppManager(activityId: "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity", packageId: "com.coupang.mobile", preferencesPath: "/data/data/com.coupang.mobile/shared_prefs/com.coupang.mobile_preferences.xml")
-        let proxyManager = ProxyManager()
+        let httpProxyManager = HTTPProxyManager()
         let contentView = ContentView()
             .environmentObject(emulator)
             .environmentObject(simulator)
             .environmentObject(iosAppManager)
             .environmentObject(aosAppManager)
-            .environmentObject(proxyManager)
+            .environmentObject(httpProxyManager)
 
         // Create the window and set the content view.
         window = NSWindow(

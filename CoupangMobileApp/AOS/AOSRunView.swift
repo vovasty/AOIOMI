@@ -6,11 +6,12 @@
 //
 
 import AndroidEmulator
+import HTTPProxyManager
 import SwiftUI
 
 struct AOSRunView: View {
     @EnvironmentObject var emulator: AndroidEmulator
-    @EnvironmentObject var proxyManager: ProxyManager
+    @EnvironmentObject var proxyManager: HTTPProxyManager
 
     var body: some View {
         VStack {
@@ -30,7 +31,7 @@ struct AOSRunView: View {
                 Text("not reachable")
             }
             Button("configure") {
-                emulator.configure(proxy: proxyManager.proxy, caPath: proxyManager.caPath)
+                emulator.configure(proxy: proxyManager.proxy(type: .aos).asString, caPath: proxyManager.caPath)
             }
         }
 
