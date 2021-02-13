@@ -7,18 +7,22 @@
 
 import AndroidEmulator
 import Cocoa
+import Combine
 import iOSSimulator
 import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
+    private var simulator: iOSSimulator!
+    private var emulator: AndroidEmulator!
+    private var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_: Notification) {
         // Create the SwiftUI view that provides the window contents.
-        let emulator = try! AndroidEmulator()
+        emulator = try! AndroidEmulator()
         let simulatorId = (Bundle.main.bundleIdentifier ?? "com.coupang.CoupangMobile") + ".Simulator"
-        let simulator = try! iOSSimulator(simulatorName: simulatorId)
+        simulator = try! iOSSimulator(simulatorName: simulatorId)
         let iosDefaults = AppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": "127.0.0.1", "port": 8888])
         let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang", defaults: iosDefaults)
         let aosAppManager = AppManager(activityId: "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity", packageId: "com.coupang.mobile", preferencesPath: "/data/data/com.coupang.mobile/shared_prefs/com.coupang.mobile_preferences.xml")
@@ -57,5 +61,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         return true
+    }
+
+    func applicationShouldTerminate(_: NSApplication) -> NSApplication.TerminateReply {
+        simulator.stop()
+
+        switch emulator.state {
+        case .checking, .starting, .configuring, .started:
+            emulator.stop()
+            emulator.$state.sink { state in
+                switch state {
+                case .stopped:
+                    NSApplication.shared.terminate(self)
+//                    sender.terminate(self)
+                default:
+                    break
+                }
+            }
+            .store(in: &cancellables)
+            return .terminateLater
+        case .notConfigured, .stopped, .stopping:
+            return .terminateNow
+        }
     }
 }

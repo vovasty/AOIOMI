@@ -9,7 +9,6 @@ import Combine
 import CommandPublisher
 import SwiftShell
 import SwiftUI
-import SWXMLHash
 
 public class AndroidEmulator: ObservableObject {
     public enum State {
@@ -57,6 +56,11 @@ public class AndroidEmulator: ObservableObject {
             .store(in: &cancellables)
     }
 
+    public func stop() {
+        state = .stopping
+        process?.stop()
+    }
+
     public func configure(proxy: String, caPath: URL) {
         process?.onCompletion { _ in }
         process = nil
@@ -90,6 +94,8 @@ public class AndroidEmulator: ObservableObject {
         process?.onCompletion { _ in
             DispatchQueue.main.async { [weak self] in
                 self?.state = .stopped(nil)
+                self?.process?.onCompletion { _ in }
+                self?.process = nil
             }
         }
 
