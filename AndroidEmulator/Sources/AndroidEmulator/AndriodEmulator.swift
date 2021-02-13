@@ -41,6 +41,8 @@ public class AndroidEmulator: ObservableObject {
             assert(false, "already running")
             return
         }
+        // https://developer.apple.com/documentation/appkit/nsworkspace/3172700-openapplication
+        // com.apple.iphonesimulator
         state = .starting
         startEmulator()
             .catch { error in Just(.stopped(error)) }
