@@ -20,6 +20,7 @@ function stop {
 }
 
 function create {
+    ${SIMULATOR} delete "$1" || true
     ${SIMULATOR} create "$1" "$2"
 }
 

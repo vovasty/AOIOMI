@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create the SwiftUI view that provides the window contents.
         emulator = try! AndroidEmulator()
         let simulatorId = (Bundle.main.bundleIdentifier ?? "com.coupang.CoupangMobile") + ".Simulator"
-        simulator = try! iOSSimulator(simulatorName: simulatorId)
+        simulator = iOSSimulator(simulatorName: simulatorId)
         let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
         let aosAppManager = AppManager(activityId: "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity", packageId: "com.coupang.mobile", preferencesPath: "/data/data/com.coupang.mobile/shared_prefs/com.coupang.mobile_preferences.xml")
         let httpProxyManager = HTTPProxyManager()

@@ -17,7 +17,7 @@ public class iOSSimulator: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let commander: Commander
 
-    public init(simulatorName: String) throws {
+    public init(simulatorName: String) {
         self.simulatorName = simulatorName
         commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
     }
@@ -83,3 +83,15 @@ public class iOSSimulator: ObservableObject {
             .store(in: &cancellables)
     }
 }
+
+
+#if DEBUG
+public extension iOSSimulator {
+    static func preview(state: State = .stopped(nil), deviceTypes: [SimctlList.DeviceType]? = nil) -> iOSSimulator {
+        let simulator = iOSSimulator(simulatorName: "test")
+        simulator.deviceTypes = deviceTypes ?? []
+        simulator.state = state
+        return simulator
+    }
+}
+#endif

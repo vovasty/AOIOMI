@@ -11,25 +11,64 @@ import SwiftUI
 struct IOSConfigureView: View {
     @EnvironmentObject var simulator: iOSSimulator
     @State var deviceType: SimctlList.DeviceType = .empty
+    var isDisplayed: Binding<Bool>
+    private var isDialog: Bool
+    
+    init() {
+        self.init(isDisplayed: Binding<Bool>(get: { true }, set: { _ in }))
+        isDialog = false
+    }
+    init(isDisplayed: Binding<Bool>) {
+        self.isDisplayed = isDisplayed
+        isDialog = true
+    }
 
     var body: some View {
-        VStack {
+        VStack(alignment: isDialog ? .trailing : .center) {
             Picker("device", selection: $deviceType) {
                 ForEach(simulator.deviceTypes, id: \.self) {
                     Text($0.name)
                 }
             }
             .pickerStyle(DefaultPickerStyle())
-            Button("configure") {
-                simulator.configure(deviceType: deviceType)
+            HStack {
+                if isDialog {
+                    SwiftUI.Button("configure") {
+                        isDisplayed.wrappedValue.toggle()
+                        simulator.configure(deviceType: deviceType)
+                    }
+                    SwiftUI.Button("Cancel") {
+                        isDisplayed.wrappedValue.toggle()
+                    }
+                } else {
+                    Button("configure") {
+                        isDisplayed.wrappedValue.toggle()
+                        simulator.configure(deviceType: deviceType)
+                    }
+                    .disabled(deviceType == .empty)
+                }
             }
-            .disabled(deviceType == .empty)
         }
+        .frame(maxWidth: 200)
+        .padding()
     }
 }
 
+#if DEBUG
 struct IOSConfigureView_Previews: PreviewProvider {
     static var previews: some View {
-        IOSConfigureView()
+        VStack {
+            IOSConfigureView()
+                .environmentObject(iOSSimulator.preview(deviceTypes: [
+                                                                        SimctlList.DeviceType(name: "iPhone"),
+                                                                        SimctlList.DeviceType(name: "iPad")
+            ]))
+            IOSConfigureView(isDisplayed: .constant(false))
+                .environmentObject(iOSSimulator.preview(deviceTypes: [
+                                                                        SimctlList.DeviceType(name: "iPhone"),
+                                                                        SimctlList.DeviceType(name: "iPad")
+            ]))
+        }
     }
 }
+#endif

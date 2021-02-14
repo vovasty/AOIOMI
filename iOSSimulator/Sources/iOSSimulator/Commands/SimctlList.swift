@@ -23,6 +23,9 @@ public struct SimctlList: Decodable {
 
     public struct DeviceType: Decodable, Hashable {
         public let name: String
+        public init(name: String) {
+            self.name = name
+        }
     }
 
     public let devices: [String: [Device]]

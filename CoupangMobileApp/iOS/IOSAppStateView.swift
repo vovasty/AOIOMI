@@ -14,20 +14,27 @@ private struct InstallAppView: View {
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
 
     var body: some View {
-        Button("install app") {
-            let dialog = NSOpenPanel()
-            dialog.title = "Choose an app to install"
-            dialog.showsResizeIndicator = true
-            dialog.showsHiddenFiles = false
-            dialog.allowsMultipleSelection = false
-            dialog.canChooseDirectories = false
-            dialog.allowedFileTypes = ["app"]
-
-            guard dialog.runModal() == .OK else { return }
-
-            guard let url = dialog.url else { return }
-            appManager.install(app: url, defaults: httpProxyManager.iosDefaults)
+        switch appManager.state {
+        case .installed, .installing, .starting:
+            Button("reinstall app", action: install)
+        case .notInstalled(_):
+            Button("install app", action: install)
         }
+    }
+    
+    private func install() {
+        let dialog = NSOpenPanel()
+        dialog.title = "Choose an app to install"
+        dialog.showsResizeIndicator = true
+        dialog.showsHiddenFiles = false
+        dialog.allowsMultipleSelection = false
+        dialog.canChooseDirectories = false
+        dialog.allowedFileTypes = ["app"]
+
+        guard dialog.runModal() == .OK else { return }
+
+        guard let url = dialog.url else { return }
+        appManager.install(app: url, defaults: httpProxyManager.iosDefaults)
     }
 }
 
@@ -40,11 +47,12 @@ struct IOSAppStateView: View {
         VStack {
             switch appManager.state {
             case let .notInstalled(error):
-                InstallAppView()
                 ErrorView(error: error)
+                InstallAppView()
             case .starting:
                 ProgressView(title: "Starting...")
-            case .installed:
+            case let .installed(error):
+                ErrorView(error: error)
                 InstallAppView()
                 Button("open app") {
                     appManager.start()
@@ -70,6 +78,26 @@ struct IOSAppStateView: View {
 
 struct IOSAppStateView_Previews: PreviewProvider {
     static var previews: some View {
-        IOSAppStateView()
+        VStack {
+            IOSAppStateView()
+                .environmentObject(AppManager.preview(state: .installed(nil)))
+                .environmentObject(HTTPProxyManager.preview())
+            Divider()
+            IOSAppStateView()
+                .environmentObject(AppManager.preview(state: .installed(NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"]))))
+                .environmentObject(HTTPProxyManager.preview())
+            Divider()
+            IOSAppStateView()
+                .environmentObject(AppManager.preview(state: .notInstalled(NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"]))))
+                .environmentObject(HTTPProxyManager.preview())
+            Divider()
+            InstallAppView()
+                .environmentObject(AppManager.preview(state: .installed(nil)))
+                .environmentObject(HTTPProxyManager.preview())
+            Divider()
+            InstallAppView()
+                .environmentObject(AppManager.preview(state: .notInstalled(nil)))
+                .environmentObject(HTTPProxyManager.preview())
+        }
     }
 }

@@ -54,12 +54,6 @@ final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
         asyncCommand?.onCompletion { [weak self] cmd in
             let report = """
             finished \(cmd.exitcode()) \(debugCommand)
-            === stdout ===
-            \(Array(cmd.stdout.lines()).joined(separator: "\n"))
-            ==============
-            === stderr ===
-            \(Array(cmd.stderror.lines()).joined(separator: "\n"))
-            ==============
             """
             print(report)
             guard let self = self else { return }
