@@ -20,6 +20,15 @@ public class iOSSimulator: ObservableObject {
     public init(simulatorName: String) {
         self.simulatorName = simulatorName
         commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
+
+        let center = NSWorkspace.shared.notificationCenter
+        center.addObserver(forName: NSWorkspace.didTerminateApplicationNotification,
+                           object: nil, // always NSWorkspace
+                           queue: OperationQueue.main) { [weak self] (notification: Notification) in
+            guard let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else { return }
+            guard app.bundleIdentifier == "com.apple.iphonesimulator" else { return }
+            self?.state = .stopped(nil)
+        }
     }
 
     public func start() {
@@ -84,14 +93,13 @@ public class iOSSimulator: ObservableObject {
     }
 }
 
-
 #if DEBUG
-public extension iOSSimulator {
-    static func preview(state: State = .stopped(nil), deviceTypes: [SimctlList.DeviceType]? = nil) -> iOSSimulator {
-        let simulator = iOSSimulator(simulatorName: "test")
-        simulator.deviceTypes = deviceTypes ?? []
-        simulator.state = state
-        return simulator
+    public extension iOSSimulator {
+        static func preview(state: State = .stopped(nil), deviceTypes: [SimctlList.DeviceType]? = nil) -> iOSSimulator {
+            let simulator = iOSSimulator(simulatorName: "test")
+            simulator.deviceTypes = deviceTypes ?? []
+            simulator.state = state
+            return simulator
+        }
     }
-}
 #endif

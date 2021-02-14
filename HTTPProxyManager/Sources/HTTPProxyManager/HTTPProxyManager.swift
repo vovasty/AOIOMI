@@ -65,9 +65,9 @@ public class HTTPProxyManager: ObservableObject {
 }
 
 #if DEBUG
-public extension HTTPProxyManager {
-    static func preview() -> HTTPProxyManager {
-        HTTPProxyManager()
+    public extension HTTPProxyManager {
+        static func preview() -> HTTPProxyManager {
+            HTTPProxyManager()
+        }
     }
-}
 #endif

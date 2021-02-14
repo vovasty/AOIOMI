@@ -91,7 +91,7 @@ public class AppManager: ObservableObject {
     public func check() {
         checkAppState()
             .map { _ in State.installed(nil) }
-            .catch { error in Just(.notInstalled(nil)) }
+            .catch { _ in Just(.notInstalled(nil)) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -201,11 +201,11 @@ public class AppManager: ObservableObject {
 }
 
 #if DEBUG
-public extension AppManager {
-    static func preview(state: State = .notInstalled(nil)) -> AppManager {
-        let manager = AppManager(simulatorId: "test", bundleId: "test")
-        manager.state = state
-        return manager
+    public extension AppManager {
+        static func preview(state: State = .notInstalled(nil)) -> AppManager {
+            let manager = AppManager(simulatorId: "test", bundleId: "test")
+            manager.state = state
+            return manager
+        }
     }
-}
 #endif

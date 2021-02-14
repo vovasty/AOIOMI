@@ -17,11 +17,11 @@ private struct InstallAppView: View {
         switch appManager.state {
         case .installed, .installing, .starting:
             Button("reinstall app", action: install)
-        case .notInstalled(_):
+        case .notInstalled:
             Button("install app", action: install)
         }
     }
-    
+
     private func install() {
         let dialog = NSOpenPanel()
         dialog.title = "Choose an app to install"

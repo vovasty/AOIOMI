@@ -13,11 +13,12 @@ struct IOSConfigureView: View {
     @State var deviceType: SimctlList.DeviceType = .empty
     var isDisplayed: Binding<Bool>
     private var isDialog: Bool
-    
+
     init() {
         self.init(isDisplayed: Binding<Bool>(get: { true }, set: { _ in }))
         isDialog = false
     }
+
     init(isDisplayed: Binding<Bool>) {
         self.isDisplayed = isDisplayed
         isDialog = true
@@ -55,20 +56,20 @@ struct IOSConfigureView: View {
 }
 
 #if DEBUG
-struct IOSConfigureView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            IOSConfigureView()
-                .environmentObject(iOSSimulator.preview(deviceTypes: [
-                                                                        SimctlList.DeviceType(name: "iPhone"),
-                                                                        SimctlList.DeviceType(name: "iPad")
-            ]))
-            IOSConfigureView(isDisplayed: .constant(false))
-                .environmentObject(iOSSimulator.preview(deviceTypes: [
-                                                                        SimctlList.DeviceType(name: "iPhone"),
-                                                                        SimctlList.DeviceType(name: "iPad")
-            ]))
+    struct IOSConfigureView_Previews: PreviewProvider {
+        static var previews: some View {
+            VStack {
+                IOSConfigureView()
+                    .environmentObject(iOSSimulator.preview(deviceTypes: [
+                        SimctlList.DeviceType(name: "iPhone"),
+                        SimctlList.DeviceType(name: "iPad"),
+                    ]))
+                IOSConfigureView(isDisplayed: .constant(false))
+                    .environmentObject(iOSSimulator.preview(deviceTypes: [
+                        SimctlList.DeviceType(name: "iPhone"),
+                        SimctlList.DeviceType(name: "iPad"),
+                    ]))
+            }
         }
     }
-}
 #endif
