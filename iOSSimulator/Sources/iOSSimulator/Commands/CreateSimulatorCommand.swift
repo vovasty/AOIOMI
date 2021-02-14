@@ -19,7 +19,7 @@ struct CreateSimulatorCommand: Command {
     init(name: String, deviceType: SimctlList.DeviceType, caURL: URL?) {
         parameters = ["create", name, deviceType.name, caURL?.path].compactMap { $0 == nil ? "none" : $0 }
     }
-    
+
     init(id: String, caURL: URL) {
         parameters = ["install_ca", id, caURL.path]
     }

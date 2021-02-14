@@ -5,9 +5,9 @@
 //  Created by vlsolome on 2/11/21.
 //
 
+import HTTPProxyManager
 import iOSSimulator
 import SwiftUI
-import HTTPProxyManager
 
 struct IOSRunView: View {
     @EnvironmentObject var simulator: iOSSimulator
@@ -18,7 +18,7 @@ struct IOSRunView: View {
         VStack {
             switch simulator.state {
             case .started:
-                IOSAppStateView()
+                IOSAppView()
             case let .stopped(error):
                 Button("start") {
                     simulator.start()

@@ -5,9 +5,9 @@
 //  Created by vlsolome on 2/11/21.
 //
 
+import HTTPProxyManager
 import iOSSimulator
 import SwiftUI
-import HTTPProxyManager
 
 struct IOSConfigureView: View {
     @EnvironmentObject var simulator: iOSSimulator
