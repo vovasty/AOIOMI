@@ -59,31 +59,18 @@ struct IOSAppView: View {
         }
         .onReceive(Just(appManager.state)) { state in
             switch state {
-            case let .installed(error):
-                if let error = error {
-                    activityState = .error("Installed with error", error)
-                } else {
-                    activityState = .text("Installed")
-                }
+            case .installed:
                 openAppDisabled = false
                 installAppDisabled = false
             case .installing:
-                activityState = .busy("Installing...")
                 openAppDisabled = true
                 installAppDisabled = true
-            case let .notInstalled(error):
-                if let error = error {
-                    activityState = .error("Not installed", error)
-                } else {
-                    activityState = .text("Not installed")
-                }
-                openAppDisabled = true
-                installAppDisabled = false
-            case .starting:
-                activityState = .busy("Starting...")
+            case .starting, .notInstalled:
                 openAppDisabled = true
                 installAppDisabled = false
             }
+
+            activityState = state.asActivity
         }
         .onDrop(of: ["public.file-url"], isTargeted: $dragOver) { providers -> Bool in
             providers.first?.loadDataRepresentation(forTypeIdentifier: "public.file-url", completionHandler: { data, _ in
@@ -95,6 +82,29 @@ struct IOSAppView: View {
         }
         .onAppear {
             appManager.check()
+        }
+    }
+}
+
+private extension AppManager.State {
+    var asActivity: ActivityView.ActivityState {
+        switch self {
+        case let .notInstalled(error):
+            if let error = error {
+                return .error("App is Not Installed", error)
+            } else {
+                return .text("App is Not Installed")
+            }
+        case let .installed(error):
+            if let error = error {
+                return .error("App is Installed", error)
+            } else {
+                return .text("App is Installed")
+            }
+        case .installing:
+            return .busy("Installing App...")
+        case .starting:
+            return .busy("Staring App...")
         }
     }
 }

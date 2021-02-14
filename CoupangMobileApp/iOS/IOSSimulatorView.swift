@@ -24,7 +24,7 @@ struct IOSSimulatorView: View {
                 simulator.start()
             }
             .disabled(startDisabled)
-            Button("configure") {
+            Button("reconfigure") {
                 isConfigureDisplayed.toggle()
             }
             .sheet(isPresented: $isConfigureDisplayed) {
@@ -41,6 +41,31 @@ struct IOSSimulatorView: View {
                 startDisabled = true
             }
             activityState = state.asActivity
+        }
+    }
+}
+
+private extension iOSSimulator.State {
+    var asActivity: ActivityView.ActivityState {
+        switch self {
+        case let .stopped(error):
+            if let error = error {
+                return .error("Simulator is Stopped", error)
+            } else {
+                return .text("Simulator is Stopped")
+            }
+        case .stopping:
+            return .busy("Stopping Simulator...")
+        case .starting:
+            return .busy("Starting Simulator...")
+        case .configuring:
+            return .busy("Configuring Simulator...")
+        case .checking:
+            return .busy("Checking Simulator...")
+        case .notConfigured:
+            return .text("Simulator is Not Configured")
+        case .started:
+            return .text("Simulator is Started")
         }
     }
 }
