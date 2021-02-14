@@ -23,6 +23,8 @@ let package = Package(
             dependencies: ["CommandPublisher"],
             resources: [
                 .copy("Resources/helper.sh"),
+                .copy("Resources/install_cert.py"),
+                .copy("Resources/iosCertTrustManager.py"),
             ]
         ),
         .testTarget(

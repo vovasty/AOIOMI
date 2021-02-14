@@ -54,9 +54,9 @@ public class iOSSimulator: ObservableObject {
             .store(in: &cancellables)
     }
 
-    public func configure(deviceType: SimctlList.DeviceType) {
+    public func configure(deviceType: SimctlList.DeviceType, caURL: URL?) {
         state = .configuring
-        let command = CreateSimulatorCommand(name: simulatorName, deviceType: deviceType)
+        let command = CreateSimulatorCommand(name: simulatorName, deviceType: deviceType, caURL: caURL)
         commander.run(command: command)
             .receive(on: DispatchQueue.main)
             .map { _ in .stopped(nil) }

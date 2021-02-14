@@ -7,9 +7,11 @@
 
 import iOSSimulator
 import SwiftUI
+import HTTPProxyManager
 
 struct IOSRunView: View {
     @EnvironmentObject var simulator: iOSSimulator
+    @EnvironmentObject var httpProxyManager: HTTPProxyManager
     @State private var isConfigureDisplayed = false
 
     var body: some View {
@@ -34,6 +36,8 @@ struct IOSRunView: View {
             }
             .sheet(isPresented: $isConfigureDisplayed) {
                 IOSConfigureView(isDisplayed: $isConfigureDisplayed)
+                    .environmentObject(simulator)
+                    .environmentObject(httpProxyManager)
             }
         }
     }

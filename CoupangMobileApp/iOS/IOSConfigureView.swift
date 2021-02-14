@@ -7,9 +7,11 @@
 
 import iOSSimulator
 import SwiftUI
+import HTTPProxyManager
 
 struct IOSConfigureView: View {
     @EnvironmentObject var simulator: iOSSimulator
+    @EnvironmentObject var httpProxyManager: HTTPProxyManager
     @State var deviceType: SimctlList.DeviceType = .empty
     var isDisplayed: Binding<Bool>
     private var isDialog: Bool
@@ -36,7 +38,7 @@ struct IOSConfigureView: View {
                 if isDialog {
                     SwiftUI.Button("configure") {
                         isDisplayed.wrappedValue.toggle()
-                        simulator.configure(deviceType: deviceType)
+                        simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
                     }
                     SwiftUI.Button("Cancel") {
                         isDisplayed.wrappedValue.toggle()
@@ -44,7 +46,7 @@ struct IOSConfigureView: View {
                 } else {
                     Button("configure") {
                         isDisplayed.wrappedValue.toggle()
-                        simulator.configure(deviceType: deviceType)
+                        simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
                     }
                     .disabled(deviceType == .empty)
                 }

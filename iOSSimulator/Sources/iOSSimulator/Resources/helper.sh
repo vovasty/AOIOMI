@@ -12,7 +12,7 @@ fi
 shift 1
 
 function start {
-    ${SIMULATOR} boot "$1"
+    ${SIMULATOR} bootstatus "$1" -b
 }
 
 function stop {
@@ -22,6 +22,11 @@ function stop {
 function create {
     ${SIMULATOR} delete "$1" || true
     ${SIMULATOR} create "$1" "$2"
+    start "$1"
+    if [ "$3" != "none" ]; then
+        install_ca "$1" "$3"
+    fi
+    stop "$1"
 }
 
 function list {
@@ -40,31 +45,8 @@ function run_app {
     ${SIMULATOR} launch "$1" "$2"
 }
 
-case "${COMMAND}" in
-        list)
-        list
-        ;;
-        create)
-        create "$1" "$2"
-        ;;
-        start)
-        start "$1"
-        ;;
-        stop)
-        stop "$1"
-        ;;
-        install)
-        install "$1" "$2"
-        ;;
-        get_app_container)
-        get_app_container "$1" "$2" "$3"
-        ;;
-        run_app)
-        run_app "$1" "$2"
-        ;;
-        *)
-        echo "error: wrong command: ${command}"
-        exit 1
-        ;;
-esac
+function install_ca {
+    ${ROOT}/install_cert.py "$1" "$2"
+}
 
+${COMMAND} "$@"
