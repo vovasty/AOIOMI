@@ -20,8 +20,10 @@ struct IOSView: View {
                 ProgressView(title: "Configuring...")
             case .notConfigured:
                 IOSConfigureView()
-            case .started, .stopped, .starting, .stopping:
-                IOSRunView()
+            case .started:
+                IOSAppView()
+            case .stopped, .starting, .stopping:
+                IOSSimulatorView()
             }
         }
     }
