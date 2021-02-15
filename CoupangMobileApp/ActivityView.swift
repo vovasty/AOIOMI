@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ActivityView: View {
     enum ActivityState {
-        case busy(String), error(String, Error?), text(String)
+        case busy(String), error(String, Error), text(String)
     }
 
     @Binding var state: ActivityState

@@ -17,9 +17,9 @@ private struct InstallAppView: View {
     var body: some View {
         switch appManager.state {
         case .installed, .installing, .starting:
-            Button("reinstall app", action: install)
+            Button("Reinstall App", action: install)
         case .notInstalled:
-            Button("install app", action: install)
+            Button("Install App", action: install)
         }
     }
 
@@ -52,7 +52,7 @@ struct IOSAppView: View {
             ActivityView(state: $activityState)
             InstallAppView()
                 .disabled(installAppDisabled)
-            Button("open app") {
+            Button("Open App") {
                 appManager.start()
             }
             .disabled(openAppDisabled)

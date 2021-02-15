@@ -6,15 +6,16 @@
 //
 
 import AndroidEmulator
+import Combine
 import SwiftUI
 
 private struct InstallAppView: View {
     @EnvironmentObject var appManager: AppManager
 
     var body: some View {
-        Button("install apk") {
+        Button("Install App") {
             let dialog = NSOpenPanel()
-            dialog.title = "Choose an apk to install"
+            dialog.title = "Choose an Apk to Install"
             dialog.showsResizeIndicator = true
             dialog.showsHiddenFiles = false
             dialog.allowsMultipleSelection = false
@@ -29,43 +30,30 @@ private struct InstallAppView: View {
     }
 }
 
-private struct RunAppView: View {
-    @EnvironmentObject var appManager: AppManager
-
-    var body: some View {
-        Button("run app") {
-            appManager.start()
-        }
-    }
-}
-
 private struct PCIDView: View {
     @EnvironmentObject var appManager: AppManager
-    let pcid: String?
-
     var body: some View {
-        if let pcid = pcid {
-            HStack(spacing: 8) {
-                Text("PCID")
-                    .font(Font.caption.weight(.bold))
+        HStack(spacing: 8) {
+            Text("PCID")
+                .font(Font.caption.weight(.bold))
+            if let pcid = appManager.pcid {
                 Text(pcid)
                     .font(.caption)
                     .frame(maxWidth: 50)
                     .lineLimit(1)
                     .truncationMode(.middle)
-                SwiftUI.Button(action: {
+                SwiftUI.Button("copy") {
                     let pasteboard = NSPasteboard.general
                     pasteboard.declareTypes([.string], owner: nil)
                     pasteboard.setString(pcid, forType: .string)
-                }) {
-                    Text("copy")
-                        .font(.caption)
                 }
                 .buttonStyle(DefaultButtonStyle())
-            }
-        } else {
-            HStack(spacing: 8) {
-                Text("Can't get pcid.\nTry to run the app.")
+                .font(.caption)
+            } else {
+                Text("No PCID. Try to Open App.")
+                    .font(.caption)
+                    .frame(maxWidth: 50)
+                    .lineLimit(1)
                 SwiftUI.Button("check") {
                     self.appManager.check()
                 }
@@ -78,45 +66,54 @@ private struct PCIDView: View {
 
 struct AOSAppStateView: View {
     @EnvironmentObject var appManager: AppManager
+    @State private var activityState = ActivityView.ActivityState.text("")
+    @State private var installAppDisabled = false
+    @State private var openAppDisabled = false
 
     var body: some View {
-        switch appManager.state {
-        case .installing:
+        VStack {
+            ActivityView(state: $activityState)
+            PCIDView()
             InstallAppView()
-                .disabled(true)
-            RunAppView()
-                .disabled(true)
-            Text("installing app")
-                .frame(height: 50)
-        case .checking:
-            InstallAppView()
-                .disabled(true)
-            RunAppView()
-                .disabled(true)
-            Text("checking app")
-                .frame(height: 50)
-        case let .notInstalled(error):
-            InstallAppView()
-            RunAppView()
-                .disabled(true)
-            HStack(spacing: 8) {
-                if let error = error {
-                    Text("failed to install apk: \(error.localizedDescription)")
-                } else {
-                    Text("app is not installed")
-                }
-                SwiftUI.Button("check") {
-                    self.appManager.check()
-                }
-                .buttonStyle(DefaultButtonStyle())
-                .font(.caption)
+                .disabled(installAppDisabled)
+            Button("Open App") {
+                appManager.start()
             }
-            .frame(height: 50)
+            .disabled(openAppDisabled)
+        }
+        .onReceive(Just(appManager.state)) { state in
+            switch state {
+            case .notInstalled:
+                installAppDisabled = false
+                openAppDisabled = true
+            case .installed:
+                installAppDisabled = false
+                openAppDisabled = false
+            case .installing, .checking:
+                installAppDisabled = true
+                openAppDisabled = true
+            }
+
+            activityState = state.asActivity
+        }
+    }
+}
+
+private extension AppManager.State {
+    var asActivity: ActivityView.ActivityState {
+        switch self {
+        case let .notInstalled(error):
+            if let error = error {
+                return .error("App is Not Installed", error)
+            } else {
+                return .text("App is Not Installed")
+            }
         case .installed:
-            InstallAppView()
-            RunAppView()
-            PCIDView(pcid: appManager.pcid)
-                .frame(height: 50)
+            return .text("App is Installed")
+        case .installing:
+            return .busy("Installing App...")
+        case .checking:
+            return .busy("Checking App...")
         }
     }
 }
