@@ -35,12 +35,12 @@ struct ImageActivityIndicator: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 32, height: 32)
             if isAnimating {
-                ActivityIndicator()
-                    .frame(width: 60, height: 60)
+                ActivityIndicator(count: 2, width: 1, spacing: 1)
+                    .frame(width: 40, height: 40)
                     .foregroundColor(color)
             }
         }
-        .frame(minWidth: 60, minHeight: 60)
+        .frame(minWidth: 42, minHeight: 42)
     }
 }
 
