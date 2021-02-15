@@ -16,7 +16,7 @@ struct AOSView: View {
 
     var body: some View {
         VStack {
-            ActivityView(state: $activityState)
+            ActivityView(style: .aos, state: $activityState)
             switch emulator.state {
             case .notConfigured:
                 Button("Configure") {

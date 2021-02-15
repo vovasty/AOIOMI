@@ -15,7 +15,7 @@ struct IOSView: View {
 
     var body: some View {
         VStack {
-            ActivityView(state: $activityState)
+            ActivityView(style: .ios, state: $activityState)
             switch simulator.state {
             case .notConfigured:
                 IOSConfigureView()

@@ -110,7 +110,7 @@ public class AndroidEmulator: ObservableObject {
     private func checkEmulatorState() -> AnyPublisher<State, Never> {
         commander.run(command: IsCreatedCommand())
             .map { _ -> State in .checking }
-            .catch { error in Just(.notConfigured(error)) }
+            .catch { _ in Just(.notConfigured(nil)) }
             .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
                     return Just(.stopped(nil))

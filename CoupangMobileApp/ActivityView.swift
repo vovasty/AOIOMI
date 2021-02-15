@@ -13,18 +13,24 @@ struct ActivityView: View {
         case busy(String), error(String, Error), text(String)
     }
 
-    @Binding var state: ActivityState
+    private let style: ImageActivityIndicator.Style
+    private var state: Binding<ActivityState>
     @State private var isAnimating: Bool = true
+    @State private var isLogoVisible: Bool = true
+
+    init(style: ImageActivityIndicator.Style, state: Binding<ActivityState>) {
+        self.state = state
+        self.style = style
+    }
 
     var body: some View {
         VStack {
             ZStack {
-                ProgressIndicator(controlSize: .regular,
-                                  isDisplayedWhenStopped: false,
-                                  style: .constant(.spinning),
-                                  isAnimating: $isAnimating)
+                if isLogoVisible {
+                    ImageActivityIndicator(style: style, isAnimating: isAnimating)
+                }
                 VStack {
-                    switch state {
+                    switch state.wrappedValue {
                     case .busy:
                         ErrorView(error: nil)
                     case .text:
@@ -34,7 +40,7 @@ struct ActivityView: View {
                     }
                 }
             }
-            switch state {
+            switch state.wrappedValue {
             case let .busy(text):
                 Text(text)
             case let .text(text):
@@ -43,12 +49,17 @@ struct ActivityView: View {
                 Text(text)
             }
         }
-        .frame(minHeight: 50, maxHeight: 50)
+        .frame(minHeight: 80, maxHeight: 80)
         .onReceive(Just(state)) { _ in
-            switch state {
+            switch state.wrappedValue {
             case .busy:
+                isLogoVisible = true
                 isAnimating = true
-            case .error, .text:
+            case .error:
+                isLogoVisible = false
+                isAnimating = false
+            case .text:
+                isLogoVisible = true
                 isAnimating = false
             }
         }
@@ -57,9 +68,10 @@ struct ActivityView: View {
 
 struct ActivityView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityView(state: .constant(.busy("busy...")))
-        ActivityView(state: .constant(.error("error", NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "terrible error terrible error terrible error terrible error terrible error terrible error"]))))
+        ActivityView(style: .ios, state: .constant(.busy("busy...")))
+        ActivityView(style: .ios, state: .constant(.error("error", NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "terrible error terrible error terrible error terrible error terrible error terrible error"]))))
             .frame(width: 100)
-        ActivityView(state: .constant(.text("text")))
+        ActivityView(style: .ios, state: .constant(.text("text")))
+        ActivityView(style: .aos, state: .constant(.text("text")))
     }
 }
