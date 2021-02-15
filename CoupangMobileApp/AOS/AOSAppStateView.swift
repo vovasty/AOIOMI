@@ -13,20 +13,27 @@ private struct InstallAppView: View {
     @EnvironmentObject var appManager: AppManager
 
     var body: some View {
-        Button("Install App") {
-            let dialog = NSOpenPanel()
-            dialog.title = "Choose an Apk to Install"
-            dialog.showsResizeIndicator = true
-            dialog.showsHiddenFiles = false
-            dialog.allowsMultipleSelection = false
-            dialog.canChooseDirectories = false
-            dialog.allowedFileTypes = ["apk"]
-
-            guard dialog.runModal() == .OK else { return }
-
-            guard let path = dialog.url else { return }
-            appManager.install(apk: path)
+        switch appManager.state {
+        case .installed, .installing, .checking:
+            Button("Reinstall App", action: install)
+        case .notInstalled:
+            Button("Install App", action: install)
         }
+    }
+
+    private func install() {
+        let dialog = NSOpenPanel()
+        dialog.title = "Choose an Apk to Install"
+        dialog.showsResizeIndicator = true
+        dialog.showsHiddenFiles = false
+        dialog.allowsMultipleSelection = false
+        dialog.canChooseDirectories = false
+        dialog.allowedFileTypes = ["apk"]
+
+        guard dialog.runModal() == .OK else { return }
+
+        guard let path = dialog.url else { return }
+        appManager.install(apk: path)
     }
 }
 
