@@ -58,7 +58,7 @@ private struct PCIDView: View {
                 .buttonStyle(DefaultButtonStyle())
                 .font(.caption)
             } else {
-                Text("No PCID. Try to Open App.")
+                Text("Not Available.")
                     .font(.caption)
                     .frame(maxWidth: 50)
                     .lineLimit(1)

@@ -28,7 +28,7 @@ struct IOSSimulatorView: View {
                 isConfigureDisplayed.toggle()
             }
             .sheet(isPresented: $isConfigureDisplayed) {
-                IOSConfigureView(isDisplayed: $isConfigureDisplayed)
+                IOSConfigureDialogView(isDisplayed: $isConfigureDisplayed)
                     .environmentObject(simulator)
                     .environmentObject(httpProxyManager)
             }

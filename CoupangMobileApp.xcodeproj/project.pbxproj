@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
 		B403454125D7682400C2146D /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403454025D7682400C2146D /* AppManager.swift */; };
+		B4113DC625DB2A1900B92783 /* IOSConfigureDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */; };
 		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
 		B4884EC425DA4CA100FBFAD0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */; };
@@ -67,6 +68,7 @@
 /* Begin PBXFileReference section */
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B403454025D7682400C2146D /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureDialogView.swift; sourceTree = "<group>"; };
 		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
 		B46D02452584072800076EDE /* AndroidEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AndroidEmulator; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			children = (
 				B4F3F17F25D5E974006ADB7A /* IOSView.swift */,
 				B4F3F18F25D5EF1F006ADB7A /* IOSConfigureView.swift */,
+				B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */,
 				B4F3F19325D5FBE5006ADB7A /* IOSSimulatorView.swift */,
 				B4F3F19725D5FD46006ADB7A /* IOSAppView.swift */,
 				B4D225B525D854DB00746557 /* IOSHTTPProxyManager.swift */,
@@ -370,6 +373,7 @@
 				B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */,
 				B4D225B625D854DB00746557 /* IOSHTTPProxyManager.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
+				B4113DC625DB2A1900B92783 /* IOSConfigureDialogView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
 				B4F7E26425D9D3EF007D118D /* ActivityView.swift in Sources */,
 				B4F3F19825D5FD46006ADB7A /* IOSAppView.swift in Sources */,

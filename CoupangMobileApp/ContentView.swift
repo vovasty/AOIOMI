@@ -28,13 +28,14 @@ struct ContentView: View {
             switch segment {
             case .aos:
                 AOSView()
-                    .frame(width: 200, height: 200)
+                    .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity)
             case .ios:
                 IOSView()
-                    .frame(width: 200, height: 200)
+                    .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity)
             }
         }
         .padding()
+        .frame(width: 240, height: 240)
         .onAppear {
             simulator.check()
             emulator.check()
