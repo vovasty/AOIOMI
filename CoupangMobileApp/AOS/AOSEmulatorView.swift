@@ -13,12 +13,11 @@ import SwiftUI
 struct AOSEmulatorView: View {
     @EnvironmentObject var emulator: AndroidEmulator
     @EnvironmentObject var proxyManager: HTTPProxyManager
-    @State private var activityState = ActivityView.ActivityState.text("")
+    @Binding var activityState: ActivityView.ActivityState
     @State private var startDisabled = false
 
     var body: some View {
         VStack {
-            ActivityView(state: $activityState)
             Button("Start") {
                 emulator.start()
             }
@@ -70,6 +69,25 @@ private extension AndroidEmulator.State {
 
 struct AOSEmulatorView_Previews: PreviewProvider {
     static var previews: some View {
-        AOSEmulatorView().environmentObject(try! AndroidEmulator())
+        let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
+
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .configuring))
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .checking))
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .stopped(nil)))
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .stopped(error)))
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .stopping))
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .notConfigured(nil)))
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .notConfigured(error)))
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .starting))
+        AOSEmulatorView(activityState: .constant(.text("some")))
+            .environmentObject(AndroidEmulator.preview(state: .started))
     }
 }

@@ -5,21 +5,24 @@
 //  Created by vlsolome on 2/11/21.
 //
 
+import HTTPProxyManager
 import iOSSimulator
 import SwiftUI
 
 struct IOSView: View {
     @EnvironmentObject var simulator: iOSSimulator
+    @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
-        ZStack {
+        VStack {
+            ActivityView(state: $activityState)
             switch simulator.state {
             case .notConfigured:
                 IOSConfigureView()
             case .started:
-                IOSAppView()
+                IOSAppView(activityState: $activityState)
             case .stopped, .starting, .stopping, .configuring, .checking:
-                IOSSimulatorView()
+                IOSSimulatorView(activityState: $activityState)
             }
         }
     }
@@ -28,5 +31,7 @@ struct IOSView: View {
 struct IOSView_Previews: PreviewProvider {
     static var previews: some View {
         IOSView()
+            .environmentObject(AppManager.preview(state: .notInstalled(nil)))
+            .environmentObject(HTTPProxyManager.preview())
     }
 }

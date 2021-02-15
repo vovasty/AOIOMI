@@ -28,7 +28,7 @@ struct IOSConfigureView: View {
 
     var body: some View {
         VStack(alignment: isDialog ? .trailing : .center) {
-            Picker("device", selection: $deviceType) {
+            Picker("Device", selection: $deviceType) {
                 ForEach(simulator.deviceTypes, id: \.self) {
                     Text($0.name)
                 }
@@ -36,7 +36,7 @@ struct IOSConfigureView: View {
             .pickerStyle(DefaultPickerStyle())
             HStack {
                 if isDialog {
-                    SwiftUI.Button("configure") {
+                    SwiftUI.Button("Configure") {
                         isDisplayed.wrappedValue.toggle()
                         simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
                     }
@@ -44,7 +44,7 @@ struct IOSConfigureView: View {
                         isDisplayed.wrappedValue.toggle()
                     }
                 } else {
-                    Button("configure") {
+                    Button("Configure") {
                         isDisplayed.wrappedValue.toggle()
                         simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
                     }

@@ -8,6 +8,7 @@
 import AndroidEmulator
 import Combine
 import SwiftUI
+import SWXMLHash
 
 private struct InstallAppView: View {
     @EnvironmentObject var appManager: AppManager
@@ -73,13 +74,13 @@ private struct PCIDView: View {
 
 struct AOSAppStateView: View {
     @EnvironmentObject var appManager: AppManager
-    @State private var activityState = ActivityView.ActivityState.text("")
+    @Binding var activityState: ActivityView.ActivityState
+
     @State private var installAppDisabled = false
     @State private var openAppDisabled = false
 
     var body: some View {
         VStack {
-            ActivityView(state: $activityState)
             PCIDView()
             InstallAppView()
                 .disabled(installAppDisabled)
@@ -126,7 +127,29 @@ private extension AppManager.State {
 }
 
 struct AOSAppStateView_Previews: PreviewProvider {
+    static var xml: XMLIndexer {
+        let xmlString = """
+        <map>
+          <string name="wl_pcid">1234567890</string>
+        </map>
+        """
+        return SWXMLHash.config {
+            config in
+            config.shouldProcessLazily = true
+        }.parse(xmlString.data(using: .utf8)!)
+    }
+
     static var previews: some View {
-        AOSAppStateView()
+        let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
+        AOSAppStateView(activityState: .constant(.text("some")))
+            .environmentObject(AppManager.preview(state: .checking))
+        AOSAppStateView(activityState: .constant(.text("some")))
+            .environmentObject(AppManager.preview(state: .notInstalled(nil)))
+        AOSAppStateView(activityState: .constant(.text("some")))
+            .environmentObject(AppManager.preview(state: .notInstalled(error)))
+        AOSAppStateView(activityState: .constant(.text("some")))
+            .environmentObject(AppManager.preview(state: .installing))
+        AOSAppStateView(activityState: .constant(.text("some")))
+            .environmentObject(AppManager.preview(state: .installed(xml)))
     }
 }

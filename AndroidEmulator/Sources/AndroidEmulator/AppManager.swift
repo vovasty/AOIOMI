@@ -113,3 +113,13 @@ public class AppManager: ObservableObject {
             .eraseToAnyPublisher()
     }
 }
+
+#if DEBUG
+    public extension AppManager {
+        static func preview(state: State = .checking) -> AppManager {
+            let manager = AppManager(activityId: "test", packageId: "test", preferencesPath: "test")
+            manager.state = state
+            return manager
+        }
+    }
+#endif

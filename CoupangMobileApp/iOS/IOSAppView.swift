@@ -42,14 +42,14 @@ private struct InstallAppView: View {
 struct IOSAppView: View {
     @EnvironmentObject var appManager: AppManager
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
+    @Binding var activityState: ActivityView.ActivityState
+
     @State private var dragOver = false
-    @State private var activityState = ActivityView.ActivityState.text("")
     @State private var openAppDisabled = false
     @State private var installAppDisabled = false
 
     var body: some View {
         VStack {
-            ActivityView(state: $activityState)
             InstallAppView()
                 .disabled(installAppDisabled)
             Button("Open App") {
@@ -112,13 +112,14 @@ private extension AppManager.State {
 struct IOSAppStateView_Previews: PreviewProvider {
     static var previews: some View {
         let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
-        IOSAppView()
+
+        IOSAppView(activityState: .constant(.text("some")))
             .environmentObject(AppManager.preview(state: .installed(nil)))
             .environmentObject(HTTPProxyManager.preview())
-        IOSAppView()
+        IOSAppView(activityState: .constant(.text("some")))
             .environmentObject(AppManager.preview(state: .notInstalled(error)))
             .environmentObject(HTTPProxyManager.preview())
-        IOSAppView()
+        IOSAppView(activityState: .constant(.text("some")))
             .environmentObject(AppManager.preview(state: .installed(error)))
             .environmentObject(HTTPProxyManager.preview())
         InstallAppView()

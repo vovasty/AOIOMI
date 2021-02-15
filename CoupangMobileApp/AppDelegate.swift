@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_: Notification) {
         // Create the SwiftUI view that provides the window contents.
-        emulator = try! AndroidEmulator()
+        emulator = AndroidEmulator()
         let simulatorId = (Bundle.main.bundleIdentifier ?? "com.coupang.CoupangMobile") + ".Simulator"
         simulator = iOSSimulator(simulatorName: simulatorId)
         let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")

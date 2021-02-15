@@ -32,7 +32,7 @@ public class AndroidEmulator: ObservableObject {
     private var process: SwiftShell.AsyncCommand?
     private var cancellables = Set<AnyCancellable>()
 
-    public init() throws {
+    public init() {
         commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
     }
 
@@ -132,3 +132,13 @@ public class AndroidEmulator: ObservableObject {
             .eraseToAnyPublisher()
     }
 }
+
+#if DEBUG
+    public extension AndroidEmulator {
+        static func preview(state: State = .stopped(nil)) -> AndroidEmulator {
+            let emulator = AndroidEmulator()
+            emulator.state = state
+            return emulator
+        }
+    }
+#endif

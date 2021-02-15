@@ -12,19 +12,20 @@ import SwiftUI
 struct AOSView: View {
     @EnvironmentObject var emulator: AndroidEmulator
     @EnvironmentObject var proxyManager: HTTPProxyManager
+    @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
         VStack {
+            ActivityView(state: $activityState)
             switch emulator.state {
-            case let .notConfigured(error):
-                ErrorView(error: error)
+            case .notConfigured:
                 Button("Configure") {
                     emulator.configure(proxy: proxyManager.proxy(type: .aos)?.asString, caPath: proxyManager.caURL)
                 }
             case .started:
-                AOSAppStateView()
+                AOSAppStateView(activityState: $activityState)
             case .stopped, .starting, .stopping, .checking, .configuring:
-                AOSEmulatorView()
+                AOSEmulatorView(activityState: $activityState)
             }
         }
     }

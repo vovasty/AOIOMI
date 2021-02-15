@@ -13,13 +13,13 @@ import SwiftUI
 struct IOSSimulatorView: View {
     @EnvironmentObject var simulator: iOSSimulator
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
+    @Binding var activityState: ActivityView.ActivityState
+
     @State private var isConfigureDisplayed = false
-    @State private var activityState = ActivityView.ActivityState.text("")
     @State private var startDisabled = false
 
     var body: some View {
         VStack {
-            ActivityView(state: $activityState)
             Button("Start") {
                 simulator.start()
             }
@@ -73,11 +73,11 @@ private extension iOSSimulator.State {
 struct IOSSimulatorView_Previews: PreviewProvider {
     static var previews: some View {
         let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "super mega error"])
-        IOSSimulatorView()
+        IOSSimulatorView(activityState: .constant(.text("some")))
             .environmentObject(iOSSimulator.preview(state: .stopped(nil)))
-        IOSSimulatorView()
+        IOSSimulatorView(activityState: .constant(.text("some")))
             .environmentObject(iOSSimulator.preview(state: .stopped(error)))
-        IOSSimulatorView()
+        IOSSimulatorView(activityState: .constant(.text("some")))
             .environmentObject(iOSSimulator.preview(state: .starting))
     }
 }
