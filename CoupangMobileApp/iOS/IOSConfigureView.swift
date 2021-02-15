@@ -27,15 +27,16 @@ struct IOSConfigureView: View {
     }
 
     var body: some View {
-        VStack(alignment: isDialog ? .trailing : .center) {
+        VStack(alignment: .trailing) {
             Picker("Device", selection: $deviceType) {
                 ForEach(simulator.deviceTypes, id: \.self) {
                     Text($0.name)
                 }
             }
             .pickerStyle(DefaultPickerStyle())
-            HStack {
-                if isDialog {
+
+            if isDialog {
+                HStack {
                     SwiftUI.Button("Configure") {
                         isDisplayed.wrappedValue.toggle()
                         simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
@@ -43,13 +44,16 @@ struct IOSConfigureView: View {
                     SwiftUI.Button("Cancel") {
                         isDisplayed.wrappedValue.toggle()
                     }
-                } else {
-                    Button("Configure") {
-                        isDisplayed.wrappedValue.toggle()
-                        simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
-                    }
-                    .disabled(deviceType == .empty)
                 }
+            } else {
+                SwiftUI.Button(action: {
+                    isDisplayed.wrappedValue.toggle()
+                    simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
+                }) {
+                    Text("Configure")
+                        .frame(width: 126)
+                }
+                .disabled(deviceType == .empty)
             }
         }
         .frame(maxWidth: 200)
