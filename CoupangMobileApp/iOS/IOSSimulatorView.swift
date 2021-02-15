@@ -20,11 +20,11 @@ struct IOSSimulatorView: View {
     var body: some View {
         VStack {
             ActivityView(state: $activityState)
-            Button("start") {
+            Button("Start") {
                 simulator.start()
             }
             .disabled(startDisabled)
-            Button("reconfigure") {
+            Button("Reconfigure") {
                 isConfigureDisplayed.toggle()
             }
             .sheet(isPresented: $isConfigureDisplayed) {

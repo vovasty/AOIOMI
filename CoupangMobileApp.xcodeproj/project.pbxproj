@@ -11,7 +11,7 @@
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
 		B403454125D7682400C2146D /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403454025D7682400C2146D /* AppManager.swift */; };
 		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
-		B452EB1D25336CB6003968FC /* AOSRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSRunView.swift */; };
+		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
 		B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769C253114D100962CC1 /* AppDelegate.swift */; };
 		B4A9769F253114D100962CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769E253114D100962CC1 /* ContentView.swift */; };
 		B4A976A1253114D200962CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A0253114D200962CC1 /* Assets.xcassets */; };
@@ -69,7 +69,7 @@
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B403454025D7682400C2146D /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
-		B452EB1C25336CB6003968FC /* AOSRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRunView.swift; sourceTree = "<group>"; };
+		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
 		B46D02452584072800076EDE /* AndroidEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AndroidEmulator; sourceTree = "<group>"; };
 		B4A97699253114D100962CC1 /* CoupangMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoupangMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A9769C253114D100962CC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			children = (
 				B403454025D7682400C2146D /* AppManager.swift */,
 				B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */,
-				B452EB1C25336CB6003968FC /* AOSRunView.swift */,
+				B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */,
 				B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */,
 				B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */,
 			);
@@ -366,7 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B449209F258D4F6A00457272 /* Button.swift in Sources */,
-				B452EB1D25336CB6003968FC /* AOSRunView.swift in Sources */,
+				B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */,
 				B4D225B625D854DB00746557 /* IOSHTTPProxyManager.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,

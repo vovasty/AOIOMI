@@ -16,17 +16,15 @@ struct AOSView: View {
     var body: some View {
         VStack {
             switch emulator.state {
-            case .checking:
-                ProgressView(title: "Checking...")
-            case .configuring:
-                ProgressView(title: "Configuring...")
             case let .notConfigured(error):
                 ErrorView(error: error)
-                Button("configure") {
+                Button("Configure") {
                     emulator.configure(proxy: proxyManager.proxy(type: .aos)?.asString, caPath: proxyManager.caURL)
                 }
-            case .started, .stopped, .starting, .stopping:
-                AOSRunView()
+            case .started:
+                AOSAppStateView()
+            case .stopped, .starting, .stopping, .checking, .configuring:
+                AOSEmulatorView()
             }
         }
     }
