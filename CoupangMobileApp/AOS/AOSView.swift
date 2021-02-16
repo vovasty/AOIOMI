@@ -5,12 +5,12 @@
 //  Created by vlsolome on 2/11/21.
 //
 
-import AndroidEmulator
+import AOSEmulator
 import HTTPProxyManager
 import SwiftUI
 
 struct AOSView: View {
-    @EnvironmentObject var emulator: AndroidEmulator
+    @EnvironmentObject var emulator: AOSEmulator
     @EnvironmentObject var proxyManager: HTTPProxyManager
     @State private var activityState = ActivityView.ActivityState.text("")
 

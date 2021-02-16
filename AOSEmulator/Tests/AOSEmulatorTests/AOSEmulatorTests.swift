@@ -1,9 +1,9 @@
-@testable import AndroidEmulator
+@testable import AOSEmulator
 import XCTest
 
-final class AndroidEmulatorTests: XCTestCase {
+final class AOSEmulatorTests: XCTestCase {
     func testExample() throws {
-        let x = try AndroidEmulator()
+        let x = AOSEmulator()
         x.start()
         print("1")
     }

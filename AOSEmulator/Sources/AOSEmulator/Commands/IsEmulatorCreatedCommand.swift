@@ -8,7 +8,7 @@
 import CommandPublisher
 import Foundation
 
-struct IsCreatedCommand: Command {
+struct IsEmulatorCreatedCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]? = ["is_created"]
     func parse(stdout _: [String]) throws {

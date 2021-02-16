@@ -3,14 +3,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "AndroidEmulator",
+    name: "AOSEmulator",
     platforms: [
         .macOS(.v10_15),
     ],
     products: [
         .library(
-            name: "AndroidEmulator",
-            targets: ["AndroidEmulator"]
+            name: "AOSEmulator",
+            targets: ["AOSEmulator"]
         ),
     ],
     dependencies: [
@@ -20,7 +20,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "AndroidEmulator",
+            name: "AOSEmulator",
             dependencies: ["SwiftShell", "SWXMLHash", "CommandPublisher"],
             exclude: ["emulator"],
             resources: [
@@ -29,8 +29,8 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "AndroidEmulatorTests",
-            dependencies: ["AndroidEmulator"]
+            name: "AOSEmulatorTests",
+            dependencies: ["AOSEmulator"]
         ),
     ]
 )

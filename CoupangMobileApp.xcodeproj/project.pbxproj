@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
 		B403454125D7682400C2146D /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403454025D7682400C2146D /* AppManager.swift */; };
+		B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B40942C625DB985F005CBEB3 /* AOSEmulator */; };
 		B4113DC625DB2A1900B92783 /* IOSConfigureDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */; };
 		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
@@ -21,7 +22,6 @@
 		B4A976A7253114D200962CC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A5253114D200962CC1 /* Main.storyboard */; };
 		B4A976B3253114D300962CC1 /* CoupangMobileAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976B2253114D300962CC1 /* CoupangMobileAppTests.swift */; };
 		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
-		B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4A976E0253116C900962CC1 /* AndroidEmulator */; };
 		B4C0A8D2258D3F1B007886B8 /* AOSAppStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C0A8D1258D3F1B007886B8 /* AOSAppStateView.swift */; };
 		B4D225B225D8530C00746557 /* HTTPProxyManager in Frameworks */ = {isa = PBXBuildFile; productRef = B4D225B125D8530C00746557 /* HTTPProxyManager */; };
 		B4D225B625D854DB00746557 /* IOSHTTPProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D225B525D854DB00746557 /* IOSHTTPProxyManager.swift */; };
@@ -68,10 +68,10 @@
 /* Begin PBXFileReference section */
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B403454025D7682400C2146D /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		B40942C325DB97F8005CBEB3 /* AOSEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulator; sourceTree = "<group>"; };
 		B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureDialogView.swift; sourceTree = "<group>"; };
 		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
-		B46D02452584072800076EDE /* AndroidEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AndroidEmulator; sourceTree = "<group>"; };
 		B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		B4884EC725DA4D2B00FBFAD0 /* ImageActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageActivityIndicator.swift; sourceTree = "<group>"; };
 		B4A97699253114D100962CC1 /* CoupangMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoupangMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,8 +106,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4A976E1253116C900962CC1 /* AndroidEmulator in Frameworks */,
 				B4D225B225D8530C00746557 /* HTTPProxyManager in Frameworks */,
+				B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */,
 				B4F3F17825D5E35C006ADB7A /* iOSSimulator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,9 +144,9 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B40942C325DB97F8005CBEB3 /* AOSEmulator */,
 				B4D225AE25D852FB00746557 /* HTTPProxyManager */,
 				B4F3F17425D5E34D006ADB7A /* iOSSimulator */,
-				B46D02452584072800076EDE /* AndroidEmulator */,
 				B4A9769B253114D100962CC1 /* CoupangMobileApp */,
 				B4A976B1253114D300962CC1 /* CoupangMobileAppTests */,
 				B4A976BC253114D300962CC1 /* CoupangMobileAppUITests */,
@@ -250,9 +250,9 @@
 			);
 			name = CoupangMobileApp;
 			packageProductDependencies = (
-				B4A976E0253116C900962CC1 /* AndroidEmulator */,
 				B4F3F17725D5E35C006ADB7A /* iOSSimulator */,
 				B4D225B125D8530C00746557 /* HTTPProxyManager */,
+				B40942C625DB985F005CBEB3 /* AOSEmulator */,
 			);
 			productName = CoupangMobileApp;
 			productReference = B4A97699253114D100962CC1 /* CoupangMobileApp.app */;
@@ -717,9 +717,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B4A976E0253116C900962CC1 /* AndroidEmulator */ = {
+		B40942C625DB985F005CBEB3 /* AOSEmulator */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = AndroidEmulator;
+			productName = AOSEmulator;
 		};
 		B4D225B125D8530C00746557 /* HTTPProxyManager */ = {
 			isa = XCSwiftPackageProductDependency;

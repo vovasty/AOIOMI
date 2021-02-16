@@ -8,7 +8,7 @@
 import CommandPublisher
 import Foundation
 
-struct StartCommand: AsyncCommand {
+struct StartEmulatorCommand: AsyncCommand {
     var executable: Executable = .helper
     let parameters: [String]? = ["start"]
 }

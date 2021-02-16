@@ -5,7 +5,7 @@
 //  Created by vlsolome on 2/12/21.
 //
 
-import AndroidEmulator
+import AOSEmulator
 import Foundation
 
 extension AppManager {

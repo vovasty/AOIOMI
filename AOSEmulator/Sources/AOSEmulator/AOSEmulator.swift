@@ -10,7 +10,7 @@ import CommandPublisher
 import SwiftShell
 import SwiftUI
 
-public class AndroidEmulator: ObservableObject {
+public class AOSEmulator: ObservableObject {
     public enum State {
         case started, starting, stopped(Swift.Error?), stopping, configuring, checking, notConfigured(Swift.Error?)
     }
@@ -92,7 +92,7 @@ public class AndroidEmulator: ObservableObject {
     }
 
     private func startEmulator() -> AnyPublisher<Void, Swift.Error> {
-        process = commander.run(command: StartCommand())
+        process = commander.run(command: StartEmulatorCommand())
         process?.onCompletion { _ in
             DispatchQueue.main.async { [weak self] in
                 self?.state = .stopped(nil)
@@ -108,7 +108,7 @@ public class AndroidEmulator: ObservableObject {
     }
 
     private func checkEmulatorState() -> AnyPublisher<State, Never> {
-        commander.run(command: IsCreatedCommand())
+        commander.run(command: IsEmulatorCreatedCommand())
             .map { _ -> State in .checking }
             .catch { _ in Just(.notConfigured(nil)) }
             .flatMap { [weak self] state -> AnyPublisher<State, Never> in
@@ -134,9 +134,9 @@ public class AndroidEmulator: ObservableObject {
 }
 
 #if DEBUG
-    public extension AndroidEmulator {
-        static func preview(state: State = .stopped(nil)) -> AndroidEmulator {
-            let emulator = AndroidEmulator()
+    public extension AOSEmulator {
+        static func preview(state: State = .stopped(nil)) -> AOSEmulator {
+            let emulator = AOSEmulator()
             emulator.state = state
             return emulator
         }

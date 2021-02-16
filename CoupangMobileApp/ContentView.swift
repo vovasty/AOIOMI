@@ -5,7 +5,7 @@
 //  Created by vlsolome on 10/9/20.
 //
 
-import AndroidEmulator
+import AOSEmulator
 import iOSSimulator
 import SwiftUI
 
@@ -14,7 +14,7 @@ struct ContentView: View {
         case aos, ios
     }
 
-    @EnvironmentObject var emulator: AndroidEmulator
+    @EnvironmentObject var emulator: AOSEmulator
     @EnvironmentObject var simulator: iOSSimulator
     @State var segment: Page = .aos
 

@@ -1,4 +1,4 @@
-export INSTALL_DIR = Sources/AndroidEmulator/Resources/emulator
+export INSTALL_DIR = Sources/AOSEmulator/Resources/emulator
 export JAVA_HOME = $(INSTALL_DIR)/jdk
 export ANDROID_SDK_ROOT = $(INSTALL_DIR)/adk
 ANDROID_SDK_TOOLS = $(ANDROID_SDK_ROOT)/cmdline-tools/tools/bin

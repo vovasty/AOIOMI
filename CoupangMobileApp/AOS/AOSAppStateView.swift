@@ -5,7 +5,7 @@
 //  Created by vlsolome on 12/18/20.
 //
 
-import AndroidEmulator
+import AOSEmulator
 import Combine
 import SwiftUI
 import SWXMLHash

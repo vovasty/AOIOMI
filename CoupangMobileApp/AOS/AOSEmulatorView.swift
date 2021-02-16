@@ -5,13 +5,13 @@
 //  Created by vlsolome on 10/11/20.
 //
 
-import AndroidEmulator
+import AOSEmulator
 import Combine
 import HTTPProxyManager
 import SwiftUI
 
 struct AOSEmulatorView: View {
-    @EnvironmentObject var emulator: AndroidEmulator
+    @EnvironmentObject var emulator: AOSEmulator
     @EnvironmentObject var proxyManager: HTTPProxyManager
     @Binding var activityState: ActivityView.ActivityState
     @State private var startDisabled = false
@@ -38,7 +38,7 @@ struct AOSEmulatorView: View {
     }
 }
 
-private extension AndroidEmulator.State {
+private extension AOSEmulator.State {
     var asActivity: ActivityView.ActivityState {
         switch self {
         case .started:
@@ -72,22 +72,22 @@ struct AOSEmulatorView_Previews: PreviewProvider {
         let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
 
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .configuring))
+            .environmentObject(AOSEmulator.preview(state: .configuring))
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .checking))
+            .environmentObject(AOSEmulator.preview(state: .checking))
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .stopped(nil)))
+            .environmentObject(AOSEmulator.preview(state: .stopped(nil)))
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .stopped(error)))
+            .environmentObject(AOSEmulator.preview(state: .stopped(error)))
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .stopping))
+            .environmentObject(AOSEmulator.preview(state: .stopping))
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .notConfigured(nil)))
+            .environmentObject(AOSEmulator.preview(state: .notConfigured(nil)))
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .notConfigured(error)))
+            .environmentObject(AOSEmulator.preview(state: .notConfigured(error)))
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .starting))
+            .environmentObject(AOSEmulator.preview(state: .starting))
         AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AndroidEmulator.preview(state: .started))
+            .environmentObject(AOSEmulator.preview(state: .started))
     }
 }

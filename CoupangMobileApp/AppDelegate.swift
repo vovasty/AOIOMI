@@ -5,7 +5,7 @@
 //  Created by vlsolome on 10/9/20.
 //
 
-import AndroidEmulator
+import AOSEmulator
 import Cocoa
 import Combine
 import HTTPProxyManager
@@ -16,12 +16,11 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
     private var simulator: iOSSimulator!
-    private var emulator: AndroidEmulator!
+    private let emulator: AOSEmulator = AOSEmulator()
     private var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_: Notification) {
         // Create the SwiftUI view that provides the window contents.
-        emulator = AndroidEmulator()
         let simulatorId = (Bundle.main.bundleIdentifier ?? "com.coupang.CoupangMobile") + ".Simulator"
         simulator = iOSSimulator(simulatorName: simulatorId)
         let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
