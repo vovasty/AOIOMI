@@ -33,14 +33,10 @@ public class iOSSimulator: ObservableObject {
 
     public func start() {
         state = .starting
-        let command = BootSimulatorCommand(id: simulatorName)
-        commander.run(command: command)
-            .map { _ in .started }
-            .catch { error in Just(.stopped(error)) }
+        startSimulator()
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
-        SimulatorApp.shared.open()
     }
 
     public func stop() {
@@ -59,8 +55,26 @@ public class iOSSimulator: ObservableObject {
         let command = CreateSimulatorCommand(name: simulatorName, deviceType: deviceType, caURL: caURL)
         commander.run(command: command)
             .receive(on: DispatchQueue.main)
-            .map { _ in .stopped(nil) }
+            .map { _ in State.stopped(nil) }
             .catch { error in Just(.stopped(error)) }
+            .flatMap{ [weak self] state -> AnyPublisher<State, Never> in
+                guard let self = self else {
+                    return Just(state)
+                        .eraseToAnyPublisher()
+                }
+                switch state {
+                case let .stopped(error):
+                    if error != nil {
+                        return Just(state)
+                            .eraseToAnyPublisher()
+                    }
+                    return self.startSimulator()
+                default:
+                    return Just(state)
+                        .eraseToAnyPublisher()
+                }
+            }
+            .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
@@ -91,6 +105,15 @@ public class iOSSimulator: ObservableObject {
             .assign(to: \.deviceTypes, on: self)
             .store(in: &cancellables)
     }
+    
+    private func startSimulator() -> AnyPublisher<State, Never> {
+        SimulatorApp.shared.open()
+        return commander.run(command: BootSimulatorCommand(id: simulatorName))
+            .map { _ in .started }
+            .catch { error in Just(.stopped(error)) }
+            .eraseToAnyPublisher()
+    }
+    
 }
 
 #if DEBUG
