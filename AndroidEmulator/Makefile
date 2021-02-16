@@ -9,30 +9,29 @@ all: structure install-jdk install-adk install-adk-components install-scripts in
 
 .PHONY: install-jdk
 install-jdk: structure
-ifndef JDK
-	$(error JDK is not set)
+ifndef SOURCE_PACKAGES
+	$(error SOURCE_PACKAGES is not set)
 endif
-	cp -r $(JDK) "$(JAVA_HOME)"
+	cp -r $(SOURCE_PACKAGES)/jdk "$(JAVA_HOME)"
 
 .PHONY: structure
 structure:
-	mkdir -p "$(INSTALL_DIR)" "$(INSTALL_DIR)/gapps"
+	mkdir -p "$(INSTALL_DIR)"
 	
 .PHONY: install-scripts
 install-scripts: structure
 ifndef ANDROID_VERSION
 	$(error ANDROID_VERSION is not set)
 endif
-	cp scripts/* $(INSTALL_DIR)/ && \
 	echo ANDROID_VERSION=$(ANDROID_VERSION) > $(INSTALL_DIR)/env.sh
 	
 .PHONY: install-adk
 install-adk: structure
-ifndef ADK
-	$(error ADK is not set)
+ifndef SOURCE_PACKAGES
+	$(error SOURCE_PACKAGES is not set)
 endif
 	mkdir -p "$(ANDROID_SDK_ROOT)/cmdline-tools" && \
-	cp -r $(ADK) "$(ANDROID_SDK_ROOT)/cmdline-tools/tools"
+	cp -r $(SOURCE_PACKAGES)/cmdline-tools "$(ANDROID_SDK_ROOT)/cmdline-tools/tools"
 
 .PHONY: install-adk install-jdk
 install-adk-components: install-adk
@@ -44,10 +43,11 @@ endif
 
 .PHONY: install-gapps
 install-gapps: structure
-ifndef GAPPS
-	$(error GAPPS is not set)
+ifndef SOURCE_PACKAGES
+	$(error SOURCE_PACKAGES is not set)
 endif
-	cp $(GAPPS)/Core/*  $(INSTALL_DIR)/gapps && \
+	mkdir -p "$(INSTALL_DIR)/gapps"
+	cp $(SOURCE_PACKAGES)/open_gapps*/Core/*  $(INSTALL_DIR)/gapps && \
 	cd $(INSTALL_DIR)/gapps && \
 	rm setup* && \
 	lzip -d *.lz && \
