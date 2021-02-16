@@ -33,23 +33,7 @@ public class AppManager: ObservableObject {
 
     public func start() {
         state = .checking
-        commander.run(command: StartAppCommand(activityId: activityId))
-            .map { State.checking }
-            .catch { error in Just(.notInstalled(error)) }
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
-                guard let self = self else {
-                    return Just(.checking)
-                        .eraseToAnyPublisher()
-                }
-                switch state {
-                case .notInstalled:
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                default:
-                    return self.checkAppState()
-                        .eraseToAnyPublisher()
-                }
-            }
+        startApp()
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -70,6 +54,38 @@ public class AppManager: ObservableObject {
             .catch { Just(.notInstalled($0)) }
             .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
+                    return Just(state)
+                        .eraseToAnyPublisher()
+                }
+                switch state {
+                case .notInstalled:
+                    return Just(state)
+                        .eraseToAnyPublisher()
+                default:
+                    return self.checkAppState()
+                        .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+                            guard let self = self else {
+                                return Just(state)
+                                    .eraseToAnyPublisher()
+                            }
+                            return self.startApp()
+                        }
+                        .eraseToAnyPublisher()
+                }
+            }
+            .collect()
+            .map { $0.last ?? .notInstalled(nil) }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.state, on: self)
+            .store(in: &cancellables)
+    }
+
+    private func startApp() -> AnyPublisher<State, Never> {
+        commander.run(command: StartAppCommand(activityId: activityId))
+            .map { State.checking }
+            .catch { error in Just(.notInstalled(error)) }
+            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+                guard let self = self else {
                     return Just(.checking)
                         .eraseToAnyPublisher()
                 }
@@ -79,13 +95,10 @@ public class AppManager: ObservableObject {
                         .eraseToAnyPublisher()
                 default:
                     return self.checkAppState()
+                        .eraseToAnyPublisher()
                 }
             }
-            .collect()
-            .map { $0.last ?? .notInstalled(nil) }
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.state, on: self)
-            .store(in: &cancellables)
+            .eraseToAnyPublisher()
     }
 
     private func checkAppState() -> AnyPublisher<State, Never> {
