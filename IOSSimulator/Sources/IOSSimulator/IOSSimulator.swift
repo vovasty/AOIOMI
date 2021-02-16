@@ -2,7 +2,7 @@ import Combine
 import CommandPublisher
 import SwiftUI
 
-public class iOSSimulator: ObservableObject {
+public class IOSSimulator: ObservableObject {
     enum Error: Swift.Error {
         case notCreated
     }
@@ -57,7 +57,7 @@ public class iOSSimulator: ObservableObject {
             .receive(on: DispatchQueue.main)
             .map { _ in State.stopped(nil) }
             .catch { error in Just(.stopped(error)) }
-            .flatMap{ [weak self] state -> AnyPublisher<State, Never> in
+            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
                     return Just(state)
                         .eraseToAnyPublisher()
@@ -105,7 +105,7 @@ public class iOSSimulator: ObservableObject {
             .assign(to: \.deviceTypes, on: self)
             .store(in: &cancellables)
     }
-    
+
     private func startSimulator() -> AnyPublisher<State, Never> {
         SimulatorApp.shared.open()
         return commander.run(command: BootSimulatorCommand(id: simulatorName))
@@ -113,13 +113,12 @@ public class iOSSimulator: ObservableObject {
             .catch { error in Just(.stopped(error)) }
             .eraseToAnyPublisher()
     }
-    
 }
 
 #if DEBUG
-    public extension iOSSimulator {
-        static func preview(state: State = .stopped(nil), deviceTypes: [SimctlList.DeviceType]? = nil) -> iOSSimulator {
-            let simulator = iOSSimulator(simulatorName: "test")
+    public extension IOSSimulator {
+        static func preview(state: State = .stopped(nil), deviceTypes: [SimctlList.DeviceType]? = nil) -> IOSSimulator {
+            let simulator = IOSSimulator(simulatorName: "test")
             simulator.deviceTypes = deviceTypes ?? []
             simulator.state = state
             return simulator

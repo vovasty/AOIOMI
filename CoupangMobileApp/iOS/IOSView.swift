@@ -6,11 +6,11 @@
 //
 
 import HTTPProxyManager
-import iOSSimulator
+import IOSSimulator
 import SwiftUI
 
 struct IOSView: View {
-    @EnvironmentObject var simulator: iOSSimulator
+    @EnvironmentObject var simulator: IOSSimulator
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {

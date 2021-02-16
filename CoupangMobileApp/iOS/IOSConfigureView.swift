@@ -6,11 +6,11 @@
 //
 
 import HTTPProxyManager
-import iOSSimulator
+import IOSSimulator
 import SwiftUI
 
 struct IOSConfigureView: View {
-    @EnvironmentObject var simulator: iOSSimulator
+    @EnvironmentObject var simulator: IOSSimulator
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
     @State private var deviceType: SimctlList.DeviceType = .empty
 
@@ -36,7 +36,7 @@ struct IOSConfigureView: View {
     struct IOSConfigureView_Previews: PreviewProvider {
         static var previews: some View {
             IOSConfigureView()
-                .environmentObject(iOSSimulator.preview(deviceTypes: [
+                .environmentObject(IOSSimulator.preview(deviceTypes: [
                     SimctlList.DeviceType(name: "iPhone"),
                     SimctlList.DeviceType(name: "iPad"),
                 ]))

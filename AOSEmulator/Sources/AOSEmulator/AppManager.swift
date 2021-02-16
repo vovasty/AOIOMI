@@ -83,7 +83,7 @@ public class AppManager: ObservableObject {
     private func startApp() -> AnyPublisher<State, Never> {
         commander.run(command: StartAppCommand(activityId: activityId))
             .map { State.checking }
-            .catch { error in Just(.installed(nil)) }
+            .catch { _ in Just(.installed(nil)) }
             .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
                     return Just(state)

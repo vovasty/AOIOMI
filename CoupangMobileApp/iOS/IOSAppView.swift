@@ -7,7 +7,7 @@
 
 import Combine
 import HTTPProxyManager
-import iOSSimulator
+import IOSSimulator
 import SwiftUI
 
 private struct InstallAppView: View {

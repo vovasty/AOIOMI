@@ -129,7 +129,7 @@ public class AppManager: ObservableObject {
     }
 
     private func startApp() -> AnyPublisher<State, Never> {
-        let command = RunAppcommand(id: simulatorId, bundleId: bundleId)
+        let command = RunAppCommand(id: simulatorId, bundleId: bundleId)
         SimulatorApp.shared.open()
         return commander.run(command: command)
             .map { _ -> State in .installed(nil) }

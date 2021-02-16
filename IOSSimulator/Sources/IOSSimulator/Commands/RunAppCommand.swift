@@ -8,7 +8,7 @@
 import CommandPublisher
 import Foundation
 
-struct RunAppcommand: Command {
+struct RunAppCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]?
 

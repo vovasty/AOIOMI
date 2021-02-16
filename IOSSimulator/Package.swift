@@ -4,14 +4,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "iOSSimulator",
+    name: "IOSSimulator",
     platforms: [
         .macOS(.v10_15),
     ],
     products: [
         .library(
-            name: "iOSSimulator",
-            targets: ["iOSSimulator"]
+            name: "IOSSimulator",
+            targets: ["IOSSimulator"]
         ),
     ],
     dependencies: [
@@ -19,7 +19,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "iOSSimulator",
+            name: "IOSSimulator",
             dependencies: ["CommandPublisher"],
             resources: [
                 .copy("Resources/helper.sh"),
@@ -28,8 +28,8 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "iOSSimulatorTests",
-            dependencies: ["iOSSimulator"]
+            name: "IOSSimulatorTests",
+            dependencies: ["IOSSimulator"]
         ),
     ]
 )

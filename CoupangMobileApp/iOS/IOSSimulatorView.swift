@@ -7,11 +7,11 @@
 
 import Combine
 import HTTPProxyManager
-import iOSSimulator
+import IOSSimulator
 import SwiftUI
 
 struct IOSSimulatorView: View {
-    @EnvironmentObject var simulator: iOSSimulator
+    @EnvironmentObject var simulator: IOSSimulator
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
     @Binding var activityState: ActivityView.ActivityState
 
@@ -45,7 +45,7 @@ struct IOSSimulatorView: View {
     }
 }
 
-private extension iOSSimulator.State {
+private extension IOSSimulator.State {
     var asActivity: ActivityView.ActivityState {
         switch self {
         case let .stopped(error):
@@ -74,10 +74,10 @@ struct IOSSimulatorView_Previews: PreviewProvider {
     static var previews: some View {
         let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "super mega error"])
         IOSSimulatorView(activityState: .constant(.text("some")))
-            .environmentObject(iOSSimulator.preview(state: .stopped(nil)))
+            .environmentObject(IOSSimulator.preview(state: .stopped(nil)))
         IOSSimulatorView(activityState: .constant(.text("some")))
-            .environmentObject(iOSSimulator.preview(state: .stopped(error)))
+            .environmentObject(IOSSimulator.preview(state: .stopped(error)))
         IOSSimulatorView(activityState: .constant(.text("some")))
-            .environmentObject(iOSSimulator.preview(state: .starting))
+            .environmentObject(IOSSimulator.preview(state: .starting))
     }
 }

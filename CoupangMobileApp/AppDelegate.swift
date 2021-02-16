@@ -9,20 +9,20 @@ import AOSEmulator
 import Cocoa
 import Combine
 import HTTPProxyManager
-import iOSSimulator
+import IOSSimulator
 import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
-    private var simulator: iOSSimulator!
-    private let emulator: AOSEmulator = AOSEmulator()
+    private var simulator: IOSSimulator!
+    private let emulator = AOSEmulator()
     private var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_: Notification) {
         // Create the SwiftUI view that provides the window contents.
         let simulatorId = (Bundle.main.bundleIdentifier ?? "com.coupang.CoupangMobile") + ".Simulator"
-        simulator = iOSSimulator(simulatorName: simulatorId)
+        simulator = IOSSimulator(simulatorName: simulatorId)
         let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
         let aosAppManager = AppManager(activityId: "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity", packageId: "com.coupang.mobile", preferencesPath: "/data/data/com.coupang.mobile/shared_prefs/com.coupang.mobile_preferences.xml")
         let httpProxyManager = HTTPProxyManager()

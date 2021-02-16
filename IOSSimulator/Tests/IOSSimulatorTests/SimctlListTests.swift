@@ -1,7 +1,7 @@
-@testable import iOSSimulator
+@testable import IOSSimulator
 import XCTest
 
-final class iOSSimulatorTests: XCTestCase {
+final class IOSSimulatorTests: XCTestCase {
     func testDeviceState() throws {
         let expected: [SimctlList.DeviceState] = [.shutdown, .booted, .unknown("junk")]
         let json = """

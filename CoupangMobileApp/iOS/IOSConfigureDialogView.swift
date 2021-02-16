@@ -6,11 +6,11 @@
 //
 
 import HTTPProxyManager
-import iOSSimulator
+import IOSSimulator
 import SwiftUI
 
 struct IOSConfigureDialogView: View {
-    @EnvironmentObject var simulator: iOSSimulator
+    @EnvironmentObject var simulator: IOSSimulator
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
     @Binding var isDisplayed: Bool
 
@@ -41,7 +41,7 @@ struct IOSConfigureDialogView: View {
 struct IOSConfigureDialogView_Previews: PreviewProvider {
     static var previews: some View {
         IOSConfigureDialogView(isDisplayed: .constant(true))
-            .environmentObject(iOSSimulator.preview(deviceTypes: [
+            .environmentObject(IOSSimulator.preview(deviceTypes: [
                 SimctlList.DeviceType(name: "iPhone"),
                 SimctlList.DeviceType(name: "iPad"),
             ]))

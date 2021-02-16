@@ -7,7 +7,7 @@
 
 import Foundation
 import HTTPProxyManager
-import iOSSimulator
+import IOSSimulator
 
 extension HTTPProxyManager {
     var iosDefaults: AppManager.Defaults? {

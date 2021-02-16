@@ -6,7 +6,7 @@
 //
 
 import AOSEmulator
-import iOSSimulator
+import IOSSimulator
 import SwiftUI
 
 struct ContentView: View {
@@ -15,7 +15,7 @@ struct ContentView: View {
     }
 
     @EnvironmentObject var emulator: AOSEmulator
-    @EnvironmentObject var simulator: iOSSimulator
+    @EnvironmentObject var simulator: IOSSimulator
     @State var segment: Page = .aos
 
     var body: some View {
