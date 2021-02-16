@@ -5,15 +5,15 @@
 //  Created by vlsolome on 2/15/21.
 //
 
-import SwiftUI
-import iOSSimulator
 import HTTPProxyManager
+import iOSSimulator
+import SwiftUI
 
 struct IOSConfigureDialogView: View {
     @EnvironmentObject var simulator: iOSSimulator
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
     @Binding var isDisplayed: Bool
-    
+
     @State private var deviceType: SimctlList.DeviceType = .empty
     var body: some View {
         VStack(alignment: .trailing) {
@@ -24,15 +24,15 @@ struct IOSConfigureDialogView: View {
             }
             .pickerStyle(DefaultPickerStyle())
 
-                HStack {
-                    SwiftUI.Button("Configure") {
-                        isDisplayed.toggle()
-                        simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
-                    }
-                    SwiftUI.Button("Cancel") {
-                        isDisplayed.toggle()
-                    }
+            HStack {
+                SwiftUI.Button("Configure") {
+                    isDisplayed.toggle()
+                    simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
                 }
+                SwiftUI.Button("Cancel") {
+                    isDisplayed.toggle()
+                }
+            }
         }
         .padding()
     }

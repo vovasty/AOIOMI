@@ -22,12 +22,12 @@ struct IOSConfigureView: View {
                 }
             }
             .pickerStyle(DefaultPickerStyle())
-                SwiftUI.Button(action: {
-                    simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
-                }) {
-                    Text("Configure")
-                }
-                .disabled(deviceType == .empty)
+            SwiftUI.Button(action: {
+                simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
+            }) {
+                Text("Configure")
+            }
+            .disabled(deviceType == .empty)
         }
     }
 }
