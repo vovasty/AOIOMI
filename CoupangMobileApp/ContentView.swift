@@ -28,10 +28,10 @@ struct ContentView: View {
             switch segment {
             case .aos:
                 AOSView()
-                    .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity)
+                    .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity, alignment: .top)
             case .ios:
                 IOSView()
-                    .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity)
+                    .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity, alignment: .top)
             }
         }
         .padding()
