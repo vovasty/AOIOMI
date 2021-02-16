@@ -68,8 +68,21 @@ public class AppManager: ObservableObject {
                                         .eraseToAnyPublisher()
                                 }
                                 return self.writeDefaults(defaults: defaults)
-                                    .map { .installed(nil) }
-                                    .catch { Just(State.notInstalled($0)) }
+                                    .map { _ -> State in .installed(nil) }
+                                    .catch { Just(.installed($0)).eraseToAnyPublisher() }
+                                    .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+                                        guard let self = self else {
+                                            return Just(state)
+                                                .eraseToAnyPublisher()
+                                        }
+                                        switch state {
+                                        case .installed:
+                                            return self.startApp()
+                                        default:
+                                            return Just(state)
+                                                .eraseToAnyPublisher()
+                                        }
+                                    }
                                     .eraseToAnyPublisher()
                             default:
                                 return Just(state)
@@ -82,7 +95,6 @@ public class AppManager: ObservableObject {
                         .eraseToAnyPublisher()
                 }
             }
-            .catch { Just(State.notInstalled($0)) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -110,14 +122,19 @@ public class AppManager: ObservableObject {
         DispatchQueue.main.async {
             self.state = .starting
         }
-        let command = RunAppcommand(id: simulatorId, bundleId: bundleId)
-        commander.run(command: command)
-            .map { _ in .installed(nil) }
-            .catch { error in Just(.notInstalled(error)) }
+        startApp()
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
+    }
+
+    private func startApp() -> AnyPublisher<State, Never> {
+        let command = RunAppcommand(id: simulatorId, bundleId: bundleId)
         SimulatorApp.shared.open()
+        return commander.run(command: command)
+            .map { _ -> State in .installed(nil) }
+            .catch { error in Just(.notInstalled(error)) }
+            .eraseToAnyPublisher()
     }
 
     private func writeDefaults(defaults: Defaults) -> AnyPublisher<Void, Error> {
