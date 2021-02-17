@@ -76,6 +76,9 @@ struct AOSAppStateView: View {
                 )
             }
         }
+        .onAppear {
+            appManager.check()
+        }
         .onReceive(Just(appManager.state)) { state in
             switch state {
             case .notInstalled:
@@ -115,7 +118,7 @@ private extension AppManager.State {
 
     var PCID: String? {
         switch self {
-        case let .installed(xml):
+        case let .installed(_, xml):
             do {
                 return try xml?["map"]["string"].withAttribute("name", "wl_pcid").element?.text
             } catch {
@@ -151,6 +154,6 @@ struct AOSAppStateView_Previews: PreviewProvider {
         AOSAppStateView(activityState: .constant(.text("some")))
             .environmentObject(AppManager.preview(state: .installing))
         AOSAppStateView(activityState: .constant(.text("some")))
-            .environmentObject(AppManager.preview(state: .installed(xml)))
+            .environmentObject(AppManager.preview(state: .installed(error: nil, defaults: xml)))
     }
 }

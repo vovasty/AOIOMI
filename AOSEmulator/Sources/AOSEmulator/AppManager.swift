@@ -13,7 +13,7 @@ import SWXMLHash
 
 public class AppManager: ObservableObject {
     public enum State {
-        case notInstalled(Swift.Error?), installed(XMLIndexer?), installing, checking
+        case notInstalled(Swift.Error?), installed(error: Error?, defaults: XMLIndexer?), installing, checking
     }
 
     @Published public private(set) var state: State = .notInstalled(nil)
@@ -32,8 +32,20 @@ public class AppManager: ObservableObject {
     }
 
     public func start() {
-        state = .checking
+        let currentState = state
         startApp()
+            .map { currentState }
+            .catch { error -> AnyPublisher<State, Never> in
+                let state: State
+                switch currentState {
+                case let .installed(_, defaults):
+                    state = .installed(error: error, defaults: defaults)
+                default:
+                    state = currentState
+                }
+                return Just(state)
+                    .eraseToAnyPublisher()
+            }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -42,6 +54,7 @@ public class AppManager: ObservableObject {
     public func check() {
         state = .checking
         checkAppState()
+            .replaceError(with: .notInstalled(nil))
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -50,79 +63,38 @@ public class AppManager: ObservableObject {
     public func install(apk: URL) {
         state = .installing
         commander.run(command: InstallAPKCommand(apk: apk))
-            .map { State.installing }
+            .map { State.installed(error: nil, defaults: nil) }
             .catch { Just(.notInstalled($0)) }
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
-                guard let self = self else {
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                }
-                switch state {
-                case .notInstalled:
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                default:
-                    return self.checkAppState()
-                        .flatMap { [weak self] state -> AnyPublisher<State, Never> in
-                            guard let self = self else {
-                                return Just(state)
-                                    .eraseToAnyPublisher()
-                            }
-                            return self.startApp()
-                        }
-                        .eraseToAnyPublisher()
-                }
-            }
-            .collect()
-            .map { $0.last ?? .notInstalled(nil) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
-    private func startApp() -> AnyPublisher<State, Never> {
+    private func startApp() -> AnyPublisher<Void, Error> {
         commander.run(command: StartAppCommand(activityId: activityId))
-            .map { State.checking }
-            .catch { _ in Just(.installed(nil)) }
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
-                guard let self = self else {
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                }
-                switch state {
-                case .notInstalled:
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                default:
-                    return self.checkAppState()
-                        .eraseToAnyPublisher()
-                }
-            }
             .eraseToAnyPublisher()
     }
 
-    private func checkAppState() -> AnyPublisher<State, Never> {
+    private func checkAppState() -> AnyPublisher<State, Error> {
         commander.run(command: IsAppInstalledCommand(packageId: packageId))
-            .map { _ -> State in .checking }
-            .catch { _ in Just(.notInstalled(nil)) }
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+            .map { _ -> State in .installed(error: nil, defaults: nil) }
+            .flatMap { [weak self] state -> AnyPublisher<State, Error> in
                 guard let self = self else {
-                    return Just(.checking)
+                    return Future { $0(.success(state)) }
                         .eraseToAnyPublisher()
                 }
                 switch state {
-                case .notInstalled:
-                    return Just(state)
+                case let .installed(error, _):
+                    return self.commander.run(command: GetAppPreferencesCommand(preferencesPath: self.preferencesPath))
+                        .map { xml -> State in .installed(error: error, defaults: xml) }
+                        // just ignore this error
+                        .catch { error in Future { $0(.success(.installed(error: error, defaults: nil))) }}
                         .eraseToAnyPublisher()
                 default:
-                    return self.commander.run(command: GetAppPreferencesCommand(preferencesPath: self.preferencesPath))
-                        .map { xml -> State in .installed(xml) }
-                        .catch { _ in Just(.installed(nil)) }
+                    return Future { $0(.success(state)) }
                         .eraseToAnyPublisher()
                 }
             }
-            .collect()
-            .map { $0.last ?? .notInstalled(nil) }
             .eraseToAnyPublisher()
     }
 }
