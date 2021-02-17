@@ -48,9 +48,9 @@ extension AppManager.State: AppViewManagerState {
 
     var isInstalled: Bool {
         switch self {
-        case .installed, .installing, .starting, .checking:
+        case .installed:
             return true
-        case .notInstalled:
+        case .notInstalled, .installing, .starting, .checking:
             return false
         }
     }

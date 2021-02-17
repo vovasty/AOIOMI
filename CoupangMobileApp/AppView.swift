@@ -81,19 +81,29 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
             }
             .disabled(appManager.state.isNonOperational)
             .alert(isPresented: $isShowingPCID) {
-                Alert(
-                    title: Text("PCID"),
-                    message: Text(appManager.state.PCID ?? "not available"),
-                    primaryButton: .default(Text("Copy")) {
-                        let pasteboard = NSPasteboard.general
-                        pasteboard.declareTypes([.string], owner: nil)
-                        pasteboard.setString(appManager.state.PCID ?? "not available", forType: .string)
-                        wantToShowPCID = false
-                    },
-                    secondaryButton: .cancel {
-                        wantToShowPCID = false
-                    }
-                )
+                if let PCID = appManager.state.PCID {
+                    return Alert(
+                        title: Text("PCID"),
+                        message: Text(PCID),
+                        primaryButton: .default(Text("Copy")) {
+                            let pasteboard = NSPasteboard.general
+                            pasteboard.declareTypes([.string], owner: nil)
+                            pasteboard.setString(PCID, forType: .string)
+                            wantToShowPCID = false
+                        },
+                        secondaryButton: .cancel {
+                            wantToShowPCID = false
+                        }
+                    )
+                } else {
+                    return Alert(
+                        title: Text("PCID"),
+                        message: Text("PCID is Not Available"),
+                        dismissButton: .default(Text("OK")) {
+                            wantToShowPCID = false
+                        }
+                    )
+                }
             }
             Button("Check") {
                 appManager.check()

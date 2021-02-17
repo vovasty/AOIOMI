@@ -118,8 +118,12 @@ public class AppManager: ObservableObject {
 
     private func checkAppState() -> AnyPublisher<(dataPath: URL?, defaults: Any?), Error> {
         commander.run(command: GetAppContainerPathCommand(id: simulatorId, bundleId: bundleId, type: .data))
-            .tryMap {
-                (dataPath: $0, defaults: try self.readDefaults(containerPath: $0))
+            .map {
+                do {
+                    return (dataPath: $0, defaults: try self.readDefaults(containerPath: $0))
+                } catch {
+                    return (dataPath: $0, defaults: nil)
+                }
             }
             .eraseToAnyPublisher()
     }
