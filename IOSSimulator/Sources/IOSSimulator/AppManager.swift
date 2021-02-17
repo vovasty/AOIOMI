@@ -11,7 +11,7 @@ import Foundation
 
 public class AppManager: ObservableObject {
     public enum State {
-        case notInstalled(Error?), installed(Error?), installing, starting
+        case notInstalled(Error?), installed(error: Error?, dataPath: URL?, defaults: Any?), installing, starting
     }
 
     public enum AppManagerError: Swift.Error {
@@ -32,7 +32,6 @@ public class AppManager: ObservableObject {
     public let simulatorId: String
     public let bundleId: String
     private var cancellables: [AnyCancellable] = []
-    private var dataPath: URL?
     private let commander: Commander
 
     public init(simulatorId: String, bundleId: String) {
@@ -53,7 +52,7 @@ public class AppManager: ObservableObject {
                 switch state {
                 case .installing:
                     return self.checkAppState()
-                        .map { State.installing }
+                        .map { State.installed(error: nil, dataPath: $0.dataPath, defaults: $0.defaults) }
                         .catch { Just(State.notInstalled($0)) }
                         .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                             guard let self = self else {
@@ -62,22 +61,29 @@ public class AppManager: ObservableObject {
                             }
 
                             switch state {
-                            case .installing:
-                                guard let defaults = defaults else {
-                                    return Just(State.installed(nil))
+                            case let .installed(error, dataPath, def):
+                                guard let defaultsToWrite = defaults else {
+                                    return Just(State.installed(error: error, dataPath: dataPath, defaults: defaults))
                                         .eraseToAnyPublisher()
                                 }
-                                return self.writeDefaults(defaults: defaults)
-                                    .map { _ -> State in .installed(nil) }
-                                    .catch { Just(.installed($0)).eraseToAnyPublisher() }
+                                return self.writeDefaults(defaults: defaultsToWrite, dataPath: dataPath)
+                                    .map { State.installed(error: error, dataPath: dataPath, defaults: def) }
+                                    .catch {
+                                        Just(.installed(error: $0, dataPath: dataPath, defaults: def))
+                                    }
                                     .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                                         guard let self = self else {
                                             return Just(state)
                                                 .eraseToAnyPublisher()
                                         }
                                         switch state {
-                                        case .installed:
+                                        case let .installed(_, dataPath, def):
                                             return self.startApp()
+                                                .map { state }
+                                                .catch {
+                                                    Just(.installed(error: $0, dataPath: dataPath, defaults: def))
+                                                }
+                                                .eraseToAnyPublisher()
                                         default:
                                             return Just(state)
                                                 .eraseToAnyPublisher()
@@ -102,42 +108,65 @@ public class AppManager: ObservableObject {
 
     public func check() {
         checkAppState()
-            .map { _ in State.installed(nil) }
+            .map { State.installed(error: nil, dataPath: $0.dataPath, defaults: $0.defaults) }
             .catch { _ in Just(.notInstalled(nil)) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
-    private func checkAppState() -> AnyPublisher<Void, Error> {
-        let command = GetAppContainerPathCommand(id: simulatorId, bundleId: bundleId, type: .data)
-        return commander.run(command: command)
-            .map { [weak self] in
-                self?.dataPath = $0
+    private func checkAppState() -> AnyPublisher<(dataPath: URL?, defaults: Any?), Error> {
+        commander.run(command: GetAppContainerPathCommand(id: simulatorId, bundleId: bundleId, type: .data))
+            .tryMap {
+                (dataPath: $0, defaults: try self.readDefaults(containerPath: $0))
             }
             .eraseToAnyPublisher()
     }
 
     public func start() {
+        let currentState = state
         DispatchQueue.main.async {
             self.state = .starting
         }
         startApp()
+            .map { currentState }
+            .catch { error -> AnyPublisher<State, Never> in
+                let state: State
+                switch currentState {
+                case let .installed(_, dataPath, defaults):
+                    state = .installed(error: error, dataPath: dataPath, defaults: defaults)
+                default:
+                    state = currentState
+                }
+                return Just(state)
+                    .eraseToAnyPublisher()
+            }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
-    private func startApp() -> AnyPublisher<State, Never> {
+    private func startApp() -> AnyPublisher<Void, Error> {
         let command = RunAppCommand(id: simulatorId, bundleId: bundleId)
         SimulatorApp.shared.open()
         return commander.run(command: command)
-            .map { _ -> State in .installed(nil) }
-            .catch { error in Just(.notInstalled(error)) }
             .eraseToAnyPublisher()
     }
 
-    private func writeDefaults(defaults: Defaults) -> AnyPublisher<Void, Error> {
+    private func readDefaults(containerPath: URL) throws -> Any {
+        let url = containerPath
+            .appendingPathComponent("Library")
+            .appendingPathComponent("Preferences")
+            .appendingPathComponent("\(bundleId).plist")
+
+        let data = try Data(contentsOf: url)
+
+        return try PropertyListSerialization.propertyList(from: data,
+                                                          options: .mutableContainersAndLeaves,
+                                                          format: nil)
+    }
+
+    private func writeDefaults(defaults: Defaults, dataPath: URL?) -> AnyPublisher<Void, Error> {
         guard let dataPath = dataPath else {
             return Fail(error: AppManagerError.wrongPath)
                 .eraseToAnyPublisher()

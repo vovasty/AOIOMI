@@ -95,7 +95,7 @@ private extension AppManager.State {
             } else {
                 return .text("App is Not Installed")
             }
-        case let .installed(error):
+        case let .installed(error, _, _):
             if let error = error {
                 return .error("App is Installed", error)
             } else {
@@ -114,16 +114,16 @@ struct IOSAppStateView_Previews: PreviewProvider {
         let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
 
         IOSAppView(activityState: .constant(.text("some")))
-            .environmentObject(AppManager.preview(state: .installed(nil)))
+            .environmentObject(AppManager.preview(state: .installed(error: nil, dataPath: nil, defaults: nil)))
             .environmentObject(HTTPProxyManager.preview())
         IOSAppView(activityState: .constant(.text("some")))
             .environmentObject(AppManager.preview(state: .notInstalled(error)))
             .environmentObject(HTTPProxyManager.preview())
         IOSAppView(activityState: .constant(.text("some")))
-            .environmentObject(AppManager.preview(state: .installed(error)))
+            .environmentObject(AppManager.preview(state: .installed(error: error, dataPath: nil, defaults: nil)))
             .environmentObject(HTTPProxyManager.preview())
         InstallAppView()
-            .environmentObject(AppManager.preview(state: .installed(nil)))
+            .environmentObject(AppManager.preview(state: .installed(error: nil, dataPath: nil, defaults: nil)))
             .environmentObject(HTTPProxyManager.preview())
         InstallAppView()
             .environmentObject(AppManager.preview(state: .notInstalled(nil)))

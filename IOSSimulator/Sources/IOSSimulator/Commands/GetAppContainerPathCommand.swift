@@ -21,7 +21,7 @@ struct GetAppContainerPathCommand: Command {
     let parameters: [String]?
 
     init(id: String, bundleId: String, type: ContainerType) {
-        parameters = ["get_app_container", id, bundleId, type.asString]
+        parameters = ["get_app_container", id, bundleId, type.rawValue]
     }
 
     func parse(stdout: [String]) throws -> URL {
@@ -31,7 +31,7 @@ struct GetAppContainerPathCommand: Command {
 }
 
 extension GetAppContainerPathCommand.ContainerType {
-    var asString: String {
+    var rawValue: String {
         switch self {
         case .app:
             return "app"
