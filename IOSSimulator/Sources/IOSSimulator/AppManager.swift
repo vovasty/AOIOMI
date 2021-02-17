@@ -46,11 +46,11 @@ public class AppManager: ObservableObject {
         }
         let command = InstallAppCommand(id: simulatorId, path: app)
         commander.run(command: command)
-            .map { State.installing }
+            .map { State.installed(error: nil, dataPath: nil, defaults: nil) }
             .catch { Just(State.notInstalled($0)) }
             .flatMap { state -> AnyPublisher<State, Never> in
                 switch state {
-                case .installing:
+                case .installed:
                     return self.checkAppState()
                         .map { State.installed(error: nil, dataPath: $0.dataPath, defaults: $0.defaults) }
                         .catch { Just(State.notInstalled($0)) }

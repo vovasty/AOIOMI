@@ -11,6 +11,8 @@ import SwiftUI
 
 struct IOSView: View {
     @EnvironmentObject var simulator: IOSSimulator
+    @EnvironmentObject var appManager: AppManager
+    @EnvironmentObject var proxyManager: HTTPProxyManager
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
@@ -20,7 +22,12 @@ struct IOSView: View {
             case .notConfigured:
                 IOSConfigureView()
             case .started:
-                IOSAppView(activityState: $activityState)
+                AppView(appManager: appManager,
+                        activityState: $activityState,
+                        installTitle: "Choose an App to Install",
+                        fileExtensions: ["app"]) { url in
+                    appManager.install(app: url, defaults: proxyManager.iosDefaults)
+                }
             case .stopped, .starting, .stopping, .configuring, .checking:
                 IOSSimulatorView(activityState: $activityState)
             }
