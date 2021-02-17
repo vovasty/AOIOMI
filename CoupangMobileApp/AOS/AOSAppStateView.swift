@@ -38,68 +38,56 @@ private struct InstallAppView: View {
     }
 }
 
-private struct PCIDView: View {
-    @EnvironmentObject var appManager: AppManager
-    var body: some View {
-        HStack(spacing: 8) {
-            Text("PCID")
-                .font(Font.caption.weight(.bold))
-            if let pcid = appManager.pcid {
-                Text(pcid)
-                    .font(.caption)
-                    .frame(maxWidth: 50)
-                    .lineLimit(1)
-                    .truncationMode(.middle)
-                SwiftUI.Button("copy") {
-                    let pasteboard = NSPasteboard.general
-                    pasteboard.declareTypes([.string], owner: nil)
-                    pasteboard.setString(pcid, forType: .string)
-                }
-                .buttonStyle(DefaultButtonStyle())
-                .font(.caption)
-            } else {
-                Text("Not Available.")
-                    .font(.caption)
-                    .frame(maxWidth: 50)
-                    .lineLimit(1)
-                SwiftUI.Button("check") {
-                    self.appManager.check()
-                }
-                .buttonStyle(DefaultButtonStyle())
-                .font(.caption)
-            }
-        }
-    }
-}
-
 struct AOSAppStateView: View {
     @EnvironmentObject var appManager: AppManager
     @Binding var activityState: ActivityView.ActivityState
 
     @State private var installAppDisabled = false
-    @State private var openAppDisabled = false
+    @State private var isAppNonOperational = false
+    @State private var isShowingPCID = false
+    @State private var wantToShowPCID = false
 
     var body: some View {
         VStack {
-            PCIDView()
             InstallAppView()
                 .disabled(installAppDisabled)
             Button("Open App") {
                 appManager.start()
             }
-            .disabled(openAppDisabled)
+            .disabled(isAppNonOperational)
+            Button("Show PCID") {
+                wantToShowPCID = true
+                appManager.check()
+            }
+            .disabled(isAppNonOperational)
+            .alert(isPresented: $isShowingPCID) {
+                Alert(
+                    title: Text("PCID"),
+                    message: Text(appManager.state.PCID ?? "not available"),
+                    primaryButton: .default(Text("Copy")) {
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString(appManager.state.PCID ?? "not available", forType: .string)
+                        wantToShowPCID = false
+                    },
+                    secondaryButton: .cancel {
+                        wantToShowPCID = false
+                    }
+                )
+            }
         }
         .onReceive(Just(appManager.state)) { state in
             switch state {
             case .notInstalled:
                 installAppDisabled = false
-                openAppDisabled = true
+                isAppNonOperational = true
             case .installed:
                 installAppDisabled = false
-                openAppDisabled = false
+                isAppNonOperational = false
+                isShowingPCID = wantToShowPCID
             case .installing, .checking:
                 installAppDisabled = true
-                openAppDisabled = true
+                isAppNonOperational = true
             }
 
             activityState = state.asActivity
@@ -122,6 +110,19 @@ private extension AppManager.State {
             return .busy("Installing App...")
         case .checking:
             return .busy("Checking App...")
+        }
+    }
+
+    var PCID: String? {
+        switch self {
+        case let .installed(xml):
+            do {
+                return try xml?["map"]["string"].withAttribute("name", "wl_pcid").element?.text
+            } catch {
+                return nil
+            }
+        default:
+            return nil
         }
     }
 }
