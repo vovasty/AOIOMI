@@ -68,6 +68,23 @@ public class AppManager: ObservableObject {
         commander.run(command: InstallAPKCommand(apk: apk))
             .map { State.installed(error: nil, defaults: nil) }
             .catch { Just(.notInstalled($0)) }
+            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+                guard let self = self else {
+                    return Just(state)
+                        .eraseToAnyPublisher()
+                }
+                switch state {
+                case .notInstalled:
+                    return Just(state)
+                        .eraseToAnyPublisher()
+                default:
+                    return self.startApp()
+                        .map { State.installed(error: nil, defaults: nil) }
+                        .replaceError(with: State.installed(error: nil, defaults: nil))
+                        .catch { Just(.installed(error: $0, defaults: nil)) }
+                        .eraseToAnyPublisher()
+                }
+            }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
