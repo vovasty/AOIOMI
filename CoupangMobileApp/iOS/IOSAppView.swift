@@ -45,35 +45,60 @@ struct IOSAppView: View {
     @Binding var activityState: ActivityView.ActivityState
 
     @State private var dragOver = false
-    @State private var openAppDisabled = false
+    @State private var isAppNonOperational = false
     @State private var installAppDisabled = false
+    @State private var isShowingPCID = false
+    @State private var wantToShowPCID = false
 
     var body: some View {
         VStack {
             InstallAppView()
                 .disabled(installAppDisabled)
+
             Button("Open App") {
                 appManager.start()
             }
-            .disabled(openAppDisabled)
+            .disabled(isAppNonOperational)
+
+            Button("Show PCID") {
+                wantToShowPCID = true
+                appManager.check()
+            }
+            .disabled(isAppNonOperational)
+            .alert(isPresented: $isShowingPCID) {
+                Alert(
+                    title: Text("PCID"),
+                    message: Text(appManager.state.PCID ?? "not available"),
+                    primaryButton: .default(Text("Copy")) {
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString(appManager.state.PCID ?? "not available", forType: .string)
+                        wantToShowPCID = false
+                    },
+                    secondaryButton: .cancel {
+                        wantToShowPCID = false
+                    }
+                )
+            }
         }
         .onReceive(Just(appManager.state)) { state in
             switch state {
             case .installed:
-                openAppDisabled = false
+                isAppNonOperational = false
                 installAppDisabled = false
+                isShowingPCID = wantToShowPCID
             case .installing:
-                openAppDisabled = true
+                isAppNonOperational = true
                 installAppDisabled = true
             case .starting, .notInstalled:
-                openAppDisabled = true
+                isAppNonOperational = true
                 installAppDisabled = false
             }
 
             activityState = state.asActivity
         }
-        .onDrop(of: ["public.file-url"], isTargeted: $dragOver) { providers -> Bool in
-            providers.first?.loadDataRepresentation(forTypeIdentifier: "public.file-url", completionHandler: { data, _ in
+        .onDrop(of: [String(kUTTypeFileURL)], isTargeted: $dragOver) { providers -> Bool in
+            providers.first?.loadDataRepresentation(forTypeIdentifier: String(kUTTypeFileURL), completionHandler: { data, _ in
                 guard let data = data, let path = String(data: data, encoding: .utf8), let url = URL(string: path) else { return }
                 guard url.path.hasSuffix(".app") else { return }
                 appManager.install(app: url, defaults: httpProxyManager.iosDefaults)
@@ -105,6 +130,15 @@ private extension AppManager.State {
             return .busy("Installing App...")
         case .starting:
             return .busy("Staring App...")
+        }
+    }
+
+    var PCID: String? {
+        switch self {
+        case let .installed(_, _, defaults):
+            return (defaults as? [String: Any])?["molly.logger.client.key"] as? String
+        default:
+            return nil
         }
     }
 }
