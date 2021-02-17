@@ -8,14 +8,14 @@
 import Combine
 import SwiftUI
 
- private struct InstallAppView: View {
+private struct InstallAppView: View {
     let title: String
     let isInstalled: Bool
     let fileExtensions: [String]
     let installAction: (URL) -> Void
 
     var body: some View {
-        if  isInstalled {
+        if isInstalled {
             Button("Reinstall App", action: install)
         } else {
             Button("Install App", action: install)
@@ -36,7 +36,7 @@ import SwiftUI
         guard let url = dialog.url else { return }
         installAction(url)
     }
- }
+}
 
 protocol AppViewManagerState {
     var PCID: String? { get }

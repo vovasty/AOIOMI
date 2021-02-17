@@ -13,7 +13,7 @@ import SWXMLHash
 
 public class AppManager: ObservableObject {
     public enum State {
-        case notInstalled(Swift.Error?), installed(error: Error?, defaults: XMLIndexer?), installing, checking
+        case notInstalled(Swift.Error?), installed(error: Error?, defaults: XMLIndexer?), installing, checking, starting
     }
 
     @Published public private(set) var state: State = .notInstalled(nil)
@@ -33,6 +33,9 @@ public class AppManager: ObservableObject {
 
     public func start() {
         let currentState = state
+        DispatchQueue.main.async {
+            self.state = .starting
+        }
         startApp()
             .map { currentState }
             .catch { error -> AnyPublisher<State, Never> in

@@ -1,19 +1,23 @@
 //
-//  IOSAppViewManagerConformance.swift
+//  AOSAppViewManagerConformance.swift
 //  CoupangMobileApp
 //
 //  Created by vlsolome on 2/16/21.
 //
 
+import AOSEmulator
 import Foundation
 import HTTPProxyManager
-import IOSSimulator
 
 extension AppManager.State: AppViewManagerState {
     var PCID: String? {
         switch self {
-        case let .installed(_, _, defaults):
-            return (defaults as? [String: Any])?["molly.logger.client.key"] as? String
+        case let .installed(_, xml):
+            do {
+                return try xml?["map"]["string"].withAttribute("name", "wl_pcid").element?.text
+            } catch {
+                return nil
+            }
         default:
             return nil
         }
@@ -63,7 +67,7 @@ extension AppManager.State: AppViewManagerState {
             } else {
                 return .text("App is Not Installed")
             }
-        case let .installed(error, _, _):
+        case let .installed(error, _):
             if let error = error {
                 return .error("App is Installed", error)
             } else {
@@ -80,10 +84,3 @@ extension AppManager.State: AppViewManagerState {
 }
 
 extension AppManager: AppViewManager {}
-
-extension HTTPProxyManager {
-    var iosDefaults: AppManager.Defaults? {
-        guard let p = proxy(type: .ios) else { return nil }
-        return AppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": p.host, "port": p.port])
-    }
-}

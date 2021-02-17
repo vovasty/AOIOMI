@@ -11,7 +11,7 @@ import Foundation
 
 public class AppManager: ObservableObject {
     public enum State {
-        case notInstalled(Error?), installed(error: Error?, dataPath: URL?, defaults: Any?), installing, starting
+        case notInstalled(Error?), installed(error: Error?, dataPath: URL?, defaults: Any?), installing, starting, checking
     }
 
     public enum AppManagerError: Swift.Error {
@@ -107,6 +107,7 @@ public class AppManager: ObservableObject {
     }
 
     public func check() {
+        state = .checking
         checkAppState()
             .map { State.installed(error: nil, dataPath: $0.dataPath, defaults: $0.defaults) }
             .catch { _ in Just(.notInstalled(nil)) }

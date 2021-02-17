@@ -12,6 +12,7 @@ import SwiftUI
 struct AOSView: View {
     @EnvironmentObject var emulator: AOSEmulator
     @EnvironmentObject var proxyManager: HTTPProxyManager
+    @EnvironmentObject var appManager: AppManager
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
@@ -23,7 +24,12 @@ struct AOSView: View {
                     emulator.configure(proxy: proxyManager.proxy(type: .aos)?.asString, caPath: proxyManager.caURL)
                 }
             case .started:
-                AOSAppStateView(activityState: $activityState)
+                AppView(appManager: appManager,
+                        activityState: $activityState,
+                        installTitle: "Choose an APK to Install",
+                        fileExtensions: ["apk"]) { url in
+                    appManager.install(apk: url)
+                }
             case .stopped, .starting, .stopping, .checking, .configuring:
                 AOSEmulatorView(activityState: $activityState)
             }
