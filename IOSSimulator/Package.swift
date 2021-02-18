@@ -31,8 +31,7 @@ let package = Package(
             name: "IOSSimulatorTests",
             dependencies: ["IOSSimulator", .product(name: "CommandPublisherMock", package: "CommandPublisher")],
             resources: [
-                .copy("Resources/list.json"),
-                .copy("Resources/test.pem"),
+                .copy("Resources"),
             ]
         ),
     ]

@@ -11,7 +11,7 @@ import Foundation
 
 public class AppManager: ObservableObject {
     public enum State {
-        case notInstalled(Error?), installed(error: Error?, dataPath: URL?, defaults: Any?), installing, starting, checking
+        case notInstalled(Error?), installed(error: Error?, defaults: Any?), installing(Error?), starting(Error?), checking
     }
 
     public enum AppManagerError: Swift.Error {
@@ -47,59 +47,24 @@ public class AppManager: ObservableObject {
     }
 
     public func install(app: URL, defaults: Defaults? = nil) {
-        DispatchQueue.main.async {
-            self.state = .installing
-        }
-        let command = InstallAppCommand(id: simulatorId, path: app)
-        commander.run(command: command)
-            .map { State.installed(error: nil, dataPath: nil, defaults: nil) }
+        let command = commander.run(command: InstallAppCommand(id: simulatorId, path: app))
+            .map { State.installed(error: nil, defaults: nil) }
             .catch { Just(State.notInstalled($0)) }
-            .flatMap { state -> AnyPublisher<State, Never> in
+            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+                guard let self = self else {
+                    return Just(state)
+                        .eraseToAnyPublisher()
+                }
                 switch state {
                 case .installed:
-                    return self.checkAppState()
-                        .map { State.installed(error: nil, dataPath: $0.dataPath, defaults: $0.defaults) }
-                        .catch { Just(State.notInstalled($0)) }
+                    return self.writeDefaults(defaults: defaults)
+                        .map { _ in state }
                         .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                             guard let self = self else {
                                 return Just(state)
                                     .eraseToAnyPublisher()
                             }
-
-                            switch state {
-                            case let .installed(error, dataPath, def):
-                                guard let defaultsToWrite = defaults else {
-                                    return Just(State.installed(error: error, dataPath: dataPath, defaults: defaults))
-                                        .eraseToAnyPublisher()
-                                }
-                                return self.writeDefaults(defaults: defaultsToWrite, dataPath: dataPath)
-                                    .map { State.installed(error: error, dataPath: dataPath, defaults: def) }
-                                    .catch {
-                                        Just(.installed(error: $0, dataPath: dataPath, defaults: def))
-                                    }
-                                    .flatMap { [weak self] state -> AnyPublisher<State, Never> in
-                                        guard let self = self else {
-                                            return Just(state)
-                                                .eraseToAnyPublisher()
-                                        }
-                                        switch state {
-                                        case let .installed(_, dataPath, def):
-                                            return self.startApp()
-                                                .map { state }
-                                                .catch {
-                                                    Just(.installed(error: $0, dataPath: dataPath, defaults: def))
-                                                }
-                                                .eraseToAnyPublisher()
-                                        default:
-                                            return Just(state)
-                                                .eraseToAnyPublisher()
-                                        }
-                                    }
-                                    .eraseToAnyPublisher()
-                            default:
-                                return Just(state)
-                                    .eraseToAnyPublisher()
-                            }
+                            return self.startApp()
                         }
                         .eraseToAnyPublisher()
                 default:
@@ -107,153 +72,101 @@ public class AppManager: ObservableObject {
                         .eraseToAnyPublisher()
                 }
             }
+        Publishers.Merge(Just(.installing(nil)), command)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
     public func check() {
-        state = .checking
-        checkAppState()
-            .map { State.installed(error: nil, dataPath: $0.dataPath, defaults: $0.defaults) }
-            .catch { _ in Just(.notInstalled(nil)) }
+        checkApp(upstreamError: nil)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
-    }
-
-    private func checkAppState() -> AnyPublisher<(dataPath: URL?, defaults: Any?), Error> {
-        commander.run(command: GetAppContainerPathCommand(id: simulatorId, bundleId: bundleId, type: .data))
-            .map {
-                do {
-                    return (dataPath: $0, defaults: try self.readDefaults(containerPath: $0))
-                } catch {
-                    return (dataPath: $0, defaults: nil)
-                }
-            }
-            .eraseToAnyPublisher()
     }
 
     public func start() {
-        let currentState = state
-        DispatchQueue.main.async {
-            self.state = .starting
-        }
         startApp()
-            .map { currentState }
-            .catch { error -> AnyPublisher<State, Never> in
-                let state: State
-                switch currentState {
-                case let .installed(_, dataPath, defaults):
-                    state = .installed(error: error, dataPath: dataPath, defaults: defaults)
-                default:
-                    state = currentState
-                }
-                return Just(state)
-                    .eraseToAnyPublisher()
-            }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
-    private func startApp() -> AnyPublisher<Void, Error> {
-        let command = RunAppCommand(id: simulatorId, bundleId: bundleId)
+    private func startApp() -> AnyPublisher<State, Never> {
         SimulatorApp.shared.open()
-        return commander.run(command: command)
+        let command = commander.run(command: RunAppCommand(id: simulatorId, bundleId: bundleId))
+            .map { .starting(nil) }
+            .catch { error -> AnyPublisher<State, Never> in
+                Just(.starting(error))
+                    .eraseToAnyPublisher()
+            }
+            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+                guard let self = self else {
+                    return Just(.starting(nil))
+                        .eraseToAnyPublisher()
+                }
+                let error: Error?
+                switch state {
+                case let .starting(err):
+                    error = err
+                default:
+                    error = nil
+                }
+
+                return self.checkApp(upstreamError: error)
+            }
+            .eraseToAnyPublisher()
+        return Publishers.Merge(Just(.starting(nil)), command)
             .eraseToAnyPublisher()
     }
 
-    private func readDefaults(containerPath: URL) throws -> Any {
-        let url = containerPath
-            .appendingPathComponent("Library")
-            .appendingPathComponent("Preferences")
-            .appendingPathComponent("\(bundleId).plist")
-
-        let data = try Data(contentsOf: url)
-
-        return try PropertyListSerialization.propertyList(from: data,
-                                                          options: .mutableContainersAndLeaves,
-                                                          format: nil)
+    private func checkApp(upstreamError: Error?) -> AnyPublisher<State, Never> {
+        let command = commander.run(command: ReadDefaultsCommand(id: simulatorId, bundleId: bundleId))
+            .map { State.installed(error: upstreamError, defaults: $0) }
+            .catch { Just(.notInstalled($0)) }
+        return Publishers.Merge(Just(.checking), command)
+            .eraseToAnyPublisher()
     }
 
-    private func writeDefaults(defaults: Defaults, dataPath: URL?) -> AnyPublisher<Void, Error> {
-        guard let dataPath = dataPath else {
-            return Fail(error: AppManagerError.wrongPath)
+    private func writeDefaults(defaults: Defaults?) -> AnyPublisher<State, Never> {
+        guard let defaults = defaults else {
+            return Just(.installing(nil))
                 .eraseToAnyPublisher()
         }
-        let defaultsFile = dataPath
-            .appendingPathComponent("Library")
-            .appendingPathComponent("Preferences")
-            .appendingPathComponent("\(bundleId).plist")
 
-        return Future<Void, Error> { [weak self] promise in
-            guard let self = self else { return }
-            DispatchQueue.global(qos: .background).async { [weak self] in
-                guard let self = self else { return }
-                do {
-                    try self.write(defaults: defaults, path: defaultsFile)
-                    promise(.success(()))
-                } catch {
-                    promise(.failure(error))
-                }
+        let command = commander.run(command: WriteDefaultsCommand(id: simulatorId, bundleId: bundleId, defaults: defaults))
+            .map { .installing(nil) }
+            .catch { error -> AnyPublisher<State, Never> in
+                Just(.installing(error))
+                    .eraseToAnyPublisher()
             }
-        }
-        .eraseToAnyPublisher()
+        return Publishers.Merge(Just(.installing(nil)), command)
+            .eraseToAnyPublisher()
     }
+}
 
-    private func write(defaults: Defaults, path: URL) throws {
-        var defaultsDict: [AnyHashable: Any]
-        if FileManager.default.isReadableFile(atPath: path.path) {
-            let inputData = try Data(contentsOf: path)
-            guard let dict = try PropertyListSerialization.propertyList(from: inputData,
-                                                                        options: .mutableContainersAndLeaves,
-                                                                        format: nil) as? [AnyHashable: Any]
-            else {
-                throw AppManagerError.wrongFormat
-            }
-            defaultsDict = dict
-        } else {
-            defaultsDict = [:]
-        }
-
-        update(dictionary: &defaultsDict, at: defaults.path, with: defaults.data)
-        let ouputData = try PropertyListSerialization.data(fromPropertyList: defaultsDict, format: .xml, options: 0)
-        try ouputData.write(to: path)
-    }
-
-    // https://stackoverflow.com/a/55284347
-    private func update(dictionary dict: inout [AnyHashable: Any], at keys: [AnyHashable], with value: Any) {
-        if keys.count < 2 {
-            for key in keys { dict[key] = value }
-            return
-        }
-
-        var levels: [[AnyHashable: Any]] = []
-
-        for key in keys.dropLast() {
-            if let lastLevel = levels.last {
-                if let currentLevel = lastLevel[key] as? [AnyHashable: Any] {
-                    levels.append(currentLevel)
-                } else if lastLevel[key] != nil, levels.count + 1 != keys.count {
-                    break
-                } else { return }
+extension AppManager.State: Equatable {
+    public static func == (lhs: AppManager.State, rhs: AppManager.State) -> Bool {
+        switch (lhs, rhs) {
+        case let (.installed(re, rd), .installed(le, ld)):
+            let dCompare: Bool
+            if let rdd = rd as? NSDictionary, let ldd = ld as? NSDictionary {
+                dCompare = rdd.isEqual(to: ldd)
             } else {
-                if let firstLevel = dict[keys[0]] as? [AnyHashable: Any] {
-                    levels.append(firstLevel)
-                } else { return }
+                dCompare = rd == nil && ld == nil
             }
+
+            return ((re == nil && le == nil) || (re != nil && le != nil)) &&
+                dCompare
+        case let (.notInstalled(r), .notInstalled(l)):
+            return (r == nil && l == nil) || (r != nil && l != nil)
+        case (.installing, .installing),
+             (.starting, .starting),
+             (.checking, .checking):
+            return true
+        default:
+            return false
         }
-
-        if levels[levels.indices.last!][keys.last!] != nil {
-            levels[levels.indices.last!][keys.last!] = value
-        } else { return }
-
-        for index in levels.indices.dropLast().reversed() {
-            levels[index][keys[index + 1]] = levels[index + 1]
-        }
-
-        dict[keys[0]] = levels[0]
     }
 }
 
@@ -263,6 +176,10 @@ public class AppManager: ObservableObject {
             let manager = AppManager(simulatorId: "test", bundleId: "test")
             manager.state = state
             return manager
+        }
+
+        func set(state: State) {
+            self.state = state
         }
     }
 #endif

@@ -13,7 +13,7 @@ import XCTest
 final class IOSSimulatorTests: XCTestCase {
     let simulatorName = "Test.Simulator"
 
-    func createSimulator(file: StaticString = #filePath, line: UInt = #line, _ allowedCommands: [CommanderMock.AllowedCommand], expected: [IOSSimulator.State], action: (IOSSimulator) -> Void) {
+    private func testSimulator(file: StaticString = #filePath, line: UInt = #line, _ allowedCommands: [CommanderMock.AllowedCommand], expected: [IOSSimulator.State], action: (IOSSimulator) -> Void) {
         let mock = CommanderMock(allowedCommands: allowedCommands)
         let simulator = IOSSimulator(simulatorName: simulatorName, commander: mock)
         var actual = [IOSSimulator.State]()
@@ -53,57 +53,57 @@ final class IOSSimulatorTests: XCTestCase {
     }
 
     func testStartFailure() throws {
-        createSimulator([],
-                        expected: [.stopped(nil), .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
-                        action: { $0.start() })
+        testSimulator([],
+                      expected: [.stopped(nil), .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
+                      action: { $0.start() })
     }
 
     func testStartSuccess() throws {
-        createSimulator([CommanderMock.AllowedCommand(type: BootSimulatorCommand.self, stdout: [])],
-                        expected: [.stopped(nil), .starting, .started],
-                        action: { $0.start() })
+        testSimulator([CommanderMock.AllowedCommand(type: BootSimulatorCommand.self, stdout: [])],
+                      expected: [.stopped(nil), .starting, .started],
+                      action: { $0.start() })
     }
 
     func testStopSuccess() throws {
-        createSimulator([CommanderMock.AllowedCommand(type: ShutdownSimulatorCommand.self, stdout: [])],
-                        expected: [.stopped(nil), .stopping, .stopped(nil)],
-                        action: { $0.stop() })
+        testSimulator([CommanderMock.AllowedCommand(type: ShutdownSimulatorCommand.self, stdout: [])],
+                      expected: [.stopped(nil), .stopping, .stopped(nil)],
+                      action: { $0.stop() })
     }
 
     func testStopFailure() throws {
-        createSimulator([],
-                        expected: [.stopped(nil), .stopping, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
-                        action: { $0.stop() })
+        testSimulator([],
+                      expected: [.stopped(nil), .stopping, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
+                      action: { $0.stop() })
     }
 
     func testCheckFailure() {
-        createSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [])],
-                        expected: [.stopped(nil), .checking, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
-                        action: { $0.check() })
+        testSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [])],
+                      expected: [.stopped(nil), .checking, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
+                      action: { $0.check() })
     }
 
     func testCheckStopped() throws {
         let stdout = try setDevice(state: .shutdown)
 
-        createSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
-                        expected: [.stopped(nil), .checking, .stopped(nil)],
-                        action: { $0.check() })
+        testSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
+                      expected: [.stopped(nil), .checking, .stopped(nil)],
+                      action: { $0.check() })
     }
 
     func testCheckStared() throws {
         let stdout = try setDevice(state: .booted)
 
-        createSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
-                        expected: [.stopped(nil), .checking, .started],
-                        action: { $0.check() })
+        testSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
+                      expected: [.stopped(nil), .checking, .started],
+                      action: { $0.check() })
     }
 
     func testCheckMalformed() throws {
         let stdout = try setDevice(state: .unknown("junk"))
 
-        createSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
-                        expected: [.stopped(nil), .checking, .notConfigured(nil)],
-                        action: { $0.check() })
+        testSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
+                      expected: [.stopped(nil), .checking, .notConfigured(nil)],
+                      action: { $0.check() })
     }
 
     func testCheckMissing() throws {
@@ -111,54 +111,54 @@ final class IOSSimulatorTests: XCTestCase {
         var list = try JSONDecoder().decode(fileName: "list.json", type: SimctlList.self)
         list.devices = [:]
 
-        createSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
-                        expected: [.stopped(nil), .checking, .notConfigured(nil)],
-                        action: { $0.check() })
+        testSimulator([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
+                      expected: [.stopped(nil), .checking, .notConfigured(nil)],
+                      action: { $0.check() })
     }
 
     func testConfigureFailure() {
-        guard let pemURL = Bundle.module.url(forResource: "test.pem", withExtension: nil) else {
+        guard let pemURL = Bundle.module.url(forResource: "Resources/test.pem", withExtension: nil) else {
             XCTFail()
             return
         }
-        createSimulator([],
-                        expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
-                        action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
-        createSimulator([],
-                        expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
-                        action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })
+        testSimulator([],
+                      expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
+                      action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
+        testSimulator([],
+                      expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
+                      action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })
     }
 
     func testConfigureStartFailure() {
-        guard let pemURL = Bundle.module.url(forResource: "test.pem", withExtension: nil) else {
+        guard let pemURL = Bundle.module.url(forResource: "Resources/test.pem", withExtension: nil) else {
             XCTFail()
             return
         }
         let uuid = "123456789"
 
-        createSimulator([CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
-                        expected: [.stopped(nil), .configuring, .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
-                        action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
-        createSimulator([CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
-                        expected: [.stopped(nil), .configuring, .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
-                        action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })
+        testSimulator([CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
+                      expected: [.stopped(nil), .configuring, .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
+                      action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
+        testSimulator([CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
+                      expected: [.stopped(nil), .configuring, .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
+                      action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })
     }
 
     func testConfigureStartSuccess() {
-        guard let pemURL = Bundle.module.url(forResource: "test.pem", withExtension: nil) else {
+        guard let pemURL = Bundle.module.url(forResource: "Resources/test.pem", withExtension: nil) else {
             XCTFail()
             return
         }
         let uuid = "123456789"
 
-        createSimulator([
+        testSimulator([
             CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid]),
             CommanderMock.AllowedCommand(type: BootSimulatorCommand.self, stdout: []),
         ],
         expected: [.stopped(nil), .configuring, .starting, .started],
         action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
 
-        createSimulator([
+        testSimulator([
             CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid]),
             CommanderMock.AllowedCommand(type: BootSimulatorCommand.self, stdout: []),
         ],

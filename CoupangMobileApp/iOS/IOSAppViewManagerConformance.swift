@@ -12,7 +12,7 @@ import IOSSimulator
 extension AppManager.State: AppViewManagerState {
     var PCID: String? {
         switch self {
-        case let .installed(_, _, defaults):
+        case let .installed(_, defaults):
             return (defaults as? [String: Any])?["molly.logger.client.key"] as? String
         default:
             return nil
@@ -63,7 +63,7 @@ extension AppManager.State: AppViewManagerState {
             } else {
                 return .text("App is Not Installed")
             }
-        case let .installed(error, _, _):
+        case let .installed(error, _):
             if let error = error {
                 return .error("App is Installed", error)
             } else {

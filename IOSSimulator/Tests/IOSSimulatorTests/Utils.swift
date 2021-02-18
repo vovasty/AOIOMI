@@ -13,7 +13,7 @@ extension JSONDecoder {
     }
 
     func decode<Type: Decodable>(fileName: String, type: Type.Type) throws -> Type {
-        guard let jsonURL = Bundle.module.url(forResource: fileName, withExtension: nil) else {
+        guard let jsonURL = Bundle.module.url(forResource: "Resources/\(fileName)", withExtension: nil) else {
             throw DecodeError.noFile
         }
 
