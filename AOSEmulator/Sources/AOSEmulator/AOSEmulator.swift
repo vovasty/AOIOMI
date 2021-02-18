@@ -29,11 +29,11 @@ public class AOSEmulator: ObservableObject {
 
     @Published public private(set) var state: State = .stopped(nil)
     private let commander: Commander
-    private var process: SwiftShell.AsyncCommand?
+    private var process: CommanderProcess?
     private var cancellables = Set<AnyCancellable>()
 
     public init() {
-        commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
+        commander = ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
     }
 
     public func start() {
@@ -63,7 +63,7 @@ public class AOSEmulator: ObservableObject {
     }
 
     public func configure(proxy: String?, caPath: URL?) {
-        process?.onCompletion { _ in }
+        process?.onCompletion {}
         process = nil
         state = .configuring
         commander.run(command: CreateEmulatorCommand(proxy: proxy, caPath: caPath))
@@ -93,10 +93,10 @@ public class AOSEmulator: ObservableObject {
 
     private func startEmulator() -> AnyPublisher<Void, Swift.Error> {
         process = commander.run(command: StartEmulatorCommand())
-        process?.onCompletion { _ in
+        process?.onCompletion {
             DispatchQueue.main.async { [weak self] in
                 self?.state = .stopped(nil)
-                self?.process?.onCompletion { _ in }
+                self?.process?.onCompletion {}
                 self?.process = nil
             }
         }

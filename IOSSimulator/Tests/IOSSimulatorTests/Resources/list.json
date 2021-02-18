@@ -1,0 +1,46 @@
+{
+  "devicetypes" : [
+    {
+      "bundlePath" : "\/Applications\/Xcode.app\/Contents\/Developer\/Platforms\/AppleTVOS.platform\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/tvOS.simruntime",
+      "buildversion" : "18K559",
+      "runtimeRoot" : "\/Applications\/Xcode.app\/Contents\/Developer\/Platforms\/AppleTVOS.platform\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/tvOS.simruntime\/Contents\/Resources\/RuntimeRoot",
+      "identifier" : "com.apple.CoreSimulator.SimRuntime.tvOS-14-3",
+      "version" : "14.3",
+      "isAvailable" : true,
+      "name" : "tvOS 14.3"
+    },
+    {
+      "bundlePath" : "\/Applications\/Xcode.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/watchOS.simruntime",
+      "buildversion" : "18S561",
+      "runtimeRoot" : "\/Applications\/Xcode.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/watchOS.simruntime\/Contents\/Resources\/RuntimeRoot",
+      "identifier" : "com.apple.CoreSimulator.SimRuntime.watchOS-7-2",
+      "version" : "7.2",
+      "isAvailable" : true,
+      "name" : "watchOS 7.2"
+    }
+  ],
+  "devices" : {
+     "com.apple.CoreSimulator.SimRuntime.iOS-14-4" : [
+      {
+        "dataPath" : "\/Users\/vlsolome\/Library\/Developer\/CoreSimulator\/Devices\/E1758113-51F1-4707-9916-B97FE9F3EA1E\/data",
+        "logPath" : "\/Users\/vlsolome\/Library\/Logs\/CoreSimulator\/E1758113-51F1-4707-9916-B97FE9F3EA1E",
+        "udid" : "E1758113-51F1-4707-9916-B97FE9F3EA1E",
+        "isAvailable" : true,
+        "deviceTypeIdentifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-12-mini",
+        "state" : "Shutdown",
+        "name" : "Test.Simulator"
+      },
+      {
+        "dataPath" : "\/Users\/vlsolome\/Library\/Developer\/CoreSimulator\/Devices\/DDF450E3-3AA8-4B5F-868F-6C31D73F5099\/data",
+        "logPath" : "\/Users\/vlsolome\/Library\/Logs\/CoreSimulator\/DDF450E3-3AA8-4B5F-868F-6C31D73F5099",
+        "udid" : "DDF450E3-3AA8-4B5F-868F-6C31D73F5099",
+        "isAvailable" : true,
+        "deviceTypeIdentifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-12-mini",
+        "state" : "Booted",
+        "name" : "iPhone 12 mini"
+      }
+    ]
+  },
+  "pairs" : {
+  }
+}

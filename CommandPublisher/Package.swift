@@ -13,6 +13,10 @@ let package = Package(
             name: "CommandPublisher",
             targets: ["CommandPublisher"]
         ),
+        .library(
+            name: "CommandPublisherMock",
+            targets: ["CommandPublisherMock"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/kareman/SwiftShell.git", from: "5.1.0"),
@@ -25,6 +29,14 @@ let package = Package(
         .testTarget(
             name: "CommandPublisherTests",
             dependencies: ["CommandPublisher"]
+        ),
+        .target(
+            name: "CommandPublisherMock",
+            dependencies: ["CommandPublisher"]
+        ),
+        .testTarget(
+            name: "CommandPublisherMockTests",
+            dependencies: ["CommandPublisherMock"]
         ),
     ]
 )

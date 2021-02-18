@@ -34,10 +34,16 @@ public class AppManager: ObservableObject {
     private var cancellables: [AnyCancellable] = []
     private let commander: Commander
 
-    public init(simulatorId: String, bundleId: String) {
+    public convenience init(simulatorId: String, bundleId: String) {
+        self.init(simulatorId: simulatorId,
+                  bundleId: bundleId,
+                  commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!))
+    }
+
+    init(simulatorId: String, bundleId: String, commander: Commander) {
         self.simulatorId = simulatorId
         self.bundleId = bundleId
-        commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
+        self.commander = commander
     }
 
     public func install(app: URL, defaults: Defaults? = nil) {

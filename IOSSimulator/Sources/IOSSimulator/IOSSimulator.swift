@@ -8,7 +8,7 @@ public class IOSSimulator: ObservableObject {
     }
 
     public enum State {
-        case stopped(Swift.Error?), started, starting, stopping, configuring, checking, notConfigured
+        case stopped(Swift.Error?), started, starting, stopping, configuring, checking, notConfigured(Swift.Error?)
     }
 
     @Published public private(set) var state: State = .stopped(nil)
@@ -17,10 +17,14 @@ public class IOSSimulator: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let commander: Commander
 
-    public init(simulatorName: String) {
-        self.simulatorName = simulatorName
-        commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
+    public convenience init(simulatorName: String) {
+        self.init(simulatorName: simulatorName,
+                  commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!))
+    }
 
+    init(simulatorName: String, commander: Commander) {
+        self.simulatorName = simulatorName
+        self.commander = commander
         let center = NSWorkspace.shared.notificationCenter
         center.addObserver(forName: NSWorkspace.didTerminateApplicationNotification,
                            object: nil, // always NSWorkspace
@@ -32,7 +36,6 @@ public class IOSSimulator: ObservableObject {
     }
 
     public func start() {
-        state = .starting
         startSimulator()
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
@@ -40,23 +43,22 @@ public class IOSSimulator: ObservableObject {
     }
 
     public func stop() {
-        state = .starting
-        let command = ShutdownSimulatorCommand(id: simulatorName)
-        commander.run(command: command)
-            .map { _ in .stopped(nil) }
+        let publisher = commander.run(command: ShutdownSimulatorCommand(id: simulatorName))
+            .map { _ in State.stopped(nil) }
             .catch { error in Just(.stopped(error)) }
+
+        Publishers.Merge(Just(State.stopping), publisher)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
     public func configure(deviceType: SimctlList.DeviceType, caURL: URL?) {
-        state = .configuring
-        let command = CreateSimulatorCommand(name: simulatorName, deviceType: deviceType, caURL: caURL)
-        commander.run(command: command)
-            .receive(on: DispatchQueue.main)
+        let publisher = commander.run(command: CreateSimulatorCommand(name: simulatorName, deviceType: deviceType, caURL: caURL))
             .map { _ in State.stopped(nil) }
-            .catch { error in Just(.stopped(error)) }
+            .catch { error in Just(.notConfigured(error)) }
+
+        Publishers.Merge(Just(State.configuring), publisher)
             .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
                     return Just(state)
@@ -80,8 +82,7 @@ public class IOSSimulator: ObservableObject {
     }
 
     public func check() {
-        state = .checking
-        commander.run(command: CheckSimulatorCommand(id: simulatorName))
+        let publisher = commander.run(command: CheckSimulatorCommand(id: simulatorName))
             .map {
                 switch $0 {
                 case .shutdown:
@@ -89,12 +90,13 @@ public class IOSSimulator: ObservableObject {
                 case .booted:
                     return .started
                 case .notCreated:
-                    return .notConfigured
+                    return .notConfigured(nil)
                 case .unknown:
-                    return .notConfigured
+                    return .notConfigured(nil)
                 }
             }
-            .catch { error in Just(State.stopped(error)) }
+            .catch { error in Just(State.notConfigured(error)) }
+        Publishers.Merge(Just(State.checking), publisher)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -108,10 +110,30 @@ public class IOSSimulator: ObservableObject {
 
     private func startSimulator() -> AnyPublisher<State, Never> {
         SimulatorApp.shared.open()
-        return commander.run(command: BootSimulatorCommand(id: simulatorName))
-            .map { _ in .started }
+        let commandPublisher = commander.run(command: BootSimulatorCommand(id: simulatorName))
+            .map { _ in State.started }
             .catch { error in Just(.stopped(error)) }
+        return Publishers.Merge(Just(State.starting), commandPublisher)
             .eraseToAnyPublisher()
+    }
+}
+
+extension IOSSimulator.State: Equatable {
+    public static func == (lhs: IOSSimulator.State, rhs: IOSSimulator.State) -> Bool {
+        switch (lhs, rhs) {
+        case let (.stopped(r), .stopped(l)):
+            return (r == nil && l == nil) || (r != nil && l != nil)
+        case let (.notConfigured(r), .notConfigured(l)):
+            return (r == nil && l == nil) || (r != nil && l != nil)
+        case (.started, .started),
+             (.starting, .starting),
+             (.stopping, .stopping),
+             (.configuring, .configuring),
+             (.checking, .checking):
+            return true
+        default:
+            return false
+        }
     }
 }
 

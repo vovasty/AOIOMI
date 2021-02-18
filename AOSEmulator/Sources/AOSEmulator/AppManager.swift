@@ -28,7 +28,7 @@ public class AppManager: ObservableObject {
         self.activityId = activityId
         self.packageId = packageId
         self.preferencesPath = preferencesPath
-        commander = Commander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
+        commander = ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
     }
 
     public func start() {

@@ -27,10 +27,11 @@ struct CheckSimulatorCommand: Command {
             throw Error.invalidData
         }
         let result = try JSONDecoder().decode(SimctlList.self, from: data)
-        if let device = result.devices.values.first(where: { $0.first(where: { $0.name == id }) != nil })?.first {
+
+        for devices in result.devices {
+            guard let device = devices.value.first(where: { $0.name == id }) else { continue }
             return device.state
-        } else {
-            return .notCreated
         }
+        return .notCreated
     }
 }

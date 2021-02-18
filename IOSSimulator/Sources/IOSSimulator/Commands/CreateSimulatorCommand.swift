@@ -25,7 +25,8 @@ struct CreateSimulatorCommand: Command {
     }
 
     func parse(stdout: [String]) throws -> String {
-        guard let udid = stdout.first, !udid.isEmpty else {
+        let udid = stdout.joined().trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !udid.isEmpty else {
             throw Error.invalidData
         }
 

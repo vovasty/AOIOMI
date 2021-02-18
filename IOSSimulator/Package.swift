@@ -29,7 +29,11 @@ let package = Package(
         ),
         .testTarget(
             name: "IOSSimulatorTests",
-            dependencies: ["IOSSimulator"]
+            dependencies: ["IOSSimulator", .product(name: "CommandPublisherMock", package: "CommandPublisher")],
+            resources: [
+                .copy("Resources/list.json"),
+                .copy("Resources/test.pem"),
+            ]
         ),
     ]
 )
