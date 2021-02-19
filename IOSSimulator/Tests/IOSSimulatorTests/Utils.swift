@@ -5,7 +5,10 @@
 //  Created by vlsolome on 2/17/21.
 //
 
+import Combine
+import CommandPublisherMock
 import Foundation
+import XCTest
 
 extension JSONDecoder {
     enum DecodeError: Error {
@@ -34,5 +37,42 @@ extension JSONEncoder {
         }
 
         return string
+    }
+}
+
+protocol TestObjectProtocol: ObservableObject {
+    associatedtype StateType: Equatable
+    // Wrapped value
+    var state: StateType { get }
+
+    // Publisher
+    var statePublisher: Published<StateType>.Publisher { get }
+}
+
+class StatesTestCase<TestObject: TestObjectProtocol>: XCTestCase {
+    func getTestObject(commanderMock _: CommanderMock) -> TestObject {
+        fatalError("should be overwritten")
+    }
+
+    func testStates(file: StaticString = #filePath, line: UInt = #line, _ allowedCommands: [CommanderMock.AllowedCommand], expected: [TestObject.StateType], action: (TestObject) -> Void) {
+        let commanderMock = CommanderMock(allowedCommands: allowedCommands)
+        let testObject = getTestObject(commanderMock: commanderMock)
+        var actual = [TestObject.StateType]()
+        var tokens = Set<AnyCancellable>()
+        let e = expectation(description: "test")
+
+        testObject.statePublisher
+            .timeout(.seconds(0.1), scheduler: DispatchQueue.main, options: nil, customError: nil)
+            .sink(receiveCompletion: { _ in
+                e.fulfill()
+            }, receiveValue: {
+                actual.append($0)
+            })
+            .store(in: &tokens)
+
+        action(testObject)
+
+        waitForExpectations(timeout: 1)
+        XCTAssertEqual(actual, expected, file: file, line: line)
     }
 }
