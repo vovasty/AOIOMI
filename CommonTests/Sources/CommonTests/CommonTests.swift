@@ -1,16 +1,9 @@
-//
-//  File.swift
-//
-//
-//  Created by vlsolome on 2/17/21.
-//
-
 import Combine
 import CommandPublisherMock
 import Foundation
 import XCTest
 
-extension JSONDecoder {
+public extension JSONDecoder {
     enum DecodeError: Error {
         case noFile
     }
@@ -25,7 +18,7 @@ extension JSONDecoder {
     }
 }
 
-extension JSONEncoder {
+public extension JSONEncoder {
     enum EncodeError: Error {
         case badData
     }
@@ -40,7 +33,7 @@ extension JSONEncoder {
     }
 }
 
-protocol TestObjectProtocol: ObservableObject {
+public protocol TestObjectProtocol: ObservableObject {
     associatedtype StateType: Equatable
     // Wrapped value
     var state: StateType { get }
@@ -49,12 +42,12 @@ protocol TestObjectProtocol: ObservableObject {
     var statePublisher: Published<StateType>.Publisher { get }
 }
 
-class StatesTestCase<TestObject: TestObjectProtocol>: XCTestCase {
-    func getTestObject(commanderMock _: CommanderMock) -> TestObject {
+open class StatesTestCase<TestObject: TestObjectProtocol>: XCTestCase {
+    open func getTestObject(commanderMock _: CommanderMock) -> TestObject {
         fatalError("should be overwritten")
     }
 
-    func testStates(file: StaticString = #filePath, line: UInt = #line, _ allowedCommands: [CommanderMock.AllowedCommand], expected: [TestObject.StateType], action: (TestObject) -> Void) {
+    public func testStates(file: StaticString = #filePath, line: UInt = #line, _ allowedCommands: [CommanderMock.AllowedCommand], expected: [TestObject.StateType], action: (TestObject) -> Void) {
         let commanderMock = CommanderMock(allowedCommands: allowedCommands)
         let testObject = getTestObject(commanderMock: commanderMock)
         var actual = [TestObject.StateType]()

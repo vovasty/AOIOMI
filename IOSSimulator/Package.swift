@@ -16,6 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../CommandPublisher"),
+        .package(path: "../CommonTests"),
     ],
     targets: [
         .target(
@@ -29,7 +30,7 @@ let package = Package(
         ),
         .testTarget(
             name: "IOSSimulatorTests",
-            dependencies: ["IOSSimulator", .product(name: "CommandPublisherMock", package: "CommandPublisher")],
+            dependencies: ["IOSSimulator", "CommonTests"],
             resources: [
                 .copy("Resources"),
             ]

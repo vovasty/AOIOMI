@@ -5,13 +5,13 @@
 //  Created by vlsolome on 2/17/21.
 //
 
-import Combine
 import CommandPublisherMock
+import CommonTests
 @testable import IOSSimulator
 import XCTest
 
 extension AppManager: TestObjectProtocol {
-    var statePublisher: Published<State>.Publisher {
+    public var statePublisher: Published<State>.Publisher {
         $state
     }
 }

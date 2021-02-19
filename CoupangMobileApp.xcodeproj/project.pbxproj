@@ -86,6 +86,7 @@
 		B4A976B9253114D300962CC1 /* CoupangMobileAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoupangMobileAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppUITests.swift; sourceTree = "<group>"; };
 		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4C27FF825DF790A00C2C972 /* CommonTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CommonTests; sourceTree = "<group>"; };
 		B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSHTTPProxyManager.swift; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
@@ -141,6 +142,7 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B4C27FF825DF790A00C2C972 /* CommonTests */,
 				B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */,
 				B4FC82F925DB9AED000E47A7 /* HTTPProxyManager */,
 				B40942C325DB97F8005CBEB3 /* AOSEmulator */,
