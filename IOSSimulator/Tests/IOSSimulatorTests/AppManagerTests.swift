@@ -25,8 +25,7 @@ final class AppManagerTests: StatesTestCase<AppManager> {
     }
 
     func testCheckFailure() throws {
-        testStates([],
-                   expected: [.notInstalled(nil), .checking, .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
+        testStates(expected: [.notInstalled(nil), .checking, .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
             $0.check()
         }
     }
@@ -34,7 +33,7 @@ final class AppManagerTests: StatesTestCase<AppManager> {
     func testCheckNoDefaultsSuccess() throws {
         let containerURL = URL(fileURLWithPath: "/nonexisting")
 
-        testStates([CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: [containerURL.path])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: [containerURL.path])],
                    expected: [.notInstalled(nil), .checking, .installed(error: nil, defaults: nil)]) {
             $0.check()
         }
@@ -46,21 +45,20 @@ final class AppManagerTests: StatesTestCase<AppManager> {
             return
         }
 
-        testStates([CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: [containerURL.path])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: [containerURL.path])],
                    expected: [.notInstalled(nil), .checking, .installed(error: nil, defaults: ["some": "string"])]) {
             $0.check()
         }
     }
 
     func testStartFailure() throws {
-        testStates([],
-                   expected: [.notInstalled(nil), .starting(nil), .checking, .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
+        testStates(expected: [.notInstalled(nil), .starting(nil), .checking, .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
             $0.start()
         }
     }
 
     func testStartPartialSuccess() throws {
-        testStates([CommanderMock.AllowedCommand(type: RunAppCommand.self, stdout: [])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: RunAppCommand.self)],
                    expected: [.notInstalled(nil), .starting(nil), .checking, .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
             $0.start()
         }
@@ -72,8 +70,8 @@ final class AppManagerTests: StatesTestCase<AppManager> {
             return
         }
 
-        testStates([
-            CommanderMock.AllowedCommand(type: RunAppCommand.self, stdout: []),
+        testStates(allowedCommands: [
+            CommanderMock.AllowedCommand(type: RunAppCommand.self),
             CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: [containerURL.path]),
         ],
         expected: [.notInstalled(nil), .starting(nil), .checking, .installed(error: nil, defaults: ["some": "string"])]) {
@@ -82,14 +80,13 @@ final class AppManagerTests: StatesTestCase<AppManager> {
     }
 
     func testInstallFailure() throws {
-        testStates([],
-                   expected: [.notInstalled(nil), .installing(nil), .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
+        testStates(expected: [.notInstalled(nil), .installing(nil), .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
             $0.install(app: URL(fileURLWithPath: "/doesntmatter"), defaults: nil)
         }
     }
 
     func testInstallDefaultsFailure() throws {
-        testStates([CommanderMock.AllowedCommand(type: InstallAppCommand.self, stdout: [])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: InstallAppCommand.self)],
                    expected: [.notInstalled(nil), .installing(nil), .starting(nil), .checking, .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
             $0.install(app: URL(fileURLWithPath: "/doesntmatter"), defaults: nil)
         }
@@ -101,8 +98,8 @@ final class AppManagerTests: StatesTestCase<AppManager> {
             return
         }
 
-        testStates([
-            CommanderMock.AllowedCommand(type: InstallAppCommand.self, stdout: []),
+        testStates(allowedCommands: [
+            CommanderMock.AllowedCommand(type: InstallAppCommand.self),
             CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: [containerURL.path]),
         ],
         expected: [.notInstalled(nil), .installing(nil), .starting(nil), .checking, .installed(error: CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand, defaults: ["some": "string"])]) {
@@ -116,10 +113,10 @@ final class AppManagerTests: StatesTestCase<AppManager> {
             return
         }
 
-        testStates([
-            CommanderMock.AllowedCommand(type: InstallAppCommand.self, stdout: []),
+        testStates(allowedCommands: [
+            CommanderMock.AllowedCommand(type: InstallAppCommand.self),
             CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: [containerURL.path]),
-            CommanderMock.AllowedCommand(type: RunAppCommand.self, stdout: []),
+            CommanderMock.AllowedCommand(type: RunAppCommand.self),
         ],
         expected: [.notInstalled(nil), .installing(nil), .starting(nil), .checking, .installed(error: nil, defaults: ["some": "string"])]) {
             $0.install(app: URL(fileURLWithPath: "/doesntmatter"), defaults: nil)

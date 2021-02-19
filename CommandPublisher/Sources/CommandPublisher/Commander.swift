@@ -17,5 +17,5 @@ public protocol CommanderProcess {
 
 public protocol Commander {
     func run<CommandType: Command>(command: CommandType) -> AnyPublisher<CommandType.Result, Error>
-    func run(command: AsyncCommand) -> CommanderProcess
+    func run<AsyncCommandType: AsyncCommand>(command: AsyncCommandType) -> CommanderProcess
 }

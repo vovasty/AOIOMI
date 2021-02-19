@@ -53,7 +53,7 @@ public struct ShellCommander: Commander {
             .eraseToAnyPublisher()
     }
 
-    public func run(command: AsyncCommand) -> CommanderProcess {
+    public func run<AsyncCommandType>(command: AsyncCommandType) -> CommanderProcess where AsyncCommandType: AsyncCommand {
         let executable: String
         switch command.executable {
         case .helper:

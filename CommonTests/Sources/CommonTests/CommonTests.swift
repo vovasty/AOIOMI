@@ -47,8 +47,8 @@ open class StatesTestCase<TestObject: TestObjectProtocol>: XCTestCase {
         fatalError("should be overwritten")
     }
 
-    public func testStates(file: StaticString = #filePath, line: UInt = #line, _ allowedCommands: [CommanderMock.AllowedCommand], expected: [TestObject.StateType], action: (TestObject) -> Void) {
-        let commanderMock = CommanderMock(allowedCommands: allowedCommands)
+    public func testStates(file: StaticString = #filePath, line: UInt = #line, allowedCommands: [CommanderMock.AllowedCommand] = [], allowedAsyncCommands: [CommanderMock.AllowedAsyncCommand] = [], expected: [TestObject.StateType], action: (TestObject) -> Void) {
+        let commanderMock = CommanderMock(allowedCommands: allowedCommands, allowedAsyncCommands: allowedAsyncCommands)
         let testObject = getTestObject(commanderMock: commanderMock)
         var actual = [TestObject.StateType]()
         var tokens = Set<AnyCancellable>()

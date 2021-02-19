@@ -82,8 +82,15 @@ final class CommandPublisherMockTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
 
-    func testAsync() {
-        let mock = CommanderMock(allowedCommands: [])
+    func testAsyncFailure() {
+        let mock = CommanderMock()
+        let process = mock.run(command: ACommand())
+
+        XCTAssertFalse(process.isRunning)
+    }
+
+    func testAsyncSuccess() {
+        let mock = CommanderMock(allowedAsyncCommands: [CommanderMock.AllowedAsyncCommand(type: ACommand.self)])
         let process = mock.run(command: ACommand())
 
         XCTAssert(process.isRunning)

@@ -24,31 +24,29 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
     }
 
     func testStartFailure() throws {
-        testStates([],
-                   expected: [.stopped(nil), .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
+        testStates(expected: [.stopped(nil), .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.start() })
     }
 
     func testStartSuccess() throws {
-        testStates([CommanderMock.AllowedCommand(type: BootSimulatorCommand.self, stdout: [])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: BootSimulatorCommand.self)],
                    expected: [.stopped(nil), .starting, .started],
                    action: { $0.start() })
     }
 
     func testStopSuccess() throws {
-        testStates([CommanderMock.AllowedCommand(type: ShutdownSimulatorCommand.self, stdout: [])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: ShutdownSimulatorCommand.self)],
                    expected: [.stopped(nil), .stopping, .stopped(nil)],
                    action: { $0.stop() })
     }
 
     func testStopFailure() throws {
-        testStates([],
-                   expected: [.stopped(nil), .stopping, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
+        testStates(expected: [.stopped(nil), .stopping, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.stop() })
     }
 
     func testCheckFailure() {
-        testStates([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self)],
                    expected: [.stopped(nil), .checking, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.check() })
     }
@@ -56,7 +54,7 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
     func testCheckStopped() throws {
         let stdout = try setDevice(state: .shutdown)
 
-        testStates([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
                    expected: [.stopped(nil), .checking, .stopped(nil)],
                    action: { $0.check() })
     }
@@ -64,7 +62,7 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
     func testCheckStared() throws {
         let stdout = try setDevice(state: .booted)
 
-        testStates([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
                    expected: [.stopped(nil), .checking, .started],
                    action: { $0.check() })
     }
@@ -72,7 +70,7 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
     func testCheckMalformed() throws {
         let stdout = try setDevice(state: .unknown("junk"))
 
-        testStates([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
                    expected: [.stopped(nil), .checking, .notConfigured(nil)],
                    action: { $0.check() })
     }
@@ -82,7 +80,7 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
         var list = try JSONDecoder().decode(fileName: "list.json", type: SimctlList.self)
         list.devices = [:]
 
-        testStates([CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
                    expected: [.stopped(nil), .checking, .notConfigured(nil)],
                    action: { $0.check() })
     }
@@ -92,11 +90,9 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
             XCTFail()
             return
         }
-        testStates([],
-                   expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
+        testStates(expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
-        testStates([],
-                   expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
+        testStates(expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })
     }
 
@@ -107,10 +103,10 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
         }
         let uuid = "123456789"
 
-        testStates([CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
                    expected: [.stopped(nil), .configuring, .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
-        testStates([CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
+        testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
                    expected: [.stopped(nil), .configuring, .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })
     }
@@ -122,16 +118,16 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
         }
         let uuid = "123456789"
 
-        testStates([
+        testStates(allowedCommands: [
             CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid]),
-            CommanderMock.AllowedCommand(type: BootSimulatorCommand.self, stdout: []),
+            CommanderMock.AllowedCommand(type: BootSimulatorCommand.self),
         ],
         expected: [.stopped(nil), .configuring, .starting, .started],
         action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
 
-        testStates([
+        testStates(allowedCommands: [
             CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid]),
-            CommanderMock.AllowedCommand(type: BootSimulatorCommand.self, stdout: []),
+            CommanderMock.AllowedCommand(type: BootSimulatorCommand.self),
         ],
         expected: [.stopped(nil), .configuring, .starting, .started],
         action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })

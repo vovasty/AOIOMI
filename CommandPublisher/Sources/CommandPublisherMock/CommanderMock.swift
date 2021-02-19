@@ -16,8 +16,16 @@ public struct CommanderMock: Commander {
         let type: Any.Type
         let stdout: [String]
 
-        public init<Type: Command>(type: Type.Type, stdout: [String]) {
+        public init<Type: Command>(type: Type.Type, stdout: [String] = []) {
             self.stdout = stdout
+            self.type = type
+        }
+    }
+
+    public struct AllowedAsyncCommand {
+        let type: Any.Type
+
+        public init<Type: AsyncCommand>(type: Type.Type) {
             self.type = type
         }
     }
@@ -32,6 +40,9 @@ public struct CommanderMock: Commander {
 
         public func onCompletion(handler: @escaping () -> Void) {
             completionHandler = handler
+            if !isRunning {
+                completionHandler?()
+            }
         }
 
         public func stop() {
@@ -41,9 +52,11 @@ public struct CommanderMock: Commander {
     }
 
     public let allowedCommands: [AllowedCommand]
+    public let allowedAsyncCommands: [AllowedAsyncCommand]
 
-    public init(allowedCommands: [AllowedCommand]) {
+    public init(allowedCommands: [AllowedCommand] = [], allowedAsyncCommands: [AllowedAsyncCommand] = []) {
         self.allowedCommands = allowedCommands
+        self.allowedAsyncCommands = allowedAsyncCommands
     }
 
     public func run<CommandType: Command>(command: CommandType) -> AnyPublisher<CommandType.Result, Swift.Error> {
@@ -63,7 +76,13 @@ public struct CommanderMock: Commander {
         .eraseToAnyPublisher()
     }
 
-    public func run(command _: AsyncCommand) -> CommanderProcess {
-        Process()
+    public func run<AsyncCommandType>(command _: AsyncCommandType) -> CommanderProcess where AsyncCommandType: AsyncCommand {
+        let process = Process()
+
+        if !allowedAsyncCommands.contains(where: { $0.type is AsyncCommandType.Type }) {
+            process.stop()
+        }
+
+        return process
     }
 }
