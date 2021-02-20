@@ -8,8 +8,8 @@ public extension JSONDecoder {
         case noFile
     }
 
-    func decode<Type: Decodable>(fileName: String, type: Type.Type) throws -> Type {
-        guard let jsonURL = Bundle.module.url(forResource: "Resources/\(fileName)", withExtension: nil) else {
+    func decode<Type: Decodable>(fileName: String, type: Type.Type, bundle: Bundle) throws -> Type {
+        guard let jsonURL = bundle.url(forResource: "\(fileName)", withExtension: nil) else {
             throw DecodeError.noFile
         }
 
@@ -42,12 +42,15 @@ public protocol TestObjectProtocol: ObservableObject {
     var statePublisher: Published<StateType>.Publisher { get }
 }
 
-open class StatesTestCase<TestObject: TestObjectProtocol>: XCTestCase {
-    open func getTestObject(commanderMock _: CommanderMock) -> TestObject {
-        fatalError("should be overwritten")
-    }
+public protocol StatesTestCase: XCTestCase {
+    associatedtype TestObject: TestObjectProtocol
 
-    public func testStates(file: StaticString = #filePath, line: UInt = #line, allowedCommands: [CommanderMock.AllowedCommand] = [], allowedAsyncCommands: [CommanderMock.AllowedAsyncCommand] = [], expected: [TestObject.StateType], action: (TestObject) -> Void) {
+    func getTestObject(commanderMock _: CommanderMock) -> TestObject
+    func testStates(file: StaticString, line: UInt, allowedCommands: [CommanderMock.AllowedCommand], allowedAsyncCommands: [CommanderMock.AllowedAsyncCommand], expected: [TestObject.StateType], action: (TestObject) -> Void)
+}
+
+public extension StatesTestCase {
+    func testStates(file: StaticString = #filePath, line: UInt = #line, allowedCommands: [CommanderMock.AllowedCommand] = [], allowedAsyncCommands: [CommanderMock.AllowedAsyncCommand] = [], expected: [TestObject.StateType], action: (TestObject) -> Void) {
         let commanderMock = CommanderMock(allowedCommands: allowedCommands, allowedAsyncCommands: allowedAsyncCommands)
         let testObject = getTestObject(commanderMock: commanderMock)
         var actual = [TestObject.StateType]()

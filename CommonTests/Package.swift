@@ -19,10 +19,7 @@ let package = Package(
     targets: [
         .target(
             name: "CommonTests",
-            dependencies: [.product(name: "CommandPublisherMock", package: "CommandPublisher")],
-            resources: [
-                .copy("Resources"),
-            ]
+            dependencies: [.product(name: "CommandPublisherMock", package: "CommandPublisher")]
         ),
         .testTarget(
             name: "CommonTestsTests",

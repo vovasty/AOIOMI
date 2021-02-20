@@ -16,11 +16,11 @@ extension AppManager: TestObjectProtocol {
     }
 }
 
-final class AppManagerTests: StatesTestCase<AppManager> {
+final class AppManagerTests: XCTestCase, StatesTestCase {
     let simulatorName = "Test.Simulator"
     let bundleName = "test.test"
 
-    override func getTestObject(commanderMock: CommanderMock) -> AppManager {
+    func getTestObject(commanderMock: CommanderMock) -> AppManager {
         AppManager(simulatorId: simulatorName, bundleId: bundleName, commander: commanderMock)
     }
 

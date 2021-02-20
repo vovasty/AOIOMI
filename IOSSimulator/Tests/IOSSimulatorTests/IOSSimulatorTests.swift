@@ -16,10 +16,10 @@ extension IOSSimulator: TestObjectProtocol {
     }
 }
 
-final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
+final class IOSSimulatorTests: XCTestCase, StatesTestCase {
     let simulatorName = "Test.Simulator"
 
-    override func getTestObject(commanderMock: CommanderMock) -> IOSSimulator {
+    func getTestObject(commanderMock: CommanderMock) -> IOSSimulator {
         IOSSimulator(simulatorName: simulatorName, commander: commanderMock)
     }
 
@@ -77,7 +77,7 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
 
     func testCheckMissing() throws {
         let stdout = try setDevice(state: .unknown("junk"))
-        var list = try JSONDecoder().decode(fileName: "list.json", type: SimctlList.self)
+        var list = try JSONDecoder().decode(fileName: "Resources/list.json", type: SimctlList.self, bundle: Bundle.module)
         list.devices = [:]
 
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CheckSimulatorCommand.self, stdout: [stdout])],
@@ -136,7 +136,7 @@ final class IOSSimulatorTests: StatesTestCase<IOSSimulator> {
 
 extension IOSSimulatorTests {
     private func setDevice(state: SimctlList.DeviceState) throws -> String {
-        var list = try JSONDecoder().decode(fileName: "list.json", type: SimctlList.self)
+        var list = try JSONDecoder().decode(fileName: "Resources/list.json", type: SimctlList.self, bundle: Bundle.module)
         var newDevices = [String: [SimctlList.Device]]()
 
         for device in list.devices {
