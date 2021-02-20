@@ -58,17 +58,18 @@ public extension StatesTestCase {
         let e = expectation(description: "test")
 
         testObject.statePublisher
-            .timeout(.seconds(0.1), scheduler: DispatchQueue.main, options: nil, customError: nil)
-            .sink(receiveCompletion: { _ in
+            .timeout(.seconds(0.2), scheduler: DispatchQueue.main, options: nil, customError: nil)
+            .collect()
+            .sink(receiveCompletion: { completion in
                 e.fulfill()
             }, receiveValue: {
-                actual.append($0)
+                actual = $0
             })
             .store(in: &tokens)
 
         action(testObject)
 
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 2)
         XCTAssertEqual(actual, expected, file: file, line: line)
     }
 }

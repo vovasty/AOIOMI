@@ -102,7 +102,7 @@ public class AppManager: ObservableObject {
             }
             .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
-                    return Just(.starting(nil))
+                    return Just(state)
                         .eraseToAnyPublisher()
                 }
                 let error: Error?

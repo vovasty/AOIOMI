@@ -31,7 +31,10 @@ let package = Package(
         ),
         .testTarget(
             name: "AOSEmulatorTests",
-            dependencies: ["AOSEmulator", "CommonTests"]
+            dependencies: ["AOSEmulator", "CommonTests"],
+            resources: [
+                .copy("Resources"),
+            ]
         ),
     ]
 )

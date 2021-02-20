@@ -24,11 +24,18 @@ public class AppManager: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let commander: Commander
 
-    public init(activityId: String, packageId: String, preferencesPath: String) {
+    public convenience init(activityId: String, packageId: String, preferencesPath: String) {
+        self.init(activityId: activityId,
+                  packageId: packageId,
+                  preferencesPath: preferencesPath,
+                  commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!))
+    }
+    
+    init(activityId: String, packageId: String, preferencesPath: String, commander: Commander) {
         self.activityId = activityId
         self.packageId = packageId
         self.preferencesPath = preferencesPath
-        commander = ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
+        self.commander = commander
     }
 
     public func start() {
@@ -55,9 +62,7 @@ public class AppManager: ObservableObject {
     }
 
     public func check() {
-        state = .checking
-        checkAppState()
-            .replaceError(with: .notInstalled(nil))
+        checkAppState(upstreamError: nil)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -95,20 +100,20 @@ public class AppManager: ObservableObject {
             .eraseToAnyPublisher()
     }
 
-    private func checkAppState() -> AnyPublisher<State, Error> {
-        commander.run(command: IsAppInstalledCommand(packageId: packageId))
-            .map { _ -> State in .installed(error: nil, defaults: nil) }
-            .flatMap { [weak self] state -> AnyPublisher<State, Error> in
+    private func checkAppState(upstreamError: Error?) -> AnyPublisher<State, Never> {
+        let publisher = commander.run(command: IsAppInstalledCommand(packageId: packageId))
+            .map { _ in State.installed(error: upstreamError, defaults: nil) }
+            .catch { _ in Just(.notInstalled(nil)) }
+            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
-                    return Future { $0(.success(state)) }
+                    return Just(state)
                         .eraseToAnyPublisher()
                 }
                 switch state {
                 case let .installed(error, _):
                     return self.commander.run(command: GetAppPreferencesCommand(preferencesPath: self.preferencesPath))
                         .map { xml -> State in .installed(error: error, defaults: xml) }
-                        // just ignore this error
-                        .catch { error in Future { $0(.success(.installed(error: error, defaults: nil))) }}
+                        .replaceError(with: state)
                         .eraseToAnyPublisher()
                 default:
                     return Future { $0(.success(state)) }
@@ -116,8 +121,31 @@ public class AppManager: ObservableObject {
                 }
             }
             .eraseToAnyPublisher()
+        
+        return Publishers.Merge(Just(.checking), publisher)
+            .eraseToAnyPublisher()
+
     }
 }
+
+extension AppManager.State: Equatable {
+    public static func == (lhs: AppManager.State, rhs: AppManager.State) -> Bool {
+        switch (lhs, rhs) {
+        case let (.installed(re, rd), .installed(le, ld)):
+            return ((re == nil && le == nil) || (re != nil && le != nil)) &&
+                ((rd == nil && ld == nil) || (rd != nil && ld != nil))
+        case let (.notInstalled(r), .notInstalled(l)):
+            return (r == nil && l == nil) || (r != nil && l != nil)
+        case (.installing, .installing),
+             (.starting, .starting),
+             (.checking, .checking):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 
 #if DEBUG
     public extension AppManager {
