@@ -17,6 +17,7 @@ let package = Package(
         .package(url: "https://github.com/kareman/SwiftShell.git", from: "5.1.0"),
         .package(url: "https://github.com/drmohundro/SWXMLHash.git", from: "5.0.1"),
         .package(path: "../CommandPublisher"),
+        .package(path: "../CommonTests"),
     ],
     targets: [
         .target(
@@ -30,7 +31,7 @@ let package = Package(
         ),
         .testTarget(
             name: "AOSEmulatorTests",
-            dependencies: ["AOSEmulator"]
+            dependencies: ["AOSEmulator", "CommonTests"]
         ),
     ]
 )

@@ -32,8 +32,12 @@ public class AOSEmulator: ObservableObject {
     private var process: CommanderProcess?
     private var cancellables = Set<AnyCancellable>()
 
-    public init() {
-        commander = ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!)
+    public convenience init() {
+        self.init(commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!))
+    }
+
+    init(commander: Commander) {
+        self.commander = commander
     }
 
     public func start() {
@@ -41,10 +45,7 @@ public class AOSEmulator: ObservableObject {
             assert(false, "already running")
             return
         }
-        state = .starting
         startEmulator()
-            .map { _ in .started }
-            .catch { error in Just(.stopped(error)) }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -65,10 +66,9 @@ public class AOSEmulator: ObservableObject {
     public func configure(proxy: String?, caPath: URL?) {
         process?.onCompletion {}
         process = nil
-        state = .configuring
-        commander.run(command: CreateEmulatorCommand(proxy: proxy, caPath: caPath))
+        let publisher = commander.run(command: CreateEmulatorCommand(proxy: proxy, caPath: caPath))
             .timeout(.seconds(Config.configuringTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.configuringTimeout })
-            .map { _ -> State in .configuring }
+            .map { _ in State.stopped(nil) }
             .catch { error in Just(.notConfigured(error)) }
             .flatMap { [weak self] state -> AnyPublisher<State, Never> in
                 guard let self = self else {
@@ -76,22 +76,22 @@ public class AOSEmulator: ObservableObject {
                         .eraseToAnyPublisher()
                 }
                 switch state {
-                case .configuring:
+                case .stopped:
                     return self.startEmulator()
-                        .map { _ in .started }
-                        .catch { error in Just(.stopped(error)) }
                         .eraseToAnyPublisher()
                 default:
                     return Just(state)
                         .eraseToAnyPublisher()
                 }
             }
+
+        Publishers.Merge(Just(State.configuring), publisher)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
     }
 
-    private func startEmulator() -> AnyPublisher<Void, Swift.Error> {
+    private func startEmulator() -> AnyPublisher<State, Never> {
         process = commander.run(command: StartEmulatorCommand())
         process?.onCompletion {
             DispatchQueue.main.async { [weak self] in
@@ -101,35 +101,48 @@ public class AOSEmulator: ObservableObject {
             }
         }
 
-        let command = WaitBootedCommand()
-        return commander.run(command: command)
+        let publisher = commander.run(command: WaitBootedCommand())
+            .map { [weak self] _ -> State in
+                if self?.process?.isRunning == true {
+                    return .started
+                } else {
+                    return .stopped(nil)
+                }
+            }
             .timeout(.seconds(Config.waitBootingTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.bootingTimeout })
+            .catch { Just(.stopped($0)) }
+            .eraseToAnyPublisher()
+
+        return Publishers.Merge(Just(State.starting), publisher)
             .eraseToAnyPublisher()
     }
 
     private func checkEmulatorState() -> AnyPublisher<State, Never> {
-        commander.run(command: IsEmulatorCreatedCommand())
-            .map { _ -> State in .checking }
+        let publisher = commander.run(command: IsEmulatorCreatedCommand())
+            .map { _ in State.stopped(nil) }
             .catch { _ in Just(.notConfigured(nil)) }
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
-                guard let self = self else {
-                    return Just(.stopped(nil))
-                        .eraseToAnyPublisher()
-                }
-                switch state {
-                case .notConfigured:
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                default:
-                    return self.commander.run(command: GetEmulatorPIDCommand())
-                        .map { _ in .started }
-                        .catch { _ in Just(.stopped(nil)) }
-                        .eraseToAnyPublisher()
-                }
-            }
-            .collect()
-            .map { $0.last ?? .notConfigured(nil) }
+
+        return Publishers.Merge(Just(State.checking), publisher)
             .eraseToAnyPublisher()
+    }
+}
+
+extension AOSEmulator.State: Equatable {
+    public static func == (lhs: AOSEmulator.State, rhs: AOSEmulator.State) -> Bool {
+        switch (lhs, rhs) {
+        case let (.stopped(r), .stopped(l)):
+            return (r == nil && l == nil) || (r != nil && l != nil)
+        case let (.notConfigured(r), .notConfigured(l)):
+            return (r == nil && l == nil) || (r != nil && l != nil)
+        case (.started, .started),
+             (.starting, .starting),
+             (.stopping, .stopping),
+             (.configuring, .configuring),
+             (.checking, .checking):
+            return true
+        default:
+            return false
+        }
     }
 }
 
