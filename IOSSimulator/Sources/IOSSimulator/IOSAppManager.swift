@@ -9,7 +9,7 @@ import Combine
 import CommandPublisher
 import Foundation
 
-public class AppManager: ObservableObject {
+public class IOSAppManager: ObservableObject {
     public enum State {
         case notInstalled(Error?), installed(error: Error?, defaults: Any?), installing, starting, checking
     }
@@ -139,8 +139,8 @@ public class AppManager: ObservableObject {
     }
 }
 
-extension AppManager.State: Equatable {
-    public static func == (lhs: AppManager.State, rhs: AppManager.State) -> Bool {
+extension IOSAppManager.State: Equatable {
+    public static func == (lhs: IOSAppManager.State, rhs: IOSAppManager.State) -> Bool {
         switch (lhs, rhs) {
         case let (.installed(re, rd), .installed(le, ld)):
             let dCompare: Bool
@@ -165,9 +165,9 @@ extension AppManager.State: Equatable {
 }
 
 #if DEBUG
-    public extension AppManager {
-        static func preview(state: State = .notInstalled(nil)) -> AppManager {
-            let manager = AppManager(simulatorId: "test", bundleId: "test")
+    public extension IOSAppManager {
+        static func preview(state: State = .notInstalled(nil)) -> IOSAppManager {
+            let manager = IOSAppManager(simulatorId: "test", bundleId: "test")
             manager.state = state
             return manager
         }

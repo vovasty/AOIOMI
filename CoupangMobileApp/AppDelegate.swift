@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_: Notification) {
         let simulatorId = "CoupangMobileApp"
         simulator = IOSSimulator(simulatorName: simulatorId)
-        let iosAppManager = AppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
+        let iosAppManager = IOSAppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
         let aosAppManager = AppManager(activityId: "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity", packageId: "com.coupang.mobile", preferencesPath: "/data/data/com.coupang.mobile/shared_prefs/com.coupang.mobile_preferences.xml")
         let httpProxyManager = HTTPProxyManager()
         let contentView = ContentView()

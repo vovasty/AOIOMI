@@ -10,18 +10,18 @@ import CommonTests
 @testable import IOSSimulator
 import XCTest
 
-extension AppManager: TestObjectProtocol {
+extension IOSAppManager: TestObjectProtocol {
     public var statePublisher: Published<State>.Publisher {
         $state
     }
 }
 
-final class AppManagerTests: XCTestCase, StatesTestCase {
+final class IOSAppManagerTests: XCTestCase, StatesTestCase {
     let simulatorName = "Test.Simulator"
     let bundleName = "test.test"
 
-    func getTestObject(commanderMock: CommanderMock) -> AppManager {
-        AppManager(simulatorId: simulatorName, bundleId: bundleName, commander: commanderMock)
+    func getTestObject(commanderMock: CommanderMock) -> IOSAppManager {
+        IOSAppManager(simulatorId: simulatorName, bundleId: bundleName, commander: commanderMock)
     }
 
     func testCheckFailure() throws {

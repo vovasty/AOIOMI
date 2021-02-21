@@ -9,7 +9,7 @@ import Combine
 import CommandPublisher
 import protocol CommandPublisher.AsyncCommand
 import Foundation
-import SwiftShell
+@testable import SwiftShell
 
 public struct CommanderMock: Commander {
     public struct AllowedCommand {
@@ -59,13 +59,14 @@ public struct CommanderMock: Commander {
         .eraseToAnyPublisher()
     }
 
-    public func run<AsyncCommandType>(command _: AsyncCommandType) -> AnyPublisher<AsyncCommandPublisher.Result, Swift.Error> where AsyncCommandType: AsyncCommand {
+    public func run<AsyncCommandType>(command _: AsyncCommandType) -> AnyPublisher<CommandPublisher.Result, Swift.Error> where AsyncCommandType: AsyncCommand {
         guard allowedAsyncCommands.contains(where: { $0.type is AsyncCommandType.Type }) else {
             return Fail(error: CommanderMockError.disallowedCommand)
                 .eraseToAnyPublisher()
         }
 
-        return Future<AsyncCommandPublisher.Result, Swift.Error> { $0(.success(AsyncCommandPublisher.Result.started)) }
+        let cmd = SwiftShell.AsyncCommand(unlaunched: Process(), combineOutput: true)
+        return Future<CommandPublisher.Result, Swift.Error> { $0(.success(CommandPublisher.Result.started(cmd))) }
             .eraseToAnyPublisher()
     }
 }

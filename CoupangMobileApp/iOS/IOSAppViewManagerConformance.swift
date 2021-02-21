@@ -9,7 +9,7 @@ import Foundation
 import HTTPProxyManager
 import IOSSimulator
 
-extension AppManager.State: AppViewManagerState {
+extension IOSAppManager.State: AppViewManagerState {
     var PCID: String? {
         switch self {
         case let .installed(_, defaults):
@@ -79,11 +79,11 @@ extension AppManager.State: AppViewManagerState {
     }
 }
 
-extension AppManager: AppViewManager {}
+extension IOSAppManager: AppViewManager {}
 
 extension HTTPProxyManager {
-    var iosDefaults: AppManager.Defaults? {
+    var iosDefaults: IOSAppManager.Defaults? {
         guard let p = proxy(type: .ios) else { return nil }
-        return AppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": p.host, "port": p.port])
+        return IOSAppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": p.host, "port": p.port])
     }
 }

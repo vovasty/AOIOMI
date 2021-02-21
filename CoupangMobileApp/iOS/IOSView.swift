@@ -11,7 +11,7 @@ import SwiftUI
 
 struct IOSView: View {
     @EnvironmentObject var simulator: IOSSimulator
-    @EnvironmentObject var appManager: AppManager
+    @EnvironmentObject var appManager: IOSAppManager
     @EnvironmentObject var proxyManager: HTTPProxyManager
     @State private var activityState = ActivityView.ActivityState.text("")
 
@@ -38,7 +38,7 @@ struct IOSView: View {
 struct IOSView_Previews: PreviewProvider {
     static var previews: some View {
         IOSView()
-            .environmentObject(AppManager.preview(state: .notInstalled(nil)))
+            .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
             .environmentObject(HTTPProxyManager.preview())
     }
 }

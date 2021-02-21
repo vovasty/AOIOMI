@@ -16,9 +16,9 @@ struct WriteDefaultsCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]?
     private let bundleId: String
-    private let defaults: AppManager.Defaults
+    private let defaults: IOSAppManager.Defaults
 
-    init(id: String, bundleId: String, defaults: AppManager.Defaults) {
+    init(id: String, bundleId: String, defaults: IOSAppManager.Defaults) {
         parameters = ["get_app_container", id, bundleId, AppContainerType.data.rawValue]
         self.bundleId = bundleId
         self.defaults = defaults
@@ -35,7 +35,7 @@ struct WriteDefaultsCommand: Command {
     }
 }
 
-private func write(defaults: AppManager.Defaults, path: URL) throws {
+private func write(defaults: IOSAppManager.Defaults, path: URL) throws {
     var defaultsDict: [AnyHashable: Any]
     if FileManager.default.isReadableFile(atPath: path.path) {
         let inputData = try Data(contentsOf: path)
