@@ -26,21 +26,35 @@ public struct ShellCommander: Commander {
         return CommandPublisher(context: context,
                                 command: executable,
                                 parameters: command.parameters)
+            .filter { result -> Bool in
+                switch result {
+                case .finished:
+                    return true
+                case .started:
+                    return false
+                }
+            }
             .tryMap {
-                try command.parse(stdout: Array($0.stdout.lines()))
+                switch $0 {
+                case let .finished(cmd):
+                    return try command.parse(stdout: Array(cmd.stdout.lines()))
+                case let .started(cmd):
+                    assert(false, "shouldn't be here")
+                    return try command.parse(stdout: Array(cmd.stdout.lines()))
+                }
             }
             .eraseToAnyPublisher()
     }
 
-    public func run<AsyncCommandType>(command: AsyncCommandType) -> AnyPublisher<AsyncCommandPublisher.Result, Error> where AsyncCommandType: AsyncCommand {
+    public func run<AsyncCommandType>(command: AsyncCommandType) -> AnyPublisher<CommandPublisher.Result, Error> where AsyncCommandType: AsyncCommand {
         let executable: String
         switch command.executable {
         case .helper:
             executable = helperPath.path
         }
-        return AsyncCommandPublisher(context: context,
-                                     command: executable,
-                                     parameters: command.parameters)
+        return CommandPublisher(context: context,
+                                command: executable,
+                                parameters: command.parameters)
             .eraseToAnyPublisher()
     }
 }

@@ -23,7 +23,7 @@ struct ErrorDetailView: View {
 
     var body: some View {
         VStack {
-            ScrollView{
+            ScrollView {
                 Text(text)
                     .lineLimit(nil)
             }

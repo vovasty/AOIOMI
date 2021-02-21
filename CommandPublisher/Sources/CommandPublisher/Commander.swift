@@ -11,5 +11,5 @@ import SwiftShell
 
 public protocol Commander {
     func run<CommandType: Command>(command: CommandType) -> AnyPublisher<CommandType.Result, Error>
-    func run<AsyncCommandType: AsyncCommand>(command: AsyncCommandType) -> AnyPublisher<AsyncCommandPublisher.Result, Error>
+    func run<AsyncCommandType: AsyncCommand>(command: AsyncCommandType) -> AnyPublisher<CommandPublisher.Result, Error>
 }
