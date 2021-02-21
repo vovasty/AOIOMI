@@ -24,13 +24,12 @@ public class AOSEmulator: ObservableObject {
     enum Config {
         static let waitBootingTimeout = 30
         static let configuringTimeout = 180
-        static let startingTimeout = 30
     }
 
     @Published public private(set) var state: State = .stopped(nil)
     private let commander: Commander
-    private var process: CommanderProcess?
     private var cancellables = Set<AnyCancellable>()
+    private var process: AnyCancellable?
 
     public convenience init() {
         self.init(commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!))
@@ -41,14 +40,10 @@ public class AOSEmulator: ObservableObject {
     }
 
     public func start() {
-        guard process?.isRunning != true else {
-            assert(false, "already running")
-            return
-        }
-        startEmulator()
+        process?.cancel()
+        process = startEmulator()
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
-            .store(in: &cancellables)
     }
 
     public func check() {
@@ -60,57 +55,54 @@ public class AOSEmulator: ObservableObject {
 
     public func stop() {
         state = .stopping
-        process?.stop()
+        process?.cancel()
     }
 
     public func configure(proxy: String?, caPath: URL?) {
-        process?.onCompletion {}
-        process = nil
+        process?.cancel()
         let publisher = commander.run(command: CreateEmulatorCommand(proxy: proxy, caPath: caPath))
             .timeout(.seconds(Config.configuringTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.configuringTimeout })
-            .map { _ in State.stopped(nil) }
-            .catch { error in Just(.notConfigured(error)) }
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+            .flatMap { [weak self] _ -> AnyPublisher<State, Swift.Error> in
                 guard let self = self else {
-                    return Just(state)
+                    return Future { $0(.success(State.configuring)) }
                         .eraseToAnyPublisher()
                 }
-                switch state {
-                case .stopped:
-                    return self.startEmulator()
-                        .eraseToAnyPublisher()
-                default:
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                }
+                return self.startEmulator()
+                    .setFailureType(to: Swift.Error.self)
+                    .eraseToAnyPublisher()
+            }
+            .catch { error in
+                Just(.notConfigured(error))
             }
 
-        Publishers.Merge(Just(State.configuring), publisher)
+        process = Publishers.Merge(Just(State.configuring), publisher)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
-            .store(in: &cancellables)
     }
 
     private func startEmulator() -> AnyPublisher<State, Never> {
-        process = commander.run(command: StartEmulatorCommand())
-        process?.onCompletion {
-            DispatchQueue.main.async { [weak self] in
-                self?.state = .stopped(nil)
-                self?.process?.onCompletion {}
-                self?.process = nil
-            }
-        }
-
-        let publisher = commander.run(command: WaitBootedCommand())
-            .map { [weak self] _ -> State in
-                if self?.process?.isRunning == true {
-                    return .started
-                } else {
-                    return .stopped(nil)
+        let publisher = commander.run(command: StartEmulatorCommand())
+            .flatMap { [weak self] state -> AnyPublisher<State, Swift.Error> in
+                guard let self = self else {
+                    return Future { $0(.success(State.starting)) }
+                        .eraseToAnyPublisher()
+                }
+                switch state {
+                case .started:
+                    return self.commander.run(command: WaitBootedCommand())
+                        .map { _ -> State in .started }
+                        .timeout(.seconds(Config.waitBootingTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.bootingTimeout })
+                        .catch {
+                            Just(State.stopped($0))
+                        }
+                        .setFailureType(to: Swift.Error.self)
+                        .eraseToAnyPublisher()
+                case .finished:
+                    return Future { $0(.success(State.stopped(nil))) }
+                        .eraseToAnyPublisher()
                 }
             }
-            .timeout(.seconds(Config.waitBootingTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.bootingTimeout })
-            .catch { Just(.stopped($0)) }
+            .replaceError(with: State.stopped(nil))
             .eraseToAnyPublisher()
 
         return Publishers.Merge(Just(State.starting), publisher)

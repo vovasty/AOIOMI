@@ -15,13 +15,19 @@ final class AOSEmulatorTests: XCTestCase, StatesTestCase {
     }
 
     func testStartFailure() {
-        testStates(expected: [.stopped(nil), .stopped(nil), .starting, .stopped(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)],
+        testStates(expected: [.stopped(nil), .starting, .stopped(nil)],
                    action: { $0.start() })
     }
 
     func testStartWaitBootSuccess() {
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: WaitBootedCommand.self)],
-                   expected: [.stopped(nil), .stopped(nil), .starting, .stopped(nil)],
+                   expected: [.stopped(nil), .starting, .stopped(nil)],
+                   action: { $0.start() })
+    }
+
+    func testStarAsyncSucceess() {
+        testStates(allowedAsyncCommands: [CommanderMock.AllowedAsyncCommand(type: StartEmulatorCommand.self)],
+                   expected: [.stopped(nil), .starting, .stopped(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.start() })
     }
 
@@ -50,7 +56,7 @@ final class AOSEmulatorTests: XCTestCase, StatesTestCase {
 
     func testConfigureStartFailure() {
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CreateEmulatorCommand.self)],
-                   expected: [.stopped(nil), .configuring, .stopped(nil), .starting, .stopped(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)],
+                   expected: [.stopped(nil), .configuring, .starting, .stopped(nil)],
                    action: { $0.configure(proxy: nil, caPath: nil) })
     }
 

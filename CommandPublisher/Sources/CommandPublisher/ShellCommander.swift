@@ -10,27 +10,6 @@ import Foundation
 import SwiftShell
 
 public struct ShellCommander: Commander {
-    public class Process: CommanderProcess {
-        public let process: SwiftShell.AsyncCommand
-        public var isRunning: Bool {
-            process.isRunning
-        }
-
-        init(process: SwiftShell.AsyncCommand) {
-            self.process = process
-        }
-
-        public func onCompletion(handler: @escaping () -> Void) {
-            process.onCompletion { _ in
-                handler()
-            }
-        }
-
-        public func stop() {
-            process.stop()
-        }
-    }
-
     public let context: Context & CommandRunning = CustomContext(main)
     public let helperPath: URL
 
@@ -53,12 +32,15 @@ public struct ShellCommander: Commander {
             .eraseToAnyPublisher()
     }
 
-    public func run<AsyncCommandType>(command: AsyncCommandType) -> CommanderProcess where AsyncCommandType: AsyncCommand {
+    public func run<AsyncCommandType>(command: AsyncCommandType) -> AnyPublisher<AsyncCommandPublisher.Result, Error> where AsyncCommandType: AsyncCommand {
         let executable: String
         switch command.executable {
         case .helper:
             executable = helperPath.path
         }
-        return Process(process: context.runAsync(executable, command.parameters ?? []))
+        return AsyncCommandPublisher(context: context,
+                                     command: executable,
+                                     parameters: command.parameters)
+            .eraseToAnyPublisher()
     }
 }

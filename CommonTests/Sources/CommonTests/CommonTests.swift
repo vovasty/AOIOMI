@@ -58,9 +58,9 @@ public extension StatesTestCase {
         let e = expectation(description: "test")
 
         testObject.statePublisher
-            .timeout(.seconds(0.2), scheduler: DispatchQueue.main, options: nil, customError: nil)
+            .timeout(.seconds(0.1), scheduler: DispatchQueue.main, options: nil, customError: nil)
             .collect()
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { _ in
                 e.fulfill()
             }, receiveValue: {
                 actual = $0

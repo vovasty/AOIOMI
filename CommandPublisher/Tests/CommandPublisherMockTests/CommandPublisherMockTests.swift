@@ -84,26 +84,40 @@ final class CommandPublisherMockTests: XCTestCase {
 
     func testAsyncFailure() {
         let mock = CommanderMock()
-        let process = mock.run(command: ACommand())
-
-        XCTAssertFalse(process.isRunning)
+        let e = expectation(description: "running")
+        var token = Set<AnyCancellable>()
+        mock.run(command: ACommand())
+            .sink { completion in
+                switch completion {
+                case .failure:
+                    break
+                case .finished:
+                    XCTFail()
+                }
+                e.fulfill()
+            } receiveValue: { _ in
+                XCTFail()
+            }
+            .store(in: &token)
+        waitForExpectations(timeout: 1)
     }
 
     func testAsyncSuccess() {
         let mock = CommanderMock(allowedAsyncCommands: [CommanderMock.AllowedAsyncCommand(type: ACommand.self)])
-        let process = mock.run(command: ACommand())
-
-        XCTAssert(process.isRunning)
-
         let e = expectation(description: "running")
-
-        process.onCompletion {
-            e.fulfill()
-        }
-        process.stop()
-
+        var token = Set<AnyCancellable>()
+        mock.run(command: ACommand())
+            .sink { completion in
+                switch completion {
+                case .failure:
+                    XCTFail()
+                case .finished:
+                    break
+                }
+                e.fulfill()
+            } receiveValue: { _ in
+            }
+            .store(in: &token)
         waitForExpectations(timeout: 1)
-
-        XCTAssertFalse(process.isRunning)
     }
 }

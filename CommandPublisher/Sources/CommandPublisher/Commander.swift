@@ -9,13 +9,7 @@ import Combine
 import Foundation
 import SwiftShell
 
-public protocol CommanderProcess {
-    func onCompletion(handler: @escaping () -> Void)
-    var isRunning: Bool { get }
-    func stop()
-}
-
 public protocol Commander {
     func run<CommandType: Command>(command: CommandType) -> AnyPublisher<CommandType.Result, Error>
-    func run<AsyncCommandType: AsyncCommand>(command: AsyncCommandType) -> CommanderProcess
+    func run<AsyncCommandType: AsyncCommand>(command: AsyncCommandType) -> AnyPublisher<AsyncCommandPublisher.Result, Error>
 }

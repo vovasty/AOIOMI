@@ -34,23 +34,6 @@ public struct CommanderMock: Commander {
         case disallowedCommand
     }
 
-    public class Process: CommanderProcess {
-        public private(set) var isRunning: Bool = true
-        private var completionHandler: (() -> Void)?
-
-        public func onCompletion(handler: @escaping () -> Void) {
-            completionHandler = handler
-            if !isRunning {
-                completionHandler?()
-            }
-        }
-
-        public func stop() {
-            isRunning = false
-            completionHandler?()
-        }
-    }
-
     public let allowedCommands: [AllowedCommand]
     public let allowedAsyncCommands: [AllowedAsyncCommand]
 
@@ -76,13 +59,13 @@ public struct CommanderMock: Commander {
         .eraseToAnyPublisher()
     }
 
-    public func run<AsyncCommandType>(command _: AsyncCommandType) -> CommanderProcess where AsyncCommandType: AsyncCommand {
-        let process = Process()
-
-        if !allowedAsyncCommands.contains(where: { $0.type is AsyncCommandType.Type }) {
-            process.stop()
+    public func run<AsyncCommandType>(command _: AsyncCommandType) -> AnyPublisher<AsyncCommandPublisher.Result, Swift.Error> where AsyncCommandType: AsyncCommand {
+        guard allowedAsyncCommands.contains(where: { $0.type is AsyncCommandType.Type }) else {
+            return Fail(error: CommanderMockError.disallowedCommand)
+                .eraseToAnyPublisher()
         }
 
-        return process
+        return Future<AsyncCommandPublisher.Result, Swift.Error> { $0(.success(AsyncCommandPublisher.Result.started)) }
+            .eraseToAnyPublisher()
     }
 }
