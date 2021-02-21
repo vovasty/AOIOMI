@@ -3,10 +3,6 @@ import CommandPublisher
 import SwiftUI
 
 public class IOSSimulator: ObservableObject {
-    enum Error: Swift.Error {
-        case notCreated
-    }
-
     public enum State {
         case stopped(Swift.Error?), started, starting, stopping, configuring, checking, notConfigured(Swift.Error?)
     }
@@ -55,27 +51,18 @@ public class IOSSimulator: ObservableObject {
 
     public func configure(deviceType: SimctlList.DeviceType, caURL: URL?) {
         let publisher = commander.run(command: CreateSimulatorCommand(name: simulatorName, deviceType: deviceType, caURL: caURL))
-            .map { _ in State.stopped(nil) }
+            .flatMap { [weak self] _ -> AnyPublisher<State, Swift.Error> in
+                guard let self = self else {
+                    return Future { $0(.success(State.configuring)) }
+                        .eraseToAnyPublisher()
+                }
+                return self.startSimulator()
+                    .setFailureType(to: Swift.Error.self)
+                    .eraseToAnyPublisher()
+            }
             .catch { error in Just(.notConfigured(error)) }
 
         Publishers.Merge(Just(State.configuring), publisher)
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
-                guard let self = self else {
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                }
-                switch state {
-                case let .stopped(error):
-                    if error != nil {
-                        return Just(state)
-                            .eraseToAnyPublisher()
-                    }
-                    return self.startSimulator()
-                default:
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                }
-            }
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -96,6 +83,7 @@ public class IOSSimulator: ObservableObject {
                 }
             }
             .catch { error in Just(State.notConfigured(error)) }
+
         Publishers.Merge(Just(State.checking), publisher)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)

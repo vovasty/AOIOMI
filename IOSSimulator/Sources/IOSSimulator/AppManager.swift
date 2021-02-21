@@ -48,30 +48,26 @@ public class AppManager: ObservableObject {
 
     public func install(app: URL, defaults: Defaults? = nil) {
         let command = commander.run(command: InstallAppCommand(id: simulatorId, path: app))
-            .map { State.installed(error: nil, defaults: nil) }
-            .catch { Just(State.notInstalled($0)) }
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+            .flatMap { [weak self] _ -> AnyPublisher<State, Error> in
                 guard let self = self else {
-                    return Just(state)
+                    return Future { $0(.success(State.starting(nil))) }
                         .eraseToAnyPublisher()
                 }
-                switch state {
-                case .installed:
-                    return self.writeDefaults(defaults: defaults)
-                        .map { _ in state }
-                        .flatMap { [weak self] state -> AnyPublisher<State, Never> in
-                            guard let self = self else {
-                                return Just(state)
-                                    .eraseToAnyPublisher()
-                            }
-                            return self.startApp()
+                return self.writeDefaults(defaults: defaults)
+                    .flatMap { [weak self] _ -> AnyPublisher<State, Error> in
+                        guard let self = self else {
+                            return Future { $0(.success(State.starting(nil))) }
+                                .eraseToAnyPublisher()
                         }
-                        .eraseToAnyPublisher()
-                default:
-                    return Just(state)
-                        .eraseToAnyPublisher()
-                }
+                        return self.startApp()
+                            .setFailureType(to: Swift.Error.self)
+                            .eraseToAnyPublisher()
+                    }
+                    .eraseToAnyPublisher()
             }
+            .catch { Just(State.notInstalled($0)) }
+            .eraseToAnyPublisher()
+
         Publishers.Merge(Just(.installing(nil)), command)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
@@ -95,27 +91,25 @@ public class AppManager: ObservableObject {
     private func startApp() -> AnyPublisher<State, Never> {
         SimulatorApp.shared.open()
         let command = commander.run(command: RunAppCommand(id: simulatorId, bundleId: bundleId))
-            .map { .starting(nil) }
-            .catch { error -> AnyPublisher<State, Never> in
-                Just(.starting(error))
-                    .eraseToAnyPublisher()
-            }
-            .flatMap { [weak self] state -> AnyPublisher<State, Never> in
+            .flatMap { [weak self] _ -> AnyPublisher<State, Error> in
                 guard let self = self else {
-                    return Just(state)
+                    return Future { $0(.success(State.starting(nil))) }
                         .eraseToAnyPublisher()
                 }
-                let error: Error?
-                switch state {
-                case let .starting(err):
-                    error = err
-                default:
-                    error = nil
+                return self.checkApp(upstreamError: nil)
+                    .setFailureType(to: Swift.Error.self)
+                    .eraseToAnyPublisher()
+            }
+            .catch { [weak self] error -> AnyPublisher<State, Never> in
+                guard let self = self else {
+                    return Future { $0(.success(State.starting(nil))) }
+                        .eraseToAnyPublisher()
                 }
-
                 return self.checkApp(upstreamError: error)
+                    .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
+
         return Publishers.Merge(Just(.starting(nil)), command)
             .eraseToAnyPublisher()
     }
@@ -128,20 +122,13 @@ public class AppManager: ObservableObject {
             .eraseToAnyPublisher()
     }
 
-    private func writeDefaults(defaults: Defaults?) -> AnyPublisher<State, Never> {
+    private func writeDefaults(defaults: Defaults?) -> AnyPublisher<Void, Error> {
         guard let defaults = defaults else {
-            return Just(.installing(nil))
+            return Future { $0(.success(())) }
                 .eraseToAnyPublisher()
         }
 
-        let command = commander.run(command: WriteDefaultsCommand(id: simulatorId, bundleId: bundleId, defaults: defaults))
-            .map { .installing(nil) }
-            .catch { error -> AnyPublisher<State, Never> in
-                Just(.installing(error))
-                    .eraseToAnyPublisher()
-            }
-        return Publishers.Merge(Just(.installing(nil)), command)
-            .eraseToAnyPublisher()
+        return commander.run(command: WriteDefaultsCommand(id: simulatorId, bundleId: bundleId, defaults: defaults))
     }
 }
 
