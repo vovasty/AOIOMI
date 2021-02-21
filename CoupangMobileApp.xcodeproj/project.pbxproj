@@ -13,6 +13,7 @@
 		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
 		B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F3D25E2E0A00090896C /* BigBrother.swift */; };
+		B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */; };
 		B4884EC425DA4CA100FBFAD0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */; };
 		B4884EC825DA4D2B00FBFAD0 /* ImageActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4884EC725DA4D2B00FBFAD0 /* ImageActivityIndicator.swift */; };
 		B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769C253114D100962CC1 /* AppDelegate.swift */; };
@@ -72,6 +73,7 @@
 		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
 		B4687F3D25E2E0A00090896C /* BigBrother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigBrother.swift; sourceTree = "<group>"; };
+		B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSimulatorState.swift; sourceTree = "<group>"; };
 		B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		B4884EC725DA4D2B00FBFAD0 /* ImageActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageActivityIndicator.swift; sourceTree = "<group>"; };
 		B4A97699253114D100962CC1 /* CoupangMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoupangMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +230,7 @@
 				B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */,
 				B4F3F19325D5FBE5006ADB7A /* IOSSimulatorView.swift */,
 				B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */,
+				B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */,
 				B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
+				B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */,
 				B4113DC625DB2A1900B92783 /* IOSConfigureDialogView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
 				B4F7E26425D9D3EF007D118D /* ActivityView.swift in Sources */,

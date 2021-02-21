@@ -5,6 +5,7 @@
 //  Created by vlsolome on 2/11/21.
 //
 
+import Combine
 import HTTPProxyManager
 import IOSSimulator
 import SwiftUI
@@ -13,6 +14,7 @@ struct IOSConfigureView: View {
     @EnvironmentObject var simulator: IOSSimulator
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
     @State private var deviceType: SimctlList.DeviceType = .empty
+    @Binding var activityState: ActivityView.ActivityState
 
     var body: some View {
         VStack(alignment: .trailing) {
@@ -29,13 +31,16 @@ struct IOSConfigureView: View {
             }
             .disabled(deviceType == .empty)
         }
+        .onReceive(Just(simulator.state)) { state in
+            activityState = state.activity
+        }
     }
 }
 
 #if DEBUG
     struct IOSConfigureView_Previews: PreviewProvider {
         static var previews: some View {
-            IOSConfigureView()
+            IOSConfigureView(activityState: .constant(.text("wee")))
                 .environmentObject(IOSSimulator.preview(deviceTypes: [
                     SimctlList.DeviceType(name: "iPhone"),
                     SimctlList.DeviceType(name: "iPad"),

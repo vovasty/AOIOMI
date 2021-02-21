@@ -40,32 +40,7 @@ struct IOSSimulatorView: View {
             case .configuring, .checking, .notConfigured, .started, .stopping, .starting:
                 startDisabled = true
             }
-            activityState = state.asActivity
-        }
-    }
-}
-
-private extension IOSSimulator.State {
-    var asActivity: ActivityView.ActivityState {
-        switch self {
-        case let .stopped(error):
-            if let error = error {
-                return .error("Simulator is Stopped", error)
-            } else {
-                return .text("Simulator is Stopped")
-            }
-        case .stopping:
-            return .busy("Stopping Simulator...")
-        case .starting:
-            return .busy("Starting Simulator...")
-        case .configuring:
-            return .busy("Configuring Simulator...")
-        case .checking:
-            return .busy("Checking Simulator...")
-        case .notConfigured:
-            return .text("Simulator is Not Configured")
-        case .started:
-            return .text("Simulator is Started")
+            activityState = state.activity
         }
     }
 }

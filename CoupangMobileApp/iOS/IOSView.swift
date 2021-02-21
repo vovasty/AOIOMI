@@ -20,7 +20,7 @@ struct IOSView: View {
             ActivityView(style: .ios, state: $activityState)
             switch simulator.state {
             case .notConfigured:
-                IOSConfigureView()
+                IOSConfigureView(activityState: $activityState)
             case .started:
                 AppView(appManager: appManager,
                         activityState: $activityState,
@@ -38,6 +38,7 @@ struct IOSView: View {
 struct IOSView_Previews: PreviewProvider {
     static var previews: some View {
         IOSView()
+            .environmentObject(IOSSimulator.preview(state: .notConfigured(nil)))
             .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
             .environmentObject(HTTPProxyManager.preview())
     }
