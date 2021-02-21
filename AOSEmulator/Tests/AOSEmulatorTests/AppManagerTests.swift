@@ -24,20 +24,20 @@ final class AppManagerTests: XCTestCase, StatesTestCase {
 
     func testCheckDefaultsFailure() throws {
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: IsAppInstalledCommand.self)],
-                   expected: [.notInstalled(nil), .checking, .installed(error: CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand, defaults: nil)]) {
+                   expected: [.notInstalled(nil), .checking, .installed(error: CommanderMock.CommanderMockError.disallowedCommand, defaults: nil)]) {
             $0.check()
         }
     }
 
     func testCheckSuccess() throws {
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: IsAppInstalledCommand.self), CommanderMock.AllowedCommand(type: GetAppPreferencesCommand.self)],
-                   expected: [.notInstalled(nil), .checking, .installed(error: CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand, defaults: nil)]) {
+                   expected: [.notInstalled(nil), .checking, .installed(error: CommanderMock.CommanderMockError.disallowedCommand, defaults: nil)]) {
             $0.check()
         }
     }
 
     func testStartAppFailure() {
-        testStates(expected: [.notInstalled(nil), .starting, .notInstalled(nil)]) {
+        testStates(expected: [.notInstalled(nil), .starting, .checking, .notInstalled(CommanderMock.CommanderMockError.disallowedCommand)]) {
             $0.start()
         }
     }
@@ -51,20 +51,20 @@ final class AppManagerTests: XCTestCase, StatesTestCase {
 
     func testStartAppSuccess() {
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: StartAppCommand.self), CommanderMock.AllowedCommand(type: IsAppInstalledCommand.self), CommanderMock.AllowedCommand(type: GetAppPreferencesCommand.self)],
-                   expected: [.notInstalled(nil), .starting, .checking, .installed(error: CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand, defaults: nil)]) {
+                   expected: [.notInstalled(nil), .starting, .checking, .installed(error: CommanderMock.CommanderMockError.disallowedCommand, defaults: nil)]) {
             $0.start()
         }
     }
 
     func testInstallFailure() {
-        testStates(expected: [.notInstalled(nil), .installing, .notInstalled(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)]) {
+        testStates(expected: [.notInstalled(nil), .installing, .checking, .notInstalled(CommanderMock.CommanderMockError.disallowedCommand)]) {
             $0.install(apk: URL(fileURLWithPath: "/nonexisting"))
         }
     }
 
     func testInstallStartFailure() {
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: InstallAPKCommand.self)],
-                   expected: [.notInstalled(nil), .installing, .starting, .notInstalled(nil)]) {
+                   expected: [.notInstalled(nil), .installing, .starting, .checking, .notInstalled(CommanderMock.CommanderMockError.disallowedCommand)]) {
             $0.install(apk: URL(fileURLWithPath: "/nonexisting"))
         }
     }
@@ -78,7 +78,7 @@ final class AppManagerTests: XCTestCase, StatesTestCase {
 
     func testInstallSuccess() {
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: InstallAPKCommand.self), CommanderMock.AllowedCommand(type: StartAppCommand.self), CommanderMock.AllowedCommand(type: IsAppInstalledCommand.self)],
-                   expected: [.notInstalled(nil), .installing, .starting, .checking, .installed(error: CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand, defaults: nil)]) {
+                   expected: [.notInstalled(nil), .installing, .starting, .checking, .installed(error: CommanderMock.CommanderMockError.disallowedCommand, defaults: nil)]) {
             $0.install(apk: URL(fileURLWithPath: "/nonexisting"))
         }
     }

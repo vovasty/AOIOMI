@@ -46,7 +46,7 @@ public class AppManager: ObservableObject {
     }
 
     public func check() {
-        checkAppState(upstreamError: nil)
+        checkApp(upstreamError: nil)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -63,7 +63,14 @@ public class AppManager: ObservableObject {
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
             }
-            .catch { Just(.notInstalled($0)) }
+            .catch { [weak self] error -> AnyPublisher<State, Never> in
+                guard let self = self else {
+                    return Future { $0(.success(State.starting)) }
+                        .eraseToAnyPublisher()
+                }
+                return self.checkApp(upstreamError: error)
+                    .eraseToAnyPublisher()
+            }
 
         return Publishers.Merge(Just(.installing), publisher)
             .receive(on: DispatchQueue.main)
@@ -78,18 +85,25 @@ public class AppManager: ObservableObject {
                     return Future { $0(.success(State.checking)) }
                         .eraseToAnyPublisher()
                 }
-                return self.checkAppState(upstreamError: nil)
+                return self.checkApp(upstreamError: nil)
                     .setFailureType(to: Swift.Error.self)
                     .eraseToAnyPublisher()
             }
-            .replaceError(with: .notInstalled(nil))
+            .catch { [weak self] error -> AnyPublisher<State, Never> in
+                guard let self = self else {
+                    return Future { $0(.success(State.starting)) }
+                        .eraseToAnyPublisher()
+                }
+                return self.checkApp(upstreamError: error)
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
 
         return Publishers.Merge(Just(.starting), publisher)
             .eraseToAnyPublisher()
     }
 
-    private func checkAppState(upstreamError: Error?) -> AnyPublisher<State, Never> {
+    private func checkApp(upstreamError: Error?) -> AnyPublisher<State, Never> {
         let publisher = commander.run(command: IsAppInstalledCommand(packageId: packageId))
             .flatMap { [weak self] _ -> AnyPublisher<State, Swift.Error> in
                 guard let self = self else {
@@ -102,7 +116,7 @@ public class AppManager: ObservableObject {
                     .setFailureType(to: Swift.Error.self)
                     .eraseToAnyPublisher()
             }
-            .replaceError(with: .notInstalled(nil))
+            .replaceError(with: .notInstalled(upstreamError))
             .eraseToAnyPublisher()
 
         return Publishers.Merge(Just(.checking), publisher)

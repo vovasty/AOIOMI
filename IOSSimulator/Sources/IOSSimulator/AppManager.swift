@@ -11,7 +11,7 @@ import Foundation
 
 public class AppManager: ObservableObject {
     public enum State {
-        case notInstalled(Error?), installed(error: Error?, defaults: Any?), installing(Error?), starting(Error?), checking
+        case notInstalled(Error?), installed(error: Error?, defaults: Any?), installing, starting, checking
     }
 
     public enum AppManagerError: Swift.Error {
@@ -50,13 +50,13 @@ public class AppManager: ObservableObject {
         let command = commander.run(command: InstallAppCommand(id: simulatorId, path: app))
             .flatMap { [weak self] _ -> AnyPublisher<State, Error> in
                 guard let self = self else {
-                    return Future { $0(.success(State.starting(nil))) }
+                    return Future { $0(.success(State.starting)) }
                         .eraseToAnyPublisher()
                 }
                 return self.writeDefaults(defaults: defaults)
                     .flatMap { [weak self] _ -> AnyPublisher<State, Error> in
                         guard let self = self else {
-                            return Future { $0(.success(State.starting(nil))) }
+                            return Future { $0(.success(State.starting)) }
                                 .eraseToAnyPublisher()
                         }
                         return self.startApp()
@@ -65,10 +65,17 @@ public class AppManager: ObservableObject {
                     }
                     .eraseToAnyPublisher()
             }
-            .catch { Just(State.notInstalled($0)) }
+            .catch { [weak self] error -> AnyPublisher<State, Never> in
+                guard let self = self else {
+                    return Future { $0(.success(State.starting)) }
+                        .eraseToAnyPublisher()
+                }
+                return self.checkApp(upstreamError: error)
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
 
-        Publishers.Merge(Just(.installing(nil)), command)
+        Publishers.Merge(Just(.installing), command)
             .receive(on: DispatchQueue.main)
             .assign(to: \.state, on: self)
             .store(in: &cancellables)
@@ -93,7 +100,7 @@ public class AppManager: ObservableObject {
         let command = commander.run(command: RunAppCommand(id: simulatorId, bundleId: bundleId))
             .flatMap { [weak self] _ -> AnyPublisher<State, Error> in
                 guard let self = self else {
-                    return Future { $0(.success(State.starting(nil))) }
+                    return Future { $0(.success(State.starting)) }
                         .eraseToAnyPublisher()
                 }
                 return self.checkApp(upstreamError: nil)
@@ -102,7 +109,7 @@ public class AppManager: ObservableObject {
             }
             .catch { [weak self] error -> AnyPublisher<State, Never> in
                 guard let self = self else {
-                    return Future { $0(.success(State.starting(nil))) }
+                    return Future { $0(.success(State.starting)) }
                         .eraseToAnyPublisher()
                 }
                 return self.checkApp(upstreamError: error)
@@ -110,7 +117,7 @@ public class AppManager: ObservableObject {
             }
             .eraseToAnyPublisher()
 
-        return Publishers.Merge(Just(.starting(nil)), command)
+        return Publishers.Merge(Just(.starting), command)
             .eraseToAnyPublisher()
     }
 

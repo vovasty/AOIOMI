@@ -27,7 +27,7 @@ final class AOSEmulatorTests: XCTestCase, StatesTestCase {
 
     func testStarAsyncSucceess() {
         testStates(allowedAsyncCommands: [CommanderMock.AllowedAsyncCommand(type: StartEmulatorCommand.self)],
-                   expected: [.stopped(nil), .starting, .stopped(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)],
+                   expected: [.stopped(nil), .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.start() })
     }
 
@@ -50,7 +50,7 @@ final class AOSEmulatorTests: XCTestCase, StatesTestCase {
     }
 
     func testConfigureCreateEmulatorCommandFailure() {
-        testStates(expected: [.stopped(nil), .configuring, .notConfigured(CommandPublisherMock.CommanderMock.CommanderMockError.disallowedCommand)],
+        testStates(expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.configure(proxy: nil, caPath: nil) })
     }
 
