@@ -24,6 +24,7 @@
 		B4A976B3253114D300962CC1 /* CoupangMobileAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976B2253114D300962CC1 /* CoupangMobileAppTests.swift */; };
 		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
 		B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */; };
+		B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */; };
 		B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5925DCE5A500D23AFD /* AppView.swift */; };
 		B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */; };
 		B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */; };
@@ -91,6 +92,7 @@
 		B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppUITests.swift; sourceTree = "<group>"; };
 		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSHTTPProxyManager.swift; sourceTree = "<group>"; };
+		B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorState.swift; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
 		B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */,
 				B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */,
+				B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */,
 				B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */,
 				B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */,
 			);
@@ -381,6 +384,7 @@
 				B4113DC625DB2A1900B92783 /* IOSConfigureDialogView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
 				B4F7E26425D9D3EF007D118D /* ActivityView.swift in Sources */,
+				B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */,
 				B4F3F19025D5EF1F006ADB7A /* IOSConfigureView.swift in Sources */,
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
 				B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */,

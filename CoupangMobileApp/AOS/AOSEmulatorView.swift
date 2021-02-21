@@ -33,36 +33,7 @@ struct AOSEmulatorView: View {
             case .configuring, .checking, .notConfigured, .started, .stopping, .starting:
                 startDisabled = true
             }
-            activityState = state.asActivity
-        }
-    }
-}
-
-private extension AOSEmulator.State {
-    var asActivity: ActivityView.ActivityState {
-        switch self {
-        case .started:
-            return .text("Emulator is Started")
-        case .starting:
-            return .busy("Starting Emulator...")
-        case let .stopped(error):
-            if let error = error {
-                return .error("Emulator is Stopped", error)
-            } else {
-                return .text("Emulator is Stopped")
-            }
-        case .stopping:
-            return .busy("Stopping Emulator...")
-        case .configuring:
-            return .busy("Configuring Emulator...")
-        case .checking:
-            return .busy("Checking Emulator...")
-        case let .notConfigured(error):
-            if let error = error {
-                return .error("Emulator is Not Configured", error)
-            } else {
-                return .text("Emulator is Not Configured")
-            }
+            activityState = state.activity
         }
     }
 }
