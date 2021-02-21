@@ -11,7 +11,7 @@ import Combine
 import CommandPublisher
 import SWXMLHash
 
-public class AppManager: ObservableObject {
+public class AOSAppManager: ObservableObject {
     public enum State {
         case notInstalled(Swift.Error?), installed(error: Error?, defaults: XMLIndexer?), installing, checking, starting
     }
@@ -124,8 +124,8 @@ public class AppManager: ObservableObject {
     }
 }
 
-extension AppManager.State: Equatable {
-    public static func == (lhs: AppManager.State, rhs: AppManager.State) -> Bool {
+extension AOSAppManager.State: Equatable {
+    public static func == (lhs: AOSAppManager.State, rhs: AOSAppManager.State) -> Bool {
         switch (lhs, rhs) {
         case let (.installed(re, rd), .installed(le, ld)):
             return ((re == nil && le == nil) || (re != nil && le != nil)) &&
@@ -143,9 +143,9 @@ extension AppManager.State: Equatable {
 }
 
 #if DEBUG
-    public extension AppManager {
-        static func preview(state: State = .checking) -> AppManager {
-            let manager = AppManager(activityId: "test", packageId: "test", preferencesPath: "test")
+    public extension AOSAppManager {
+        static func preview(state: State = .checking) -> AOSAppManager {
+            let manager = AOSAppManager(activityId: "test", packageId: "test", preferencesPath: "test")
             manager.state = state
             return manager
         }

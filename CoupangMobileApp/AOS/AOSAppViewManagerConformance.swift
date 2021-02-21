@@ -9,7 +9,7 @@ import AOSEmulator
 import Foundation
 import HTTPProxyManager
 
-extension AppManager.State: AppViewManagerState {
+extension AOSAppManager.State: AppViewManagerState {
     var PCID: String? {
         switch self {
         case let .installed(_, xml):
@@ -83,4 +83,4 @@ extension AppManager.State: AppViewManagerState {
     }
 }
 
-extension AppManager: AppViewManager {}
+extension AOSAppManager: AppViewManager {}

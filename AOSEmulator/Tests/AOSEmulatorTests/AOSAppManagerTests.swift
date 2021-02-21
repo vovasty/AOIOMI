@@ -3,17 +3,17 @@ import CommandPublisherMock
 import CommonTests
 import XCTest
 
-extension AppManager: TestObjectProtocol {
+extension AOSAppManager: TestObjectProtocol {
     public var statePublisher: Published<State>.Publisher {
         $state
     }
 }
 
-final class AppManagerTests: XCTestCase, StatesTestCase {
-    func getTestObject(commanderMock: CommanderMock) -> AppManager {
+final class AOSAppManagerTests: XCTestCase, StatesTestCase {
+    func getTestObject(commanderMock: CommanderMock) -> AOSAppManager {
         let preferencesPath = Bundle.module.url(forResource: "Resources/test.xml", withExtension: nil)!.path
 
-        return AppManager(activityId: "test.activity", packageId: "test.package", preferencesPath: preferencesPath, commander: commanderMock)
+        return AOSAppManager(activityId: "test.activity", packageId: "test.package", preferencesPath: preferencesPath, commander: commanderMock)
     }
 
     func testCheckFailure() throws {

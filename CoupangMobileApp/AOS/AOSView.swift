@@ -12,7 +12,7 @@ import SwiftUI
 struct AOSView: View {
     @EnvironmentObject var emulator: AOSEmulator
     @EnvironmentObject var proxyManager: HTTPProxyManager
-    @EnvironmentObject var appManager: AppManager
+    @EnvironmentObject var appManager: AOSAppManager
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
