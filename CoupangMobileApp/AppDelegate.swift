@@ -5,51 +5,21 @@
 //  Created by vlsolome on 10/9/20.
 //
 
-import AOSEmulator
 import Cocoa
-import Combine
-import HTTPProxyManager
-import IOSSimulator
 import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
-    private var simulator: IOSSimulator!
-    private let emulator = AOSEmulator()
-    private var cancellables = Set<AnyCancellable>()
+    private let bigBrother = BigBrother()
 
     func applicationDidFinishLaunching(_: Notification) {
-        let simulatorId = "CoupangMobileApp"
-        simulator = IOSSimulator(simulatorName: simulatorId)
-        let iosAppManager = IOSAppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
-        simulator.$state.sink { state in
-            switch state {
-            case .started:
-                iosAppManager.check()
-            default:
-                break
-            }
-        }
-        .store(in: &cancellables)
-
-        let aosAppManager = AOSAppManager(activityId: "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity", packageId: "com.coupang.mobile", preferencesPath: "/data/data/com.coupang.mobile/shared_prefs/com.coupang.mobile_preferences.xml")
-        emulator.$state.sink { state in
-            switch state {
-            case .started:
-                aosAppManager.check()
-            default:
-                break
-            }
-        }
-        .store(in: &cancellables)
-        let httpProxyManager = HTTPProxyManager()
         let contentView = ContentView()
-            .environmentObject(emulator)
-            .environmentObject(simulator)
-            .environmentObject(iosAppManager)
-            .environmentObject(aosAppManager)
-            .environmentObject(httpProxyManager)
+            .environmentObject(bigBrother.emulator)
+            .environmentObject(bigBrother.simulator)
+            .environmentObject(bigBrother.iosAppManager)
+            .environmentObject(bigBrother.aosAppManager)
+            .environmentObject(bigBrother.httpProxyManager)
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
@@ -61,14 +31,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
-        
-        simulator.check()
-        emulator.check()
+
+        bigBrother.check()
     }
 
     func applicationWillTerminate(_: Notification) {
-        simulator.stop()
-        emulator.stop()
+        bigBrother.stop()
     }
 
     // hide window instead of close
