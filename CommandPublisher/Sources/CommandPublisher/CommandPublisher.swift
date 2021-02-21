@@ -10,6 +10,14 @@ import Foundation
 import os
 import SwiftShell
 
+public struct CommandPublisherError: Error {
+    public let command: String
+    public let arguments: [String]?
+    public let errorCode: Int
+    public let stdout: LazySequence<AnySequence<String>>
+    public let stderror: LazySequence<AnySequence<String>>
+}
+
 public struct CommandPublisher: Publisher {
     public typealias Output = SwiftShell.AsyncCommand
     public typealias Failure = Error
@@ -61,9 +69,11 @@ final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
                 _ = self.subscriber?.receive(cmd)
                 self.subscriber?.receive(completion: .finished)
             } else {
-                let error = CommandError(errorCode: cmd.exitcode(),
-                                         stdout: cmd.stdout.lines(),
-                                         stderror: cmd.stderror.lines())
+                let error = CommandPublisherError(command: command,
+                                                  arguments: parameters,
+                                                  errorCode: cmd.exitcode(),
+                                                  stdout: cmd.stdout.lines(),
+                                                  stderror: cmd.stderror.lines())
                 self.subscriber?.receive(completion: .failure(error))
             }
         }
@@ -111,12 +121,6 @@ final class AsyncCommandSubscription<SubscriberType: Subscriber>: Subscription w
     private let subscriber: SubscriberType?
     private var asyncCommand: SwiftShell.AsyncCommand?
 
-    public struct CommandError: Error {
-        public let errorCode: Int
-        public let stdout: LazySequence<AnySequence<String>>
-        public let stderror: LazySequence<AnySequence<String>>
-    }
-
     init(subscriber: SubscriberType, context: Context & CommandRunning, command: String, parameters: [String]?) {
         self.subscriber = subscriber
         let debugCommand = command + " " + (parameters ?? []).joined(separator: " ")
@@ -134,9 +138,11 @@ final class AsyncCommandSubscription<SubscriberType: Subscriber>: Subscription w
                 _ = self.subscriber?.receive(.finished)
                 self.subscriber?.receive(completion: .finished)
             } else {
-                let error = CommandError(errorCode: cmd.exitcode(),
-                                         stdout: cmd.stdout.lines(),
-                                         stderror: cmd.stderror.lines())
+                let error = CommandPublisherError(command: command,
+                                                  arguments: parameters,
+                                                  errorCode: cmd.exitcode(),
+                                                  stdout: cmd.stdout.lines(),
+                                                  stderror: cmd.stderror.lines())
                 self.subscriber?.receive(completion: .failure(error))
             }
         }
@@ -149,8 +155,16 @@ final class AsyncCommandSubscription<SubscriberType: Subscriber>: Subscription w
     }
 }
 
-extension CommandError: LocalizedError {
+extension CommandPublisherError: LocalizedError {
     public var errorDescription: String? {
-        description
+        let params = (arguments ?? []).map { "\"\($0)\"" }.joined(separator: " ")
+        return """
+        \(command) \(params)
+        error code: \(errorCode)
+        "stdout:"
+        \(Array(stdout).joined(separator: "\n"))
+        "stderr:"
+        \(Array(stderror).joined(separator: "\n"))
+        """
     }
 }

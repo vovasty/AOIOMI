@@ -16,7 +16,6 @@ struct ActivityView: View {
     private let style: ImageActivityIndicator.Style
     private var state: Binding<ActivityState>
     @State private var isAnimating: Bool = true
-    @State private var isLogoVisible: Bool = true
 
     init(style: ImageActivityIndicator.Style, state: Binding<ActivityState>) {
         self.state = state
@@ -26,18 +25,14 @@ struct ActivityView: View {
     var body: some View {
         VStack {
             ZStack {
-                if isLogoVisible {
-                    ImageActivityIndicator(style: style, isAnimating: isAnimating)
-                }
-                VStack {
-                    switch state.wrappedValue {
-                    case .busy:
-                        ErrorView(error: nil)
-                    case .text:
-                        ErrorView(error: nil)
-                    case let .error(_, error):
-                        ErrorView(error: error)
-                    }
+                ImageActivityIndicator(style: style, isAnimating: isAnimating)
+                switch state.wrappedValue {
+                case .busy:
+                    EmptyView()
+                case .text:
+                    EmptyView()
+                case let .error(_, error):
+                    ErrorView(error: error)
                 }
             }
             switch state.wrappedValue {
@@ -53,13 +48,10 @@ struct ActivityView: View {
         .onReceive(Just(state)) { _ in
             switch state.wrappedValue {
             case .busy:
-                isLogoVisible = true
                 isAnimating = true
             case .error:
-                isLogoVisible = false
                 isAnimating = false
             case .text:
-                isLogoVisible = true
                 isAnimating = false
             }
         }
@@ -67,9 +59,13 @@ struct ActivityView: View {
 }
 
 struct ActivityView_Previews: PreviewProvider {
+    static let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "terrible error terrible error terrible error terrible error terrible error terrible error"])
+
     static var previews: some View {
         ActivityView(style: .ios, state: .constant(.busy("busy...")))
-        ActivityView(style: .ios, state: .constant(.error("error", NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "terrible error terrible error terrible error terrible error terrible error terrible error"]))))
+        ActivityView(style: .ios, state: .constant(.error("error", error)))
+            .frame(width: 100)
+        ActivityView(style: .aos, state: .constant(.error("error", error)))
             .frame(width: 100)
         ActivityView(style: .ios, state: .constant(.text("text")))
         ActivityView(style: .aos, state: .constant(.text("text")))
