@@ -110,9 +110,6 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
             }
             .disabled(appManager.state.isCheckDisabled)
         }
-        .onAppear {
-            appManager.check()
-        }
         .onReceive(Just(appManager.state)) { state in
             if state.isInstalled {
                 isShowingPCID = wantToShowPCID

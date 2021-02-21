@@ -23,7 +23,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let simulatorId = "CoupangMobileApp"
         simulator = IOSSimulator(simulatorName: simulatorId)
         let iosAppManager = IOSAppManager(simulatorId: simulatorId, bundleId: "com.coupang.Coupang")
+        simulator.$state.sink { state in
+            switch state {
+            case .started:
+                iosAppManager.check()
+            default:
+                break
+            }
+        }
+        .store(in: &cancellables)
+
         let aosAppManager = AOSAppManager(activityId: "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity", packageId: "com.coupang.mobile", preferencesPath: "/data/data/com.coupang.mobile/shared_prefs/com.coupang.mobile_preferences.xml")
+        emulator.$state.sink { state in
+            switch state {
+            case .started:
+                aosAppManager.check()
+            default:
+                break
+            }
+        }
+        .store(in: &cancellables)
         let httpProxyManager = HTTPProxyManager()
         let contentView = ContentView()
             .environmentObject(emulator)
@@ -42,6 +61,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
+        
+        simulator.check()
+        emulator.check()
     }
 
     func applicationWillTerminate(_: Notification) {
