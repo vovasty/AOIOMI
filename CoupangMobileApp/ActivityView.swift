@@ -23,9 +23,16 @@ struct ActivityView: View {
     }
 
     var body: some View {
-        VStack {
-            ZStack {
-                ImageActivityIndicator(style: style, isAnimating: isAnimating)
+        VStack(spacing: 3) {
+            HStack(alignment: .top, spacing: 3) {
+                switch state.wrappedValue {
+                case let .busy(text):
+                    Text(text)
+                case let .text(text):
+                    Text(text)
+                case let .error(text, _):
+                    Text(text)
+                }
                 switch state.wrappedValue {
                 case .busy:
                     EmptyView()
@@ -35,16 +42,8 @@ struct ActivityView: View {
                     ErrorView(error: error)
                 }
             }
-            switch state.wrappedValue {
-            case let .busy(text):
-                Text(text)
-            case let .text(text):
-                Text(text)
-            case let .error(text, _):
-                Text(text)
-            }
+            ImageActivityIndicator(style: style, isAnimating: isAnimating)
         }
-        .frame(minHeight: 80, maxHeight: 80)
         .onReceive(Just(state)) { _ in
             switch state.wrappedValue {
             case .busy:

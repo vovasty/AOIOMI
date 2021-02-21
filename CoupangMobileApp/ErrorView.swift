@@ -10,7 +10,7 @@ import SwiftUI
 private struct ErrorButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 25, height: 10)
+            .padding(EdgeInsets(top: 0, leading: 3, bottom: 0, trailing: 3))
             .foregroundColor(Color.black)
             .background(Color.red)
             .clipShape(RoundedRectangle(cornerRadius: 5))
