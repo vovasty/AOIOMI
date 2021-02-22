@@ -10,7 +10,7 @@ all: archive
 
 .PHONY: build
 build:
-	xcodebuild -workspace CoupangMobileApp.xcworkspace -config Release -scheme CoupangMobileApp -derivedDataPath $(DERIVED_PATH) -archivePath $(ARCHIVE_PATH) archive
+	xcodebuild -project CoupangMobileApp.xcodeproj -config Release -scheme CoupangMobileApp -derivedDataPath $(DERIVED_PATH) -archivePath $(ARCHIVE_PATH) archive
 	
 # .PHONY: export
 # export: build
@@ -20,11 +20,11 @@ build:
 archive: build
 	ditto -c -k --sequesterRsrc --keepParent $(BUILDED_APP_PATH) $(ZIP_PATH)
 	
-.PHONY: emulator
-emulator:
-	 $(MAKE) -C AndroidEmulator all
+.PHONY: aos
+aos:
+	 $(MAKE) -C AOSEmulator all
 
 .PHONY: clean
 clean:
 	rm -fr $(BUILD_DIR)
-	$(MAKE) -C AndroidEmulator clean
+	$(MAKE) -C AOSEmulator clean
