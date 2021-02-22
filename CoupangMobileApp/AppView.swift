@@ -82,7 +82,7 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
             .disabled(appManager.state.isNonOperational)
             .sheet(isPresented: $isShowingPCID) {
                 if let PCID = appManager.state.PCID {
-                    DialogView(primaryButton: .default("OK", action: {
+                    DialogView(primaryButton: .default("Copy", action: {
                         let pasteboard = NSPasteboard.general
                         pasteboard.declareTypes([.string], owner: nil)
                         pasteboard.setString(PCID, forType: .string)
