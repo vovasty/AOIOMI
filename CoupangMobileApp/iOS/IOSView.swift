@@ -20,7 +20,7 @@ struct IOSView: View {
             ActivityView(style: .ios, state: $activityState)
             switch simulator.state {
             case .notConfigured:
-                IOSConfigureView(activityState: $activityState)
+                IOSConfigureView(isDisplayed: .constant(true), isCancellable: false)
             case .started:
                 AppView(appManager: appManager,
                         activityState: $activityState,

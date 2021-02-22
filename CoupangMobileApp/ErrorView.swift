@@ -60,8 +60,20 @@ struct ErrorView: View {
                 }
                 .buttonStyle(ErrorButtonStyle())
                 .sheet(isPresented: $isShowingError) {
-                    ErrorDetailView(text: error.localizedDescription, isShowing: $isShowingError)
-                        .frame(maxWidth: 300)
+                    DialogView(primaryButton: .default("OK", action: {
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString(error.localizedDescription, forType: .string)
+                        isShowingError.toggle()
+                    }), secondaryButton: .cancel("Cancel", action: {
+                        isShowingError.toggle()
+                    })) {
+                        ScrollView {
+                            Text(error.localizedDescription)
+                                .lineLimit(nil)
+                        }
+                    }
+                    .frame(maxWidth: 300)
                 }
             }
         }

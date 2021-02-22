@@ -80,29 +80,27 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
                 appManager.check()
             }
             .disabled(appManager.state.isNonOperational)
-            .alert(isPresented: $isShowingPCID) {
+            .sheet(isPresented: $isShowingPCID) {
                 if let PCID = appManager.state.PCID {
-                    return Alert(
-                        title: Text("PCID"),
-                        message: Text(PCID),
-                        primaryButton: .default(Text("Copy")) {
-                            let pasteboard = NSPasteboard.general
-                            pasteboard.declareTypes([.string], owner: nil)
-                            pasteboard.setString(PCID, forType: .string)
-                            wantToShowPCID = false
-                        },
-                        secondaryButton: .cancel {
-                            wantToShowPCID = false
-                        }
-                    )
+                    DialogView(primaryButton: .default("OK", action: {
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.declareTypes([.string], owner: nil)
+                        pasteboard.setString(PCID, forType: .string)
+                        wantToShowPCID = false
+                        isShowingPCID = false
+                    }), secondaryButton: .cancel("Cancel", action: {
+                        wantToShowPCID = false
+                        isShowingPCID = false
+                    })) {
+                        Text(PCID)
+                    }
                 } else {
-                    return Alert(
-                        title: Text("PCID"),
-                        message: Text("PCID is Not Available"),
-                        dismissButton: .default(Text("OK")) {
-                            wantToShowPCID = false
-                        }
-                    )
+                    DialogView(primaryButton: .default("OK", action: {
+                        wantToShowPCID = false
+                        isShowingPCID = false
+                    }), content: {
+                        Text("PCID is Not Available")
+                    })
                 }
             }
             Button("Check") {

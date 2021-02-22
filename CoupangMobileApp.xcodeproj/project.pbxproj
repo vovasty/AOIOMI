@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
 		B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B40942C625DB985F005CBEB3 /* AOSEmulator */; };
-		B4113DC625DB2A1900B92783 /* IOSConfigureDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */; };
+		B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */; };
 		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
 		B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F3D25E2E0A00090896C /* BigBrother.swift */; };
@@ -25,12 +25,13 @@
 		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
 		B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */; };
 		B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */; };
+		B4DC381525E2EEAD00E6206A /* NativeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381425E2EEAD00E6206A /* NativeButton.swift */; };
+		B4DC381925E2F11000E6206A /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381825E2F11000E6206A /* DialogView.swift */; };
 		B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5925DCE5A500D23AFD /* AppView.swift */; };
 		B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */; };
 		B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */; };
 		B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */; };
 		B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F17F25D5E974006ADB7A /* IOSView.swift */; };
-		B4F3F19025D5EF1F006ADB7A /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F18F25D5EF1F006ADB7A /* IOSConfigureView.swift */; };
 		B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F19325D5FBE5006ADB7A /* IOSSimulatorView.swift */; };
 		B4F7E26425D9D3EF007D118D /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F7E26325D9D3EF007D118D /* ActivityView.swift */; };
 		B4FC830225DB9B54000E47A7 /* IOSSimulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4FC830125DB9B54000E47A7 /* IOSSimulator */; };
@@ -70,7 +71,7 @@
 /* Begin PBXFileReference section */
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B40942C325DB97F8005CBEB3 /* AOSEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulator; sourceTree = "<group>"; };
-		B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureDialogView.swift; sourceTree = "<group>"; };
+		B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureView.swift; sourceTree = "<group>"; };
 		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
 		B4687F3D25E2E0A00090896C /* BigBrother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigBrother.swift; sourceTree = "<group>"; };
@@ -93,12 +94,13 @@
 		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSHTTPProxyManager.swift; sourceTree = "<group>"; };
 		B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorState.swift; sourceTree = "<group>"; };
+		B4DC381425E2EEAD00E6206A /* NativeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButton.swift; sourceTree = "<group>"; };
+		B4DC381825E2F11000E6206A /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
 		B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
 		B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSView.swift; sourceTree = "<group>"; };
 		B4F3F17F25D5E974006ADB7A /* IOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSView.swift; sourceTree = "<group>"; };
-		B4F3F18F25D5EF1F006ADB7A /* IOSConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureView.swift; sourceTree = "<group>"; };
 		B4F3F19325D5FBE5006ADB7A /* IOSSimulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSimulatorView.swift; sourceTree = "<group>"; };
 		B4F7E26325D9D3EF007D118D /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		B4FC82F925DB9AED000E47A7 /* HTTPProxyManager */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPProxyManager; sourceTree = "<group>"; };
@@ -180,6 +182,8 @@
 				B4F7E26325D9D3EF007D118D /* ActivityView.swift */,
 				B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */,
 				B4F10B5925DCE5A500D23AFD /* AppView.swift */,
+				B4DC381425E2EEAD00E6206A /* NativeButton.swift */,
+				B4DC381825E2F11000E6206A /* DialogView.swift */,
 				B4884EC725DA4D2B00FBFAD0 /* ImageActivityIndicator.swift */,
 				B403451B25D62B9500C2146D /* ErrorView.swift */,
 				B449209E258D4F6A00457272 /* Button.swift */,
@@ -229,8 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				B4F3F17F25D5E974006ADB7A /* IOSView.swift */,
-				B4F3F18F25D5EF1F006ADB7A /* IOSConfigureView.swift */,
-				B4113DC525DB2A1900B92783 /* IOSConfigureDialogView.swift */,
+				B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */,
 				B4F3F19325D5FBE5006ADB7A /* IOSSimulatorView.swift */,
 				B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */,
 				B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */,
@@ -381,14 +384,15 @@
 				B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
 				B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */,
-				B4113DC625DB2A1900B92783 /* IOSConfigureDialogView.swift in Sources */,
+				B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
 				B4F7E26425D9D3EF007D118D /* ActivityView.swift in Sources */,
 				B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */,
-				B4F3F19025D5EF1F006ADB7A /* IOSConfigureView.swift in Sources */,
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
+				B4DC381525E2EEAD00E6206A /* NativeButton.swift in Sources */,
 				B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
+				B4DC381925E2F11000E6206A /* DialogView.swift in Sources */,
 				B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */,
 				B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */,
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
