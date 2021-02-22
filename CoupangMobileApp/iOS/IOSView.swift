@@ -38,6 +38,7 @@ struct IOSView: View {
     }
 }
 
+#if DEBUG
 struct IOSView_Previews: PreviewProvider {
     static let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "terrible error terrible error terrible error terrible error terrible error terrible error"])
     static var previews: some View {
@@ -58,3 +59,4 @@ struct IOSView_Previews: PreviewProvider {
             .environmentObject(HTTPProxyManager.preview())
     }
 }
+#endif

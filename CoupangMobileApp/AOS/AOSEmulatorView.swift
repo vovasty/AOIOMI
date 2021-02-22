@@ -38,6 +38,7 @@ struct AOSEmulatorView: View {
     }
 }
 
+#if DEBUG
 struct AOSEmulatorView_Previews: PreviewProvider {
     static var previews: some View {
         let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
@@ -62,3 +63,4 @@ struct AOSEmulatorView_Previews: PreviewProvider {
             .environmentObject(AOSEmulator.preview(state: .started))
     }
 }
+#endif

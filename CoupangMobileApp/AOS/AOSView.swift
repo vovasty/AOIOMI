@@ -40,6 +40,7 @@ struct AOSView: View {
     }
 }
 
+#if DEBUG
 struct AOSView_Previews: PreviewProvider {
     static var previews: some View {
         AOSView()
@@ -48,3 +49,4 @@ struct AOSView_Previews: PreviewProvider {
             .environmentObject(HTTPProxyManager.preview())
     }
 }
+#endif

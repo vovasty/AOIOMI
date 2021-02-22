@@ -41,6 +41,7 @@ struct IOSConfigureView: View {
     }
 }
 
+#if DEBUG
 struct IOSConfigureView_Previews: PreviewProvider {
     static var previews: some View {
         IOSConfigureView(isDisplayed: .constant(true), isCancellable: false)
@@ -50,3 +51,4 @@ struct IOSConfigureView_Previews: PreviewProvider {
             ]))
     }
 }
+#endif

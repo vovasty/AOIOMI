@@ -47,6 +47,7 @@ struct IOSSimulatorView: View {
     }
 }
 
+#if DEBUG
 struct IOSSimulatorView_Previews: PreviewProvider {
     static var previews: some View {
         let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "super mega error"])
@@ -58,3 +59,4 @@ struct IOSSimulatorView_Previews: PreviewProvider {
             .environmentObject(IOSSimulator.preview(state: .starting))
     }
 }
+#endif
