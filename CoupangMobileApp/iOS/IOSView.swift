@@ -21,6 +21,9 @@ struct IOSView: View {
             switch simulator.state {
             case .notConfigured:
                 IOSConfigureView(isDisplayed: .constant(true), isCancellable: false)
+                    .onAppear {
+                        activityState = simulator.state.activity
+                    }
             case .started:
                 AppView(appManager: appManager,
                         activityState: $activityState,
@@ -43,7 +46,10 @@ struct IOSView_Previews: PreviewProvider {
             .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
             .environmentObject(HTTPProxyManager.preview())
         IOSView()
-            .environmentObject(IOSSimulator.preview(state: .checking))
+            .environmentObject(IOSSimulator.preview(state: .checking, deviceTypes: [
+                SimctlList.DeviceType(name: "iPhone"),
+                SimctlList.DeviceType(name: "iPad"),
+            ]))
             .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
             .environmentObject(HTTPProxyManager.preview())
         IOSView()

@@ -39,15 +39,16 @@ struct DialogView<Content: View>: View {
     }
 
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             content
-            HStack {
+                .frame(maxWidth: .infinity)
+            HStack(alignment: .center) {
+                Spacer()
                 ForEach(0 ..< buttons.count, id: \.self) {
                     buttons[$0]
                 }
             }
         }
-        .padding()
     }
 }
 
@@ -56,8 +57,14 @@ struct DialogView_Previews: PreviewProvider {
         DialogView(primaryButton: .default("YUP", action: {}), secondaryButton: .cancel("NOPE", action: {})) {
             VStack {
                 Text("HERE WEGO")
-                Text("HERE WEGO")
             }
         }
+        .frame(width: 300)
+        DialogView(primaryButton: .default("YUP", action: {}), secondaryButton: .cancel("NOPE", action: {})) {
+            VStack {
+                Text("HERE WEGO HERE WEGO HERE WEGO")
+            }
+        }
+        .frame(width: 300)
     }
 }

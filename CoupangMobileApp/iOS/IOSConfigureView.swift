@@ -14,7 +14,7 @@ struct IOSConfigureView: View {
     @EnvironmentObject var httpProxyManager: HTTPProxyManager
     var isDisplayed: Binding<Bool>
     private var cancelButton: DialogButton?
-    
+
     init(isDisplayed: Binding<Bool>, isCancellable: Bool) {
         self.isDisplayed = isDisplayed
         if isCancellable {
@@ -27,7 +27,7 @@ struct IOSConfigureView: View {
     @State private var deviceType: SimctlList.DeviceType = .empty
     var body: some View {
         DialogView(primaryButton: .default("Configure", disabled: deviceType == .empty, action: {
-            guard deviceType != .empty else { return }//WTF????
+            guard deviceType != .empty else { return } // WTF????
             simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
             isDisplayed.wrappedValue.toggle()
         }), secondaryButton: cancelButton) {
@@ -38,7 +38,6 @@ struct IOSConfigureView: View {
             }
             .pickerStyle(DefaultPickerStyle())
         }
-        .padding()
     }
 }
 

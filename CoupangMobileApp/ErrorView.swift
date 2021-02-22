@@ -74,6 +74,7 @@ struct ErrorView: View {
                         }
                     }
                     .frame(maxWidth: 300)
+                    .padding()
                 }
             }
         }

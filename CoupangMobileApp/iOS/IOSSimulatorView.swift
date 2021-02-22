@@ -32,6 +32,7 @@ struct IOSSimulatorView: View {
                     .environmentObject(simulator)
                     .environmentObject(httpProxyManager)
                     .frame(width: 200)
+                    .padding()
             }
         }
         .onReceive(Just(simulator.state)) { state in

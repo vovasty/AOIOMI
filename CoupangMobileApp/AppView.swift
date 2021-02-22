@@ -94,6 +94,7 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
                     })) {
                         Text(PCID)
                     }
+                    .padding()
                 } else {
                     DialogView(primaryButton: .default("OK", action: {
                         wantToShowPCID = false
@@ -101,6 +102,7 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
                     }), content: {
                         Text("PCID is Not Available")
                     })
+                        .padding()
                 }
             }
             Button("Check") {
