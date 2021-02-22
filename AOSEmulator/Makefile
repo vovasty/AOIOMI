@@ -39,7 +39,7 @@ ifndef ANDROID_VERSION
 	$(error ANDROID_VERSION is not set)
 endif
 	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --channel=0 emulator "platform-tools" "platforms;android-$(ANDROID_VERSION)" && \
-	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --install "system-images;android-$(ANDROID_VERSION);default;x86"
+	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --install "system-images;android-$(ANDROID_VERSION);default;x86_64"
 
 .PHONY: install-gapps
 install-gapps: structure
