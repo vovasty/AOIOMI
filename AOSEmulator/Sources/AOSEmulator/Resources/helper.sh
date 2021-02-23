@@ -40,13 +40,13 @@ function delete {
 
 function wait_booted {
     debug
-    while [ "`$ADB shell getprop sys.boot_completed | tr -d '\r' `" != "1" ] ; do sleep 1; done
+   "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
 }
 
 function init {
     debug
     mkdir -p "$ANDROID_EMULATOR_HOME" "$ANDROID_AVD_HOME"
-    echo "no" | "$AVDMANAGER" --verbose create avd --force --name "$AVD_NAME" -d pixel_3_xl --package "system-images;android-$ANDROID_VERSION;default;x86" --tag "default" --abi "x86"
+    echo "no" | "$AVDMANAGER" --verbose create avd --force --name "$AVD_NAME" -d pixel_3_xl --package "$ANDROID_PACKAGE" --tag "$ANDROID_TAG" --abi "$ANDROID_PLATFORM"
     echo hw.keyboard=yes >> "$ANDROID_AVD_HOME/$AVD_NAME.avd/config.ini"
 }
 
@@ -60,21 +60,35 @@ function shutdown {
     done
 }
 
+#for api 30
+function make_root_writeable {
+    debug
+    adb_root
+    "$ADB" shell avbctl disable-verification
+    reboot
+    adb_root
+    "$ADB" remount
+}
+
 function create {
     debug
 # shutdown emulator on exit cause child process holds swiftshell forever
     trap 'emergency_exit' EXIT
     function emergency_exit {
+      echo "Stop: unexpected exit."
       stop
       exit 1
     }
+    restart_adb
     stop
     init
     start &
     wait_booted
+#    make_root_writeable #api 30
     install_gapps
     set_proxy "$1"
     install_ca "$2"
+ #   "$ADB" shell avbctl enable-verification #api 30
     shutdown
 #crear trap to avoid erroneous exit code
     trap '' EXIT
@@ -96,9 +110,15 @@ function install_gapps {
     "$ADB" push $ROOT/gapps/priv-app /system
 }
 
+function restart_adb {
+    "$ADB" kill-server
+    "$ADB" start-server
+}
+
 function reboot {
     debug
     "$ADB" reboot
+    "$ADB" wait-for-device
     wait_booted
 }
 
@@ -156,14 +176,16 @@ function adb {
 
 function adb_root {
     debug $@
-    "$ADB" root
-    "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+    # ignore timeout
+    "$ADB" root || true
+    sleep 5
+    "$ADB" wait-for-device
 }
 
 function adb_unroot {
     debug $@
-    "$ADB" unroot
-    "$ADB" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+    # ignore timeout
+    "$ADB" unroot || true
 }
 
 function get_emulator_pid {

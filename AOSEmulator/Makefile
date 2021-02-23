@@ -3,8 +3,12 @@ export JAVA_HOME = $(INSTALL_DIR)/jdk
 export ANDROID_SDK_ROOT = $(INSTALL_DIR)/adk
 ANDROID_SDK_TOOLS = $(ANDROID_SDK_ROOT)/cmdline-tools/tools/bin
 
+#ANDROID_TAG="google_apis"
+ANDROID_TAG="default"
+ANDROID_PACKAGE="system-images;android-$(ANDROID_VERSION);$(ANDROID_TAG);$(ANDROID_PLATFORM)"
+
 .PHONY: all
-all: structure install-jdk install-adk install-adk-components install-scripts install-gapps
+all: structure install-scripts install-jdk install-adk install-adk-components install-gapps
 	
 
 .PHONY: install-jdk
@@ -23,7 +27,13 @@ install-scripts: structure
 ifndef ANDROID_VERSION
 	$(error ANDROID_VERSION is not set)
 endif
-	echo ANDROID_VERSION=$(ANDROID_VERSION) > $(INSTALL_DIR)/env.sh
+ifndef ANDROID_PLATFORM
+	$(error ANDROID_PLATFORM is not set)
+endif
+	echo ANDROID_VERSION=\"$(ANDROID_VERSION)\" > $(INSTALL_DIR)/env.sh
+	echo ANDROID_PLATFORM=\"$(ANDROID_PLATFORM)\" >> $(INSTALL_DIR)/env.sh
+	echo ANDROID_PACKAGE=\"$(ANDROID_PACKAGE)\" >> $(INSTALL_DIR)/env.sh
+	echo ANDROID_TAG=\"$(ANDROID_TAG)\" >> $(INSTALL_DIR)/env.sh
 	
 .PHONY: install-adk
 install-adk: structure
@@ -38,8 +48,11 @@ install-adk-components: install-adk
 ifndef ANDROID_VERSION
 	$(error ANDROID_VERSION is not set)
 endif
+ifndef ANDROID_PLATFORM
+	$(error ANDROID_PLATFORM is not set)
+endif
 	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --channel=0 emulator "platform-tools" "platforms;android-$(ANDROID_VERSION)" && \
-	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --install "system-images;android-$(ANDROID_VERSION);default;x86_64"
+	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --install "system-images;android-$(ANDROID_VERSION);$(ANDROID_TAG);$(ANDROID_PLATFORM)"
 
 .PHONY: install-gapps
 install-gapps: structure
