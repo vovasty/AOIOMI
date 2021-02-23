@@ -60,7 +60,7 @@ struct ErrorView: View {
                 }
                 .buttonStyle(ErrorButtonStyle())
                 .sheet(isPresented: $isShowingError) {
-                    DialogView(primaryButton: .default("OK", action: {
+                    DialogView(primaryButton: .default("Copy", action: {
                         let pasteboard = NSPasteboard.general
                         pasteboard.declareTypes([.string], owner: nil)
                         pasteboard.setString(error.localizedDescription, forType: .string)
