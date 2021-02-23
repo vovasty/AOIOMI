@@ -31,10 +31,14 @@ endif
 ifndef ANDROID_TAG
 	$(error ANDROID_TAG is not set)
 endif
+ifndef DATA_ROOT
+	$(error DATA_ROOT is not set)
+endif
 	echo ANDROID_VERSION=\"$(ANDROID_VERSION)\" > $(INSTALL_DIR)/env.sh
 	echo ANDROID_PLATFORM=\"$(ANDROID_PLATFORM)\" >> $(INSTALL_DIR)/env.sh
 	echo ANDROID_PACKAGE=\"$(ANDROID_PACKAGE)\" >> $(INSTALL_DIR)/env.sh
 	echo ANDROID_TAG=\"$(ANDROID_TAG)\" >> $(INSTALL_DIR)/env.sh
+	echo DATA_ROOT=\"$(DATA_ROOT)\" >> $(INSTALL_DIR)/env.sh
 	
 .PHONY: install-adk
 install-adk: structure

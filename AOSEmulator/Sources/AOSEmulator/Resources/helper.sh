@@ -11,10 +11,11 @@ if [ -z "${COMMAND}" ]; then
 fi
 shift 1
 
+DATA_ROOT=${DATA_ROOT/#\~/$HOME}
 export JAVA_HOME=${ROOT}/jdk
 export ANDROID_SDK_ROOT=${ROOT}/adk
-export ANDROID_AVD_HOME=~/Library/Application\ Support/com.coupang.CoupangMobileApp/avd
-export ANDROID_EMULATOR_HOME=~/Library/Application\ Support/com.coupang.CoupangMobileApp/emulator
+export ANDROID_AVD_HOME=$DATA_ROOT/aos/avd
+export ANDROID_EMULATOR_HOME=$DATA_ROOT/aos/emulator
 
 EMULATOR=$ANDROID_SDK_ROOT/emulator/emulator
 ADB=$ANDROID_SDK_ROOT/platform-tools/adb
@@ -82,7 +83,7 @@ function create {
     restart_adb
     stop
     init
-    start &
+    "$EMULATOR" -avd "$AVD_NAME" -writable-system -no-window -no-snapshot&
     wait_booted
 #    make_root_writeable #api 30
     if [ "$ANDROID_TAG" == "default" ]; then
