@@ -1,14 +1,12 @@
 export INSTALL_DIR = Sources/AOSEmulator/Resources/emulator
 export JAVA_HOME = $(INSTALL_DIR)/jdk
 export ANDROID_SDK_ROOT = $(INSTALL_DIR)/adk
-ANDROID_SDK_TOOLS = $(ANDROID_SDK_ROOT)/cmdline-tools/tools/bin
 
-#ANDROID_TAG="google_apis"
-ANDROID_TAG="default"
+ANDROID_SDK_TOOLS = $(ANDROID_SDK_ROOT)/cmdline-tools/tools/bin
 ANDROID_PACKAGE="system-images;android-$(ANDROID_VERSION);$(ANDROID_TAG);$(ANDROID_PLATFORM)"
 
 .PHONY: all
-all: structure install-scripts install-jdk install-adk install-adk-components install-gapps
+all: structure install-scripts install-jdk install-adk install-adk-components
 	
 
 .PHONY: install-jdk
@@ -29,6 +27,9 @@ ifndef ANDROID_VERSION
 endif
 ifndef ANDROID_PLATFORM
 	$(error ANDROID_PLATFORM is not set)
+endif
+ifndef ANDROID_TAG
+	$(error ANDROID_TAG is not set)
 endif
 	echo ANDROID_VERSION=\"$(ANDROID_VERSION)\" > $(INSTALL_DIR)/env.sh
 	echo ANDROID_PLATFORM=\"$(ANDROID_PLATFORM)\" >> $(INSTALL_DIR)/env.sh
@@ -52,7 +53,7 @@ ifndef ANDROID_PLATFORM
 	$(error ANDROID_PLATFORM is not set)
 endif
 	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --channel=0 emulator "platform-tools" "platforms;android-$(ANDROID_VERSION)" && \
-	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --install "system-images;android-$(ANDROID_VERSION);$(ANDROID_TAG);$(ANDROID_PLATFORM)"
+	echo yes | $(ANDROID_SDK_TOOLS)/sdkmanager --install $(ANDROID_PACKAGE)
 
 .PHONY: install-gapps
 install-gapps: structure

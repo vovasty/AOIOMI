@@ -85,7 +85,9 @@ function create {
     start &
     wait_booted
 #    make_root_writeable #api 30
-    install_gapps
+    if [ "$ANDROID_TAG" == "default" ]; then
+        install_gapps
+    fi
     set_proxy "$1"
     install_ca "$2"
  #   "$ADB" shell avbctl enable-verification #api 30
