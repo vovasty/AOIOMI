@@ -35,6 +35,7 @@ Click `Install App` button for AOS/iOS app.
 If simulator/emulator fails to start.
  - Try to reconfigure it.
  - If reconfigure doesn't work, reboot your laptop🥴
+
 | AOS  | iOS |
 | ------------- | ------------- |
 | ![Reconfigure AOS](screenshots/reconfigure-aos.png) | ![Reconfigure AOS](screenshots/reconfigure-ios.png)  |

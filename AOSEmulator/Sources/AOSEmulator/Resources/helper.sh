@@ -83,7 +83,7 @@ function create {
     restart_adb
     stop
     init
-    "$EMULATOR" -avd "$AVD_NAME" -writable-system -no-window -no-snapshot&
+    "$EMULATOR" -avd "$AVD_NAME" -writable-system -no-window -no-snapshot -no-boot-anim -no-audio -nocache&
     wait_booted
 #    make_root_writeable #api 30
     if [ "$ANDROID_TAG" == "default" ]; then
