@@ -41,12 +41,12 @@ struct AOSView: View {
 }
 
 #if DEBUG
-struct AOSView_Previews: PreviewProvider {
-    static var previews: some View {
-        AOSView()
-            .environmentObject(AOSEmulator.preview(state: .notConfigured(nil)))
-            .environmentObject(AOSAppManager.preview(state: .notInstalled(nil)))
-            .environmentObject(HTTPProxyManager.preview())
+    struct AOSView_Previews: PreviewProvider {
+        static var previews: some View {
+            AOSView()
+                .environmentObject(AOSEmulator.preview(state: .notConfigured(nil)))
+                .environmentObject(AOSAppManager.preview(state: .notInstalled(nil)))
+                .environmentObject(HTTPProxyManager.preview())
+        }
     }
-}
 #endif

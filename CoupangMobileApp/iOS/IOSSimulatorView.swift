@@ -48,15 +48,15 @@ struct IOSSimulatorView: View {
 }
 
 #if DEBUG
-struct IOSSimulatorView_Previews: PreviewProvider {
-    static var previews: some View {
-        let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "super mega error"])
-        IOSSimulatorView(activityState: .constant(.text("some")))
-            .environmentObject(IOSSimulator.preview(state: .stopped(nil)))
-        IOSSimulatorView(activityState: .constant(.text("some")))
-            .environmentObject(IOSSimulator.preview(state: .stopped(error)))
-        IOSSimulatorView(activityState: .constant(.text("some")))
-            .environmentObject(IOSSimulator.preview(state: .starting))
+    struct IOSSimulatorView_Previews: PreviewProvider {
+        static var previews: some View {
+            let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "super mega error"])
+            IOSSimulatorView(activityState: .constant(.text("some")))
+                .environmentObject(IOSSimulator.preview(state: .stopped(nil)))
+            IOSSimulatorView(activityState: .constant(.text("some")))
+                .environmentObject(IOSSimulator.preview(state: .stopped(error)))
+            IOSSimulatorView(activityState: .constant(.text("some")))
+                .environmentObject(IOSSimulator.preview(state: .starting))
+        }
     }
-}
 #endif

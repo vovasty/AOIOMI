@@ -39,28 +39,28 @@ struct AOSEmulatorView: View {
 }
 
 #if DEBUG
-struct AOSEmulatorView_Previews: PreviewProvider {
-    static var previews: some View {
-        let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
+    struct AOSEmulatorView_Previews: PreviewProvider {
+        static var previews: some View {
+            let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
 
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .configuring))
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .checking))
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .stopped(nil)))
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .stopped(error)))
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .stopping))
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .notConfigured(nil)))
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .notConfigured(error)))
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .starting))
-        AOSEmulatorView(activityState: .constant(.text("some")))
-            .environmentObject(AOSEmulator.preview(state: .started))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .configuring))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .checking))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .stopped(nil)))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .stopped(error)))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .stopping))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .notConfigured(nil)))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .notConfigured(error)))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .starting))
+            AOSEmulatorView(activityState: .constant(.text("some")))
+                .environmentObject(AOSEmulator.preview(state: .started))
+        }
     }
-}
 #endif

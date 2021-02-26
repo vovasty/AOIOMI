@@ -39,24 +39,24 @@ struct IOSView: View {
 }
 
 #if DEBUG
-struct IOSView_Previews: PreviewProvider {
-    static let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "terrible error terrible error terrible error terrible error terrible error terrible error"])
-    static var previews: some View {
-        IOSView()
-            .environmentObject(IOSSimulator.preview(state: .notConfigured(nil)))
-            .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
-            .environmentObject(HTTPProxyManager.preview())
-        IOSView()
-            .environmentObject(IOSSimulator.preview(state: .checking, deviceTypes: [
-                SimctlList.DeviceType(name: "iPhone"),
-                SimctlList.DeviceType(name: "iPad"),
-            ]))
-            .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
-            .environmentObject(HTTPProxyManager.preview())
-        IOSView()
-            .environmentObject(IOSSimulator.preview(state: .started))
-            .environmentObject(IOSAppManager.preview(state: .installed(error: error, defaults: nil)))
-            .environmentObject(HTTPProxyManager.preview())
+    struct IOSView_Previews: PreviewProvider {
+        static let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "terrible error terrible error terrible error terrible error terrible error terrible error"])
+        static var previews: some View {
+            IOSView()
+                .environmentObject(IOSSimulator.preview(state: .notConfigured(nil)))
+                .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
+                .environmentObject(HTTPProxyManager.preview())
+            IOSView()
+                .environmentObject(IOSSimulator.preview(state: .checking, deviceTypes: [
+                    SimctlList.DeviceType(name: "iPhone"),
+                    SimctlList.DeviceType(name: "iPad"),
+                ]))
+                .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
+                .environmentObject(HTTPProxyManager.preview())
+            IOSView()
+                .environmentObject(IOSSimulator.preview(state: .started))
+                .environmentObject(IOSAppManager.preview(state: .installed(error: error, defaults: nil)))
+                .environmentObject(HTTPProxyManager.preview())
+        }
     }
-}
 #endif

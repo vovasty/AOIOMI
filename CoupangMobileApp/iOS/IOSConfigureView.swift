@@ -42,13 +42,13 @@ struct IOSConfigureView: View {
 }
 
 #if DEBUG
-struct IOSConfigureView_Previews: PreviewProvider {
-    static var previews: some View {
-        IOSConfigureView(isDisplayed: .constant(true), isCancellable: false)
-            .environmentObject(IOSSimulator.preview(deviceTypes: [
-                SimctlList.DeviceType(name: "iPhone"),
-                SimctlList.DeviceType(name: "iPad"),
-            ]))
+    struct IOSConfigureView_Previews: PreviewProvider {
+        static var previews: some View {
+            IOSConfigureView(isDisplayed: .constant(true), isCancellable: false)
+                .environmentObject(IOSSimulator.preview(deviceTypes: [
+                    SimctlList.DeviceType(name: "iPhone"),
+                    SimctlList.DeviceType(name: "iPad"),
+                ]))
+        }
     }
-}
 #endif
