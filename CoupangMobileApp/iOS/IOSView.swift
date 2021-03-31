@@ -16,7 +16,7 @@ struct IOSView: View {
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             ActivityView(style: .ios, state: $activityState)
             switch simulator.state {
             case .notConfigured:
@@ -34,7 +34,9 @@ struct IOSView: View {
             case .stopped, .starting, .stopping, .configuring, .checking:
                 IOSSimulatorView(activityState: $activityState)
             }
+            Spacer()
         }
+        .padding()
     }
 }
 
@@ -47,6 +49,7 @@ struct IOSView: View {
                 .environmentObject(IOSAppManager.preview(state: .notInstalled(nil)))
                 .environmentObject(HTTPProxyManager.preview())
             IOSView()
+                .frame(width: 300, alignment: .leading)
                 .environmentObject(IOSSimulator.preview(state: .checking, deviceTypes: [
                     SimctlList.DeviceType(name: "iPhone"),
                     SimctlList.DeviceType(name: "iPad"),

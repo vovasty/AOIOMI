@@ -29,25 +29,29 @@ struct ImageActivityIndicator: View {
     }
 
     var body: some View {
-        ZStack {
-            Image(imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 32, height: 32)
-            if isAnimating {
-                ActivityIndicator(count: 2, width: 1, spacing: 1)
-                    .frame(width: 40, height: 40)
-                    .foregroundColor(color)
+        GeometryReader { geometry in
+            ZStack {
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: geometry.size.width - 8, height: geometry.size.height - 8)
+                if isAnimating {
+                    ActivityIndicator(count: 2, width: 1, spacing: 1)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .foregroundColor(color)
+                }
             }
         }
-        .frame(minWidth: 42, minHeight: 42)
     }
 }
 
 struct ImageActivityIndicator_Previews: PreviewProvider {
     static var previews: some View {
         ImageActivityIndicator(style: .ios)
+            .frame(width: 40, height: 40)
         ImageActivityIndicator(style: .aos)
+            .frame(width: 30, height: 30)
         ImageActivityIndicator(style: .aos, isAnimating: false)
+            .frame(width: 20, height: 20)
     }
 }

@@ -28,13 +28,13 @@ struct ErrorDetailView: View {
                     .lineLimit(nil)
             }
             HStack {
-                SwiftUI.Button("Copy") {
+                Button("Copy") {
                     let pasteboard = NSPasteboard.general
                     pasteboard.declareTypes([.string], owner: nil)
                     pasteboard.setString(text, forType: .string)
                     isShowing.toggle()
                 }
-                SwiftUI.Button("Close") {
+                Button("Close") {
                     isShowing.toggle()
                 }
             }
@@ -51,7 +51,7 @@ struct ErrorView: View {
     var body: some View {
         VStack {
             if let error = error {
-                SwiftUI.Button(action: {
+                Button(action: {
                     isShowingError.toggle()
                 }) {
                     Text("error")

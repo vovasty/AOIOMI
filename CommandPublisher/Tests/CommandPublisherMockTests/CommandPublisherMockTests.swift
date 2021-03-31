@@ -27,7 +27,7 @@ private struct VoidCommand: Command {
 }
 
 private struct ACommand: AsyncCommand {
-    var parameters: [String]? = nil
+    var parameters: [String]?
     var executable: Executable = .helper
 }
 

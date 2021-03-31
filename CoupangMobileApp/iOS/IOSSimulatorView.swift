@@ -19,7 +19,7 @@ struct IOSSimulatorView: View {
     @State private var startDisabled = false
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Button("Start") {
                 simulator.start()
             }

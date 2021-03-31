@@ -17,7 +17,7 @@ struct AOSEmulatorView: View {
     @State private var startDisabled = false
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Button("Start") {
                 emulator.start()
             }

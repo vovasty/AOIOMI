@@ -10,10 +10,10 @@
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
 		B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B40942C625DB985F005CBEB3 /* AOSEmulator */; };
 		B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */; };
-		B449209F258D4F6A00457272 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B449209E258D4F6A00457272 /* Button.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
 		B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F3D25E2E0A00090896C /* BigBrother.swift */; };
 		B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */; };
+		B47C937125E99C8700E19602 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47C937025E99C8700E19602 /* Label.swift */; };
 		B4884EC425DA4CA100FBFAD0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */; };
 		B4884EC825DA4D2B00FBFAD0 /* ImageActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4884EC725DA4D2B00FBFAD0 /* ImageActivityIndicator.swift */; };
 		B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769C253114D100962CC1 /* AppDelegate.swift */; };
@@ -72,10 +72,10 @@
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B40942C325DB97F8005CBEB3 /* AOSEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulator; sourceTree = "<group>"; };
 		B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureView.swift; sourceTree = "<group>"; };
-		B449209E258D4F6A00457272 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
 		B4687F3D25E2E0A00090896C /* BigBrother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigBrother.swift; sourceTree = "<group>"; };
 		B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSimulatorState.swift; sourceTree = "<group>"; };
+		B47C937025E99C8700E19602 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		B4884EC725DA4D2B00FBFAD0 /* ImageActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageActivityIndicator.swift; sourceTree = "<group>"; };
 		B4A97699253114D100962CC1 /* CoupangMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoupangMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,13 +180,13 @@
 				B403452725D71B9800C2146D /* AOS */,
 				B4F3F18525D5EE22006ADB7A /* iOS */,
 				B4F7E26325D9D3EF007D118D /* ActivityView.swift */,
+				B47C937025E99C8700E19602 /* Label.swift */,
 				B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */,
 				B4F10B5925DCE5A500D23AFD /* AppView.swift */,
 				B4DC381425E2EEAD00E6206A /* NativeButton.swift */,
 				B4DC381825E2F11000E6206A /* DialogView.swift */,
 				B4884EC725DA4D2B00FBFAD0 /* ImageActivityIndicator.swift */,
 				B403451B25D62B9500C2146D /* ErrorView.swift */,
-				B449209E258D4F6A00457272 /* Button.swift */,
 				B4A976A0253114D200962CC1 /* Assets.xcassets */,
 				B4A976A5253114D200962CC1 /* Main.storyboard */,
 				B4A976A8253114D200962CC1 /* Info.plist */,
@@ -378,7 +378,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4884EC825DA4D2B00FBFAD0 /* ImageActivityIndicator.swift in Sources */,
-				B449209F258D4F6A00457272 /* Button.swift in Sources */,
 				B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */,
 				B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */,
 				B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */,
@@ -388,6 +387,7 @@
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
 				B4F7E26425D9D3EF007D118D /* ActivityView.swift in Sources */,
 				B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */,
+				B47C937125E99C8700E19602 /* Label.swift in Sources */,
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
 				B4DC381525E2EEAD00E6206A /* NativeButton.swift in Sources */,
 				B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */,
@@ -565,6 +565,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoupangMobileApp/CoupangMobileApp.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CoupangMobileApp/Preview Content\"";
@@ -589,6 +590,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoupangMobileApp/CoupangMobileApp.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CoupangMobileApp/Preview Content\"";

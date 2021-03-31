@@ -16,7 +16,7 @@ struct AOSView: View {
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             ActivityView(style: .aos, state: $activityState)
             switch emulator.state {
             case .notConfigured:
@@ -36,7 +36,9 @@ struct AOSView: View {
             case .stopped, .starting, .stopping, .checking, .configuring:
                 AOSEmulatorView(activityState: $activityState)
             }
+            Spacer()
         }
+        .padding()
     }
 }
 
@@ -46,6 +48,10 @@ struct AOSView: View {
             AOSView()
                 .environmentObject(AOSEmulator.preview(state: .notConfigured(nil)))
                 .environmentObject(AOSAppManager.preview(state: .notInstalled(nil)))
+                .environmentObject(HTTPProxyManager.preview())
+            AOSView()
+                .environmentObject(AOSEmulator.preview(state: .started))
+                .environmentObject(AOSAppManager.preview(state: .installed(error: nil, defaults: nil)))
                 .environmentObject(HTTPProxyManager.preview())
         }
     }

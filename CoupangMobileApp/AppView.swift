@@ -65,14 +65,22 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
     @State private var wantToShowPCID = false
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             InstallAppView(title: installTitle,
                            isInstalled: appManager.state.isInstalled,
                            fileExtensions: fileExtensions,
                            installAction: installAction)
                 .disabled(appManager.state.isInstallDisabled)
-            Button("Open App") {
-                appManager.start()
+            HStack {
+                Button("Open App") {
+                    appManager.start()
+                }
+                SwiftUI.Button(action: { appManager.check() }) {
+                    Image("arrow.clockwise.circle.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
             .disabled(appManager.state.isNonOperational)
             Button("Show PCID") {
@@ -105,9 +113,6 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
                         .padding()
                 }
             }
-            Button("Check") {
-                appManager.check()
-            }
             .disabled(appManager.state.isCheckDisabled)
         }
         .onReceive(Just(appManager.state)) { state in
@@ -119,62 +124,42 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
     }
 }
 
-// private extension AppManager.State {
-//    var asActivity: ActivityView.ActivityState {
-//        switch self {
-//        case let .notInstalled(error):
-//            if let error = error {
-//                return .error("App is Not Installed", error)
-//            } else {
-//                return .text("App is Not Installed")
-//            }
-//        case .installed:
-//            return .text("App is Installed")
-//        case .installing:
-//            return .busy("Installing App...")
-//        case .checking:
-//            return .busy("Checking App...")
-//        }
-//    }
-//
-//    var PCID: String? {
-//        switch self {
-//        case let .installed(_, xml):
-//            do {
-//                return try xml?["map"]["string"].withAttribute("name", "wl_pcid").element?.text
-//            } catch {
-//                return nil
-//            }
-//        default:
-//            return nil
-//        }
-//    }
-// }
-//
-// struct AOSAppStateView_Previews: PreviewProvider {
-//    static var xml: XMLIndexer {
-//        let xmlString = """
-//        <map>
-//          <string name="wl_pcid">1234567890</string>
-//        </map>
-//        """
-//        return SWXMLHash.config {
-//            config in
-//            config.shouldProcessLazily = true
-//        }.parse(xmlString.data(using: .utf8)!)
-//    }
-//
-//    static var previews: some View {
-//        let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "something bad happened!"])
-//        AOSAppStateView(activityState: .constant(.text("some")))
-//            .environmentObject(AppManager.preview(state: .checking))
-//        AOSAppStateView(activityState: .constant(.text("some")))
-//            .environmentObject(AppManager.preview(state: .notInstalled(nil)))
-//        AOSAppStateView(activityState: .constant(.text("some")))
-//            .environmentObject(AppManager.preview(state: .notInstalled(error)))
-//        AOSAppStateView(activityState: .constant(.text("some")))
-//            .environmentObject(AppManager.preview(state: .installing))
-//        AOSAppStateView(activityState: .constant(.text("some")))
-//            .environmentObject(AppManager.preview(state: .installed(error: nil, defaults: xml)))
-//    }
-// }
+#if DEBUG
+    private struct MockedAppViewManagerState: AppViewManagerState {
+        var PCID: String?
+        var isInstallDisabled: Bool
+        var isCheckDisabled: Bool
+        var isNonOperational: Bool
+        var isInstalled: Bool
+        var activity: ActivityView.ActivityState
+    }
+
+    private class MockedAppManager: AppViewManager {
+        var state: MockedAppViewManagerState
+
+        init() {
+            state = MockedAppViewManagerState(PCID: "PCID",
+                                              isInstallDisabled: false,
+                                              isCheckDisabled: false,
+                                              isNonOperational: false,
+                                              isInstalled: false,
+                                              activity: .busy("busy"))
+        }
+
+        func check() {}
+
+        func start() {}
+    }
+
+    struct AppView_Previews: PreviewProvider {
+        private static let appManager = MockedAppManager()
+
+        static var previews: some View {
+            AppView(appManager: appManager,
+                    activityState: .constant(.busy("busy")),
+                    installTitle: "Install App",
+                    fileExtensions: ["app"],
+                    installAction: { _ in })
+        }
+    }
+#endif

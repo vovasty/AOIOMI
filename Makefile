@@ -12,9 +12,9 @@ all: archive
 build:
 	xcodebuild -project CoupangMobileApp.xcodeproj -config Release -scheme CoupangMobileApp -derivedDataPath $(DERIVED_PATH) -archivePath $(ARCHIVE_PATH) archive
 	
-# .PHONY: export
-# export: build
-# 	xcodebuild -archivePath $(ARCHIVE_PATH) -exportArchive -exportPath $(APP_PATH)  -exportOptionsPlist exportOptions.plist
+.PHONY: export
+export: build
+	xcodebuild -archivePath "$(ARCHIVE_PATH)" -exportArchive -exportPath "$(APP_PATH)" -exportOptionsPlist exportOptions.plist
 
 .PHONY: archive
 archive: build

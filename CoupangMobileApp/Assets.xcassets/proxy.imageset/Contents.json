@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "ios.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "proxy.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

@@ -14,7 +14,7 @@ struct ActivityView: View {
     }
 
     private let style: ImageActivityIndicator.Style
-    private var state: Binding<ActivityState>
+    private let state: Binding<ActivityState>
     @State private var isAnimating: Bool = true
 
     init(style: ImageActivityIndicator.Style, state: Binding<ActivityState>) {
@@ -23,26 +23,25 @@ struct ActivityView: View {
     }
 
     var body: some View {
-        VStack(spacing: 3) {
-            HStack(alignment: .top, spacing: 3) {
-                switch state.wrappedValue {
-                case let .busy(text):
-                    Text(text)
-                case let .text(text):
-                    Text(text)
-                case let .error(text, _):
-                    Text(text)
-                }
-                switch state.wrappedValue {
-                case .busy:
-                    EmptyView()
-                case .text:
-                    EmptyView()
-                case let .error(_, error):
-                    ErrorView(error: error)
-                }
-            }
+        HStack(alignment: .center, spacing: 3) {
             ImageActivityIndicator(style: style, isAnimating: isAnimating)
+                .frame(width: 30, height: 30, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+            switch state.wrappedValue {
+            case let .busy(text):
+                Text(text)
+            case let .text(text):
+                Text(text)
+            case let .error(text, _):
+                Text(text)
+            }
+            switch state.wrappedValue {
+            case .busy:
+                EmptyView()
+            case .text:
+                EmptyView()
+            case let .error(_, error):
+                ErrorView(error: error)
+            }
         }
         .onReceive(Just(state)) { _ in
             switch state.wrappedValue {
