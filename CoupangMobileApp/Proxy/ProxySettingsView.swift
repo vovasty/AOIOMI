@@ -22,6 +22,9 @@ struct ProxySettingsView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+            activityState = mitmProxy.state.activity
+        }
         .onReceive(mitmProxy.$state) { state in
             activityState = state.activity
         }

@@ -38,6 +38,9 @@
 		B4EFCA182616507500483DAD /* ProxyControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA172616507500483DAD /* ProxyControlView.swift */; };
 		B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */; };
 		B4EFCA2026165DA200483DAD /* MITMProxyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */; };
+		B4EFCA262616710700483DAD /* TranslateDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA252616710700483DAD /* TranslateDefinition.swift */; };
+		B4EFCA2A2616724F00483DAD /* TranslateDefinitionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA292616724F00483DAD /* TranslateDefinitionListView.swift */; };
+		B4EFCA2E261672BC00483DAD /* TranslateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA2D261672BC00483DAD /* TranslateView.swift */; };
 		B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5925DCE5A500D23AFD /* AppView.swift */; };
 		B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */; };
 		B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */; };
@@ -118,6 +121,9 @@
 		B4EFCA172616507500483DAD /* ProxyControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyControlView.swift; sourceTree = "<group>"; };
 		B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyPortView.swift; sourceTree = "<group>"; };
 		B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MITMProxyState.swift; sourceTree = "<group>"; };
+		B4EFCA252616710700483DAD /* TranslateDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateDefinition.swift; sourceTree = "<group>"; };
+		B4EFCA292616724F00483DAD /* TranslateDefinitionListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateDefinitionListView.swift; sourceTree = "<group>"; };
+		B4EFCA2D261672BC00483DAD /* TranslateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateView.swift; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
 		B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
@@ -268,6 +274,9 @@
 				B4EFCA172616507500483DAD /* ProxyControlView.swift */,
 				B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */,
 				B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */,
+				B4EFCA252616710700483DAD /* TranslateDefinition.swift */,
+				B4EFCA292616724F00483DAD /* TranslateDefinitionListView.swift */,
+				B4EFCA2D261672BC00483DAD /* TranslateView.swift */,
 			);
 			path = Proxy;
 			sourceTree = "<group>";
@@ -426,11 +435,13 @@
 				B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */,
 				B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */,
 				B4EFC9E1261537FD00483DAD /* PermZoneEditor.swift in Sources */,
+				B4EFCA262616710700483DAD /* TranslateDefinition.swift in Sources */,
 				B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
 				B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */,
 				B4EFC9E626153A5800483DAD /* TextArea.swift in Sources */,
 				B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */,
+				B4EFCA2E261672BC00483DAD /* TranslateView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* ContentView.swift in Sources */,
 				B4F7E26425D9D3EF007D118D /* ActivityView.swift in Sources */,
 				B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */,
@@ -451,6 +462,7 @@
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */,
 				B4EFC9FF261544CF00483DAD /* UserSettings.swift in Sources */,
+				B4EFCA2A2616724F00483DAD /* TranslateDefinitionListView.swift in Sources */,
 				B4884EC425DA4CA100FBFAD0 /* ActivityIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

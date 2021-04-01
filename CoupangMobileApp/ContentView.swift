@@ -43,7 +43,7 @@ struct ContentView: View {
                             Text("Permzone")
                         }
                         NavigationLink(
-                            destination: Text("Translator").frame(maxWidth: .infinity, alignment: .leading),
+                            destination: TranslateView().frame(maxWidth: .infinity, alignment: .leading),
                             tag: .translator,
                             selection: $selection
                         ) {

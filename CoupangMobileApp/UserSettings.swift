@@ -39,14 +39,43 @@ final class UserSettings: ObservableObject {
             objectWillChange.send()
         }
     }
+
+    @UserDefault("translateDefinitions", defaultValue: [
+        TranslateDefinition(name: "Search Filter",
+                            definition: TranslateAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/152/v3/search-filter",
+                                                                  paths: ["rData"])),
+        TranslateDefinition(name: "Recommended Keywords",
+                            definition: TranslateAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/26/recommended-keywords/list",
+                                                                  paths: ["rData.freshTrendingKeywords.*.keywords.content", "rData.recommendedKeywords.*.content"])),
+        TranslateDefinition(name: "Hot Keywords",
+                            definition: TranslateAddon.Definition(url: "https://cmapi.coupang.com/v3/hot-keywords",
+                                                                  paths: ["rData.entityList.*.entity.links.*.nameAttr"])),
+    ])
+    var translateDefinitions: [TranslateDefinition] {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+
+    @UserDefault("isTranslating", defaultValue: false)
+    var isTranslating: Bool {
+        willSet {
+            objectWillChange.send()
+        }
+    }
 }
 
 extension UserSettings {
     var addons: [Addon] {
+        var addons = [Addon]()
         if let activePermZone = activePermZone {
-            return [AddRequestHeadersAddon(headers: activePermZone.headers)]
-        } else {
-            return []
+            addons.append(AddRequestHeadersAddon(headers: activePermZone.headers))
         }
+
+        if isTranslating {
+            addons.append(TranslateAddon(definitions: translateDefinitions.filter(\.isChecked).map(\.definition)))
+        }
+
+        return addons
     }
 }
