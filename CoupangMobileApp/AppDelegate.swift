@@ -20,6 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .environmentObject(bigBrother.iosAppManager)
             .environmentObject(bigBrother.aosAppManager)
             .environmentObject(bigBrother.httpProxyManager)
+            .environmentObject(bigBrother.userSettings)
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),

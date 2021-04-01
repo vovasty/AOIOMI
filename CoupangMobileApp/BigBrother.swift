@@ -22,6 +22,7 @@ final class BigBrother {
     let iosAppManager: IOSAppManager
     let aosAppManager: AOSAppManager
     let httpProxyManager: HTTPProxyManager
+    let userSettings = UserSettings()
 
     private var cancellables = Set<AnyCancellable>()
 

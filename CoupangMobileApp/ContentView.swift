@@ -36,7 +36,7 @@ struct ContentView: View {
                     }
                     Section(header: Label(text: "Proxy", image: "proxy")) {
                         NavigationLink(
-                            destination: Text("Permzone").frame(maxWidth: .infinity, alignment: .leading),
+                            destination: PermZoneView().frame(maxWidth: .infinity, alignment: .leading),
                             tag: .permzone,
                             selection: $selection
                         ) {
@@ -77,6 +77,7 @@ struct ContentView: View {
                 .environmentObject(IOSSimulator.preview(state: .started))
                 .environmentObject(IOSAppManager.preview())
                 .environmentObject(AOSAppManager.preview())
+                .environmentObject(UserSettings())
         }
     }
 #endif
