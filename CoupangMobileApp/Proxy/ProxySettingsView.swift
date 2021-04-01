@@ -5,43 +5,35 @@
 //  Created by vlsolome on 3/31/21.
 //
 
+import MITMProxy
 import SwiftUI
 
 struct ProxySettingsView: View {
-    @EnvironmentObject private var userSettings: UserSettings
-    @State private var isShowingPortChange: Bool = false
-    @State private var proxyPort: String = ""
-    
+    @EnvironmentObject private var mitmProxy: MITMProxy
+    @State private var activityState: ActivityView.ActivityState = MITMProxy.State.stopped.activity
+
     var body: some View {
-        HStack {
-            Text("Proxy Port:")
-            Button(action: {
-                isShowingPortChange.toggle()
-            }) {
-                Text(String(userSettings.proxyPort))
-            }.sheet(isPresented: $isShowingPortChange) {
-                DialogView(primaryButton: .default("OK", action: {
-                    guard let proxyPort = Int(proxyPort) else { return }
-                    userSettings.proxyPort = proxyPort
-                    isShowingPortChange.toggle()
-                }), secondaryButton: .cancel("Cancel", action: {
-                    proxyPort = String(userSettings.proxyPort)
-                    isShowingPortChange.toggle()
-                })) {
-                    TextField("Proxy Port", text: $proxyPort)
-                }
-                .padding()
+        VStack(alignment: .leading) {
+            HStack {
+                ProxyControlView()
+                ActivityView(style: .proxy, state: $activityState)
             }
+            ProxyPortView()
+            Spacer()
         }
-        .onAppear {
-            proxyPort = String(userSettings.proxyPort)
+        .padding()
+        .onReceive(mitmProxy.$state) { state in
+            activityState = state.activity
         }
     }
 }
 
-struct ProxySettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProxySettingsView()
-            .environmentObject(UserSettings())
+#if DEBUG
+    struct ProxySettingsView_Previews: PreviewProvider {
+        static var previews: some View {
+            ProxySettingsView()
+                .environmentObject(UserSettings())
+                .environmentObject(MITMProxy.preview)
+        }
     }
-}
+#endif

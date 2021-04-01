@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImageActivityIndicator: View {
     enum Style {
-        case ios, aos
+        case ios, aos, proxy
     }
 
     private let isAnimating: Bool
@@ -24,6 +24,9 @@ struct ImageActivityIndicator: View {
         case .ios:
             imageName = "ios"
             color = Color("ios")
+        case .proxy:
+            imageName = "proxy"
+            color = Color("proxy")
         }
         self.isAnimating = isAnimating
     }
@@ -53,5 +56,7 @@ struct ImageActivityIndicator_Previews: PreviewProvider {
             .frame(width: 30, height: 30)
         ImageActivityIndicator(style: .aos, isAnimating: false)
             .frame(width: 20, height: 20)
+        ImageActivityIndicator(style: .proxy, isAnimating: true)
+            .frame(width: 40, height: 40)
     }
 }

@@ -34,6 +34,10 @@
 		B4EFC9FF261544CF00483DAD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9FE261544CF00483DAD /* UserSettings.swift */; };
 		B4EFCA032615459400483DAD /* PermZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA022615459400483DAD /* PermZone.swift */; };
 		B4EFCA0D2615534000483DAD /* ProxySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */; };
+		B4EFCA142615573100483DAD /* MITMProxy in Frameworks */ = {isa = PBXBuildFile; productRef = B4EFCA132615573100483DAD /* MITMProxy */; };
+		B4EFCA182616507500483DAD /* ProxyControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA172616507500483DAD /* ProxyControlView.swift */; };
+		B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */; };
+		B4EFCA2026165DA200483DAD /* MITMProxyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */; };
 		B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5925DCE5A500D23AFD /* AppView.swift */; };
 		B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */; };
 		B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */; };
@@ -110,6 +114,10 @@
 		B4EFC9FE261544CF00483DAD /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B4EFCA022615459400483DAD /* PermZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermZone.swift; sourceTree = "<group>"; };
 		B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxySettingsView.swift; sourceTree = "<group>"; };
+		B4EFCA102615572900483DAD /* MITMProxy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MITMProxy; sourceTree = "<group>"; };
+		B4EFCA172616507500483DAD /* ProxyControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyControlView.swift; sourceTree = "<group>"; };
+		B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyPortView.swift; sourceTree = "<group>"; };
+		B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MITMProxyState.swift; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
 		B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
@@ -126,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4EFCA142615573100483DAD /* MITMProxy in Frameworks */,
 				B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */,
 				B4FC830825DB9B82000E47A7 /* HTTPProxyManager in Frameworks */,
 				B4FC830225DB9B54000E47A7 /* IOSSimulator in Frameworks */,
@@ -165,6 +174,7 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B4EFCA102615572900483DAD /* MITMProxy */,
 				B4EFC9F72615449300483DAD /* UserDefaults */,
 				B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */,
 				B4FC82F925DB9AED000E47A7 /* HTTPProxyManager */,
@@ -255,6 +265,9 @@
 				B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */,
 				B4EFCA022615459400483DAD /* PermZone.swift */,
 				B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */,
+				B4EFCA172616507500483DAD /* ProxyControlView.swift */,
+				B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */,
+				B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */,
 			);
 			path = Proxy;
 			sourceTree = "<group>";
@@ -293,6 +306,7 @@
 				B4FC830125DB9B54000E47A7 /* IOSSimulator */,
 				B4FC830725DB9B82000E47A7 /* HTTPProxyManager */,
 				B4EFC9FA261544BB00483DAD /* UserDefaults */,
+				B4EFCA132615573100483DAD /* MITMProxy */,
 			);
 			productName = CoupangMobileApp;
 			productReference = B4A97699253114D100962CC1 /* CoupangMobileApp.app */;
@@ -423,6 +437,7 @@
 				B47C937125E99C8700E19602 /* Label.swift in Sources */,
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
 				B4DC381525E2EEAD00E6206A /* NativeButton.swift in Sources */,
+				B4EFCA2026165DA200483DAD /* MITMProxyState.swift in Sources */,
 				B4EFCA032615459400483DAD /* PermZone.swift in Sources */,
 				B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
@@ -431,6 +446,8 @@
 				B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */,
 				B4EFCA0D2615534000483DAD /* ProxySettingsView.swift in Sources */,
 				B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */,
+				B4EFCA182616507500483DAD /* ProxyControlView.swift in Sources */,
+				B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */,
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */,
 				B4EFC9FF261544CF00483DAD /* UserSettings.swift in Sources */,
@@ -775,6 +792,10 @@
 		B4EFC9FA261544BB00483DAD /* UserDefaults */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UserDefaults;
+		};
+		B4EFCA132615573100483DAD /* MITMProxy */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MITMProxy;
 		};
 		B4FC830125DB9B54000E47A7 /* IOSSimulator */ = {
 			isa = XCSwiftPackageProductDependency;

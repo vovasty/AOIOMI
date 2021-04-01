@@ -15,12 +15,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_: Notification) {
         let contentView = ContentView()
+            .environmentObject(bigBrother.userSettings)
             .environmentObject(bigBrother.emulator)
             .environmentObject(bigBrother.simulator)
             .environmentObject(bigBrother.iosAppManager)
             .environmentObject(bigBrother.aosAppManager)
             .environmentObject(bigBrother.httpProxyManager)
-            .environmentObject(bigBrother.userSettings)
+            .environmentObject(bigBrother.mitmProxy)
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),

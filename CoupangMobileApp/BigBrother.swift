@@ -10,6 +10,7 @@ import Cocoa
 import Combine
 import HTTPProxyManager
 import IOSSimulator
+import MITMProxy
 
 final class BigBrother {
     let simulatorId = "CoupangMobileApp"
@@ -22,6 +23,7 @@ final class BigBrother {
     let iosAppManager: IOSAppManager
     let aosAppManager: AOSAppManager
     let httpProxyManager: HTTPProxyManager
+    let mitmProxy: MITMProxy
     let userSettings = UserSettings()
 
     private var cancellables = Set<AnyCancellable>()
@@ -34,6 +36,16 @@ final class BigBrother {
                                       packageId: aosPackageId,
                                       preferencesPath: aosAppPreferencesPath)
         httpProxyManager = HTTPProxyManager()
+
+        let appSupportPath = FileManager.default.urls(for: .applicationSupportDirectory,
+                                                      in: .userDomainMask).first!
+            .appendingPathComponent(Bundle.main.bundleIdentifier!)
+        try? FileManager.default.createDirectory(at: appSupportPath, withIntermediateDirectories: false, attributes: nil)
+
+        mitmProxy = MITMProxy(port: userSettings.proxyPort,
+                              appSupportPath: appSupportPath,
+                              allowedHosts: userSettings.proxyAllowedHosts)
+        mitmProxy.stopOrphan()
 
         emulator.$state.sink { [weak self] state in
             switch state {

@@ -24,9 +24,16 @@ final class UserSettings: ObservableObject {
             objectWillChange.send()
         }
     }
-    
+
     @UserDefault("proxyPort", defaultValue: 9999)
     var proxyPort: Int {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+
+    @UserDefault("proxyAllowedHosts", defaultValue: ["cmapi.coupang.com"])
+    var proxyAllowedHosts: [String] {
         willSet {
             objectWillChange.send()
         }
