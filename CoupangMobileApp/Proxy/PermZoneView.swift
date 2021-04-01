@@ -29,10 +29,9 @@ struct PermZoneView: View {
                     }
                     .sheet(isPresented: $isShowingAddNew) {
                         DialogView(primaryButton: .default("OK", action: {
-                            if newPermzone.isValid {
-                                userSettings.permZones.append(newPermzone)
-                                userSettings.activePermZone = newPermzone
-                            }
+                            guard newPermzone.isValid else { return }
+                            userSettings.permZones.append(newPermzone)
+                            userSettings.activePermZone = newPermzone
                             newPermzone = PermZone()
                             isShowingAddNew.toggle()
                         }), secondaryButton: .cancel("Cancel", action: {
@@ -58,6 +57,7 @@ struct PermZoneView: View {
 struct PermzoneView_Previews: PreviewProvider {
     static var previews: some View {
         PermZoneView()
+            .environmentObject(UserSettings())
             .frame(width: 300, height: 100)
     }
 }

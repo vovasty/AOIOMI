@@ -50,7 +50,7 @@ struct ContentView: View {
                             Text("Translator")
                         }
                         NavigationLink(
-                            destination: Text("Settings").frame(maxWidth: .infinity, alignment: .leading),
+                            destination: ProxySettingsView().frame(maxWidth: .infinity, alignment: .leading),
                             tag: .settings,
                             selection: $selection
                         ) {

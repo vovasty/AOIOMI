@@ -33,6 +33,7 @@
 		B4EFC9FB261544BB00483DAD /* UserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = B4EFC9FA261544BB00483DAD /* UserDefaults */; };
 		B4EFC9FF261544CF00483DAD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9FE261544CF00483DAD /* UserSettings.swift */; };
 		B4EFCA032615459400483DAD /* PermZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA022615459400483DAD /* PermZone.swift */; };
+		B4EFCA0D2615534000483DAD /* ProxySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */; };
 		B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5925DCE5A500D23AFD /* AppView.swift */; };
 		B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */; };
 		B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */; };
@@ -108,6 +109,7 @@
 		B4EFC9F72615449300483DAD /* UserDefaults */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UserDefaults; sourceTree = "<group>"; };
 		B4EFC9FE261544CF00483DAD /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B4EFCA022615459400483DAD /* PermZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermZone.swift; sourceTree = "<group>"; };
+		B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxySettingsView.swift; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
 		B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				B4EFC9DA2615317F00483DAD /* PermZoneView.swift */,
 				B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */,
 				B4EFCA022615459400483DAD /* PermZone.swift */,
+				B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */,
 			);
 			path = Proxy;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				B4DC381925E2F11000E6206A /* DialogView.swift in Sources */,
 				B4EFC9DB2615317F00483DAD /* PermZoneView.swift in Sources */,
 				B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */,
+				B4EFCA0D2615534000483DAD /* ProxySettingsView.swift in Sources */,
 				B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */,
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */,

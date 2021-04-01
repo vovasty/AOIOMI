@@ -24,4 +24,11 @@ final class UserSettings: ObservableObject {
             objectWillChange.send()
         }
     }
+    
+    @UserDefault("proxyPort", defaultValue: 9999)
+    var proxyPort: Int {
+        willSet {
+            objectWillChange.send()
+        }
+    }
 }
