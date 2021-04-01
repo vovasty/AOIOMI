@@ -6,6 +6,7 @@
 //
 
 import Combine
+import MITMProxy
 import UserDefaults
 
 final class UserSettings: ObservableObject {
@@ -36,6 +37,16 @@ final class UserSettings: ObservableObject {
     var proxyAllowedHosts: [String] {
         willSet {
             objectWillChange.send()
+        }
+    }
+}
+
+extension UserSettings {
+    var addons: [Addon] {
+        if let activePermZone = activePermZone {
+            return [AddRequestHeadersAddon(headers: activePermZone.headers)]
+        } else {
+            return []
         }
     }
 }

@@ -5,10 +5,13 @@
 //  Created by vlsolome on 3/31/21.
 //
 
+import Combine
+import MITMProxy
 import SwiftUI
 
 struct PermZoneView: View {
     @EnvironmentObject var userSettings: UserSettings
+    @EnvironmentObject var mitmProxy: MITMProxy
     @State private var newPermzone = PermZone()
     @State private var isShowingAddNew = false
 
@@ -51,6 +54,9 @@ struct PermZoneView: View {
             Spacer()
         }
         .padding()
+        .onReceive(Just(userSettings.activePermZone)) { _ in
+            mitmProxy.addons = userSettings.addons
+        }
     }
 }
 
@@ -58,6 +64,7 @@ struct PermzoneView_Previews: PreviewProvider {
     static var previews: some View {
         PermZoneView()
             .environmentObject(UserSettings())
+            .environmentObject(MITMProxy.preview)
             .frame(width: 300, height: 100)
     }
 }

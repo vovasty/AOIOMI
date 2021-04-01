@@ -11,6 +11,7 @@ import SwiftUI
 
 struct ProxyControlView: View {
     @EnvironmentObject private var mitmProxy: MITMProxy
+    @EnvironmentObject private var userSettings: UserSettings
     @State private var isProxyRunning: Bool = false
     @State private var isDisabled: Bool = false
 
@@ -44,6 +45,7 @@ struct ProxyControlView: View {
                     mitmProxy.stop()
                 case .stopped:
                     guard flag else { return }
+                    mitmProxy.addons = userSettings.addons
                     mitmProxy.start()
                 case .starting, .stopping:
                     break
@@ -56,5 +58,6 @@ struct ProxyControlView_Previews: PreviewProvider {
     static var previews: some View {
         ProxyControlView()
             .environmentObject(MITMProxy.preview)
+            .environmentObject(UserSettings())
     }
 }

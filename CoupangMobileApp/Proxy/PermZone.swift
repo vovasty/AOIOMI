@@ -14,4 +14,8 @@ struct PermZone: Hashable, Identifiable, Codable {
     var isValid: Bool {
         !body.isEmpty && !id.isEmpty
     }
+
+    var headers: [String: String] {
+        ["X-Manual-Override": body]
+    }
 }
