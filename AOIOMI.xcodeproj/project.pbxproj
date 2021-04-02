@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
 		B40800B926179FB8009ED902 /* AOSEmulatorRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = B40800B826179FB8009ED902 /* AOSEmulatorRuntime */; };
+		B40800BD2617AB15009ED902 /* ProxyTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40800BC2617AB15009ED902 /* ProxyTypeView.swift */; };
 		B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B40942C625DB985F005CBEB3 /* AOSEmulator */; };
 		B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		B40800BC2617AB15009ED902 /* ProxyTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyTypeView.swift; sourceTree = "<group>"; };
 		B40942C325DB97F8005CBEB3 /* AOSEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulator; sourceTree = "<group>"; };
 		B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureView.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				B4EFC9E526153A5800483DAD /* TextArea.swift */,
 				B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */,
 				B4F10B5925DCE5A500D23AFD /* AppView.swift */,
+				B40800BC2617AB15009ED902 /* ProxyTypeView.swift */,
 				B4DC381425E2EEAD00E6206A /* NativeButton.swift */,
 				B4DC381825E2F11000E6206A /* DialogView.swift */,
 				B4884EC725DA4D2B00FBFAD0 /* ImageActivityIndicator.swift */,
@@ -264,7 +267,7 @@
 				B4EFCA132615573100483DAD /* MITMProxy */,
 				B40800B826179FB8009ED902 /* AOSEmulatorRuntime */,
 			);
-			productName = CoupangMobileApp;
+			productName = AOIOMI;
 			productReference = B4A97699253114D100962CC1 /* AOIOMI.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -337,6 +340,7 @@
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
 				B4DC381525E2EEAD00E6206A /* NativeButton.swift in Sources */,
 				B4EFCA2026165DA200483DAD /* MITMProxyState.swift in Sources */,
+				B40800BD2617AB15009ED902 /* ProxyTypeView.swift in Sources */,
 				B4EFCA032615459400483DAD /* PermZone.swift in Sources */,
 				B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,

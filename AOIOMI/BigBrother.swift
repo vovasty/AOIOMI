@@ -98,5 +98,6 @@ final class BigBrother {
 
     func stop() {
         emulator.stop()
+        mitmProxy.stop()
     }
 }

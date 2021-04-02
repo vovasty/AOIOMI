@@ -19,6 +19,8 @@ struct AOSEmulatorView: View {
     @EnvironmentObject private var mitmProxy: MITMProxy
     @State private var startDisabled = false
     @State private var configureDisabled = false
+    @State private var isShowingConfigure = false
+    @State private var proxy: String = ""
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,10 +29,25 @@ struct AOSEmulatorView: View {
             }
             .disabled(startDisabled)
             Button("Reconfigure") {
-                emulator.configure(proxy: "10.0.2.2:\(mitmProxy.port)",
-                                   caPath: [proxyManager.caURL, mitmProxy.caCert].compactMap{ $0 })
+                isShowingConfigure.toggle()
             }
             .disabled(configureDisabled)
+            .sheet(isPresented: $isShowingConfigure) {
+                DialogView(primaryButton: .default("OK", action: {
+                    guard !proxy.isEmpty else { return }
+                    isShowingConfigure.toggle()
+                    emulator.configure(proxy: proxy,
+                                       caPath: [proxyManager.caURL, mitmProxy.caCert].compactMap{ $0 })
+                }), secondaryButton: .cancel("Cancel", action: {
+                    proxy = ""
+                    isShowingConfigure.toggle()
+                })) {
+                    ProxyTypeView(clientType: .aos, proxy: $proxy)
+                        .environmentObject(proxyManager)
+                        .environmentObject(mitmProxy)
+                }
+                .padding()
+            }
         }
         .onReceive(Just(emulator.state)) { state in
             switch state {

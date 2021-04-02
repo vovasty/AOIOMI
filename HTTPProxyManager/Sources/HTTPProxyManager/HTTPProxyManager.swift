@@ -14,6 +14,19 @@ public class HTTPProxyManager: ObservableObject {
 
     private let _caURL: URL?
     private let settingsURL: URL?
+    
+    public var port: Int? {
+        guard let settingsURL = settingsURL else { return nil }
+        
+        do {
+            let data = try Data(contentsOf: settingsURL)
+            let xml = SWXMLHash.parse(data)
+            guard let stringPort = xml["configuration"]["proxyConfiguration"]["port"].element?.text else { return nil }
+            return Int(stringPort)
+        } catch {
+            return nil
+        }
+    }
 
     public convenience init() {
         self.init(caURL: FileManager.default.urls(for: .applicationSupportDirectory,
