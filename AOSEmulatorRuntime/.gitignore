@@ -1,0 +1,8 @@
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
+*.swp
+/Sources/AOSEmulatorRuntime/Resources/jdk
+/Sources/AOSEmulatorRuntime/Resources/commandlinetools-mac-*.zip
