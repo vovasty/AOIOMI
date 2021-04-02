@@ -7,6 +7,7 @@
 
 import AOSEmulator
 import AOSEmulatorRuntime
+import CharlesProxy
 import Cocoa
 import Combine
 import HTTPProxyManager
@@ -14,7 +15,7 @@ import IOSSimulator
 import MITMProxy
 
 final class BigBrother {
-    let simulatorId = "CoupangMobileApp"
+    let simulatorId = "AOIOMI"
     let iosAppBundleId = "com.coupang.Coupang"
     let aosAppMainActivity = "com.coupang.mobile/com.coupang.mobile.domain.home.main.activity.MainActivity"
     let aosPackageId = "com.coupang.mobile"
@@ -23,10 +24,10 @@ final class BigBrother {
     let emulator: AOSEmulator
     let iosAppManager: IOSAppManager
     let aosAppManager: AOSAppManager
-    let httpProxyManager: HTTPProxyManager
     let mitmProxy: MITMProxy
     let userSettings = UserSettings()
     let aosRuntime: AOSEmulatorRuntime
+    let httpProxyManager: HTTPProxyManager
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -45,30 +46,31 @@ final class BigBrother {
                                       packageId: aosPackageId,
                                       preferencesPath: aosAppPreferencesPath,
                                       env: aosRuntime.env)
-        httpProxyManager = HTTPProxyManager()
 
         mitmProxy = MITMProxy(port: userSettings.proxyPort,
                               appSupportPath: appSupportURL,
                               allowedHosts: userSettings.proxyAllowedHosts)
-//        mitmProxy.stopOrphan()
+        mitmProxy.stopOrphan()
         mitmProxy.start()
+
+        httpProxyManager = HTTPProxyManager(charlesProxy: CharlesProxy(), mitmProxy: mitmProxy)
 
         aosRuntime.$state
             .sink { [weak self] state in
-            switch state {
-            case .installed:
-                self?.emulator.check()
-            case let .notInstalled(error):
-                guard error == nil else { return }
-                //TODO: why???
-                DispatchQueue.main.async {
-                    self?.aosRuntime.install()
+                switch state {
+                case .installed:
+                    self?.emulator.check()
+                case let .notInstalled(error):
+                    guard error == nil else { return }
+                    // TODO: why???
+                    DispatchQueue.main.async {
+                        self?.aosRuntime.install()
+                    }
+                default:
+                    break
                 }
-            default:
-                break
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
 
         emulator.$state.sink { [weak self] state in
             switch state {

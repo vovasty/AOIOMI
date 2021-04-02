@@ -2,7 +2,7 @@
 set -e
 
 CMD=$1
-RUNNING=$(ps xu | grep "$CMD" | grep -v grep | grep -v "$0" | cut -d " " -f 2)
+RUNNING=$(pgrep -f "$CMD")
 
 if [ -z "RUNNING" ]; then
     exit 0

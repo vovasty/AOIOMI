@@ -10,6 +10,8 @@
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
 		B40800B926179FB8009ED902 /* AOSEmulatorRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = B40800B826179FB8009ED902 /* AOSEmulatorRuntime */; };
 		B40800BD2617AB15009ED902 /* ProxyTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40800BC2617AB15009ED902 /* ProxyTypeView.swift */; };
+		B40800C22617B821009ED902 /* CharlesProxy in Frameworks */ = {isa = PBXBuildFile; productRef = B40800C12617B821009ED902 /* CharlesProxy */; };
+		B40800C52617BCBD009ED902 /* HTTPProxyManager in Frameworks */ = {isa = PBXBuildFile; productRef = B40800C42617BCBD009ED902 /* HTTPProxyManager */; };
 		B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B40942C625DB985F005CBEB3 /* AOSEmulator */; };
 		B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
@@ -25,7 +27,6 @@
 		B4A976A7253114D200962CC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A5253114D200962CC1 /* Main.storyboard */; };
 		B4AF10942616B8E100808341 /* AOSRuntimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF10932616B8E100808341 /* AOSRuntimeView.swift */; };
 		B4AF109A2616B98D00808341 /* AOSEmulatorRuntimeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */; };
-		B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */; };
 		B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */; };
 		B4DC381525E2EEAD00E6206A /* NativeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381425E2EEAD00E6206A /* NativeButton.swift */; };
 		B4DC381925E2F11000E6206A /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381825E2F11000E6206A /* DialogView.swift */; };
@@ -50,7 +51,6 @@
 		B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3F19325D5FBE5006ADB7A /* IOSSimulatorView.swift */; };
 		B4F7E26425D9D3EF007D118D /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F7E26325D9D3EF007D118D /* ActivityView.swift */; };
 		B4FC830225DB9B54000E47A7 /* IOSSimulator in Frameworks */ = {isa = PBXBuildFile; productRef = B4FC830125DB9B54000E47A7 /* IOSSimulator */; };
-		B4FC830825DB9B82000E47A7 /* HTTPProxyManager in Frameworks */ = {isa = PBXBuildFile; productRef = B4FC830725DB9B82000E47A7 /* HTTPProxyManager */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,6 +69,8 @@
 /* Begin PBXFileReference section */
 		B403451B25D62B9500C2146D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B40800BC2617AB15009ED902 /* ProxyTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyTypeView.swift; sourceTree = "<group>"; };
+		B40800C02617B6D6009ED902 /* CharlesProxy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CharlesProxy; sourceTree = "<group>"; };
+		B40800C32617BC10009ED902 /* HTTPProxyManager */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPProxyManager; sourceTree = "<group>"; };
 		B40942C325DB97F8005CBEB3 /* AOSEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulator; sourceTree = "<group>"; };
 		B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureView.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
@@ -88,7 +90,6 @@
 		B4AF108E2616B51A00808341 /* AOSEmulatorRuntime */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulatorRuntime; sourceTree = "<group>"; };
 		B4AF10932616B8E100808341 /* AOSRuntimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRuntimeView.swift; sourceTree = "<group>"; };
 		B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorRuntimeState.swift; sourceTree = "<group>"; };
-		B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSHTTPProxyManager.swift; sourceTree = "<group>"; };
 		B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorState.swift; sourceTree = "<group>"; };
 		B4DC381425E2EEAD00E6206A /* NativeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButton.swift; sourceTree = "<group>"; };
 		B4DC381825E2F11000E6206A /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
@@ -112,7 +113,6 @@
 		B4F3F17F25D5E974006ADB7A /* IOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSView.swift; sourceTree = "<group>"; };
 		B4F3F19325D5FBE5006ADB7A /* IOSSimulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSimulatorView.swift; sourceTree = "<group>"; };
 		B4F7E26325D9D3EF007D118D /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
-		B4FC82F925DB9AED000E47A7 /* HTTPProxyManager */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPProxyManager; sourceTree = "<group>"; };
 		B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IOSSimulator; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,10 +123,11 @@
 			files = (
 				B4EFCA142615573100483DAD /* MITMProxy in Frameworks */,
 				B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */,
-				B4FC830825DB9B82000E47A7 /* HTTPProxyManager in Frameworks */,
 				B4FC830225DB9B54000E47A7 /* IOSSimulator in Frameworks */,
 				B40800B926179FB8009ED902 /* AOSEmulatorRuntime in Frameworks */,
+				B40800C22617B821009ED902 /* CharlesProxy in Frameworks */,
 				B4EFC9FB261544BB00483DAD /* UserDefaults in Frameworks */,
+				B40800C52617BCBD009ED902 /* HTTPProxyManager in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +141,6 @@
 				B4AF10932616B8E100808341 /* AOSRuntimeView.swift */,
 				B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */,
 				B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */,
-				B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */,
 				B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */,
 				B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */,
 			);
@@ -150,11 +150,12 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B40800C32617BC10009ED902 /* HTTPProxyManager */,
+				B40800C02617B6D6009ED902 /* CharlesProxy */,
 				B4AF108E2616B51A00808341 /* AOSEmulatorRuntime */,
 				B4EFCA102615572900483DAD /* MITMProxy */,
 				B4EFC9F72615449300483DAD /* UserDefaults */,
 				B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */,
-				B4FC82F925DB9AED000E47A7 /* HTTPProxyManager */,
 				B40942C325DB97F8005CBEB3 /* AOSEmulator */,
 				B4A9769B253114D100962CC1 /* AOIOMI */,
 				B4A9769A253114D100962CC1 /* Products */,
@@ -262,10 +263,11 @@
 			packageProductDependencies = (
 				B40942C625DB985F005CBEB3 /* AOSEmulator */,
 				B4FC830125DB9B54000E47A7 /* IOSSimulator */,
-				B4FC830725DB9B82000E47A7 /* HTTPProxyManager */,
 				B4EFC9FA261544BB00483DAD /* UserDefaults */,
 				B4EFCA132615573100483DAD /* MITMProxy */,
 				B40800B826179FB8009ED902 /* AOSEmulatorRuntime */,
+				B40800C12617B821009ED902 /* CharlesProxy */,
+				B40800C42617BCBD009ED902 /* HTTPProxyManager */,
 			);
 			productName = AOIOMI;
 			productReference = B4A97699253114D100962CC1 /* AOIOMI.app */;
@@ -342,7 +344,6 @@
 				B4EFCA2026165DA200483DAD /* MITMProxyState.swift in Sources */,
 				B40800BD2617AB15009ED902 /* ProxyTypeView.swift in Sources */,
 				B4EFCA032615459400483DAD /* PermZone.swift in Sources */,
-				B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
 				B4DC381925E2F11000E6206A /* DialogView.swift in Sources */,
 				B4EFC9DB2615317F00483DAD /* PermZoneView.swift in Sources */,
@@ -566,6 +567,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = AOSEmulatorRuntime;
 		};
+		B40800C12617B821009ED902 /* CharlesProxy */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CharlesProxy;
+		};
+		B40800C42617BCBD009ED902 /* HTTPProxyManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HTTPProxyManager;
+		};
 		B40942C625DB985F005CBEB3 /* AOSEmulator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AOSEmulator;
@@ -581,10 +590,6 @@
 		B4FC830125DB9B54000E47A7 /* IOSSimulator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = IOSSimulator;
-		};
-		B4FC830725DB9B82000E47A7 /* HTTPProxyManager */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = HTTPProxyManager;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

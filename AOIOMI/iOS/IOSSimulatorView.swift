@@ -11,8 +11,9 @@ import IOSSimulator
 import SwiftUI
 
 struct IOSSimulatorView: View {
-    @EnvironmentObject var simulator: IOSSimulator
-    @EnvironmentObject var httpProxyManager: HTTPProxyManager
+    @EnvironmentObject private var simulator: IOSSimulator
+    @EnvironmentObject private var httpProxyManager: HTTPProxyManager
+    @EnvironmentObject private var userSettings: UserSettings
     @Binding var activityState: ActivityView.ActivityState
 
     @State private var isConfigureDisplayed = false
@@ -31,6 +32,7 @@ struct IOSSimulatorView: View {
                 IOSConfigureView(isDisplayed: $isConfigureDisplayed, isCancellable: true)
                     .environmentObject(simulator)
                     .environmentObject(httpProxyManager)
+                    .environmentObject(userSettings)
                     .frame(width: 200)
                     .padding()
             }

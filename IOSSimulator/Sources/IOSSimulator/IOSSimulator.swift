@@ -49,7 +49,7 @@ public class IOSSimulator: ObservableObject {
             .store(in: &cancellables)
     }
 
-    public func configure(deviceType: SimctlList.DeviceType, caURL: URL?) {
+    public func configure(deviceType: SimctlList.DeviceType, caURL: [URL]?) {
         let publisher = commander.run(command: CreateSimulatorCommand(name: simulatorName, deviceType: deviceType, caURL: caURL))
             .flatMap { [weak self] _ -> AnyPublisher<State, Swift.Error> in
                 guard let self = self else {

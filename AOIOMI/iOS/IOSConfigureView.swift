@@ -10,9 +10,12 @@ import IOSSimulator
 import SwiftUI
 
 struct IOSConfigureView: View {
-    @EnvironmentObject var simulator: IOSSimulator
-    @EnvironmentObject var httpProxyManager: HTTPProxyManager
     var isDisplayed: Binding<Bool>
+    @EnvironmentObject private var simulator: IOSSimulator
+    @EnvironmentObject private var userSettings: UserSettings
+    @EnvironmentObject private var httpProxyManager: HTTPProxyManager
+    @State private var deviceType: SimctlList.DeviceType = .empty
+    @State private var proxy: HTTPProxyManager.Proxy?
     private var cancelButton: DialogButton?
 
     init(isDisplayed: Binding<Bool>, isCancellable: Bool) {
@@ -24,13 +27,14 @@ struct IOSConfigureView: View {
         }
     }
 
-    @State private var deviceType: SimctlList.DeviceType = .empty
     var body: some View {
         DialogView(primaryButton: .default("Configure", disabled: deviceType == .empty, action: {
             guard deviceType != .empty else { return } // WTF????
-            simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caURL)
+            userSettings.iosProxy = proxy
+            simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caPaths)
             isDisplayed.wrappedValue.toggle()
         }), secondaryButton: cancelButton) {
+            ProxyTypeView(clientType: .ios, proxy: $proxy)
             Picker("Device", selection: $deviceType) {
                 ForEach(simulator.deviceTypes, id: \.self) {
                     Text($0.name)

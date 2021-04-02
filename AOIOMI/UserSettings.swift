@@ -6,6 +6,8 @@
 //
 
 import Combine
+import HTTPProxyManager
+import IOSSimulator
 import MITMProxy
 import UserDefaults
 
@@ -63,6 +65,13 @@ final class UserSettings: ObservableObject {
             objectWillChange.send()
         }
     }
+
+    @UserDefault("iosProxy", defaultValue: nil)
+    var iosProxy: HTTPProxyManager.Proxy? {
+        willSet {
+            objectWillChange.send()
+        }
+    }
 }
 
 extension UserSettings {
@@ -77,5 +86,10 @@ extension UserSettings {
         }
 
         return addons
+    }
+
+    var iosDefaults: IOSAppManager.Defaults? {
+        guard let iosProxy = iosProxy else { return nil }
+        return IOSAppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": iosProxy.host, "port": iosProxy.port])
     }
 }

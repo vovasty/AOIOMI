@@ -20,8 +20,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .environmentObject(bigBrother.simulator)
             .environmentObject(bigBrother.iosAppManager)
             .environmentObject(bigBrother.aosAppManager)
-            .environmentObject(bigBrother.httpProxyManager)
             .environmentObject(bigBrother.mitmProxy)
+            .environmentObject(bigBrother.httpProxyManager)
             .environmentObject(bigBrother.aosRuntime)
 
         window = NSWindow(

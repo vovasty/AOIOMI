@@ -13,7 +13,7 @@ struct CreateEmulatorCommand: Command {
     let parameters: [String]?
 
     init(proxy: String?, caPath: [URL]?) {
-        parameters = ["create", proxy].compactMap { $0 == nil ? "none" : $0 } + (caPath?.map { $0.path } ?? [])
+        parameters = ["create", proxy].compactMap { $0 == nil ? "none" : $0 } + (caPath?.map(\.path) ?? [])
     }
 
     func parse(stdout _: [String]) throws {}

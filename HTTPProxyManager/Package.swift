@@ -1,9 +1,13 @@
 // swift-tools-version:5.3
+// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "HTTPProxyManager",
+    platforms: [
+        .macOS(.v10_15),
+    ],
     products: [
         .library(
             name: "HTTPProxyManager",
@@ -11,20 +15,17 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/drmohundro/SWXMLHash.git", from: "5.0.1"),
-
+        .package(path: "../MITMProxy"),
+        .package(path: "../CharlesProxy"),
     ],
     targets: [
         .target(
             name: "HTTPProxyManager",
-            dependencies: ["SWXMLHash"]
+            dependencies: ["MITMProxy", "CharlesProxy"]
         ),
         .testTarget(
             name: "HTTPProxyManagerTests",
-            dependencies: ["HTTPProxyManager"],
-            resources: [
-                .copy("Resources"),
-            ]
+            dependencies: ["HTTPProxyManager"]
         ),
     ]
 )

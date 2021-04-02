@@ -80,10 +80,3 @@ extension IOSAppManager.State: AppViewManagerState {
 }
 
 extension IOSAppManager: AppViewManager {}
-
-extension HTTPProxyManager {
-    var iosDefaults: IOSAppManager.Defaults? {
-        guard let p = proxy(type: .ios) else { return nil }
-        return IOSAppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": p.host, "port": p.port])
-    }
-}

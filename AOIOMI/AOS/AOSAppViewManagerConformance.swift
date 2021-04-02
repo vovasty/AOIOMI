@@ -7,7 +7,6 @@
 
 import AOSEmulator
 import Foundation
-import HTTPProxyManager
 
 extension AOSAppManager.State: AppViewManagerState {
     var PCID: String? {

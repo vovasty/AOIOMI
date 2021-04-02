@@ -33,7 +33,7 @@ public class AOSEmulator: ObservableObject {
 
     public convenience init(env: [String: String]) {
         var context = CustomContext(main)
-        context.env.merge(env) { (_, new) in new }
+        context.env.merge(env) { _, new in new }
         self.init(commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!,
                                             context: context))
     }

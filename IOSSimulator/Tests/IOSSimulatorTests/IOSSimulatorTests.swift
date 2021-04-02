@@ -91,7 +91,7 @@ final class IOSSimulatorTests: XCTestCase, StatesTestCase {
             return
         }
         testStates(expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
-                   action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
+                   action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: [pemURL]) })
         testStates(expected: [.stopped(nil), .configuring, .notConfigured(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })
     }
@@ -105,7 +105,7 @@ final class IOSSimulatorTests: XCTestCase, StatesTestCase {
 
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
                    expected: [.stopped(nil), .configuring, .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
-                   action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
+                   action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: [pemURL]) })
         testStates(allowedCommands: [CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid])],
                    expected: [.stopped(nil), .configuring, .starting, .stopped(CommanderMock.CommanderMockError.disallowedCommand)],
                    action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: nil) })
@@ -123,7 +123,7 @@ final class IOSSimulatorTests: XCTestCase, StatesTestCase {
             CommanderMock.AllowedCommand(type: BootSimulatorCommand.self),
         ],
         expected: [.stopped(nil), .configuring, .starting, .started],
-        action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: pemURL) })
+        action: { $0.configure(deviceType: SimctlList.DeviceType(name: "test device"), caURL: [pemURL]) })
 
         testStates(allowedCommands: [
             CommanderMock.AllowedCommand(type: CreateSimulatorCommand.self, stdout: [uuid]),

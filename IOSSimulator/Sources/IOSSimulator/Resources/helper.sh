@@ -20,13 +20,14 @@ function stop {
 }
 
 function create {
-    ${SIMULATOR} delete "$1" || true
-    ${SIMULATOR} create "$1" "$2"
-    start "$1"
-    if [ "$3" != "none" ]; then
-        install_ca "$1" "$3"
-    fi
-    stop "$1"
+    NAME=$1
+    DEVICE=$2
+    shift 2
+    ${SIMULATOR} delete "${NAME}" || true
+    ${SIMULATOR} create "${NAME}" "${DEVICE}"
+    start "${NAME}"
+    install_ca ${NAME} "$@"
+    stop "${NAME}"
 }
 
 function list {
@@ -46,7 +47,12 @@ function run_app {
 }
 
 function install_ca {
-    ${ROOT}/install_cert.py "$1" "$2"
+    NAME=$1
+    shift 1
+    
+    for CERT in "$@"; do
+        ${ROOT}/install_cert.py "${NAME}" "${CERT}"
+    done
 }
 
 ${COMMAND} "$@"

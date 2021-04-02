@@ -14,7 +14,7 @@ struct AOSRuntimeView: View {
     @EnvironmentObject private var runtime: AOSEmulatorRuntime
 
     var body: some View {
-        VStack{
+        VStack {
             switch runtime.state {
             case .notInstalled:
                 Button("Try Again") {
@@ -25,7 +25,6 @@ struct AOSRuntimeView: View {
             }
         }
         .onReceive(runtime.$state) { state in
-            print(state)
             activityState = state.activity
         }
     }

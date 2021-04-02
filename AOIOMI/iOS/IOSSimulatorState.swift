@@ -24,8 +24,12 @@ extension IOSSimulator.State {
             return .busy("Configuring Simulator...")
         case .checking:
             return .busy("Checking Simulator...")
-        case .notConfigured:
-            return .text("Simulator is Not Configured")
+        case let .notConfigured(error):
+            if let error = error {
+                return .error("Simulator is Not Configured", error)
+            } else {
+                return .text("Simulator is Not Configured")
+            }
         case .started:
             return .text("Simulator is Started")
         }

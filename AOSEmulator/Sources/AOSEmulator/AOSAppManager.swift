@@ -8,8 +8,8 @@
 import Combine
 import CommandPublisher
 import Foundation
-import SWXMLHash
 import SwiftShell
+import SWXMLHash
 
 public class AOSAppManager: ObservableObject {
     public enum State {
@@ -26,7 +26,7 @@ public class AOSAppManager: ObservableObject {
 
     public convenience init(activityId: String, packageId: String, preferencesPath: String, env: [String: String]) {
         var context = CustomContext(main)
-        context.env.merge(env) { (_, new) in new }
+        context.env.merge(env) { _, new in new }
         self.init(activityId: activityId,
                   packageId: packageId,
                   preferencesPath: preferencesPath,

@@ -16,8 +16,8 @@ struct CreateSimulatorCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]?
 
-    init(name: String, deviceType: SimctlList.DeviceType, caURL: URL?) {
-        parameters = ["create", name, deviceType.name, caURL?.path].compactMap { $0 == nil ? "none" : $0 }
+    init(name: String, deviceType: SimctlList.DeviceType, caURL: [URL]?) {
+        parameters = ["create", name, deviceType.name].compactMap { $0 == nil ? "none" : $0 } + (caURL?.map(\.path) ?? [])
     }
 
     init(id: String, caURL: URL) {

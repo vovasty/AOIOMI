@@ -7,14 +7,12 @@
 
 import AOSEmulator
 import AOSEmulatorRuntime
-import HTTPProxyManager
 import SwiftUI
 
 struct AOSView: View {
-    @EnvironmentObject var emulator: AOSEmulator
-    @EnvironmentObject var proxyManager: HTTPProxyManager
-    @EnvironmentObject var appManager: AOSAppManager
-    @EnvironmentObject var runtime: AOSEmulatorRuntime
+    @EnvironmentObject private var emulator: AOSEmulator
+    @EnvironmentObject private var appManager: AOSAppManager
+    @EnvironmentObject private var runtime: AOSEmulatorRuntime
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
@@ -48,11 +46,9 @@ struct AOSView: View {
             AOSView()
                 .environmentObject(AOSEmulator.preview(state: .notConfigured(nil)))
                 .environmentObject(AOSAppManager.preview(state: .notInstalled(nil)))
-                .environmentObject(HTTPProxyManager.preview())
             AOSView()
                 .environmentObject(AOSEmulator.preview(state: .started))
                 .environmentObject(AOSAppManager.preview(state: .installed(error: nil, defaults: nil)))
-                .environmentObject(HTTPProxyManager.preview())
         }
     }
 #endif

@@ -8,7 +8,6 @@
 import AOSEmulator
 import Combine
 import HTTPProxyManager
-import MITMProxy
 import SwiftUI
 
 struct AOSEmulatorView: View {
@@ -16,11 +15,10 @@ struct AOSEmulatorView: View {
 
     @EnvironmentObject private var emulator: AOSEmulator
     @EnvironmentObject private var proxyManager: HTTPProxyManager
-    @EnvironmentObject private var mitmProxy: MITMProxy
     @State private var startDisabled = false
     @State private var configureDisabled = false
     @State private var isShowingConfigure = false
-    @State private var proxy: String = ""
+    @State private var proxy: HTTPProxyManager.Proxy?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -34,17 +32,16 @@ struct AOSEmulatorView: View {
             .disabled(configureDisabled)
             .sheet(isPresented: $isShowingConfigure) {
                 DialogView(primaryButton: .default("OK", action: {
-                    guard !proxy.isEmpty else { return }
+                    guard let proxy = proxy else { return }
                     isShowingConfigure.toggle()
-                    emulator.configure(proxy: proxy,
-                                       caPath: [proxyManager.caURL, mitmProxy.caCert].compactMap{ $0 })
+                    emulator.configure(proxy: proxy.string,
+                                       caPath: proxyManager.caPaths)
                 }), secondaryButton: .cancel("Cancel", action: {
-                    proxy = ""
+                    proxy = nil
                     isShowingConfigure.toggle()
                 })) {
                     ProxyTypeView(clientType: .aos, proxy: $proxy)
                         .environmentObject(proxyManager)
-                        .environmentObject(mitmProxy)
                 }
                 .padding()
             }

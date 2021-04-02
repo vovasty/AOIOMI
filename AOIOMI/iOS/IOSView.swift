@@ -5,14 +5,13 @@
 //  Created by vlsolome on 2/11/21.
 //
 
-import HTTPProxyManager
 import IOSSimulator
 import SwiftUI
 
 struct IOSView: View {
-    @EnvironmentObject var simulator: IOSSimulator
-    @EnvironmentObject var appManager: IOSAppManager
-    @EnvironmentObject var proxyManager: HTTPProxyManager
+    @EnvironmentObject private var simulator: IOSSimulator
+    @EnvironmentObject private var appManager: IOSAppManager
+    @EnvironmentObject private var userSettings: UserSettings
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
@@ -29,7 +28,7 @@ struct IOSView: View {
                         activityState: $activityState,
                         installTitle: "Choose an App to Install",
                         fileExtensions: ["app"]) { url in
-                    appManager.install(app: url, defaults: proxyManager.iosDefaults)
+                    appManager.install(app: url, defaults: userSettings.iosDefaults)
                 }
             case .stopped, .starting, .stopping, .configuring, .checking:
                 IOSSimulatorView(activityState: $activityState)
@@ -41,6 +40,8 @@ struct IOSView: View {
 }
 
 #if DEBUG
+    import HTTPProxyManager
+
     struct IOSView_Previews: PreviewProvider {
         static let error = NSError(domain: "test", code: -1, userInfo: [NSLocalizedDescriptionKey: "terrible error terrible error terrible error terrible error terrible error terrible error"])
         static var previews: some View {

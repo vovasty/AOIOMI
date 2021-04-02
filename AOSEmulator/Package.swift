@@ -17,7 +17,7 @@ let package = Package(
         .package(url: "https://github.com/kareman/SwiftShell.git", from: "5.1.0"),
         .package(url: "https://github.com/drmohundro/SWXMLHash.git", from: "5.0.1"),
         .package(path: "../CommandPublisher"),
-        .package(path: "../CommonTests")
+        .package(path: "../CommonTests"),
     ],
     targets: [
         .target(
