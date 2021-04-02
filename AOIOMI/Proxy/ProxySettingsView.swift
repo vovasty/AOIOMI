@@ -14,10 +14,7 @@ struct ProxySettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                ProxyControlView()
-                ActivityView(style: .proxy, state: $activityState)
-            }
+            ActivityView(style: .proxy, state: $activityState)
             ProxyPortView()
             Spacer()
         }

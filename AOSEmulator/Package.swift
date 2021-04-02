@@ -17,13 +17,12 @@ let package = Package(
         .package(url: "https://github.com/kareman/SwiftShell.git", from: "5.1.0"),
         .package(url: "https://github.com/drmohundro/SWXMLHash.git", from: "5.0.1"),
         .package(path: "../CommandPublisher"),
-        .package(path: "../CommonTests"),
-        .package(path: "../AOSEmulatorRuntime"),
+        .package(path: "../CommonTests")
     ],
     targets: [
         .target(
             name: "AOSEmulator",
-            dependencies: ["SwiftShell", "SWXMLHash", "CommandPublisher", "AOSEmulatorRuntime"],
+            dependencies: ["SwiftShell", "SWXMLHash", "CommandPublisher"],
             exclude: ["emulator"],
             resources: [
                 .copy("Resources/helper.sh"),

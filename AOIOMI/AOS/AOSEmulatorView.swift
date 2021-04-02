@@ -8,6 +8,7 @@
 import AOSEmulator
 import Combine
 import HTTPProxyManager
+import MITMProxy
 import SwiftUI
 
 struct AOSEmulatorView: View {
@@ -15,6 +16,7 @@ struct AOSEmulatorView: View {
 
     @EnvironmentObject private var emulator: AOSEmulator
     @EnvironmentObject private var proxyManager: HTTPProxyManager
+    @EnvironmentObject private var mitmProxy: MITMProxy
     @State private var startDisabled = false
     @State private var configureDisabled = false
 
@@ -25,7 +27,8 @@ struct AOSEmulatorView: View {
             }
             .disabled(startDisabled)
             Button("Reconfigure") {
-                emulator.configure(proxy: proxyManager.proxy(type: .aos)?.asString, caPath: proxyManager.caURL)
+                emulator.configure(proxy: "10.0.2.2:\(mitmProxy.port)",
+                                   caPath: [proxyManager.caURL, mitmProxy.caCert].compactMap{ $0 })
             }
             .disabled(configureDisabled)
         }

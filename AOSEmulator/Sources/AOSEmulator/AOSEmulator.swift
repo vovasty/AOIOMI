@@ -5,7 +5,6 @@
 //  Created by vlsolome on 10/9/20.
 //
 
-import AOSEmulatorRuntime
 import Combine
 import CommandPublisher
 import Foundation
@@ -32,9 +31,11 @@ public class AOSEmulator: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var process: AnyCancellable?
 
-    public convenience init(runtime: AOSEmulatorRuntime) {
+    public convenience init(env: [String: String]) {
+        var context = CustomContext(main)
+        context.env.merge(env) { (_, new) in new }
         self.init(commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!,
-                                            context: runtime.context))
+                                            context: context))
     }
 
     init(commander: Commander) {
@@ -60,7 +61,7 @@ public class AOSEmulator: ObservableObject {
         process?.cancel()
     }
 
-    public func configure(proxy: String?, caPath: URL?) {
+    public func configure(proxy: String?, caPath: [URL]?) {
         process?.cancel()
         let publisher = commander.run(command: CreateEmulatorCommand(proxy: proxy, caPath: caPath))
             .timeout(.seconds(Config.configuringTimeout), scheduler: DispatchQueue.global(qos: .background), options: nil, customError: { Error.configuringTimeout })
@@ -143,7 +144,7 @@ extension AOSEmulator.State: Equatable {
 #if DEBUG
     public extension AOSEmulator {
         static func preview(state: State = .stopped(nil)) -> AOSEmulator {
-            let emulator = AOSEmulator(runtime: AOSEmulatorRuntime(home: URL(fileURLWithPath: "/tmp", isDirectory: true)))
+            let emulator = AOSEmulator(commander: ShellCommander(helperPath: URL(fileURLWithPath: "/nonexisting")))
             emulator.state = state
             return emulator
         }

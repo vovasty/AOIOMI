@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B403451C25D62B9500C2146D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B403451B25D62B9500C2146D /* ErrorView.swift */; };
+		B40800B926179FB8009ED902 /* AOSEmulatorRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = B40800B826179FB8009ED902 /* AOSEmulatorRuntime */; };
 		B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B40942C625DB985F005CBEB3 /* AOSEmulator */; };
 		B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
@@ -35,7 +36,6 @@
 		B4EFCA032615459400483DAD /* PermZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA022615459400483DAD /* PermZone.swift */; };
 		B4EFCA0D2615534000483DAD /* ProxySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */; };
 		B4EFCA142615573100483DAD /* MITMProxy in Frameworks */ = {isa = PBXBuildFile; productRef = B4EFCA132615573100483DAD /* MITMProxy */; };
-		B4EFCA182616507500483DAD /* ProxyControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA172616507500483DAD /* ProxyControlView.swift */; };
 		B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */; };
 		B4EFCA2026165DA200483DAD /* MITMProxyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */; };
 		B4EFCA262616710700483DAD /* TranslateDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA252616710700483DAD /* TranslateDefinition.swift */; };
@@ -82,7 +82,7 @@
 		B4A976A3253114D200962CC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B4A976A6253114D200962CC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4A976A8253114D200962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B4A976A9253114D200962CC1 /* AIOIOMI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AIOIOMI.entitlements; sourceTree = "<group>"; };
+		B4A976A9253114D200962CC1 /* AOIOMI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AOIOMI.entitlements; sourceTree = "<group>"; };
 		B4AF108E2616B51A00808341 /* AOSEmulatorRuntime */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulatorRuntime; sourceTree = "<group>"; };
 		B4AF10932616B8E100808341 /* AOSRuntimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRuntimeView.swift; sourceTree = "<group>"; };
 		B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorRuntimeState.swift; sourceTree = "<group>"; };
@@ -98,7 +98,6 @@
 		B4EFCA022615459400483DAD /* PermZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermZone.swift; sourceTree = "<group>"; };
 		B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxySettingsView.swift; sourceTree = "<group>"; };
 		B4EFCA102615572900483DAD /* MITMProxy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MITMProxy; sourceTree = "<group>"; };
-		B4EFCA172616507500483DAD /* ProxyControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyControlView.swift; sourceTree = "<group>"; };
 		B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyPortView.swift; sourceTree = "<group>"; };
 		B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MITMProxyState.swift; sourceTree = "<group>"; };
 		B4EFCA252616710700483DAD /* TranslateDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateDefinition.swift; sourceTree = "<group>"; };
@@ -124,6 +123,7 @@
 				B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */,
 				B4FC830825DB9B82000E47A7 /* HTTPProxyManager in Frameworks */,
 				B4FC830225DB9B54000E47A7 /* IOSSimulator in Frameworks */,
+				B40800B926179FB8009ED902 /* AOSEmulatorRuntime in Frameworks */,
 				B4EFC9FB261544BB00483DAD /* UserDefaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -190,7 +190,7 @@
 				B4A976A0253114D200962CC1 /* Assets.xcassets */,
 				B4A976A5253114D200962CC1 /* Main.storyboard */,
 				B4A976A8253114D200962CC1 /* Info.plist */,
-				B4A976A9253114D200962CC1 /* AIOIOMI.entitlements */,
+				B4A976A9253114D200962CC1 /* AOIOMI.entitlements */,
 				B4A976A2253114D200962CC1 /* Preview Content */,
 			);
 			path = AOIOMI;
@@ -218,7 +218,6 @@
 				B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */,
 				B4EFCA022615459400483DAD /* PermZone.swift */,
 				B4EFCA0C2615534000483DAD /* ProxySettingsView.swift */,
-				B4EFCA172616507500483DAD /* ProxyControlView.swift */,
 				B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */,
 				B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */,
 				B4EFCA252616710700483DAD /* TranslateDefinition.swift */,
@@ -263,6 +262,7 @@
 				B4FC830725DB9B82000E47A7 /* HTTPProxyManager */,
 				B4EFC9FA261544BB00483DAD /* UserDefaults */,
 				B4EFCA132615573100483DAD /* MITMProxy */,
+				B40800B826179FB8009ED902 /* AOSEmulatorRuntime */,
 			);
 			productName = CoupangMobileApp;
 			productReference = B4A97699253114D100962CC1 /* AOIOMI.app */;
@@ -346,7 +346,6 @@
 				B4EFCA0D2615534000483DAD /* ProxySettingsView.swift in Sources */,
 				B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */,
 				B4AF10942616B8E100808341 /* AOSRuntimeView.swift in Sources */,
-				B4EFCA182616507500483DAD /* ProxyControlView.swift in Sources */,
 				B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */,
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */,
@@ -559,6 +558,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B40800B826179FB8009ED902 /* AOSEmulatorRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AOSEmulatorRuntime;
+		};
 		B40942C625DB985F005CBEB3 /* AOSEmulator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AOSEmulator;

@@ -9,6 +9,7 @@ import Combine
 import CommandPublisher
 import Foundation
 import SWXMLHash
+import SwiftShell
 
 public class AOSAppManager: ObservableObject {
     public enum State {
@@ -23,11 +24,13 @@ public class AOSAppManager: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let commander: Commander
 
-    public convenience init(activityId: String, packageId: String, preferencesPath: String) {
+    public convenience init(activityId: String, packageId: String, preferencesPath: String, env: [String: String]) {
+        var context = CustomContext(main)
+        context.env.merge(env) { (_, new) in new }
         self.init(activityId: activityId,
                   packageId: packageId,
                   preferencesPath: preferencesPath,
-                  commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!))
+                  commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!, context: context))
     }
 
     init(activityId: String, packageId: String, preferencesPath: String, commander: Commander) {
@@ -144,7 +147,7 @@ extension AOSAppManager.State: Equatable {
 #if DEBUG
     public extension AOSAppManager {
         static func preview(state: State = .checking) -> AOSAppManager {
-            let manager = AOSAppManager(activityId: "test", packageId: "test", preferencesPath: "test")
+            let manager = AOSAppManager(activityId: "test", packageId: "test", preferencesPath: "test", env: [:])
             manager.state = state
             return manager
         }

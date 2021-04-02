@@ -37,18 +37,21 @@ final class BigBrother {
         try? FileManager.default.createDirectory(at: appSupportURL, withIntermediateDirectories: false, attributes: nil)
 
         simulator = IOSSimulator(simulatorName: simulatorId)
-        aosRuntime = AOSEmulatorRuntime(home: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".aoiomi"))
-        emulator = AOSEmulator(runtime: aosRuntime)
         iosAppManager = IOSAppManager(simulatorId: simulatorId, bundleId: iosAppBundleId)
+
+        aosRuntime = AOSEmulatorRuntime(home: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".aoiomi"))
+        emulator = AOSEmulator(env: aosRuntime.env)
         aosAppManager = AOSAppManager(activityId: aosAppMainActivity,
                                       packageId: aosPackageId,
-                                      preferencesPath: aosAppPreferencesPath)
+                                      preferencesPath: aosAppPreferencesPath,
+                                      env: aosRuntime.env)
         httpProxyManager = HTTPProxyManager()
 
         mitmProxy = MITMProxy(port: userSettings.proxyPort,
                               appSupportPath: appSupportURL,
                               allowedHosts: userSettings.proxyAllowedHosts)
-        mitmProxy.stopOrphan()
+//        mitmProxy.stopOrphan()
+        mitmProxy.start()
 
         aosRuntime.$state
             .sink { [weak self] state in

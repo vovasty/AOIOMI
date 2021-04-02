@@ -86,7 +86,8 @@ function create {
         install_gapps
     fi
     set_proxy "$1"
-    install_ca "$2"
+    shift 1
+    install_ca "$@"
  #   "$ADB" shell avbctl enable-verification #api 30
 #crear trap to avoid erroneous exit code
     trap '' EXIT
@@ -138,24 +139,25 @@ function set_proxy {
 
 function install_apk {
     debug $@
-    "$ADB" install "$1"
+    "${ADB}" install "$1"
 }
 
 function install_ca {
     debug $@
-    if [ "$1" == "none" ]; then
-        return
-    fi
 
-    HASH=$(openssl x509 -inform PEM -subject_hash_old -in "$1" | head -1)
-    NEWNAME=$HASH.0
-    NEWNAMEANDPATH=$TMPDIR/$NEWNAME
-
-    cp "$1" "$NEWNAMEANDPATH"
     adb_root
     "$ADB" shell "mount -o rw,remount /"
-    "$ADB" push "$NEWNAMEANDPATH" /system/etc/security/cacerts
-    "$ADB" shell "chmod 664 /system/etc/security/cacerts/$NEWNAME"
+
+    for CERT in "$@"; do
+        HASH=$(openssl x509 -inform PEM -subject_hash_old -in "${CERT}" | head -1)
+        NEWNAME=$HASH.0
+        NEWNAMEANDPATH=$TMPDIR/$NEWNAME
+
+        cp "${CERT}" "${NEWNAMEANDPATH}"
+        "$ADB" push "$NEWNAMEANDPATH" /system/etc/security/cacerts
+        "$ADB" shell "chmod 664 /system/etc/security/cacerts/$NEWNAME"
+        rm "${NEWNAMEANDPATH}"
+    done
 }
 
 function run {

@@ -71,12 +71,12 @@ public class MITMProxy: ObservableObject {
                         }
                     }
                 }
-            self.process?.stderror.onStringOutput { line in
-                print("!!!", line)
-            }
-            self.process?.stdout.onStringOutput { line in
-                print("???", line)
-            }
+//            self.process?.stderror.onStringOutput { line in
+//                print("[err]", line)
+//            }
+//            self.process?.stdout.onStringOutput { line in
+//                print("[out]", line)
+//            }
             self.checkStarted()
         }
     }
