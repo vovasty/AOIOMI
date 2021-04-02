@@ -6,6 +6,7 @@
 //
 
 import AOSEmulator
+import AOSEmulatorRuntime
 import HTTPProxyManager
 import SwiftUI
 
@@ -13,28 +14,27 @@ struct AOSView: View {
     @EnvironmentObject var emulator: AOSEmulator
     @EnvironmentObject var proxyManager: HTTPProxyManager
     @EnvironmentObject var appManager: AOSAppManager
+    @EnvironmentObject var runtime: AOSEmulatorRuntime
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
         VStack(alignment: .leading) {
             ActivityView(style: .aos, state: $activityState)
-            switch emulator.state {
-            case .notConfigured:
-                Button("Configure") {
-                    emulator.configure(proxy: proxyManager.proxy(type: .aos)?.asString, caPath: proxyManager.caURL)
+
+            if case AOSEmulatorRuntime.State.installed = runtime.state {
+                switch emulator.state {
+                case .started:
+                    AppView(appManager: appManager,
+                            activityState: $activityState,
+                            installTitle: "Choose an APK to Install",
+                            fileExtensions: ["apk"]) { url in
+                        appManager.install(apk: url)
+                    }
+                case .stopped, .starting, .stopping, .checking, .configuring, .notConfigured:
+                    AOSEmulatorView(activityState: $activityState)
                 }
-                .onAppear {
-                    activityState = emulator.state.activity
-                }
-            case .started:
-                AppView(appManager: appManager,
-                        activityState: $activityState,
-                        installTitle: "Choose an APK to Install",
-                        fileExtensions: ["apk"]) { url in
-                    appManager.install(apk: url)
-                }
-            case .stopped, .starting, .stopping, .checking, .configuring:
-                AOSEmulatorView(activityState: $activityState)
+            } else {
+                AOSRuntimeView(activityState: $activityState)
             }
             Spacer()
         }

@@ -4,35 +4,38 @@ import SwiftShell
 
 public class AOSEmulatorRuntime: ObservableObject {
     public enum State {
-        case installed, checking, installing, notInstalled(Swift.Error?)
+        case installed, checking, installing, notInstalled(Swift.Error?), unknown
     }
 
     public enum Error: Swift.Error {
         case failed
     }
 
-    @Published public private(set) var state: State = .notInstalled(nil)
+    @Published public private(set) var state: State = .unknown
 
     private let home: URL
     private let helper: String
-    private let context: Context & CommandRunning
     private var process: AsyncCommand?
 
-    public init(home: URL) {
+    public private(set) lazy var context: Context & CommandRunning = {
         var context = CustomContext(main)
-        context.env["ANDROID_SDK_ROOT"] = home.path
+        context.env["ANDROID_HOME"] = home.path
         context.env["JAVA_HOME"] = Bundle.module.url(forResource: "jdk", withExtension: nil)!.path
         context.env["AOS_EMULATOR_RUNTIME_VERSION"] = "28"
         context.env["AOS_EMULATOR_RUNTIME_TAG"] = "google_apis"
         context.env["AOS_EMULATOR_RUNTIME_PLATFORM"] = "x86_64"
-        self.context = context
+        return context
+    }()
+
+    public init(home: URL) {
         self.home = home
+        try? FileManager.default.createDirectory(at: home, withIntermediateDirectories: true)
         helper = Bundle.module.url(forResource: "helper", withExtension: "sh")!.path
     }
 
     public func install() {
+        guard process == nil else { return }
         state = .installing
-
         process = context.runAsync(helper, "install")
             .onCompletion { process in
                 DispatchQueue.main.async { [weak self] in
@@ -41,12 +44,12 @@ public class AOSEmulatorRuntime: ObservableObject {
                     self.process = nil
                 }
             }
-        process?.stderror.onStringOutput { line in
-            print("[err]", line)
-        }
-        process?.stdout.onStringOutput { line in
-            print("[out]", line)
-        }
+//        process?.stderror.onStringOutput { line in
+//            print("[err]", line)
+//        }
+//        process?.stdout.onStringOutput { line in
+//            print("[out]", line)
+//        }
     }
 
     public func check() {

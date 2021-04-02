@@ -20,8 +20,8 @@ public struct CommandPublisher: Publisher {
         public let command: String
         public let arguments: [String]?
         public let errorCode: Int
-        public let stdout: LazySequence<AnySequence<String>>
-        public let stderror: LazySequence<AnySequence<String>>
+        public let stdout: [String]
+        public let stderror: [String]
     }
 
     public typealias Output = Result
@@ -85,8 +85,8 @@ final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
                 let error = CommandPublisher.CommandError(command: self.command,
                                                           arguments: self.parameters,
                                                           errorCode: cmd.exitcode(),
-                                                          stdout: cmd.stdout.lines(),
-                                                          stderror: cmd.stderror.lines())
+                                                          stdout: Array(cmd.stdout.lines()),
+                                                          stderror: Array(cmd.stderror.lines()))
                 self.subscriber?.receive(completion: .failure(error))
             }
         }
@@ -104,9 +104,9 @@ extension CommandPublisher.CommandError: LocalizedError {
         \(command) \(params)
         error code: \(errorCode)
         "stdout:"
-        \(Array(stdout).joined(separator: "\n"))
+        \(stdout.joined(separator: "\n"))
         "stderr:"
-        \(Array(stderror).joined(separator: "\n"))
+        \(stderror.joined(separator: "\n"))
         """
     }
 }

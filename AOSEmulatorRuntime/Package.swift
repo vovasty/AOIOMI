@@ -10,7 +10,8 @@ let package = Package(
     products: [
         .library(
             name: "AOSEmulatorRuntime",
-            targets: ["AOSEmulatorRuntime"]),
+            targets: ["AOSEmulatorRuntime"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/kareman/SwiftShell.git", from: "5.1.0"),
@@ -21,11 +22,13 @@ let package = Package(
             dependencies: ["SwiftShell"],
             resources: [
                 .copy("Resources/helper.sh"),
-                .copy("Resources/env"),
+                .copy("Resources/jdk"),
+                .copy("Resources/commandlinetools-mac-6858069_latest.zip"),
             ]
-            ),
+        ),
         .testTarget(
             name: "AOSEmulatorRuntimeTests",
-            dependencies: ["AOSEmulatorRuntime"]),
+            dependencies: ["AOSEmulatorRuntime"]
+        ),
     ]
 )

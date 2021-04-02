@@ -6,6 +6,7 @@
 //
 
 import AOSEmulator
+import AOSEmulatorRuntime
 import Cocoa
 import Combine
 import HTTPProxyManager
@@ -25,27 +26,46 @@ final class BigBrother {
     let httpProxyManager: HTTPProxyManager
     let mitmProxy: MITMProxy
     let userSettings = UserSettings()
+    let aosRuntime: AOSEmulatorRuntime
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
+        let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory,
+                                                     in: .userDomainMask).first!
+            .appendingPathComponent(Bundle.main.bundleIdentifier!)
+        try? FileManager.default.createDirectory(at: appSupportURL, withIntermediateDirectories: false, attributes: nil)
+
         simulator = IOSSimulator(simulatorName: simulatorId)
-        emulator = AOSEmulator()
+        aosRuntime = AOSEmulatorRuntime(home: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".aoiomi"))
+        emulator = AOSEmulator(runtime: aosRuntime)
         iosAppManager = IOSAppManager(simulatorId: simulatorId, bundleId: iosAppBundleId)
         aosAppManager = AOSAppManager(activityId: aosAppMainActivity,
                                       packageId: aosPackageId,
                                       preferencesPath: aosAppPreferencesPath)
         httpProxyManager = HTTPProxyManager()
 
-        let appSupportPath = FileManager.default.urls(for: .applicationSupportDirectory,
-                                                      in: .userDomainMask).first!
-            .appendingPathComponent(Bundle.main.bundleIdentifier!)
-        try? FileManager.default.createDirectory(at: appSupportPath, withIntermediateDirectories: false, attributes: nil)
-
         mitmProxy = MITMProxy(port: userSettings.proxyPort,
-                              appSupportPath: appSupportPath,
+                              appSupportPath: appSupportURL,
                               allowedHosts: userSettings.proxyAllowedHosts)
         mitmProxy.stopOrphan()
+
+        aosRuntime.$state
+            .sink { [weak self] state in
+            switch state {
+            case .installed:
+                self?.emulator.check()
+            case let .notInstalled(error):
+                guard error == nil else { return }
+                //TODO: why???
+                DispatchQueue.main.async {
+                    self?.aosRuntime.install()
+                }
+            default:
+                break
+            }
+        }
+        .store(in: &cancellables)
 
         emulator.$state.sink { [weak self] state in
             switch state {
@@ -69,8 +89,8 @@ final class BigBrother {
     }
 
     func check() {
+        aosRuntime.check()
         simulator.check()
-        emulator.check()
     }
 
     func stop() {

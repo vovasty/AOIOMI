@@ -10,8 +10,8 @@ if [ -z "${COMMAND}" ]; then
 fi
 shift 1
 
-if [ -z "${ANDROID_SDK_ROOT}" ]; then
-    echo "error: ANDROID_SDK_ROOT  is not set"
+if [ -z "${ANDROID_HOME}" ]; then
+    echo "error: ANDROID_HOME  is not set"
     exit 1
 fi
 
@@ -35,19 +35,19 @@ if [ -z "${AOS_EMULATOR_RUNTIME_PLATFORM}" ]; then
     exit 1
 fi
 
-ANDROID_SDK_MANGER=${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager
+ANDROID_SDK_MANGER="${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager"
 ANDROID_PACKAGE="system-images;android-${AOS_EMULATOR_RUNTIME_VERSION};${AOS_EMULATOR_RUNTIME_TAG};${AOS_EMULATOR_RUNTIME_PLATFORM}"
 
 debug() { printf "=== ${FUNCNAME[1]}: %s\n" "$*" >&2; }
 
 function install {
     debug $@
-    rm -rf ${ANDROID_SDK_ROOT}/*
-    mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools
-    unzip ${ROOT}/commandlinetools-*.zip -d ${ANDROID_SDK_ROOT}/cmdline-tools
-    mv ${ANDROID_SDK_ROOT}/cmdline-tools/cmdline-tools ${ANDROID_SDK_ROOT}/cmdline-tools/tools
-	echo yes | ${ANDROID_SDK_MANGER} --channel=0 emulator "platform-tools" "platforms;android-${AOS_EMULATOR_RUNTIME_VERSION}"
-    echo yes | ${ANDROID_SDK_MANGER} --install ${ANDROID_PACKAGE}
+    rm -rf "${ANDROID_HOME}"/*
+    mkdir -p "${ANDROID_HOME}/cmdline-tools"
+    unzip "${ROOT}/commandlinetools-*.zip" -d "${ANDROID_HOME}/cmdline-tools"
+    mv "${ANDROID_HOME}/cmdline-tools/cmdline-tools" "${ANDROID_HOME}/cmdline-tools/tools"
+	echo yes | "${ANDROID_SDK_MANGER}" --channel=0 emulator "platform-tools" "platforms;android-${AOS_EMULATOR_RUNTIME_VERSION}"
+    echo yes | "${ANDROID_SDK_MANGER}" --install ${ANDROID_PACKAGE}
 }
 
 function check {

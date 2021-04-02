@@ -5,10 +5,9 @@
 //  Created by vlsolome on 2/12/21.
 //
 
-import Foundation
-
 import Combine
 import CommandPublisher
+import Foundation
 import SWXMLHash
 
 public class AOSAppManager: ObservableObject {

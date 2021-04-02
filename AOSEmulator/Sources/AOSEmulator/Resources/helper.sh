@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
-set -e
+set -ex
 
-ROOT=$(dirname "$0")/emulator
 COMMAND=$1
-source $ROOT/env.sh
 
 if [ -z "${COMMAND}" ]; then
     echo "error: no arguments"
@@ -11,16 +9,14 @@ if [ -z "${COMMAND}" ]; then
 fi
 shift 1
 
-DATA_ROOT=${DATA_ROOT/#\~/$HOME}
-export JAVA_HOME=${ROOT}/jdk
-export ANDROID_SDK_ROOT=${ROOT}/adk
-export ANDROID_AVD_HOME=$DATA_ROOT/aos/avd
-export ANDROID_EMULATOR_HOME=$DATA_ROOT/aos/emulator
+EMULATOR=${ANDROID_HOME}/emulator/emulator
+ADB=${ANDROID_HOME}/platform-tools/adb
+AVDMANAGER=${ANDROID_HOME}/cmdline-tools/tools/bin/avdmanager
+AVD_NAME=coupang${AOS_EMULATOR_RUNTIME_VERSION}
+ANDROID_PACKAGE="system-images;android-${AOS_EMULATOR_RUNTIME_VERSION};${AOS_EMULATOR_RUNTIME_TAG};${AOS_EMULATOR_RUNTIME_PLATFORM}"
 
-EMULATOR=$ANDROID_SDK_ROOT/emulator/emulator
-ADB=$ANDROID_SDK_ROOT/platform-tools/adb
-AVDMANAGER=$ANDROID_SDK_ROOT/cmdline-tools/tools/bin/avdmanager
-AVD_NAME=coupang$ANDROID_VERSION
+export ANDROID_AVD_HOME=${ANDROID_HOME}/data/avd
+export ANDROID_EMULATOR_HOME=${ANDROID_HOME}/data/emulator
 
 debug() { printf "=== ${FUNCNAME[1]}: %s\n" "$*" >&2; }
 
@@ -46,9 +42,9 @@ function wait_booted {
 
 function init {
     debug
-    mkdir -p "$ANDROID_EMULATOR_HOME" "$ANDROID_AVD_HOME"
-    echo "no" | "$AVDMANAGER" --verbose create avd --force --name "$AVD_NAME" -d pixel_3_xl --package "$ANDROID_PACKAGE" --tag "$ANDROID_TAG" --abi "$ANDROID_PLATFORM"
-    echo hw.keyboard=yes >> "$ANDROID_AVD_HOME/$AVD_NAME.avd/config.ini"
+    mkdir -p "${ANDROID_EMULATOR_HOME}" "${ANDROID_AVD_HOME}"
+    echo "no" | "${AVDMANAGER}" --verbose create avd --force --name "${AVD_NAME}" -d pixel_3_xl --package "${ANDROID_PACKAGE}" --tag "${AOS_EMULATOR_RUNTIME_TAG}" --abi "${AOS_EMULATOR_RUNTIME_PLATFORM}"
+    echo hw.keyboard=yes >> "${ANDROID_AVD_HOME}/${AVD_NAME}.avd/config.ini"
 }
 
 function shutdown {
@@ -92,9 +88,9 @@ function create {
     set_proxy "$1"
     install_ca "$2"
  #   "$ADB" shell avbctl enable-verification #api 30
-    shutdown
 #crear trap to avoid erroneous exit code
     trap '' EXIT
+    shutdown
 }
 
 function get_file {
@@ -193,7 +189,7 @@ function adb_unroot {
 
 function get_emulator_pid {
     debug $@
-    PID=$(ps x | grep $ROOT/adk/emulator/qemu/darwin-x86_64/qemu-system-x86_64 | grep -v grep | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f 1)
+    PID=$(ps x | grep ${ANDROID_HOME}/emulator/qemu/darwin-x86_64/qemu-system-x86_64 | grep -v grep | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f 1)
     [ -n "$PID" ] || exit 1
     echo -n $PID
 }

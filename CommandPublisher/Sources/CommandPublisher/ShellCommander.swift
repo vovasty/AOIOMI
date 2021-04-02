@@ -10,11 +10,12 @@ import Foundation
 import SwiftShell
 
 public struct ShellCommander: Commander {
-    public let context: Context & CommandRunning = CustomContext(main)
     public let helperPath: URL
+    public let context: Context & CommandRunning
 
-    public init(helperPath: URL) {
+    public init(helperPath: URL, context: Context & CommandRunning = CustomContext(main)) {
         self.helperPath = helperPath
+        self.context = context
     }
 
     public func run<CommandType: Command>(command: CommandType) -> AnyPublisher<CommandType.Result, Swift.Error> {

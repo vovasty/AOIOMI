@@ -11,10 +11,12 @@ import HTTPProxyManager
 import SwiftUI
 
 struct AOSEmulatorView: View {
-    @EnvironmentObject var emulator: AOSEmulator
-    @EnvironmentObject var proxyManager: HTTPProxyManager
     @Binding var activityState: ActivityView.ActivityState
+
+    @EnvironmentObject private var emulator: AOSEmulator
+    @EnvironmentObject private var proxyManager: HTTPProxyManager
     @State private var startDisabled = false
+    @State private var configureDisabled = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -25,13 +27,19 @@ struct AOSEmulatorView: View {
             Button("Reconfigure") {
                 emulator.configure(proxy: proxyManager.proxy(type: .aos)?.asString, caPath: proxyManager.caURL)
             }
+            .disabled(configureDisabled)
         }
         .onReceive(Just(emulator.state)) { state in
             switch state {
             case .stopped:
                 startDisabled = false
-            case .configuring, .checking, .notConfigured, .started, .stopping, .starting:
+                configureDisabled = false
+            case .configuring, .checking, .started, .stopping, .starting:
                 startDisabled = true
+                configureDisabled = true
+            case .notConfigured:
+                startDisabled = true
+                configureDisabled = false
             }
             activityState = state.activity
         }

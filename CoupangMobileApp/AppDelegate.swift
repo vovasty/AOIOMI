@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .environmentObject(bigBrother.aosAppManager)
             .environmentObject(bigBrother.httpProxyManager)
             .environmentObject(bigBrother.mitmProxy)
+            .environmentObject(bigBrother.aosRuntime)
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),

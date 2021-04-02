@@ -23,6 +23,8 @@
 		B4A976A7253114D200962CC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A5253114D200962CC1 /* Main.storyboard */; };
 		B4A976B3253114D300962CC1 /* CoupangMobileAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976B2253114D300962CC1 /* CoupangMobileAppTests.swift */; };
 		B4A976BE253114D300962CC1 /* CoupangMobileAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */; };
+		B4AF10942616B8E100808341 /* AOSRuntimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF10932616B8E100808341 /* AOSRuntimeView.swift */; };
+		B4AF109A2616B98D00808341 /* AOSEmulatorRuntimeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */; };
 		B4D225BA25D855FF00746557 /* AOSHTTPProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */; };
 		B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */; };
 		B4DC381525E2EEAD00E6206A /* NativeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381425E2EEAD00E6206A /* NativeButton.swift */; };
@@ -106,6 +108,9 @@
 		B4A976B9253114D300962CC1 /* CoupangMobileAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoupangMobileAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A976BD253114D300962CC1 /* CoupangMobileAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupangMobileAppUITests.swift; sourceTree = "<group>"; };
 		B4A976BF253114D300962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4AF108E2616B51A00808341 /* AOSEmulatorRuntime */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulatorRuntime; sourceTree = "<group>"; };
+		B4AF10932616B8E100808341 /* AOSRuntimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRuntimeView.swift; sourceTree = "<group>"; };
+		B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorRuntimeState.swift; sourceTree = "<group>"; };
 		B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSHTTPProxyManager.swift; sourceTree = "<group>"; };
 		B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorState.swift; sourceTree = "<group>"; };
 		B4DC381425E2EEAD00E6206A /* NativeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButton.swift; sourceTree = "<group>"; };
@@ -169,10 +174,12 @@
 			isa = PBXGroup;
 			children = (
 				B4F3F17B25D5E8F2006ADB7A /* AOSView.swift */,
+				B4AF10932616B8E100808341 /* AOSRuntimeView.swift */,
 				B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */,
 				B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */,
 				B4D225B925D855FF00746557 /* AOSHTTPProxyManager.swift */,
 				B4F10B6D25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift */,
+				B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */,
 			);
 			path = AOS;
 			sourceTree = "<group>";
@@ -180,6 +187,7 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B4AF108E2616B51A00808341 /* AOSEmulatorRuntime */,
 				B4EFCA102615572900483DAD /* MITMProxy */,
 				B4EFC9F72615449300483DAD /* UserDefaults */,
 				B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */,
@@ -433,6 +441,7 @@
 			files = (
 				B4884EC825DA4D2B00FBFAD0 /* ImageActivityIndicator.swift in Sources */,
 				B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */,
+				B4AF109A2616B98D00808341 /* AOSEmulatorRuntimeState.swift in Sources */,
 				B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */,
 				B4EFC9E1261537FD00483DAD /* PermZoneEditor.swift in Sources */,
 				B4EFCA262616710700483DAD /* TranslateDefinition.swift in Sources */,
@@ -457,6 +466,7 @@
 				B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */,
 				B4EFCA0D2615534000483DAD /* ProxySettingsView.swift in Sources */,
 				B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */,
+				B4AF10942616B8E100808341 /* AOSRuntimeView.swift in Sources */,
 				B4EFCA182616507500483DAD /* ProxyControlView.swift in Sources */,
 				B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */,
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
@@ -644,7 +654,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.coupang.CoupangMobileApp;
+				PRODUCT_BUNDLE_IDENTIFIER = net.coupang.CoupangMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -669,7 +679,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.coupang.CoupangMobileApp;
+				PRODUCT_BUNDLE_IDENTIFIER = net.coupang.CoupangMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

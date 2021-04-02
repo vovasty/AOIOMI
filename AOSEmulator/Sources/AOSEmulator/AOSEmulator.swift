@@ -5,10 +5,11 @@
 //  Created by vlsolome on 10/9/20.
 //
 
+import AOSEmulatorRuntime
 import Combine
 import CommandPublisher
+import Foundation
 import SwiftShell
-import SwiftUI
 
 public class AOSEmulator: ObservableObject {
     public enum State {
@@ -31,8 +32,9 @@ public class AOSEmulator: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var process: AnyCancellable?
 
-    public convenience init() {
-        self.init(commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!))
+    public convenience init(runtime: AOSEmulatorRuntime) {
+        self.init(commander: ShellCommander(helperPath: Bundle.module.url(forResource: "helper", withExtension: "sh")!,
+                                            context: runtime.context))
     }
 
     init(commander: Commander) {
@@ -141,7 +143,7 @@ extension AOSEmulator.State: Equatable {
 #if DEBUG
     public extension AOSEmulator {
         static func preview(state: State = .stopped(nil)) -> AOSEmulator {
-            let emulator = AOSEmulator()
+            let emulator = AOSEmulator(runtime: AOSEmulatorRuntime(home: URL(fileURLWithPath: "/tmp", isDirectory: true)))
             emulator.state = state
             return emulator
         }
