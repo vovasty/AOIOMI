@@ -1,5 +1,5 @@
 //
-//  ProxySettingsView.swift
+//  ProxyView.swift
 //  CoupangMobileApp
 //
 //  Created by vlsolome on 3/31/21.
@@ -8,7 +8,7 @@
 import MITMProxy
 import SwiftUI
 
-struct ProxySettingsView: View {
+struct ProxyView: View {
     @EnvironmentObject private var mitmProxy: MITMProxy
     @State private var activityState: ActivityView.ActivityState = MITMProxy.State.stopped.activity
 
@@ -31,7 +31,7 @@ struct ProxySettingsView: View {
 #if DEBUG
     struct ProxySettingsView_Previews: PreviewProvider {
         static var previews: some View {
-            ProxySettingsView()
+            ProxyView()
                 .environmentObject(UserSettings())
                 .environmentObject(MITMProxy.preview)
         }

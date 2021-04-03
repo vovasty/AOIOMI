@@ -51,7 +51,7 @@ struct ContentView: View {
                             }
                         }
                     }
-                    Section(header: Text("Proxy").font(.footnote)) {
+                    Section(header: Text("Addons").font(.footnote)) {
                         NavigationLink(
                             destination: PermZoneView().frame(maxWidth: .infinity, alignment: .leading),
                             tag: .permzone,
@@ -75,14 +75,14 @@ struct ContentView: View {
                             }
                         }
                         NavigationLink(
-                            destination: ProxySettingsView().frame(maxWidth: .infinity, alignment: .leading),
+                            destination: ProxyView().frame(maxWidth: .infinity, alignment: .leading),
                             tag: .settings,
                             selection: $selection
                         ) {
                             if case MITMProxy.State.stopped = mitmProxy.state {
-                                Label(text: "Settings")
+                                Label(text: "Proxy", image: "proxy")
                             } else {
-                                Label(text: "Settings", highlighted: true)
+                                Label(text: "Proxy", image: "proxy", highlighted: true)
                             }
                         }
                     }

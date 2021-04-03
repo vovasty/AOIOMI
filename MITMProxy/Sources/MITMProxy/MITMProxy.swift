@@ -14,7 +14,10 @@ public class MITMProxy: ObservableObject {
     }
 
     @Published public private(set) var state: State = .stopped
-    public let uiUrl: URL
+    public var uiUrl: URL {
+        URL(string: "http://127.0.0.1:\(guiPort)")!
+    }
+
     public var addons: [Addon] = [] {
         didSet {
             generateAddonScript()
@@ -49,7 +52,7 @@ public class MITMProxy: ObservableObject {
     public var guiPort: Int
     public var allowedHosts: [String]
 
-    public init(port: Int, guiPort: Int = 8081, appSupportPath: URL, allowedHosts: [String]) {
+    public init(port: Int, guiPort: Int, appSupportPath: URL, allowedHosts: [String]) {
         context = CustomContext(main)
         self.port = port
         self.guiPort = guiPort
@@ -60,7 +63,6 @@ public class MITMProxy: ObservableObject {
         proxyCommand = Bundle.module.url(forResource: "mitmweb", withExtension: "")!.path
         mitmProxyConfigDir = appSupportPath.appendingPathComponent("mitmproxy")
         caCert = mitmProxyConfigDir.appendingPathComponent("mitmproxy-ca-cert.pem")
-        uiUrl = URL(string: "http://127.0.0.1:\(guiPort)")!
     }
 
     public func start() {
@@ -169,7 +171,7 @@ public class MITMProxy: ObservableObject {
                                                           in: .userDomainMask).first!
                 .appendingPathComponent(Bundle.main.bundleIdentifier!)
             try? FileManager.default.createDirectory(at: appSupportPath, withIntermediateDirectories: false, attributes: nil)
-            return MITMProxy(port: 8888, appSupportPath: appSupportPath, allowedHosts: ["cmapi.coupang.com"])
+            return MITMProxy(port: 9999, guiPort: 9998, appSupportPath: appSupportPath, allowedHosts: ["cmapi.coupang.com"])
         }()
 
         func set(state: State) {

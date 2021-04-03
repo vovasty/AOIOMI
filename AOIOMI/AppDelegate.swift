@@ -54,3 +54,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
 }
+
+extension AppDelegate {
+    @IBAction func showProxyUI(_: NSMenuItem) {
+        NSWorkspace.shared.open(bigBrother.mitmProxy.uiUrl)
+    }
+
+    @IBAction func toggleSidebar(_: NSMenuItem) {
+        window.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+    }
+}

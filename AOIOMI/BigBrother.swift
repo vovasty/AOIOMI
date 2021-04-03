@@ -48,6 +48,7 @@ final class BigBrother {
                                       env: aosRuntime.env)
 
         mitmProxy = MITMProxy(port: userSettings.proxyPort,
+                              guiPort: userSettings.proxyGUIPort,
                               appSupportPath: appSupportURL,
                               allowedHosts: userSettings.proxyAllowedHosts)
         mitmProxy.stopOrphan()

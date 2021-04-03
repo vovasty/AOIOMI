@@ -69,7 +69,7 @@ public class HTTPProxyManager: ObservableObject {
 #if DEBUG
     public extension HTTPProxyManager {
         static func preview() -> HTTPProxyManager {
-            HTTPProxyManager(charlesProxy: CharlesProxy(), mitmProxy: MITMProxy(port: 1, appSupportPath: URL(fileURLWithPath: "/nonexisting"), allowedHosts: []))
+            HTTPProxyManager(charlesProxy: CharlesProxy(), mitmProxy: MITMProxy(port: 9999, guiPort: 9998, appSupportPath: URL(fileURLWithPath: "/nonexisting"), allowedHosts: []))
         }
     }
 #endif
