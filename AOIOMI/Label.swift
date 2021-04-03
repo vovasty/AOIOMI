@@ -9,25 +9,27 @@ import SwiftUI
 
 struct Label: View {
     let text: String
-    var image: String?
+    var style: ImageActivityIndicator.Style?
     var highlighted: Bool = false
 
     var body: some View {
         HStack {
-            if let image = image {
-                Image(image)
+            if let image = style?.image {
+                image
                     .resizable()
-                    .frame(width: 20, height: 20)
+                    .foregroundColor(highlighted ? (style?.color ?? .primary) : .secondary)
+                    .frame(width: 14, height: 14)
             }
             Text(text)
-                .font(!highlighted ? .footnote : Font.footnote.weight(.bold))
+                .font(.footnote)
+                .foregroundColor(highlighted ? .primary : .secondary)
         }
     }
 }
 
 struct Label_Previews: PreviewProvider {
     static var previews: some View {
-        Label(text: "hi", image: "aos")
-        Label(text: "hi", image: "aos", highlighted: true)
+        Label(text: "hi", style: .aos)
+        Label(text: "hi", style: .aos, highlighted: true)
     }
 }

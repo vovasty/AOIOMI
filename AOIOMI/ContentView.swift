@@ -30,12 +30,10 @@ struct ContentView: View {
                         tag: .aos,
                         selection: $selection
                     ) {
-                        if case AOSEmulator.State.notConfigured = emulator.state {
-                            Label(text: "Android", image: "aos")
-                        } else if case AOSEmulator.State.stopped = emulator.state {
-                            Label(text: "Android", image: "aos")
+                        if case AOSEmulator.State.started = emulator.state {
+                            Label(text: "Android", style: .aos, highlighted: true)
                         } else {
-                            Label(text: "Android", image: "aos", highlighted: true)
+                            Label(text: "Android", style: .aos)
                         }
                     }
                     NavigationLink(
@@ -43,10 +41,10 @@ struct ContentView: View {
                         tag: .ios,
                         selection: $selection
                     ) {
-                        if case IOSSimulator.State.stopped = simulator.state {
-                            Label(text: "iOS", image: "ios")
+                        if case IOSSimulator.State.started = simulator.state {
+                            Label(text: "iOS", style: .ios, highlighted: true)
                         } else {
-                            Label(text: "iOS", image: "ios", highlighted: true)
+                            Label(text: "iOS", style: .ios)
                         }
                     }
                 }
@@ -56,10 +54,10 @@ struct ContentView: View {
                         tag: .permzone,
                         selection: $selection
                     ) {
-                        if userSettings.activePermZone != nil, case MITMProxy.State.stopped = mitmProxy.state {
-                            Label(text: "Permzone", highlighted: true)
+                        if userSettings.activePermZone != nil, case MITMProxy.State.started = mitmProxy.state {
+                            Label(text: "Permzone", style: .zone, highlighted: true)
                         } else {
-                            Label(text: "Permzone")
+                            Label(text: "Permzone", style: .zone)
                         }
                     }
                     NavigationLink(
@@ -67,10 +65,10 @@ struct ContentView: View {
                         tag: .translator,
                         selection: $selection
                     ) {
-                        if userSettings.isTranslating, case MITMProxy.State.stopped = mitmProxy.state {
-                            Label(text: "Translator", highlighted: true)
+                        if userSettings.isTranslating, case MITMProxy.State.started = mitmProxy.state {
+                            Label(text: "Translator", style: .translator, highlighted: true)
                         } else {
-                            Label(text: "Translator")
+                            Label(text: "Translator", style: .translator)
                         }
                     }
                     NavigationLink(
@@ -78,10 +76,10 @@ struct ContentView: View {
                         tag: .settings,
                         selection: $selection
                     ) {
-                        if case MITMProxy.State.stopped = mitmProxy.state {
-                            Label(text: "Proxy", image: "proxy")
+                        if case MITMProxy.State.started = mitmProxy.state {
+                            Label(text: "Proxy", style: .proxy, highlighted: true)
                         } else {
-                            Label(text: "Proxy", image: "proxy", highlighted: true)
+                            Label(text: "Proxy", style: .proxy)
                         }
                     }
                 }

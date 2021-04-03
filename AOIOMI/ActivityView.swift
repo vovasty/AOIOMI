@@ -25,7 +25,7 @@ struct ActivityView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 3) {
             ImageActivityIndicator(style: style, isAnimating: isAnimating)
-                .frame(width: 28, height: 28, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                .frame(width: 22, height: 22, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
             switch state.wrappedValue {
             case let .busy(text):
                 Text(text)

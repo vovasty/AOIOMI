@@ -49,6 +49,7 @@ struct PermZoneView: View {
                         userSettings.permZones.removeAll(where: { $0 == userSettings.activePermZone })
                         userSettings.activePermZone = nil
                     }
+                    .disabled(userSettings.activePermZone == nil)
                 }
             }
             Spacer()

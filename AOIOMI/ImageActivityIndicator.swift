@@ -9,39 +9,54 @@ import SwiftUI
 
 struct ImageActivityIndicator: View {
     enum Style {
-        case ios, aos, proxy
-    }
+        case ios, aos, proxy, zone, translator
 
-    private let isAnimating: Bool
-    private var imageName: String
-    private var color: Color
-
-    init(style: Style, isAnimating: Bool = true) {
-        switch style {
-        case .aos:
-            imageName = "aos"
-            color = Color("aos")
-        case .ios:
-            imageName = "ios"
-            color = Color("ios")
-        case .proxy:
-            imageName = "proxy"
-            color = Color("proxy")
+        var color: Color {
+            switch self {
+            case .aos:
+                return Color("aos")
+            case .ios:
+                return Color("ios")
+            case .proxy:
+                return Color("proxy")
+            case .translator:
+                return Color("translator")
+            case .zone:
+                return Color("zone")
+            }
         }
-        self.isAnimating = isAnimating
+
+        var image: Image {
+            switch self {
+            case .aos:
+                return Image("aos")
+            case .ios:
+                return Image("ios")
+            case .proxy:
+                return Image("proxy")
+            case .translator:
+                return Image("translator")
+            case .zone:
+                return Image("zone")
+            }
+        }
     }
+
+    let style: Style
+    var isAnimating: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Image(imageName)
+                style.image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .foregroundColor(style.color)
                     .frame(width: geometry.size.width - 8, height: geometry.size.height - 8)
                 if isAnimating {
                     ActivityIndicator(count: 2, width: 1, spacing: 1)
                         .frame(width: geometry.size.width, height: geometry.size.height)
-                        .foregroundColor(color)
+                        .foregroundColor(style.color)
                 }
             }
         }
