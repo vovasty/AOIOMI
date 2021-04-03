@@ -23,7 +23,7 @@ let package = Package(
             resources: [
                 .copy("Resources/helper.sh"),
                 .copy("Resources/jdk"),
-                .copy("Resources/commandlinetools-mac-6858069_latest.zip"),
+                .copy("Resources/commandlinetools.zip"),
             ]
         ),
         .testTarget(

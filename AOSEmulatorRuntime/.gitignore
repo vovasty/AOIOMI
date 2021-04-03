@@ -5,4 +5,4 @@
 xcuserdata/
 *.swp
 /Sources/AOSEmulatorRuntime/Resources/jdk
-/Sources/AOSEmulatorRuntime/Resources/commandlinetools-mac-*.zip
+/Sources/AOSEmulatorRuntime/Resources/commandlinetools.zip

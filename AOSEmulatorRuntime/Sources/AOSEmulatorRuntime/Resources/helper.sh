@@ -44,7 +44,7 @@ function install {
     debug $@
     rm -rf "${ANDROID_HOME}"/*
     mkdir -p "${ANDROID_HOME}/cmdline-tools"
-    unzip "${ROOT}/commandlinetools-*.zip" -d "${ANDROID_HOME}/cmdline-tools"
+    unzip "${ROOT}/commandlinetools.zip" -d "${ANDROID_HOME}/cmdline-tools"
     mv "${ANDROID_HOME}/cmdline-tools/cmdline-tools" "${ANDROID_HOME}/cmdline-tools/tools"
 	echo yes | "${ANDROID_SDK_MANGER}" --channel=0 emulator "platform-tools" "platforms;android-${AOS_EMULATOR_RUNTIME_VERSION}"
     echo yes | "${ANDROID_SDK_MANGER}" --install ${ANDROID_PACKAGE}
