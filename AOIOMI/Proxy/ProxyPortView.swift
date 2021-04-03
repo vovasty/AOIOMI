@@ -44,11 +44,11 @@ struct ProxyPortView: View {
 }
 
 #if DEBUG
-struct ProxyPortView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProxyPortView()
-            .environmentObject(MITMProxy.preview)
-            .environmentObject(UserSettings())
+    struct ProxyPortView_Previews: PreviewProvider {
+        static var previews: some View {
+            ProxyPortView()
+                .environmentObject(MITMProxy.preview)
+                .environmentObject(UserSettings())
+        }
     }
-}
 #endif

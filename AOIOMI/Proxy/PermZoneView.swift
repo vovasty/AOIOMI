@@ -61,12 +61,12 @@ struct PermZoneView: View {
 }
 
 #if DEBUG
-struct PermzoneView_Previews: PreviewProvider {
-    static var previews: some View {
-        PermZoneView()
-            .environmentObject(UserSettings())
-            .environmentObject(MITMProxy.preview)
-            .frame(width: 300, height: 100)
+    struct PermzoneView_Previews: PreviewProvider {
+        static var previews: some View {
+            PermZoneView()
+                .environmentObject(UserSettings())
+                .environmentObject(MITMProxy.preview)
+                .frame(width: 300, height: 100)
+        }
     }
-}
 #endif

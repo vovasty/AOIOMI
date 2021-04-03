@@ -9,14 +9,18 @@ import SwiftUI
 
 struct Label: View {
     let text: String
-    let image: String
+    var image: String?
+    var highlighted: Bool = false
 
     var body: some View {
         HStack {
-            Image(image)
-                .resizable()
-                .frame(width: 14, height: 14)
+            if let image = image {
+                Image(image)
+                    .resizable()
+                    .frame(width: 14, height: 14)
+            }
             Text(text)
+                .font(!highlighted ? .footnote : Font.footnote.weight(.bold))
         }
     }
 }
@@ -24,5 +28,6 @@ struct Label: View {
 struct Label_Previews: PreviewProvider {
     static var previews: some View {
         Label(text: "hi", image: "aos")
+        Label(text: "hi", image: "aos", highlighted: true)
     }
 }

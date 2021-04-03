@@ -14,7 +14,10 @@ struct ContentView: View {
         case aos, ios, permzone, translator, settings
     }
 
-    @State var selection: Page?
+    @State private var selection: Page?
+    @EnvironmentObject private var emulator: AOSEmulator
+    @EnvironmentObject private var simulator: IOSSimulator
+    @EnvironmentObject private var userSettings: UserSettings
 
     var body: some View {
         GeometryReader { geometry in
@@ -25,14 +28,22 @@ struct ContentView: View {
                         tag: .aos,
                         selection: $selection
                     ) {
-                        Label(text: "Android", image: "aos")
+                        if case AOSEmulator.State.stopped = emulator.state {
+                            Label(text: "Android", image: "aos")
+                        } else {
+                            Label(text: "Android", image: "aos", highlighted: true)
+                        }
                     }
                     NavigationLink(
                         destination: IOSView().frame(maxWidth: .infinity, alignment: .leading),
                         tag: .ios,
                         selection: $selection
                     ) {
-                        Label(text: "iOS", image: "ios")
+                        if case IOSSimulator.State.stopped = simulator.state {
+                            Label(text: "iOS", image: "ios")
+                        } else {
+                            Label(text: "iOS", image: "ios", highlighted: true)
+                        }
                     }
                     Section(header: Label(text: "Proxy", image: "proxy")) {
                         NavigationLink(
@@ -40,21 +51,29 @@ struct ContentView: View {
                             tag: .permzone,
                             selection: $selection
                         ) {
-                            Text("Permzone")
+                            if userSettings.activePermZone == nil {
+                                Label(text: "Permzone")
+                            } else {
+                                Label(text: "Permzone", highlighted: true)
+                            }
                         }
                         NavigationLink(
                             destination: TranslateView().frame(maxWidth: .infinity, alignment: .leading),
                             tag: .translator,
                             selection: $selection
                         ) {
-                            Text("Translator")
+                            if userSettings.isTranslating {
+                                Label(text: "Translator", highlighted: true)
+                            } else {
+                                Label(text: "Translator")
+                            }
                         }
                         NavigationLink(
                             destination: ProxySettingsView().frame(maxWidth: .infinity, alignment: .leading),
                             tag: .settings,
                             selection: $selection
                         ) {
-                            Text("Settings")
+                            Label(text: "Settings")
                         }
                     }
                 }
