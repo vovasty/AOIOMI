@@ -75,14 +75,15 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
                 Button("Open App") {
                     appManager.start()
                 }
+                .disabled(appManager.state.isNonOperational)
                 SwiftUI.Button(action: { appManager.check() }) {
                     Image("arrow.clockwise.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
                 .buttonStyle(BorderlessButtonStyle())
+                .disabled(appManager.state.isCheckDisabled)
             }
-            .disabled(appManager.state.isNonOperational)
             Button("Show PCID") {
                 wantToShowPCID = true
                 appManager.check()

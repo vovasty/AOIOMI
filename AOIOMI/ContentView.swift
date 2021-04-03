@@ -28,7 +28,9 @@ struct ContentView: View {
                         tag: .aos,
                         selection: $selection
                     ) {
-                        if case AOSEmulator.State.stopped = emulator.state {
+                        if case AOSEmulator.State.notConfigured = emulator.state {
+                            Label(text: "Android", image: "aos")
+                        } else if case AOSEmulator.State.stopped = emulator.state {
                             Label(text: "Android", image: "aos")
                         } else {
                             Label(text: "Android", image: "aos", highlighted: true)
