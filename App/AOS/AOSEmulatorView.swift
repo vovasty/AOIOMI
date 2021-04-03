@@ -17,7 +17,7 @@ struct AOSEmulatorView: View {
     @EnvironmentObject private var proxyManager: HTTPProxyManager
     @State private var startDisabled = false
     @State private var configureDisabled = false
-    @State private var isShowingConfigure = false
+    @State private var isConfigureDisplayed = false
     @State private var proxy: HTTPProxyManager.Proxy?
 
     var body: some View {
@@ -27,23 +27,15 @@ struct AOSEmulatorView: View {
             }
             .disabled(startDisabled)
             Button("Reconfigure") {
-                isShowingConfigure.toggle()
+                isConfigureDisplayed.toggle()
             }
             .disabled(configureDisabled)
-            .sheet(isPresented: $isShowingConfigure) {
-                DialogView(primaryButton: .default("OK", action: {
-                    guard let proxy = proxy else { return }
-                    isShowingConfigure.toggle()
-                    emulator.configure(proxy: proxy.string,
-                                       caPath: proxyManager.caPaths)
-                }), secondaryButton: .cancel("Cancel", action: {
-                    proxy = nil
-                    isShowingConfigure.toggle()
-                })) {
-                    ProxyTypeView(clientType: .aos, proxy: $proxy)
-                        .environmentObject(proxyManager)
-                }
-                .padding()
+            .sheet(isPresented: $isConfigureDisplayed) {
+                AOSConfigureEmulatorView(isDisplayed: $isConfigureDisplayed, isCancellable: true)
+                    .environmentObject(proxyManager)
+                    .environmentObject(emulator)
+                    .frame(width: 200)
+                    .padding()
             }
         }
         .onReceive(Just(emulator.state)) { state in

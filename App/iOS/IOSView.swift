@@ -20,6 +20,7 @@ struct IOSView: View {
             switch simulator.state {
             case .notConfigured:
                 IOSConfigureView(isDisplayed: .constant(true), isCancellable: false)
+                    .environmentObject(simulator)
                     .onAppear {
                         activityState = simulator.state.activity
                     }

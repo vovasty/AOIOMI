@@ -21,6 +21,11 @@ struct AOSView: View {
 
             if case AOSEmulatorRuntime.State.installed = runtime.state {
                 switch emulator.state {
+                case .notConfigured:
+                    AOSConfigureEmulatorView(isDisplayed: .constant(true), isCancellable: false)
+                        .onAppear {
+                            activityState = emulator.state.activity
+                        }
                 case .started:
                     AppView(appManager: appManager,
                             activityState: $activityState,
@@ -28,7 +33,7 @@ struct AOSView: View {
                             fileExtensions: ["apk"]) { url in
                         appManager.install(apk: url)
                     }
-                case .stopped, .starting, .stopping, .checking, .configuring, .notConfigured:
+                case .stopped, .starting, .stopping, .checking, .configuring:
                     AOSEmulatorView(activityState: $activityState)
                 }
             } else {
