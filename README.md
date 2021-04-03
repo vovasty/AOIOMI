@@ -1,4 +1,6 @@
-# Coupang Mobile App
+![Android Runtime](App/Assets.xcassets/AppIcon.appiconset/128@2x.png)
+
+# AOIOMI
 A wrapper for AOS emulator and iOS simulator. 
 
 # Requirements
