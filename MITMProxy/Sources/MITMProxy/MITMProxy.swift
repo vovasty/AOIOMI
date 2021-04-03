@@ -29,7 +29,15 @@ public class MITMProxy: ObservableObject {
     private let killOrphanCommand: String
     private let mitmProxyConfigDir: URL
     private var proxyParameters: [String] {
-        ["--no-web-open-browser", "--listen-port", String(port), "-s", addonURL.path, "--set", "confdir=\(mitmProxyConfigDir.path)"] + allowedHosts.map { ["--allow-hosts", $0] }.flatMap { $0 }
+        ["--no-web-open-browser",
+         "--listen-port", String(port),
+         "--listen-host", "127.0.0.1",
+         "--web-port", "\(guiPort)",
+         "--web-host", "127.0.0.1",
+         "-s", addonURL.path,
+         "--set",
+         "confdir=\(mitmProxyConfigDir.path)"] +
+            allowedHosts.map { ["--allow-hosts", $0] }.flatMap { $0 }
     }
 
     private var process: AsyncCommand?
@@ -38,11 +46,13 @@ public class MITMProxy: ObservableObject {
     private var needStart: Bool = false
 
     public var port: Int
+    public var guiPort: Int
     public var allowedHosts: [String]
 
     public init(port: Int, guiPort: Int = 8081, appSupportPath: URL, allowedHosts: [String]) {
         context = CustomContext(main)
         self.port = port
+        self.guiPort = guiPort
         self.allowedHosts = allowedHosts
         killOrphanCommand = Bundle.module.url(forResource: "kill-orphan.sh", withExtension: "")!.path
         addonsLibURL = Bundle.module.url(forResource: "addons", withExtension: "")!
