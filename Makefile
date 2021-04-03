@@ -7,7 +7,7 @@ EXPORTED_APP_PATH=$(EXPORT_PATH)/AOIOMI.app
 
 
 .PHONY: all
-all: bootstrap export
+all: bootstrap archive
 
 .PHONY: build
 build:
@@ -18,8 +18,8 @@ export: build
 	xcodebuild -archivePath "$(ARCHIVE_PATH)" -exportArchive -exportPath "$(EXPORT_PATH)" -exportOptionsPlist exportOptions.plist
 
 .PHONY: archive
-archive: build
-	ditto -c -k --sequesterRsrc --keepParent $(BUILDED_APP_PATH) $(ZIP_PATH)
+archive: export
+	ditto -c -k --sequesterRsrc --keepParent $(EXPORTED_APP_PATH) $(ZIP_PATH)
 	
 .PHONY: bootstrap
 bootstrap:
