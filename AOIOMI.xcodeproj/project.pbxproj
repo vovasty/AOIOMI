@@ -86,7 +86,7 @@
 		B4A976A3253114D200962CC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B4A976A6253114D200962CC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4A976A8253114D200962CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B4A976A9253114D200962CC1 /* AOIOMI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AOIOMI.entitlements; sourceTree = "<group>"; };
+		B4A976A9253114D200962CC1 /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		B4AF108E2616B51A00808341 /* AOSEmulatorRuntime */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulatorRuntime; sourceTree = "<group>"; };
 		B4AF10932616B8E100808341 /* AOSRuntimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRuntimeView.swift; sourceTree = "<group>"; };
 		B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorRuntimeState.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 				B4EFC9F72615449300483DAD /* UserDefaults */,
 				B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */,
 				B40942C325DB97F8005CBEB3 /* AOSEmulator */,
-				B4A9769B253114D100962CC1 /* AOIOMI */,
+				B4A9769B253114D100962CC1 /* App */,
 				B4A9769A253114D100962CC1 /* Products */,
 				B4A976CF2531160300962CC1 /* Frameworks */,
 			);
@@ -171,7 +171,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B4A9769B253114D100962CC1 /* AOIOMI */ = {
+		B4A9769B253114D100962CC1 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				B4A9769C253114D100962CC1 /* AppDelegate.swift */,
@@ -194,10 +194,10 @@
 				B4A976A0253114D200962CC1 /* Assets.xcassets */,
 				B4A976A5253114D200962CC1 /* Main.storyboard */,
 				B4A976A8253114D200962CC1 /* Info.plist */,
-				B4A976A9253114D200962CC1 /* AOIOMI.entitlements */,
+				B4A976A9253114D200962CC1 /* App.entitlements */,
 				B4A976A2253114D200962CC1 /* Preview Content */,
 			);
-			path = AOIOMI;
+			path = App;
 			sourceTree = "<group>";
 		};
 		B4A976A2253114D200962CC1 /* Preview Content */ = {
@@ -494,16 +494,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = AOIOMI/AOIOMI.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"AOIOMI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = HKRVRL538S;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = AOIOMI/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -520,16 +520,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = AOIOMI/AOIOMI.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"AOIOMI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = HKRVRL538S;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = AOIOMI/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
