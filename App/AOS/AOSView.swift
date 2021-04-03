@@ -46,9 +46,11 @@ struct AOSView: View {
             AOSView()
                 .environmentObject(AOSEmulator.preview(state: .notConfigured(nil)))
                 .environmentObject(AOSAppManager.preview(state: .notInstalled(nil)))
+                .environmentObject(AOSEmulatorRuntime.preview(state: .installed))
             AOSView()
                 .environmentObject(AOSEmulator.preview(state: .started))
                 .environmentObject(AOSAppManager.preview(state: .installed(error: nil, defaults: nil)))
+                .environmentObject(AOSEmulatorRuntime.preview(state: .installed))
         }
     }
 #endif

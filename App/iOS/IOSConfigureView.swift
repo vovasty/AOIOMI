@@ -49,6 +49,8 @@ struct IOSConfigureView: View {
     struct IOSConfigureView_Previews: PreviewProvider {
         static var previews: some View {
             IOSConfigureView(isDisplayed: .constant(true), isCancellable: false)
+                .environmentObject(HTTPProxyManager.preview())
+                .environmentObject(UserSettings())
                 .environmentObject(IOSSimulator.preview(deviceTypes: [
                     SimctlList.DeviceType(name: "iPhone"),
                     SimctlList.DeviceType(name: "iPad"),

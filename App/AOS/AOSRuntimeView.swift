@@ -30,9 +30,11 @@ struct AOSRuntimeView: View {
     }
 }
 
-//
-// struct AOSRuntimeViewView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AOSRuntimeViewView()
-//    }
-// }
+#if DEBUG
+    struct AOSRuntimeView_Previews: PreviewProvider {
+        static var previews: some View {
+            AOSRuntimeView(activityState: .constant(.busy("busy!")))
+                .environmentObject(AOSEmulatorRuntime.preview(state: .installed))
+        }
+    }
+#endif

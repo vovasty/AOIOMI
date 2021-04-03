@@ -69,3 +69,13 @@ public class AOSEmulatorRuntime: ObservableObject {
             }
     }
 }
+
+#if DEBUG
+    public extension AOSEmulatorRuntime {
+        static func preview(state: State) -> AOSEmulatorRuntime {
+            let runtime = AOSEmulatorRuntime(home: URL(fileURLWithPath: "/nonexisting"))
+            runtime.state = state
+            return runtime
+        }
+    }
+#endif

@@ -38,10 +38,13 @@ struct ProxyTypeView: View {
     }
 }
 
-// struct ProxyPickerView_Previews: PreviewProvider {
-//    @State static var proxyType: ProxyType = .charles
-//
-//    static var previews: some View {
-//        ProxyTypeView(proxyType: $proxyType)
-//    }
-// }
+#if DEBUG
+    struct ProxyPickerView_Previews: PreviewProvider {
+        @State static var proxy: HTTPProxyManager.Proxy? = nil
+
+        static var previews: some View {
+            ProxyTypeView(clientType: .ios, proxy: $proxy)
+                .environmentObject(HTTPProxyManager.preview())
+        }
+    }
+#endif

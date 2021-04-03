@@ -100,8 +100,7 @@ struct ContentView: View {
                 .frame(width: 400, height: 300, alignment: .leading)
                 .environmentObject(AOSEmulator.preview(state: .configuring))
                 .environmentObject(IOSSimulator.preview(state: .started))
-                .environmentObject(IOSAppManager.preview())
-                .environmentObject(AOSAppManager.preview())
+                .environmentObject(MITMProxy.preview)
                 .environmentObject(UserSettings())
         }
     }
