@@ -14,3 +14,8 @@ install_translator:
 	swift build -c release --package-path ../Translator/
 	install ../Translator/.build/release/libTranslator.dylib "$(INSTALL_DIR)"/lib
 
+.PHONY: clean
+clean:
+	rm -fr ../Translator/.build
+	rm -f "$(INSTALL_DIR)"/lib/libTranslator.dylib
+	rm -f "$(INSTALL_DIR)"/mitmproxy/mitmweb

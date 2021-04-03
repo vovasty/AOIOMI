@@ -1,20 +1,21 @@
 BUILD_DIR=.build
 ARCHIVE_PATH=$(BUILD_DIR)/app.xcarchive
-BUILDED_APP_PATH=$(ARCHIVE_PATH)/Products/Applications/CoupangMobileApp.app
-ZIP_PATH=$(BUILD_DIR)/../CoupangMobileApp.zip
+ZIP_PATH=$(BUILD_DIR)/../AOIOMI.zip
 DERIVED_PATH=$(BUILD_DIR)/derived
+EXPORT_PATH=$(BUILD_DIR)/export
+EXPORTED_APP_PATH=$(EXPORT_PATH)/AOIOMI.app
 
 
 .PHONY: all
-all: archive
+all: aos mitm export
 
 .PHONY: build
 build:
-	xcodebuild -project CoupangMobileApp.xcodeproj -config Release -scheme CoupangMobileApp -derivedDataPath $(DERIVED_PATH) -archivePath $(ARCHIVE_PATH) archive
+	xcodebuild -project AOIOMI.xcodeproj -config Release -scheme AOIOMI -derivedDataPath $(DERIVED_PATH) -archivePath $(ARCHIVE_PATH) archive
 	
 .PHONY: export
 export: build
-	xcodebuild -archivePath "$(ARCHIVE_PATH)" -exportArchive -exportPath "$(APP_PATH)" -exportOptionsPlist exportOptions.plist
+	xcodebuild -archivePath "$(ARCHIVE_PATH)" -exportArchive -exportPath "$(EXPORT_PATH)" -exportOptionsPlist exportOptions.plist
 
 .PHONY: archive
 archive: build
@@ -22,9 +23,14 @@ archive: build
 	
 .PHONY: aos
 aos:
-	 $(MAKE) -C AOSEmulator all
+	 $(MAKE) -C AOSEmulatorRuntime all
+
+.PHONY: mitm
+mitm:
+	 $(MAKE) -C MITMProxy all
 
 .PHONY: clean
 clean:
 	rm -fr $(BUILD_DIR)
-	$(MAKE) -C AOSEmulator clean
+	$(MAKE) -C AOSEmulatorRuntime clean
+	$(MAKE) -C MITMProxy clean
