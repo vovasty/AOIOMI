@@ -17,7 +17,7 @@ struct Label: View {
             if let image = image {
                 Image(image)
                     .resizable()
-                    .frame(width: 14, height: 14)
+                    .frame(width: 20, height: 20)
             }
             Text(text)
                 .font(!highlighted ? .footnote : Font.footnote.weight(.bold))

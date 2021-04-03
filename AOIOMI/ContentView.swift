@@ -7,6 +7,7 @@
 
 import AOSEmulator
 import IOSSimulator
+import MITMProxy
 import SwiftUI
 
 struct ContentView: View {
@@ -18,6 +19,7 @@ struct ContentView: View {
     @EnvironmentObject private var emulator: AOSEmulator
     @EnvironmentObject private var simulator: IOSSimulator
     @EnvironmentObject private var userSettings: UserSettings
+    @EnvironmentObject private var mitmProxy: MITMProxy
 
     var body: some View {
         GeometryReader { geometry in
@@ -53,10 +55,10 @@ struct ContentView: View {
                             tag: .permzone,
                             selection: $selection
                         ) {
-                            if userSettings.activePermZone == nil {
-                                Label(text: "Permzone")
-                            } else {
+                            if userSettings.activePermZone != nil, case MITMProxy.State.stopped = mitmProxy.state {
                                 Label(text: "Permzone", highlighted: true)
+                            } else {
+                                Label(text: "Permzone")
                             }
                         }
                         NavigationLink(
@@ -64,7 +66,7 @@ struct ContentView: View {
                             tag: .translator,
                             selection: $selection
                         ) {
-                            if userSettings.isTranslating {
+                            if userSettings.isTranslating, case MITMProxy.State.stopped = mitmProxy.state {
                                 Label(text: "Translator", highlighted: true)
                             } else {
                                 Label(text: "Translator")
@@ -75,7 +77,11 @@ struct ContentView: View {
                             tag: .settings,
                             selection: $selection
                         ) {
-                            Label(text: "Settings")
+                            if case MITMProxy.State.stopped = mitmProxy.state {
+                                Label(text: "Settings")
+                            } else {
+                                Label(text: "Settings", highlighted: true)
+                            }
                         }
                     }
                 }
