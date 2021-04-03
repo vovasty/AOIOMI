@@ -60,6 +60,7 @@ struct PermZoneView: View {
     }
 }
 
+#if DEBUG
 struct PermzoneView_Previews: PreviewProvider {
     static var previews: some View {
         PermZoneView()
@@ -68,3 +69,4 @@ struct PermzoneView_Previews: PreviewProvider {
             .frame(width: 300, height: 100)
     }
 }
+#endif

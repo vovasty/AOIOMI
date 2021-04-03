@@ -43,6 +43,7 @@ struct ProxyPortView: View {
     }
 }
 
+#if DEBUG
 struct ProxyPortView_Previews: PreviewProvider {
     static var previews: some View {
         ProxyPortView()
@@ -50,3 +51,4 @@ struct ProxyPortView_Previews: PreviewProvider {
             .environmentObject(UserSettings())
     }
 }
+#endif
