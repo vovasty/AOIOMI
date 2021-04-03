@@ -1,3 +1,3 @@
-# MitmProxy
+# MITMProxy
 
-A description of this package.
+https://mitmproxy.org/downloads
