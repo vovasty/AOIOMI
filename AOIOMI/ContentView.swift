@@ -25,31 +25,33 @@ struct ContentView: View {
         GeometryReader { geometry in
             NavigationView {
                 List {
-                    NavigationLink(
-                        destination: AOSView().frame(maxWidth: .infinity, alignment: .topLeading),
-                        tag: .aos,
-                        selection: $selection
-                    ) {
-                        if case AOSEmulator.State.notConfigured = emulator.state {
-                            Label(text: "Android", image: "aos")
-                        } else if case AOSEmulator.State.stopped = emulator.state {
-                            Label(text: "Android", image: "aos")
-                        } else {
-                            Label(text: "Android", image: "aos", highlighted: true)
+                    Section(header: Text("App").font(.footnote)) {
+                        NavigationLink(
+                            destination: AOSView().frame(maxWidth: .infinity, alignment: .topLeading),
+                            tag: .aos,
+                            selection: $selection
+                        ) {
+                            if case AOSEmulator.State.notConfigured = emulator.state {
+                                Label(text: "Android", image: "aos")
+                            } else if case AOSEmulator.State.stopped = emulator.state {
+                                Label(text: "Android", image: "aos")
+                            } else {
+                                Label(text: "Android", image: "aos", highlighted: true)
+                            }
+                        }
+                        NavigationLink(
+                            destination: IOSView().frame(maxWidth: .infinity, alignment: .leading),
+                            tag: .ios,
+                            selection: $selection
+                        ) {
+                            if case IOSSimulator.State.stopped = simulator.state {
+                                Label(text: "iOS", image: "ios")
+                            } else {
+                                Label(text: "iOS", image: "ios", highlighted: true)
+                            }
                         }
                     }
-                    NavigationLink(
-                        destination: IOSView().frame(maxWidth: .infinity, alignment: .leading),
-                        tag: .ios,
-                        selection: $selection
-                    ) {
-                        if case IOSSimulator.State.stopped = simulator.state {
-                            Label(text: "iOS", image: "ios")
-                        } else {
-                            Label(text: "iOS", image: "ios", highlighted: true)
-                        }
-                    }
-                    Section(header: Label(text: "Proxy", image: "proxy")) {
+                    Section(header: Text("Proxy").font(.footnote)) {
                         NavigationLink(
                             destination: PermZoneView().frame(maxWidth: .infinity, alignment: .leading),
                             tag: .permzone,
