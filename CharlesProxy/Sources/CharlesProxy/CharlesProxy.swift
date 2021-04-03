@@ -44,6 +44,10 @@ public class CharlesProxy: ObservableObject {
         guard (try? url.checkResourceIsReachable()) ?? false else { return nil }
         return url
     }
+
+    public var isInstalled: Bool {
+        port != nil && caURL != nil
+    }
 }
 
 #if DEBUG

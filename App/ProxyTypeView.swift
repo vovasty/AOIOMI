@@ -24,11 +24,11 @@ struct ProxyTypeView: View {
     let clientType: HTTPProxyManager.ClientType
     @Binding var proxy: HTTPProxyManager.Proxy?
     @EnvironmentObject private var httpProxyManager: HTTPProxyManager
-    @State private var proxyType: HTTPProxyManager.ProxyType = .charles
+    @State private var proxyType: HTTPProxyManager.ProxyType = .mitm
 
     var body: some View {
         Picker("Proxy", selection: $proxyType) {
-            ForEach(HTTPProxyManager.ProxyType.allCases, id: \.self) {
+            ForEach(httpProxyManager.proxyList, id: \.self) {
                 Text($0.name)
             }
         }

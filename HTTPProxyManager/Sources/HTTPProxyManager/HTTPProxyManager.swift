@@ -25,7 +25,7 @@ public class HTTPProxyManager: ObservableObject {
         }
     }
 
-    public enum ProxyType: CaseIterable {
+    public enum ProxyType {
         case mitm, charles
     }
 
@@ -33,6 +33,14 @@ public class HTTPProxyManager: ObservableObject {
     public let mitmProxy: MITMProxy
     public var caPaths: [URL] {
         [charlesProxy.caURL, mitmProxy.caCert].compactMap { $0 }
+    }
+
+    public var proxyList: [ProxyType] {
+        if charlesProxy.isInstalled {
+            return [.mitm, .charles]
+        } else {
+            return [.mitm]
+        }
     }
 
     public init(charlesProxy: CharlesProxy, mitmProxy: MITMProxy) {
