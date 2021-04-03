@@ -1,7 +1,7 @@
 export INSTALL_DIR = Sources/AOSEmulatorRuntime/Resources
 
-.PHONY: all
-all:
+.PHONY: bootstrap
+bootstrap:
 ifndef SOURCE_PACKAGES
 	$(error SOURCE_PACKAGES is not set)
 endif

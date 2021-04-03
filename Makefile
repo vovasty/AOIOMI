@@ -7,7 +7,7 @@ EXPORTED_APP_PATH=$(EXPORT_PATH)/AOIOMI.app
 
 
 .PHONY: all
-all: aos mitm export
+all: bootstrap export
 
 .PHONY: build
 build:
@@ -21,13 +21,10 @@ export: build
 archive: build
 	ditto -c -k --sequesterRsrc --keepParent $(BUILDED_APP_PATH) $(ZIP_PATH)
 	
-.PHONY: aos
-aos:
-	 $(MAKE) -C AOSEmulatorRuntime all
-
-.PHONY: mitm
-mitm:
-	 $(MAKE) -C MITMProxy all
+.PHONY: bootstrap
+bootstrap:
+	 $(MAKE) -C AOSEmulatorRuntime bootstrap
+	 $(MAKE) -C MITMProxy bootstrap
 
 .PHONY: clean
 clean:

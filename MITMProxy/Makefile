@@ -1,7 +1,7 @@
 export INSTALL_DIR = Sources/MITMProxy/Resources
 
-.PHONY: all
-all: install_translator
+.PHONY: bootstrap
+bootstrap: install_translator
 ifndef SOURCE_PACKAGES
 	$(error SOURCE_PACKAGES is not set)
 endif
