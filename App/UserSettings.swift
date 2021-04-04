@@ -9,6 +9,8 @@ import Combine
 import HTTPProxyManager
 import IOSSimulator
 import MITMProxy
+import MITMProxyAddons
+import TranslatorAddon
 import UserDefaults
 
 final class UserSettings: ObservableObject {
@@ -50,17 +52,17 @@ final class UserSettings: ObservableObject {
     }
 
     @UserDefault("translateDefinitions", defaultValue: [
-        TranslateDefinition(name: "Search Filter",
-                            definition: TranslateAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/152/v3/search-filter",
-                                                                  paths: ["rData"])),
-        TranslateDefinition(name: "Recommended Keywords",
-                            definition: TranslateAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/26/recommended-keywords/list",
-                                                                  paths: ["rData.freshTrendingKeywords.*.keywords.content", "rData.recommendedKeywords.*.content"])),
-        TranslateDefinition(name: "Hot Keywords",
-                            definition: TranslateAddon.Definition(url: "https://cmapi.coupang.com/v3/hot-keywords",
-                                                                  paths: ["rData.entityList.*.entity.links.*.nameAttr"])),
+        TranslatorDefinition(name: "Search Filter",
+                             definition: TranslatorAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/152/v3/search-filter",
+                                                                    paths: ["rData"])),
+        TranslatorDefinition(name: "Recommended Keywords",
+                             definition: TranslatorAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/26/recommended-keywords/list",
+                                                                    paths: ["rData.freshTrendingKeywords.*.keywords.content", "rData.recommendedKeywords.*.content"])),
+        TranslatorDefinition(name: "Hot Keywords",
+                             definition: TranslatorAddon.Definition(url: "https://cmapi.coupang.com/v3/hot-keywords",
+                                                                    paths: ["rData.entityList.*.entity.links.*.nameAttr"])),
     ])
-    var translateDefinitions: [TranslateDefinition] {
+    var translateDefinitions: [TranslatorDefinition] {
         willSet {
             objectWillChange.send()
         }
@@ -89,7 +91,7 @@ extension UserSettings {
         }
 
         if isTranslating {
-            addons.append(TranslateAddon(definitions: translateDefinitions.filter(\.isChecked).map(\.definition)))
+            addons.append(TranslatorAddon(definitions: translateDefinitions.filter(\.isChecked).map(\.definition)))
         }
 
         return addons

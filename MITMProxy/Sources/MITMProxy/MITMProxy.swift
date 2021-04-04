@@ -2,12 +2,6 @@ import Combine
 import Foundation
 import SwiftShell
 
-public protocol Addon {
-    var id: String { get }
-    var importString: String { get }
-    var constructor: String { get }
-}
-
 public class MITMProxy: ObservableObject {
     public enum State {
         case started, starting, stopped, stopping
@@ -16,12 +10,6 @@ public class MITMProxy: ObservableObject {
     @Published public private(set) var state: State = .stopped
     public var uiUrl: URL {
         URL(string: "http://127.0.0.1:\(guiPort)")!
-    }
-
-    public var addons: [Addon] = [] {
-        didSet {
-            generateAddonScript()
-        }
     }
 
     public let caCert: URL
@@ -37,20 +25,19 @@ public class MITMProxy: ObservableObject {
          "--listen-host", "127.0.0.1",
          "--web-port", "\(guiPort)",
          "--web-host", "127.0.0.1",
-         "-s", addonURL.path,
+         "-s", addonManager.scriptURL.path,
          "--set",
          "confdir=\(mitmProxyConfigDir.path)"] +
             allowedHosts.map { ["--allow-hosts", $0] }.flatMap { $0 }
     }
 
     private var process: AsyncCommand?
-    private let addonURL: URL
-    private let addonsLibURL: URL
     private var needStart: Bool = false
 
     public var port: Int
     public var guiPort: Int
     public var allowedHosts: [String]
+    public var addonManager: AddonManager
 
     public init(port: Int, guiPort: Int, appSupportPath: URL, allowedHosts: [String]) {
         context = CustomContext(main)
@@ -58,11 +45,10 @@ public class MITMProxy: ObservableObject {
         self.guiPort = guiPort
         self.allowedHosts = allowedHosts
         killOrphanCommand = Bundle.module.url(forResource: "kill-orphan.sh", withExtension: "")!.path
-        addonsLibURL = Bundle.module.url(forResource: "addons", withExtension: "")!
-        addonURL = appSupportPath.appendingPathComponent("addons.py")
         proxyCommand = Bundle.module.url(forResource: "mitmweb", withExtension: "")!.path
         mitmProxyConfigDir = appSupportPath.appendingPathComponent("mitmproxy")
         caCert = mitmProxyConfigDir.appendingPathComponent("mitmproxy-ca-cert.pem")
+        addonManager = AddonManager(scriptURL: appSupportPath.appendingPathComponent("addons.py"))
     }
 
     public func start() {
@@ -70,7 +56,13 @@ public class MITMProxy: ObservableObject {
 
         queue.async { [weak self] in
             guard let self = self else { return }
-            self.generateAddonScript()
+
+            do {
+                try self.addonManager.writeScript()
+            } catch {
+                print("failed tow write addon script", error)
+            }
+
             self.process = self.context.runAsync(self.proxyCommand, self.proxyParameters)
                 .onCompletion { _ in
                     DispatchQueue.main.async { [weak self] in
@@ -130,37 +122,6 @@ public class MITMProxy: ObservableObject {
             }
         }
         task.resume()
-    }
-
-    private func createAddonScript() -> String {
-        let importString = addons.map(\.importString).joined(separator: "\n")
-
-        let initString = addons.map { "\($0.id) = \($0.constructor)" }.joined(separator: "\n")
-
-        let addonString = addons.map(\.id).joined(separator: ",")
-
-        let script = """
-        import sys
-        sys.path.append('\(addonsLibURL.path)')
-
-        \(importString)
-
-        \(initString)
-
-        addons = [
-            \(addonString)
-        ]
-        """
-        return script
-    }
-
-    private func generateAddonScript() {
-        let script = createAddonScript()
-        do {
-            try script.data(using: .utf8)?.write(to: addonURL, options: .atomicWrite)
-        } catch {
-            print("upable to create addon", error)
-        }
     }
 }
 

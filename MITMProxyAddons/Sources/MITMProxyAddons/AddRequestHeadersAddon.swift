@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import MITMProxy
 
 public struct AddRequestHeadersAddon: Addon {
+    public var sysPath: String?
     public let id = "addRequestHeaderAddon"
     public let importString = "from addrequestheadersaddon import AddRequestHeadersAddon"
     public let constructor: String
@@ -21,5 +23,6 @@ public struct AddRequestHeadersAddon: Addon {
             """
             AddRequestHeadersAddon({\(headersString)})
             """
+        sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.path
     }
 }

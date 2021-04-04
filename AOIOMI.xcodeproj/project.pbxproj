@@ -31,6 +31,8 @@
 		B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */; };
 		B4DC381525E2EEAD00E6206A /* NativeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381425E2EEAD00E6206A /* NativeButton.swift */; };
 		B4DC381925E2F11000E6206A /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381825E2F11000E6206A /* DialogView.swift */; };
+		B4E82DE3261978A900D0D7D9 /* MITMProxyAddons in Frameworks */ = {isa = PBXBuildFile; productRef = B4E82DE2261978A900D0D7D9 /* MITMProxyAddons */; };
+		B4E82DE5261978AF00D0D7D9 /* TranslatorAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B4E82DE4261978AF00D0D7D9 /* TranslatorAddon */; };
 		B4EFC9DB2615317F00483DAD /* PermZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9DA2615317F00483DAD /* PermZoneView.swift */; };
 		B4EFC9E1261537FD00483DAD /* PermZoneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */; };
 		B4EFC9E626153A5800483DAD /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9E526153A5800483DAD /* TextArea.swift */; };
@@ -95,6 +97,8 @@
 		B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorState.swift; sourceTree = "<group>"; };
 		B4DC381425E2EEAD00E6206A /* NativeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButton.swift; sourceTree = "<group>"; };
 		B4DC381825E2F11000E6206A /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
+		B4E82DE026196AD300D0D7D9 /* MITMProxyAddons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MITMProxyAddons; sourceTree = "<group>"; };
+		B4E82DE12619765E00D0D7D9 /* Translator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Translator; sourceTree = "<group>"; };
 		B4EFC9DA2615317F00483DAD /* PermZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermZoneView.swift; sourceTree = "<group>"; };
 		B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermZoneEditor.swift; sourceTree = "<group>"; };
 		B4EFC9E526153A5800483DAD /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
@@ -124,10 +128,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4EFCA142615573100483DAD /* MITMProxy in Frameworks */,
+				B4E82DE3261978A900D0D7D9 /* MITMProxyAddons in Frameworks */,
 				B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */,
 				B4FC830225DB9B54000E47A7 /* IOSSimulator in Frameworks */,
 				B40800B926179FB8009ED902 /* AOSEmulatorRuntime in Frameworks */,
 				B40800C22617B821009ED902 /* CharlesProxy in Frameworks */,
+				B4E82DE5261978AF00D0D7D9 /* TranslatorAddon in Frameworks */,
 				B4EFC9FB261544BB00483DAD /* UserDefaults in Frameworks */,
 				B40800C52617BCBD009ED902 /* HTTPProxyManager in Frameworks */,
 			);
@@ -153,10 +159,12 @@
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
+				B4E82DE12619765E00D0D7D9 /* Translator */,
+				B4EFCA102615572900483DAD /* MITMProxy */,
+				B4E82DE026196AD300D0D7D9 /* MITMProxyAddons */,
 				B40800C32617BC10009ED902 /* HTTPProxyManager */,
 				B40800C02617B6D6009ED902 /* CharlesProxy */,
 				B4AF108E2616B51A00808341 /* AOSEmulatorRuntime */,
-				B4EFCA102615572900483DAD /* MITMProxy */,
 				B4EFC9F72615449300483DAD /* UserDefaults */,
 				B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */,
 				B40942C325DB97F8005CBEB3 /* AOSEmulator */,
@@ -271,6 +279,8 @@
 				B40800B826179FB8009ED902 /* AOSEmulatorRuntime */,
 				B40800C12617B821009ED902 /* CharlesProxy */,
 				B40800C42617BCBD009ED902 /* HTTPProxyManager */,
+				B4E82DE2261978A900D0D7D9 /* MITMProxyAddons */,
+				B4E82DE4261978AF00D0D7D9 /* TranslatorAddon */,
 			);
 			productName = AOIOMI;
 			productReference = B4A97699253114D100962CC1 /* AOIOMI.app */;
@@ -586,6 +596,14 @@
 		B40942C625DB985F005CBEB3 /* AOSEmulator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AOSEmulator;
+		};
+		B4E82DE2261978A900D0D7D9 /* MITMProxyAddons */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MITMProxyAddons;
+		};
+		B4E82DE4261978AF00D0D7D9 /* TranslatorAddon */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TranslatorAddon;
 		};
 		B4EFC9FA261544BB00483DAD /* UserDefaults */ = {
 			isa = XCSwiftPackageProductDependency;

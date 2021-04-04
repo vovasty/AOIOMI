@@ -7,9 +7,10 @@
 
 import MITMProxy
 import SwiftUI
+import TranslatorAddon
 
 struct TranslateDefinitionListView: View {
-    @Binding var definitions: [TranslateDefinition]
+    @Binding var definitions: [TranslatorDefinition]
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,9 +22,9 @@ struct TranslateDefinitionListView: View {
 }
 
 struct TranslateDefinitionListView_Previews: PreviewProvider {
-    @State static var definitions: [TranslateDefinition] = [
-        TranslateDefinition(name: "one", definition: TranslateAddon.Definition(url: "", paths: [""])),
-        TranslateDefinition(name: "two", definition: TranslateAddon.Definition(url: "", paths: [""])),
+    @State static var definitions: [TranslatorDefinition] = [
+        TranslatorDefinition(name: "one", definition: TranslatorAddon.Definition(url: "", paths: [""])),
+        TranslatorDefinition(name: "two", definition: TranslatorAddon.Definition(url: "", paths: [""])),
     ]
 
     static var previews: some View {

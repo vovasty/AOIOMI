@@ -3,7 +3,7 @@ from mitmproxy import flow
 from mitmproxy import http
 from translator import Translator
 
-class TranslateAddon:
+class TranslatorAddon:
     def __init__(self, definitions):
         self.tr = Translator()
         self.definitions = definitions

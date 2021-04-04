@@ -7,8 +7,9 @@
 
 import Foundation
 import MITMProxy
+import TranslatorAddon
 
-struct TranslateDefinition: Codable {
+struct TranslatorDefinition: Codable {
     enum CodingKeys: String, CodingKey {
         case name
         case isChecked = "checked"
@@ -17,10 +18,10 @@ struct TranslateDefinition: Codable {
 
     let name: String
     var isChecked: Bool = false
-    let definition: TranslateAddon.Definition
+    let definition: TranslatorAddon.Definition
 }
 
-extension TranslateDefinition: Identifiable {
+extension TranslatorDefinition: Identifiable {
     var id: String {
         name
     }

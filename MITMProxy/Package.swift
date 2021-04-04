@@ -23,8 +23,6 @@ let package = Package(
             resources: [
                 .copy("Resources/mitmproxy/mitmweb"),
                 .copy("Resources/scripts/kill-orphan.sh"),
-                .copy("Resources/addons"),
-                .copy("Resources/lib"),
                 .process("mitmweb"),
                 .process("kill-orphan.sh"),
             ]

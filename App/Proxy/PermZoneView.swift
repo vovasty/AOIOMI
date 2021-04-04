@@ -56,7 +56,7 @@ struct PermZoneView: View {
         }
         .padding()
         .onReceive(Just(userSettings.activePermZone)) { _ in
-            mitmProxy.addons = userSettings.addons
+            try? mitmProxy.addonManager.set(addons: userSettings.addons)
         }
     }
 }

@@ -1,5 +1,4 @@
 // swift-tools-version:5.3
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -9,16 +8,20 @@ let package = Package(
         .macOS(.v10_15),
     ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Translator",
             type: .dynamic,
             targets: ["CAPI"]
         ),
+        .library(
+            name: "TranslatorAddon",
+            targets: ["TranslatorAddon"]
+        ),
         .executable(name: "translate", targets: ["App"]),
     ],
     dependencies: [
         .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.3.2"),
+        .package(path: "../MITMProxy"),
     ],
     targets: [
         .target(
@@ -33,12 +36,20 @@ let package = Package(
             name: "PrivateAPI",
             dependencies: []
         ),
-        .testTarget(
-            name: "TranslatorTests",
+        .target(
+            name: "App",
             dependencies: ["Translator"]
         ),
         .target(
-            name: "App",
+            name: "TranslatorAddon",
+            dependencies: ["MITMProxy"],
+            resources: [
+                .copy("Resources/python"),
+                .process("Resources/python/libTranslator.dylib"),
+            ]
+        ),
+        .testTarget(
+            name: "TranslatorTests",
             dependencies: ["Translator"]
         ),
     ]

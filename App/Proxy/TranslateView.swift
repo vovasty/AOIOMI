@@ -23,10 +23,10 @@ struct TranslateView: View {
         }
         .padding()
         .onReceive(Just(userSettings.isTranslating)) { _ in
-            mitmProxy.addons = userSettings.addons
+            try? mitmProxy.addonManager.set(addons: userSettings.addons)
         }
         .onReceive(Just(userSettings.translateDefinitions)) { _ in
-            mitmProxy.addons = userSettings.addons
+            try? mitmProxy.addonManager.set(addons: userSettings.addons)
         }
     }
 }

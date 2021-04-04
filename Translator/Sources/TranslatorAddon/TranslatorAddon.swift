@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import MITMProxy
 
-public struct TranslateAddon: Addon {
+public struct TranslatorAddon: Addon {
     public struct Definition: Codable {
         public let url: String
         public let paths: [String]
@@ -18,9 +19,10 @@ public struct TranslateAddon: Addon {
         }
     }
 
-    public let id: String = "translateAddon"
+    public let id: String = "translatorAddon"
     public let constructor: String
-    public let importString = "from translateaddon import TranslateAddon"
+    public let importString = "from translatoraddon import TranslatorAddon"
+    public let sysPath: String?
 
     public init(definitions: [Definition]) {
         let definitionsString = definitions
@@ -32,7 +34,8 @@ public struct TranslateAddon: Addon {
 
         constructor =
             """
-            TranslateAddon({\(definitionsString)})
+            TranslatorAddon({\(definitionsString)})
             """
+        sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.path
     }
 }

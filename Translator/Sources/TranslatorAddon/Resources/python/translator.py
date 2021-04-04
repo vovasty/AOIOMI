@@ -2,7 +2,7 @@ from ctypes import c_char_p, POINTER, cdll
 import os
 module_dirname = os.path.dirname(__file__)
 
-translator = cdll.LoadLibrary(module_dirname + '/../lib/libTranslator.dylib')
+translator = cdll.LoadLibrary(module_dirname + '/libTranslator.dylib')
 translator.translate.argtypes = (c_char_p, POINTER(c_char_p))
 translator.translate.restype = c_char_p
 

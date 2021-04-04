@@ -52,6 +52,7 @@ final class BigBrother {
                               appSupportPath: appSupportURL,
                               allowedHosts: userSettings.proxyAllowedHosts)
         mitmProxy.stopOrphan()
+        try? mitmProxy.addonManager.set(addons: userSettings.addons)
         mitmProxy.start()
 
         httpProxyManager = HTTPProxyManager(charlesProxy: CharlesProxy(), mitmProxy: mitmProxy)
