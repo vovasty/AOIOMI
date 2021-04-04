@@ -33,6 +33,7 @@ public class MITMProxy: ObservableObject {
 
     private var process: AsyncCommand?
     private var needStart: Bool = false
+    private var checkStartedTimer: Timer?
 
     public var port: Int
     public var guiPort: Int
@@ -108,20 +109,24 @@ public class MITMProxy: ObservableObject {
 
     private func checkStarted() {
         guard state == .starting else { return }
+        guard checkStartedTimer == nil else { return }
 
-        let request = URLRequest(url: uiUrl, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 0.1)
-        let task = URLSession.shared.dataTask(with: request) { [weak self] _, _, error in
+        checkStartedTimer = Timer(timeInterval: 1)
+        checkStartedTimer?.eventHandler = { [weak self] in
             guard let self = self else { return }
-            if error == nil {
+
+            let request = URLRequest(url: self.uiUrl, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 0.1)
+            let task = URLSession.shared.dataTask(with: request) { [weak self] _, _, error in
+                guard let self = self else { return }
+                guard error == nil else { return }
+                self.checkStartedTimer = nil
                 DispatchQueue.main.async { [weak self] in
                     self?.state = .started
                 }
-                return
-            } else {
-                self.checkStarted()
             }
+            task.resume()
         }
-        task.resume()
+        checkStartedTimer?.resume()
     }
 }
 
