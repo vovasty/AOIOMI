@@ -32,7 +32,7 @@ struct AOSConfigureEmulatorView: View {
             emulator.configure(proxy: proxy.string,
                                caPath: proxyManager.caPaths)
         }), secondaryButton: cancelButton) {
-            ProxyTypeView(clientType: .ios, proxy: $proxy)
+            ProxyTypeView(clientType: .aos, proxy: $proxy)
         }
     }
 }
