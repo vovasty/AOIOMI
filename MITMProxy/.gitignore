@@ -2,4 +2,4 @@
 .build
 *.dylib
 *.swp
-/Sources/MITMProxy/Resources/mitmproxy/mitmweb
+/Sources/MITMProxy/Resources/mitmweb

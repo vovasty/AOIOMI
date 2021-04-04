@@ -25,9 +25,11 @@ archive: export
 bootstrap:
 	 $(MAKE) -C AOSEmulatorRuntime bootstrap
 	 $(MAKE) -C MITMProxy bootstrap
+	 $(MAKE) -C Translator bootstrap
 
 .PHONY: clean
 clean:
 	rm -fr $(BUILD_DIR)
 	$(MAKE) -C AOSEmulatorRuntime clean
 	$(MAKE) -C MITMProxy clean
+	$(MAKE) -C Translator clean

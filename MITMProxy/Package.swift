@@ -21,10 +21,8 @@ let package = Package(
             name: "MITMProxy",
             dependencies: ["SwiftShell"],
             resources: [
-                .copy("Resources/mitmproxy/mitmweb"),
-                .copy("Resources/scripts/kill-orphan.sh"),
-                .process("mitmweb"),
-                .process("kill-orphan.sh"),
+                .process("Resources/mitmweb"),
+                .process("Resources/kill-orphan.sh"),
             ]
         ),
         .testTarget(
