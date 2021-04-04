@@ -6,7 +6,6 @@
 //
 
 import AOSEmulator
-import Combine
 import HTTPProxyManager
 import SwiftUI
 
@@ -38,7 +37,7 @@ struct AOSEmulatorView: View {
                     .padding()
             }
         }
-        .onReceive(Just(emulator.state)) { state in
+        .onReceive(emulator.$state) { state in
             switch state {
             case .stopped:
                 startDisabled = false

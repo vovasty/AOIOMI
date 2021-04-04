@@ -5,7 +5,6 @@
 //  Created by vlsolome on 2/11/21.
 //
 
-import Combine
 import HTTPProxyManager
 import IOSSimulator
 import SwiftUI
@@ -37,7 +36,7 @@ struct IOSSimulatorView: View {
                     .padding()
             }
         }
-        .onReceive(Just(simulator.state)) { state in
+        .onReceive(simulator.$state) { state in
             switch state {
             case .stopped:
                 startDisabled = false
