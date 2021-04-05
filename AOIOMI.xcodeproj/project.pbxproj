@@ -156,6 +156,36 @@
 			path = AOS;
 			sourceTree = "<group>";
 		};
+		B473A5C9261B955400AA639E /* Translate */ = {
+			isa = PBXGroup;
+			children = (
+				B4EFCA252616710700483DAD /* TranslateDefinition.swift */,
+				B4EFCA292616724F00483DAD /* TranslateDefinitionListView.swift */,
+				B4EFCA2D261672BC00483DAD /* TranslateView.swift */,
+			);
+			path = Translate;
+			sourceTree = "<group>";
+		};
+		B473A5CA261BA10000AA639E /* PermZone */ = {
+			isa = PBXGroup;
+			children = (
+				B4EFC9DA2615317F00483DAD /* PermZoneView.swift */,
+				B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */,
+				B4EFCA022615459400483DAD /* PermZone.swift */,
+			);
+			path = PermZone;
+			sourceTree = "<group>";
+		};
+		B473A5CB261BA12900AA639E /* Proxy */ = {
+			isa = PBXGroup;
+			children = (
+				B4EFCA0C2615534000483DAD /* ProxyView.swift */,
+				B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */,
+				B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */,
+			);
+			path = Proxy;
+			sourceTree = "<group>";
+		};
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
@@ -229,15 +259,9 @@
 		B4EFC9D92615315A00483DAD /* Proxy */ = {
 			isa = PBXGroup;
 			children = (
-				B4EFC9DA2615317F00483DAD /* PermZoneView.swift */,
-				B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */,
-				B4EFCA022615459400483DAD /* PermZone.swift */,
-				B4EFCA0C2615534000483DAD /* ProxyView.swift */,
-				B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */,
-				B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */,
-				B4EFCA252616710700483DAD /* TranslateDefinition.swift */,
-				B4EFCA292616724F00483DAD /* TranslateDefinitionListView.swift */,
-				B4EFCA2D261672BC00483DAD /* TranslateView.swift */,
+				B473A5CA261BA10000AA639E /* PermZone */,
+				B473A5CB261BA12900AA639E /* Proxy */,
+				B473A5C9261B955400AA639E /* Translate */,
 			);
 			path = Proxy;
 			sourceTree = "<group>";
