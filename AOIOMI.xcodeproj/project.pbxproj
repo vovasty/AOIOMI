@@ -17,6 +17,9 @@
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
 		B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F3D25E2E0A00090896C /* BigBrother.swift */; };
 		B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */; };
+		B473A5CE261BA8EC00AA639E /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473A5CD261BA8EC00AA639E /* PayloadView.swift */; };
+		B473A5D0261BAA4200AA639E /* ProxyPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473A5CF261BAA4200AA639E /* ProxyPayload.swift */; };
+		B473A5D2261BB5AA00AA639E /* PayloadEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473A5D1261BB5AA00AA639E /* PayloadEditorView.swift */; };
 		B4773215261908EB000F1245 /* AOSConfigureEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4773214261908EB000F1245 /* AOSConfigureEmulatorView.swift */; };
 		B47C937125E99C8700E19602 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47C937025E99C8700E19602 /* Label.swift */; };
 		B4884EC425DA4CA100FBFAD0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */; };
@@ -44,7 +47,6 @@
 		B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */; };
 		B4EFCA2026165DA200483DAD /* MITMProxyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */; };
 		B4EFCA262616710700483DAD /* TranslateDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA252616710700483DAD /* TranslateDefinition.swift */; };
-		B4EFCA2A2616724F00483DAD /* TranslateDefinitionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA292616724F00483DAD /* TranslateDefinitionListView.swift */; };
 		B4EFCA2E261672BC00483DAD /* TranslateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA2D261672BC00483DAD /* TranslateView.swift */; };
 		B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5925DCE5A500D23AFD /* AppView.swift */; };
 		B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */; };
@@ -79,6 +81,9 @@
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
 		B4687F3D25E2E0A00090896C /* BigBrother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigBrother.swift; sourceTree = "<group>"; };
 		B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSimulatorState.swift; sourceTree = "<group>"; };
+		B473A5CD261BA8EC00AA639E /* PayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadView.swift; sourceTree = "<group>"; };
+		B473A5CF261BAA4200AA639E /* ProxyPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyPayload.swift; sourceTree = "<group>"; };
+		B473A5D1261BB5AA00AA639E /* PayloadEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadEditorView.swift; sourceTree = "<group>"; };
 		B4773214261908EB000F1245 /* AOSConfigureEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSConfigureEmulatorView.swift; sourceTree = "<group>"; };
 		B47C937025E99C8700E19602 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -110,7 +115,6 @@
 		B4EFCA1B26165C6700483DAD /* ProxyPortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyPortView.swift; sourceTree = "<group>"; };
 		B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MITMProxyState.swift; sourceTree = "<group>"; };
 		B4EFCA252616710700483DAD /* TranslateDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateDefinition.swift; sourceTree = "<group>"; };
-		B4EFCA292616724F00483DAD /* TranslateDefinitionListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateDefinitionListView.swift; sourceTree = "<group>"; };
 		B4EFCA2D261672BC00483DAD /* TranslateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateView.swift; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
@@ -160,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				B4EFCA252616710700483DAD /* TranslateDefinition.swift */,
-				B4EFCA292616724F00483DAD /* TranslateDefinitionListView.swift */,
 				B4EFCA2D261672BC00483DAD /* TranslateView.swift */,
 			);
 			path = Translate;
@@ -184,6 +187,16 @@
 				B4EFCA1F26165DA200483DAD /* MITMProxyState.swift */,
 			);
 			path = Proxy;
+			sourceTree = "<group>";
+		};
+		B473A5CC261BA78C00AA639E /* Payload */ = {
+			isa = PBXGroup;
+			children = (
+				B473A5CD261BA8EC00AA639E /* PayloadView.swift */,
+				B473A5D1261BB5AA00AA639E /* PayloadEditorView.swift */,
+				B473A5CF261BAA4200AA639E /* ProxyPayload.swift */,
+			);
+			path = Payload;
 			sourceTree = "<group>";
 		};
 		B4A97690253114D100962CC1 = {
@@ -259,6 +272,7 @@
 		B4EFC9D92615315A00483DAD /* Proxy */ = {
 			isa = PBXGroup;
 			children = (
+				B473A5CC261BA78C00AA639E /* Payload */,
 				B473A5CA261BA10000AA639E /* PermZone */,
 				B473A5CB261BA12900AA639E /* Proxy */,
 				B473A5C9261B955400AA639E /* Translate */,
@@ -364,7 +378,9 @@
 				B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */,
 				B4AF109A2616B98D00808341 /* AOSEmulatorRuntimeState.swift in Sources */,
 				B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */,
+				B473A5CE261BA8EC00AA639E /* PayloadView.swift in Sources */,
 				B4EFC9E1261537FD00483DAD /* PermZoneEditor.swift in Sources */,
+				B473A5D2261BB5AA00AA639E /* PayloadEditorView.swift in Sources */,
 				B4EFCA262616710700483DAD /* TranslateDefinition.swift in Sources */,
 				B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
@@ -388,12 +404,12 @@
 				B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */,
 				B4EFCA0D2615534000483DAD /* ProxyView.swift in Sources */,
 				B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */,
+				B473A5D0261BAA4200AA639E /* ProxyPayload.swift in Sources */,
 				B4AF10942616B8E100808341 /* AOSRuntimeView.swift in Sources */,
 				B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */,
 				B403451C25D62B9500C2146D /* ErrorView.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */,
 				B4EFC9FF261544CF00483DAD /* UserSettings.swift in Sources */,
-				B4EFCA2A2616724F00483DAD /* TranslateDefinitionListView.swift in Sources */,
 				B4884EC425DA4CA100FBFAD0 /* ActivityIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

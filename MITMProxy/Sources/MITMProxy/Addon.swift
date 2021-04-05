@@ -11,5 +11,5 @@ public protocol Addon {
     var id: String { get }
     var sysPath: String? { get }
     var importString: String { get }
-    var constructor: String { get }
+    func constructor(dataDir: URL) -> String
 }

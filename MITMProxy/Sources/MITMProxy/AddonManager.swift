@@ -10,10 +10,12 @@ import Foundation
 public class AddonManager {
     private var addons: [Addon] = []
 
-    let scriptURL: URL
+    let script: URL
+    let dataDir: URL
 
-    init(scriptURL: URL) {
-        self.scriptURL = scriptURL
+    init(script: URL, dataDir: URL) {
+        self.script = script
+        self.dataDir = dataDir
     }
 
     public func set(addons: [Addon]) throws {
@@ -23,7 +25,7 @@ public class AddonManager {
 
     func writeScript() throws {
         let script = makeScript()
-        try script.data(using: .utf8)?.write(to: scriptURL, options: .atomicWrite)
+        try script.data(using: .utf8)?.write(to: self.script, options: .atomicWrite)
     }
 
     private func makeScript() -> String {
@@ -38,7 +40,7 @@ public class AddonManager {
         let importString = addons.map(\.importString).joined(separator: "\n")
 
         let initString = addons.map {
-            "\($0.id) = \($0.constructor)"
+            "\($0.id) = \($0.constructor(dataDir: dataDir))"
         }.joined(separator: "\n")
 
         let addonString = addons.map(\.id).joined(separator: ",")

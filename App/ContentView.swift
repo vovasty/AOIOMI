@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ContentView: View {
     enum Page: Int {
-        case aos, ios, permzone, translator, settings
+        case aos, ios, permzone, translator, settings, payload
     }
 
     @State private var selection: Page?
@@ -58,6 +58,17 @@ struct ContentView: View {
                             Label(text: "Permzone", style: .zone, highlighted: true)
                         } else {
                             Label(text: "Permzone", style: .zone)
+                        }
+                    }
+                    NavigationLink(
+                        destination: PayloadView().frame(maxWidth: .infinity, alignment: .leading),
+                        tag: .payload,
+                        selection: $selection
+                    ) {
+                        if userSettings.isPayloadEnabled, case MITMProxy.State.started = mitmProxy.state {
+                            Label(text: "Payload", style: .payload, highlighted: true)
+                        } else {
+                            Label(text: "Payload", style: .payload)
                         }
                     }
                     NavigationLink(

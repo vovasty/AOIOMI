@@ -20,9 +20,9 @@ public struct TranslatorAddon: Addon {
     }
 
     public let id: String = "translatorAddon"
-    public let constructor: String
     public let importString = "from translatoraddon import TranslatorAddon"
     public let sysPath: String?
+    private let constructorString: String
 
     public init(definitions: [Definition]) {
         let definitionsString = definitions
@@ -32,10 +32,14 @@ public struct TranslatorAddon: Addon {
             }
             .joined(separator: ", ")
 
-        constructor =
+        constructorString =
             """
             TranslatorAddon({\(definitionsString)})
             """
         sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.path
+    }
+
+    public func constructor(dataDir _: URL) -> String {
+        constructorString
     }
 }

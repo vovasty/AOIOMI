@@ -25,7 +25,7 @@ public class MITMProxy: ObservableObject {
          "--listen-host", "127.0.0.1",
          "--web-port", "\(guiPort)",
          "--web-host", "127.0.0.1",
-         "-s", addonManager.scriptURL.path,
+         "-s", addonManager.script.path,
          "--set",
          "confdir=\(mitmProxyConfigDir.path)"] +
             allowedHosts.map { ["--allow-hosts", $0] }.flatMap { $0 }
@@ -49,7 +49,8 @@ public class MITMProxy: ObservableObject {
         proxyCommand = Bundle.module.url(forResource: "mitmweb", withExtension: "")!.path
         mitmProxyConfigDir = appSupportPath.appendingPathComponent("mitmproxy")
         caCert = mitmProxyConfigDir.appendingPathComponent("mitmproxy-ca-cert.pem")
-        addonManager = AddonManager(scriptURL: appSupportPath.appendingPathComponent("addons.py"))
+        addonManager = AddonManager(script: appSupportPath.appendingPathComponent("addons.py"),
+                                    dataDir: appSupportPath)
     }
 
     public func start() {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImageActivityIndicator: View {
     enum Style {
-        case ios, aos, proxy, zone, translator
+        case ios, aos, proxy, zone, translator, payload
 
         var color: Color {
             switch self {
@@ -23,6 +23,8 @@ struct ImageActivityIndicator: View {
                 return Color("translator")
             case .zone:
                 return Color("zone")
+            case .payload:
+                return Color("payload")
             }
         }
 
@@ -38,6 +40,8 @@ struct ImageActivityIndicator: View {
                 return Image("translator")
             case .zone:
                 return Image("zone")
+            case .payload:
+                return Image("payload")
             }
         }
     }

@@ -81,6 +81,13 @@ final class UserSettings: ObservableObject {
             objectWillChange.send()
         }
     }
+
+    @UserDefault("payloads", defaultValue: [ProxyPayload]())
+    var payloads: [ProxyPayload] {
+        willSet {
+            objectWillChange.send()
+        }
+    }
 }
 
 extension UserSettings {
@@ -94,11 +101,24 @@ extension UserSettings {
             addons.append(TranslatorAddon(definitions: translateDefinitions.filter(\.isChecked).map(\.definition)))
         }
 
+        if !payloads.isEmpty {
+            let payloads = self.payloads.reduce([String: String]()) { result, payload -> [String: String] in
+                var result = result
+                result[payload.regex] = payload.payload
+                return result
+            }
+            addons.append(ReplaceResponseContentAddon(payloads: payloads))
+        }
+
         return addons
     }
 
     var iosDefaults: IOSAppManager.Defaults? {
         guard let iosProxy = iosProxy else { return nil }
         return IOSAppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": iosProxy.host, "port": iosProxy.port])
+    }
+
+    var isPayloadEnabled: Bool {
+        !payloads.isEmpty
     }
 }
