@@ -14,6 +14,7 @@ public class AddonManager {
     let dataDir: URL
 
     init(script: URL, dataDir: URL) {
+        try? FileManager.default.createDirectory(at: dataDir, withIntermediateDirectories: false, attributes: nil)
         self.script = script
         self.dataDir = dataDir
     }

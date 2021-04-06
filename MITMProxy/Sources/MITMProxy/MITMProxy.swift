@@ -18,7 +18,7 @@ public class MITMProxy: ObservableObject {
     private let queue = DispatchQueue.global(qos: .background)
     private let proxyCommand: String
     private let killOrphanCommand: String
-    private let mitmProxyConfigDir: URL
+    private let home: URL
     private var proxyParameters: [String] {
         ["--no-web-open-browser",
          "--listen-port", String(port),
@@ -27,7 +27,7 @@ public class MITMProxy: ObservableObject {
          "--web-host", "127.0.0.1",
          "-s", addonManager.script.path,
          "--set",
-         "confdir=\(mitmProxyConfigDir.path)"] +
+         "confdir=\(home.path)"] +
             allowedHosts.map { ["--allow-hosts", $0] }.flatMap { $0 }
     }
 
@@ -40,17 +40,18 @@ public class MITMProxy: ObservableObject {
     public var allowedHosts: [String]
     public var addonManager: AddonManager
 
-    public init(port: Int, guiPort: Int, appSupportPath: URL, allowedHosts: [String]) {
+    public init(port: Int, guiPort: Int, home: URL, allowedHosts: [String]) {
         context = CustomContext(main)
         self.port = port
         self.guiPort = guiPort
         self.allowedHosts = allowedHosts
+        self.home = home
+        try? FileManager.default.createDirectory(at: home, withIntermediateDirectories: false, attributes: nil)
         killOrphanCommand = Bundle.module.url(forResource: "kill-orphan.sh", withExtension: "")!.path
         proxyCommand = Bundle.module.url(forResource: "mitmweb", withExtension: "")!.path
-        mitmProxyConfigDir = appSupportPath.appendingPathComponent("mitmproxy")
-        caCert = mitmProxyConfigDir.appendingPathComponent("mitmproxy-ca-cert.pem")
-        addonManager = AddonManager(script: appSupportPath.appendingPathComponent("addons.py"),
-                                    dataDir: appSupportPath)
+        caCert = home.appendingPathComponent("mitmproxy-ca-cert.pem")
+        addonManager = AddonManager(script: home.appendingPathComponent("addons.py"),
+                                    dataDir: home)
     }
 
     public func start() {
@@ -138,7 +139,7 @@ public class MITMProxy: ObservableObject {
                                                           in: .userDomainMask).first!
                 .appendingPathComponent(Bundle.main.bundleIdentifier!)
             try? FileManager.default.createDirectory(at: appSupportPath, withIntermediateDirectories: false, attributes: nil)
-            return MITMProxy(port: 9999, guiPort: 9998, appSupportPath: appSupportPath, allowedHosts: ["cmapi.coupang.com"])
+            return MITMProxy(port: 9999, guiPort: 9998, home: appSupportPath.appendingPathComponent("mitmproxy"), allowedHosts: ["cmapi.coupang.com"])
         }()
 
         func set(state: State) {

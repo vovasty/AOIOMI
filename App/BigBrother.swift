@@ -49,7 +49,7 @@ final class BigBrother {
 
         mitmProxy = MITMProxy(port: userSettings.proxyPort,
                               guiPort: userSettings.proxyGUIPort,
-                              appSupportPath: appSupportURL,
+                              home: appSupportURL.appendingPathComponent("mitmproxy"),
                               allowedHosts: userSettings.proxyAllowedHosts)
         mitmProxy.stopOrphan()
         try? mitmProxy.addonManager.set(addons: userSettings.addons)
