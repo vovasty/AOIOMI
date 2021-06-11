@@ -7,10 +7,10 @@ EXPORTED_APP_PATH=$(EXPORT_PATH)/AOIOMI.app
 
 
 .PHONY: all
-all: bootstrap archive
+all: clean bootstrap archive
 
 .PHONY: build
-build: clean
+build:
 	xcodebuild -project AOIOMI.xcodeproj -config Release -scheme AOIOMI -derivedDataPath $(DERIVED_PATH) -archivePath $(ARCHIVE_PATH) archive
 	
 .PHONY: export
