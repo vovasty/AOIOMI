@@ -13,8 +13,8 @@ struct ProxyPortView: View {
     @EnvironmentObject private var mitmProxy: MITMProxy
     @State private var isShowingPortChange: Bool = false
     @State private var proxyPort: String = ""
-    @State private var externalProxyPort: String = ""
-    @State private var externalProxyHost: String = ""
+    @State private var proxyExternalPort: String = ""
+    @State private var proxyExternalHost: String = ""
 
     var body: some View {
         HStack {
@@ -27,8 +27,8 @@ struct ProxyPortView: View {
                 DialogView(primaryButton: .default("OK", action: {
                     guard let proxyPort = Int(proxyPort) else { return }
                     userSettings.proxyPort = proxyPort
-                    userSettings.proxyExternalPort = Int(externalProxyPort)
-                    userSettings.proxyExternalHost = externalProxyHost
+                    userSettings.proxyExternalPort = Int(proxyExternalPort)
+                    userSettings.proxyExternalHost = proxyExternalHost
                     mitmProxy.port = userSettings.proxyPort
                     mitmProxy.upstreamProxyPort = userSettings.proxyExternalPort
                     mitmProxy.upstreamProxyHost = userSettings.proxyExternalHost
@@ -38,11 +38,13 @@ struct ProxyPortView: View {
                     proxyPort = String(userSettings.proxyPort)
                     isShowingPortChange.toggle()
                 })) {
-                    VStack {
+                    VStack(alignment: .leading) {
+                        Text("Proxy")
                         TextField("Proxy Port", text: $proxyPort)
+                        Text("External Proxy")
                         HStack {
-                            TextField("External Proxy Host", text: $externalProxyPort)
-                            TextField("Port", text: $externalProxyHost)
+                            TextField("Host", text: $proxyExternalHost)
+                            TextField("Port", text: $proxyExternalPort)
                         }
                     }
                 }
@@ -51,6 +53,12 @@ struct ProxyPortView: View {
         }
         .onAppear {
             proxyPort = String(userSettings.proxyPort)
+            if let proxyExternalPort = userSettings.proxyExternalPort {
+                self.proxyExternalPort = String(proxyExternalPort)
+            }
+            if let proxyExternalHost = userSettings.proxyExternalHost {
+                self.proxyExternalHost = proxyExternalHost
+            }
         }
     }
 }
