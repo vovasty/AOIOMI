@@ -44,7 +44,7 @@ final class UserSettings: ObservableObject {
         }
     }
 
-    @UserDefault("proxyAllowedHosts", defaultValue: ["cmapi.coupang.com"])
+    @UserDefault("proxyAllowedHosts", defaultValue: [])
     var proxyAllowedHosts: [String] {
         willSet {
             objectWillChange.send()
