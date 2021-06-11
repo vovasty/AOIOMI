@@ -51,6 +51,20 @@ final class UserSettings: ObservableObject {
         }
     }
 
+    @UserDefault("proxyExternalPort", defaultValue: nil)
+    var proxyExternalPort: Int? {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+
+    @UserDefault("proxyExternalHost", defaultValue: nil)
+    var proxyExternalHost: String? {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+
     @UserDefault("translateDefinitions", defaultValue: [
         TranslatorDefinition(name: "Search Filter",
                              definition: TranslatorAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/152/v3/search-filter",

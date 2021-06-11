@@ -20,15 +20,22 @@ public class MITMProxy: ObservableObject {
     private let killOrphanCommand: String
     private let home: URL
     private var proxyParameters: [String] {
-        ["--no-web-open-browser",
-         "--listen-port", String(port),
-         "--listen-host", "127.0.0.1",
-         "--web-port", "\(guiPort)",
-         "--web-host", "127.0.0.1",
-         "-s", addonManager.script.path,
-         "--set",
-         "confdir=\(home.path)"] +
-            allowedHosts.map { ["--allow-hosts", $0] }.flatMap { $0 }
+        var params = ["--no-web-open-browser",
+                      "--listen-port", String(port),
+                      "--listen-host", "127.0.0.1",
+                      "--web-port", "\(guiPort)",
+                      "--web-host", "127.0.0.1",
+                      "-s", addonManager.script.path,
+                      "--set",
+                      "confdir=\(home.path)"]
+
+        params += allowedHosts.map { ["--allow-hosts", $0] }.flatMap { $0 }
+
+        if let upstreamProxyPort = upstreamProxyPort, let upstreamProxyHost = upstreamProxyHost {
+            params += ["--mode", "upstream:https://\(upstreamProxyHost):\(upstreamProxyPort)"]
+        }
+
+        return params
     }
 
     private var process: AsyncCommand?
@@ -37,14 +44,15 @@ public class MITMProxy: ObservableObject {
 
     public var port: Int
     public var guiPort: Int
-    public var allowedHosts: [String]
+    public var allowedHosts: [String] = []
     public var addonManager: AddonManager
+    public var upstreamProxyPort: Int?
+    public var upstreamProxyHost: String?
 
-    public init(port: Int, guiPort: Int, home: URL, allowedHosts: [String]) {
+    public init(port: Int, guiPort: Int, home: URL) {
         context = CustomContext(main)
         self.port = port
         self.guiPort = guiPort
-        self.allowedHosts = allowedHosts
         self.home = home
         try? FileManager.default.createDirectory(at: home, withIntermediateDirectories: false, attributes: nil)
         killOrphanCommand = Bundle.module.url(forResource: "kill-orphan.sh", withExtension: "")!.path
@@ -139,7 +147,7 @@ public class MITMProxy: ObservableObject {
                                                           in: .userDomainMask).first!
                 .appendingPathComponent(Bundle.main.bundleIdentifier!)
             try? FileManager.default.createDirectory(at: appSupportPath, withIntermediateDirectories: false, attributes: nil)
-            return MITMProxy(port: 9999, guiPort: 9998, home: appSupportPath.appendingPathComponent("mitmproxy"), allowedHosts: ["cmapi.coupang.com"])
+            return MITMProxy(port: 9999, guiPort: 9998, home: appSupportPath.appendingPathComponent("mitmproxy"))
         }()
 
         func set(state: State) {

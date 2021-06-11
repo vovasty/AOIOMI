@@ -13,6 +13,8 @@ struct ProxyPortView: View {
     @EnvironmentObject private var mitmProxy: MITMProxy
     @State private var isShowingPortChange: Bool = false
     @State private var proxyPort: String = ""
+    @State private var externalProxyPort: String = ""
+    @State private var externalProxyHost: String = ""
 
     var body: some View {
         HStack {
@@ -25,14 +27,24 @@ struct ProxyPortView: View {
                 DialogView(primaryButton: .default("OK", action: {
                     guard let proxyPort = Int(proxyPort) else { return }
                     userSettings.proxyPort = proxyPort
+                    userSettings.proxyExternalPort = Int(externalProxyPort)
+                    userSettings.proxyExternalHost = externalProxyHost
                     mitmProxy.port = userSettings.proxyPort
+                    mitmProxy.upstreamProxyPort = userSettings.proxyExternalPort
+                    mitmProxy.upstreamProxyHost = userSettings.proxyExternalHost
                     mitmProxy.restart()
                     isShowingPortChange.toggle()
                 }), secondaryButton: .cancel("Cancel", action: {
                     proxyPort = String(userSettings.proxyPort)
                     isShowingPortChange.toggle()
                 })) {
-                    TextField("Proxy Port", text: $proxyPort)
+                    VStack {
+                        TextField("Proxy Port", text: $proxyPort)
+                        HStack {
+                            TextField("External Proxy Host", text: $externalProxyPort)
+                            TextField("Port", text: $externalProxyHost)
+                        }
+                    }
                 }
                 .padding()
             }
