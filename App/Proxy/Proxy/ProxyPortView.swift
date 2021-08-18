@@ -30,8 +30,13 @@ struct ProxyPortView: View {
                     userSettings.proxyExternalPort = Int(proxyExternalPort)
                     userSettings.proxyExternalHost = proxyExternalHost
                     mitmProxy.port = userSettings.proxyPort
-                    mitmProxy.upstreamProxyPort = userSettings.proxyExternalPort
-                    mitmProxy.upstreamProxyHost = userSettings.proxyExternalHost
+                    if userSettings.proxyExternalEnabled {
+                        mitmProxy.upstreamProxyPort = userSettings.proxyExternalPort
+                        mitmProxy.upstreamProxyHost = userSettings.proxyExternalHost
+                    } else {
+                        mitmProxy.upstreamProxyPort = nil
+                        mitmProxy.upstreamProxyHost = nil
+                    }
                     mitmProxy.restart()
                     isShowingPortChange.toggle()
                 }), secondaryButton: .cancel("Cancel", action: {
@@ -42,10 +47,12 @@ struct ProxyPortView: View {
                         Text("Proxy")
                         TextField("Proxy Port", text: $proxyPort)
                         Text("External Proxy")
+                        Toggle("Enabled", isOn: $userSettings.proxyExternalEnabled)
                         HStack {
-                            TextField("Host", text: $proxyExternalHost)
+                            TextField("Host", text: $proxyExternalHost).frame(minWidth: 120)
                             TextField("Port", text: $proxyExternalPort)
                         }
+                        .disabled(!userSettings.proxyExternalEnabled)
                     }
                 }
                 .padding()

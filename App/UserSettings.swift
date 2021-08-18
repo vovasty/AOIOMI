@@ -51,15 +51,22 @@ final class UserSettings: ObservableObject {
         }
     }
 
-    @UserDefault("proxyExternalPort", defaultValue: nil)
+    @UserDefault("proxyExternalPort", defaultValue: 9000)
     var proxyExternalPort: Int? {
         willSet {
             objectWillChange.send()
         }
     }
 
-    @UserDefault("proxyExternalHost", defaultValue: nil)
+    @UserDefault("proxyExternalHost", defaultValue: "127.0.0.1")
     var proxyExternalHost: String? {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+    
+    @UserDefault("proxyExternalEnabled", defaultValue: false)
+    var proxyExternalEnabled: Bool {
         willSet {
             objectWillChange.send()
         }

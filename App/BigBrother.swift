@@ -50,8 +50,13 @@ final class BigBrother {
         mitmProxy = MITMProxy(port: userSettings.proxyPort,
                               guiPort: userSettings.proxyGUIPort,
                               home: appSupportURL.appendingPathComponent("mitmproxy"))
-        mitmProxy.upstreamProxyPort = userSettings.proxyExternalPort
-        mitmProxy.upstreamProxyHost = userSettings.proxyExternalHost
+        if userSettings.proxyExternalEnabled {
+            mitmProxy.upstreamProxyPort = userSettings.proxyExternalPort
+            mitmProxy.upstreamProxyHost = userSettings.proxyExternalHost
+        } else {
+            mitmProxy.upstreamProxyPort = nil
+            mitmProxy.upstreamProxyHost = nil
+        }
         mitmProxy.allowedHosts = userSettings.proxyAllowedHosts
         mitmProxy.stopOrphan()
         try? mitmProxy.addonManager.set(addons: userSettings.addons)
