@@ -22,7 +22,7 @@ debug() { printf "=== ${FUNCNAME[1]}: %s\n" "$*" >&2; }
 
 function start {
     debug $AVD_NAME
-    "$EMULATOR" -avd "$AVD_NAME" -writable-system
+    "$EMULATOR" -avd "$AVD_NAME" -writable-system -no-audio
 }
 
 function stop {
