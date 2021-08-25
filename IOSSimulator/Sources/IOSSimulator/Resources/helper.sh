@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 ROOT=$(dirname "$0")
 COMMAND=$1
 SIMULATOR="xcrun simctl"
