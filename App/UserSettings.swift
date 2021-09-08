@@ -122,12 +122,15 @@ extension UserSettings {
             addons.append(TranslatorAddon(definitions: translateDefinitions.filter(\.isChecked).map(\.definition)))
         }
 
+        let payloads = self.payloads
+            .filter( \.isChecked )
+            .reduce([String: String]()) { result, payload -> [String: String] in
+            var result = result
+            result[payload.regex] = payload.payload
+            return result
+        }
+        
         if !payloads.isEmpty {
-            let payloads = self.payloads.reduce([String: String]()) { result, payload -> [String: String] in
-                var result = result
-                result[payload.regex] = payload.payload
-                return result
-            }
             addons.append(ReplaceResponseContentAddon(payloads: payloads))
         }
 
@@ -140,6 +143,6 @@ extension UserSettings {
     }
 
     var isPayloadEnabled: Bool {
-        !payloads.isEmpty
+        payloads.contains { $0.isChecked }
     }
 }
