@@ -23,7 +23,6 @@ let package = Package(
         .target(
             name: "AOSEmulator",
             dependencies: ["SwiftShell", "SWXMLHash", "CommandPublisher"],
-            exclude: ["emulator"],
             resources: [
                 .copy("Resources/helper.sh"),
             ]
