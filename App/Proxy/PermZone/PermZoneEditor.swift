@@ -6,31 +6,38 @@
 //
 
 import SwiftUI
+import Combine
 
 struct PermZoneEditor: View {
     @Binding var permZone: PermZone
+    @Binding var isShowingError: Bool
+    @Binding var error: Error?
 
     var body: some View {
         VStack {
             TextField("Name", text: $permZone.id)
             HStack(alignment: .top) {
                 TextArea(text: $permZone.body)
-                Button("Paste") {
-                    let pasteboard = NSPasteboard.general
-                    if permZone.body.isEmpty, let text = pasteboard.string(forType: .string) {
-                        permZone.body = text
-                    }
-                }
             }
+        }
+        .alert(isPresented: $isShowingError) {
+            Alert(
+                title: Text("Error"),
+                message: Text(error?.localizedDescription ?? "")
+            )
         }
         .frame(width: 300, height: 150)
     }
 }
 
+#if DEBUG
 struct PermzoneEditor_Previews: PreviewProvider {
     @State static var permZone = PermZone()
+    @State static var isShowingError = false
+    @State static var error: Error?
 
     static var previews: some View {
-        PermZoneEditor(permZone: $permZone)
+        PermZoneEditor(permZone: $permZone, isShowingError: $isShowingError, error: $error)
     }
 }
+#endif

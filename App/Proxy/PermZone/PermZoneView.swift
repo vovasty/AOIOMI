@@ -12,8 +12,11 @@ import SwiftUI
 struct PermZoneView: View {
     @EnvironmentObject var userSettings: UserSettings
     @EnvironmentObject var mitmProxy: MITMProxy
-    @State private var newPermzone = PermZone()
-    @State private var isShowingAddNew = false
+    @State private var editPermzone = PermZone()
+    @State private var isShowingEditor = false
+    @State private var editIndex: Int?
+    @State private var isShowingError = false
+    @State private var error: Error?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,27 +30,44 @@ struct PermZoneView: View {
                 }
                 HStack {
                     Spacer()
-                    Button("Add New") {
-                        isShowingAddNew.toggle()
+                    Button("New") {
+                        editIndex = nil
+                        editPermzone = PermZone()
+                        isShowingEditor.toggle()
                     }
-                    .sheet(isPresented: $isShowingAddNew) {
+                    .sheet(isPresented: $isShowingEditor) {
                         DialogView(primaryButton: .default("OK", action: {
-                            guard newPermzone.isValid else { return }
-                            userSettings.permZones.append(newPermzone)
-                            userSettings.activePermZone = newPermzone
-                            newPermzone = PermZone()
-                            isShowingAddNew.toggle()
+                            do {
+                                try editPermzone.validate()
+                            } catch {
+                                self.error = error
+                                isShowingError.toggle()
+                                return
+                            }
+                            if let editIndex = editIndex {
+                                userSettings.permZones[editIndex] = editPermzone
+                            } else {
+                                userSettings.permZones.append(editPermzone)
+                            }
+                            userSettings.activePermZone = editPermzone
+                            isShowingEditor.toggle()
                         }), secondaryButton: .cancel("Cancel", action: {
-                            newPermzone = PermZone()
-                            isShowingAddNew.toggle()
+                            isShowingEditor.toggle()
                         })) {
-                            PermZoneEditor(permZone: $newPermzone)
+                            PermZoneEditor(permZone: $editPermzone, isShowingError: $isShowingError, error: $error)
                         }
                         .padding()
                     }
                     Button("Delete") {
                         userSettings.permZones.removeAll(where: { $0 == userSettings.activePermZone })
                         userSettings.activePermZone = nil
+                    }
+                    .disabled(userSettings.activePermZone == nil)
+                    Button("Edit") {
+                        guard let active = userSettings.activePermZone, let index = userSettings.permZones.firstIndex(of: active) else { return }
+                        editIndex = index
+                        editPermzone = active
+                        isShowingEditor.toggle()
                     }
                     .disabled(userSettings.activePermZone == nil)
                 }
