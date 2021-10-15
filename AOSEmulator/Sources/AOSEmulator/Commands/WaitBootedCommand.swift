@@ -11,5 +11,5 @@ import Foundation
 struct WaitBootedCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]? = ["wait_booted"]
-    func parse(stdout _: [String]) throws {}
+    func parse(stdout _: String) throws {}
 }

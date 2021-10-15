@@ -16,5 +16,5 @@ struct CreateEmulatorCommand: Command {
         parameters = ["create", proxy].compactMap { $0 == nil ? "none" : $0 } + (caPath?.map(\.path) ?? [])
     }
 
-    func parse(stdout _: [String]) throws {}
+    func parse(stdout _: String) throws {}
 }

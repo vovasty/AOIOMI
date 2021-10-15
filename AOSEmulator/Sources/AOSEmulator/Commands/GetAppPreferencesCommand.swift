@@ -27,7 +27,7 @@ struct GetAppPreferencesCommand: Command {
         parameters = ["get_file", preferencesPath, tmpFilePath.path]
     }
 
-    func parse(stdout _: [String]) throws -> XMLIndexer {
+    func parse(stdout _: String) throws -> XMLIndexer {
         let data = try Data(contentsOf: tmpFilePath)
         try FileManager.default.removeItem(at: tmpFilePath)
         let xml = SWXMLHash.config {

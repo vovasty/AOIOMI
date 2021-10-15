@@ -14,6 +14,7 @@ private func temporaryFileURL() -> URL {
 }
 
 private struct TestAddon: Addon {
+    func constructor(dataDir _: URL) -> String { "testConstructor" }
     var id = "testId"
     var sysPath: String? = "testSysPath"
     var importString = "testImportString"
@@ -42,7 +43,7 @@ final class ProxyManagerTests: XCTestCase {
         addons = [testId]
         """
 
-        let manager = AddonManager(scriptURL: tmpFile)
+        let manager = AddonManager(script: tmpFile, dataDir: URL(fileURLWithPath: "/tmp"))
         try manager.set(addons: [TestAddon()])
         let scriptData = try Data(contentsOf: tmpFile)
         let actual = String(data: scriptData, encoding: .utf8)

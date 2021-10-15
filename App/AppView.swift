@@ -111,7 +111,7 @@ struct AppView<AppViewManagerType: AppViewManager>: View {
                     }), content: {
                         Text("PCID is Not Available")
                     })
-                        .padding()
+                    .padding()
                 }
             }
             .disabled(appManager.state.isCheckDisabled)

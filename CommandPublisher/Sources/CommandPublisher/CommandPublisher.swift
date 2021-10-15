@@ -12,16 +12,16 @@ import SwiftShell
 
 public struct CommandPublisher: Publisher {
     public enum Result {
-        case started(SwiftShell.AsyncCommand)
-        case finished(SwiftShell.AsyncCommand)
+        case started
+        case finished(stdout: String, stderr: String)
     }
 
     public struct CommandError: Error {
         public let command: String
         public let arguments: [String]?
         public let errorCode: Int
-        public let stdout: [String]
-        public let stderror: [String]
+        public let stdout: String
+        public let stderror: String
     }
 
     public typealias Output = Result
@@ -71,7 +71,15 @@ final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
         print("running", debugCommand)
         let asyncCommand = context.runAsync(command, parameters ?? [])
         self.asyncCommand = asyncCommand
-        _ = subscriber?.receive(.started(asyncCommand))
+        _ = subscriber?.receive(.started)
+        var stdout = ""
+        var stderr = ""
+        asyncCommand.stdout.onOutput { s in
+            stdout += s.readSome() ?? ""
+        }
+        asyncCommand.stderror.onOutput { s in
+            stderr += s.readSome() ?? ""
+        }
         asyncCommand.onCompletion { [weak self] cmd in
             let report = """
             finished \(cmd.exitcode()) \(debugCommand)
@@ -79,14 +87,14 @@ final class CommandSubscription<SubscriberType: Subscriber>: Subscription where
             print(report)
             guard let self = self else { return }
             if cmd.exitcode() == 0 {
-                _ = self.subscriber?.receive(.finished(asyncCommand))
+                _ = self.subscriber?.receive(.finished(stdout: stdout, stderr: stderr))
                 self.subscriber?.receive(completion: .finished)
             } else {
                 let error = CommandPublisher.CommandError(command: self.command,
                                                           arguments: self.parameters,
                                                           errorCode: cmd.exitcode(),
-                                                          stdout: Array(cmd.stdout.lines()),
-                                                          stderror: Array(cmd.stderror.lines()))
+                                                          stdout: stdout,
+                                                          stderror: stderr)
                 self.subscriber?.receive(completion: .failure(error))
             }
         }
@@ -104,9 +112,9 @@ extension CommandPublisher.CommandError: LocalizedError {
         \(command) \(params)
         error code: \(errorCode)
         "stdout:"
-        \(stdout.joined(separator: "\n"))
+        \(stdout)
         "stderr:"
-        \(stderror.joined(separator: "\n"))
+        \(stderror)
         """
     }
 }

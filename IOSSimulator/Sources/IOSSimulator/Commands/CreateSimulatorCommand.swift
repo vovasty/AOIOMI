@@ -24,8 +24,8 @@ struct CreateSimulatorCommand: Command {
         parameters = ["install_ca", id, caURL.path]
     }
 
-    func parse(stdout: [String]) throws -> String {
-        let udid = stdout.joined().trimmingCharacters(in: .whitespacesAndNewlines)
+    func parse(stdout: String) throws -> String {
+        let udid = stdout.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !udid.isEmpty else {
             throw Error.invalidData
         }

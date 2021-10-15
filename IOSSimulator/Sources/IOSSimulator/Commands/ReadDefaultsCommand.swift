@@ -22,10 +22,8 @@ struct ReadDefaultsCommand: Command {
         self.bundleId = bundleId
     }
 
-    func parse(stdout: [String]) throws -> Any? {
-        guard let appPath = stdout.first else { throw Error.noContainer }
-
-        let defaultsFile = URL(fileURLWithPath: appPath)
+    func parse(stdout: String) throws -> Any? {
+        let defaultsFile = URL(fileURLWithPath: stdout.trimmingCharacters(in: .whitespacesAndNewlines))
             .appendingPathComponent("Library")
             .appendingPathComponent("Preferences")
             .appendingPathComponent("\(bundleId).plist")

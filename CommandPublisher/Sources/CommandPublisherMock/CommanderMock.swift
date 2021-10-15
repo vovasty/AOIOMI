@@ -14,9 +14,9 @@ import Foundation
 public struct CommanderMock: Commander {
     public struct AllowedCommand {
         let type: Any.Type
-        let stdout: [String]
+        let stdout: String
 
-        public init<Type: Command>(type: Type.Type, stdout: [String] = []) {
+        public init<Type: Command>(type: Type.Type, stdout: String = "") {
             self.stdout = stdout
             self.type = type
         }
@@ -65,8 +65,7 @@ public struct CommanderMock: Commander {
                 .eraseToAnyPublisher()
         }
 
-        let cmd = SwiftShell.AsyncCommand(unlaunched: Process(), combineOutput: true)
-        return Future<CommandPublisher.Result, Swift.Error> { $0(.success(CommandPublisher.Result.started(cmd))) }
+        return Future<CommandPublisher.Result, Swift.Error> { $0(.success(CommandPublisher.Result.started)) }
             .eraseToAnyPublisher()
     }
 }

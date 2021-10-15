@@ -23,9 +23,5 @@ let package = Package(
             name: "HTTPProxyManager",
             dependencies: ["MITMProxy", "CharlesProxy"]
         ),
-        .testTarget(
-            name: "HTTPProxyManagerTests",
-            dependencies: ["HTTPProxyManager"]
-        ),
     ]
 )

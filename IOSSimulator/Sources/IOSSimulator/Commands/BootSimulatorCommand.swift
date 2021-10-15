@@ -16,7 +16,5 @@ struct BootSimulatorCommand: Command {
         parameters = ["start", id]
     }
 
-    func parse(stdout _: [String]) throws {
-        ()
-    }
+    func parse(stdout _: String) throws {}
 }

@@ -24,9 +24,5 @@ let package = Package(
                 .copy("Resources/python"),
             ]
         ),
-        .testTarget(
-            name: "MITMProxyAddonsTests",
-            dependencies: ["MITMProxyAddons"]
-        ),
     ]
 )

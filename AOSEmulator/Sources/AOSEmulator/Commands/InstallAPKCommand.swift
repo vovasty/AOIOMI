@@ -16,5 +16,5 @@ struct InstallAPKCommand: Command {
         parameters = ["install_apk", apk.path]
     }
 
-    func parse(stdout _: [String]) throws {}
+    func parse(stdout _: String) throws {}
 }

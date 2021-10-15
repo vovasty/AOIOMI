@@ -64,7 +64,7 @@ final class UserSettings: ObservableObject {
             objectWillChange.send()
         }
     }
-    
+
     @UserDefault("proxyExternalEnabled", defaultValue: false)
     var proxyExternalEnabled: Bool {
         willSet {
@@ -123,13 +123,13 @@ extension UserSettings {
         }
 
         let payloads = self.payloads
-            .filter( \.isChecked )
+            .filter(\.isChecked)
             .reduce([String: String]()) { result, payload -> [String: String] in
-            var result = result
-            result[payload.regex] = payload.payload
-            return result
-        }
-        
+                var result = result
+                result[payload.regex] = payload.payload
+                return result
+            }
+
         if !payloads.isEmpty {
             addons.append(ReplaceResponseContentAddon(payloads: payloads))
         }

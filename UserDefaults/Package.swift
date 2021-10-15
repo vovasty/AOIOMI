@@ -23,9 +23,5 @@ let package = Package(
             name: "UserDefaults",
             dependencies: []
         ),
-        .testTarget(
-            name: "UserDefaultsTests",
-            dependencies: ["UserDefaults"]
-        ),
     ]
 )

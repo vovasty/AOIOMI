@@ -15,8 +15,8 @@ struct GetEmulatorPIDCommand: Command {
 
     var executable: Executable = .helper
     let parameters: [String]? = ["get_emulator_pid"]
-    func parse(stdout: [String]) throws -> Int {
-        guard let pid = Int(stdout.first ?? "abc") else { throw Error.noPID }
+    func parse(stdout: String) throws -> Int {
+        guard let pid = Int(stdout.trimmingCharacters(in: .whitespacesAndNewlines)) else { throw Error.noPID }
         return pid
     }
 }

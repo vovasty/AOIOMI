@@ -9,6 +9,7 @@ import Foundation
 
 public enum Executable {
     case helper
+    case custom(String)
 }
 
 public protocol Command {
@@ -16,5 +17,5 @@ public protocol Command {
 
     var parameters: [String]? { get }
     var executable: Executable { get }
-    func parse(stdout: [String]) throws -> Result
+    func parse(stdout: String) throws -> Result
 }

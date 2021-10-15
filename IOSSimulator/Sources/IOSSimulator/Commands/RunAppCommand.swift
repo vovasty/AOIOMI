@@ -16,5 +16,5 @@ struct RunAppCommand: Command {
         parameters = ["run_app", id, bundleId]
     }
 
-    func parse(stdout _: [String]) throws {}
+    func parse(stdout _: String) throws {}
 }

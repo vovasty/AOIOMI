@@ -16,5 +16,5 @@ struct InstallAppCommand: Command {
         parameters = ["install", id, path.path]
     }
 
-    func parse(stdout _: [String]) throws {}
+    func parse(stdout _: String) throws {}
 }

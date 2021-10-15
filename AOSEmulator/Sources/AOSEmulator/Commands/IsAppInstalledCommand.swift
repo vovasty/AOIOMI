@@ -16,5 +16,5 @@ struct IsAppInstalledCommand: Command {
         parameters = ["is_app_installed", packageId]
     }
 
-    func parse(stdout _: [String]) throws {}
+    func parse(stdout _: String) throws {}
 }

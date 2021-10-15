@@ -11,7 +11,5 @@ import Foundation
 struct IsEmulatorCreatedCommand: Command {
     var executable: Executable = .helper
     let parameters: [String]? = ["is_created"]
-    func parse(stdout _: [String]) throws {
-        ()
-    }
+    func parse(stdout _: String) throws {}
 }

@@ -16,7 +16,5 @@ struct ShutdownSimulatorCommand: Command {
         parameters = ["stop", id]
     }
 
-    func parse(stdout _: [String]) throws {
-        ()
-    }
+    func parse(stdout _: String) throws {}
 }

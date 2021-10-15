@@ -23,6 +23,8 @@ public struct ShellCommander: Commander {
         switch command.executable {
         case .helper:
             executable = helperPath.path
+        case let .custom(path):
+            executable = path
         }
         return CommandPublisher(context: context,
                                 command: executable,
@@ -37,11 +39,11 @@ public struct ShellCommander: Commander {
             }
             .tryMap {
                 switch $0 {
-                case let .finished(cmd):
-                    return try command.parse(stdout: Array(cmd.stdout.lines()))
-                case let .started(cmd):
+                case let .finished(stdout, _):
+                    return try command.parse(stdout: stdout)
+                case .started:
                     assert(false, "shouldn't be here")
-                    return try command.parse(stdout: Array(cmd.stdout.lines()))
+                    return try command.parse(stdout: "")
                 }
             }
             .eraseToAnyPublisher()
@@ -52,6 +54,8 @@ public struct ShellCommander: Commander {
         switch command.executable {
         case .helper:
             executable = helperPath.path
+        case let .custom(path):
+            executable = path
         }
         return CommandPublisher(context: context,
                                 command: executable,

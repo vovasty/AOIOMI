@@ -5,8 +5,8 @@
 //  Created by vlsolome on 3/31/21.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct PermZoneEditor: View {
     @Binding var permZone: PermZone
@@ -31,13 +31,13 @@ struct PermZoneEditor: View {
 }
 
 #if DEBUG
-struct PermzoneEditor_Previews: PreviewProvider {
-    @State static var permZone = PermZone()
-    @State static var isShowingError = false
-    @State static var error: Error?
+    struct PermzoneEditor_Previews: PreviewProvider {
+        @State static var permZone = PermZone()
+        @State static var isShowingError = false
+        @State static var error: Error?
 
-    static var previews: some View {
-        PermZoneEditor(permZone: $permZone, isShowingError: $isShowingError, error: $error)
+        static var previews: some View {
+            PermZoneEditor(permZone: $permZone, isShowingError: $isShowingError, error: $error)
+        }
     }
-}
 #endif

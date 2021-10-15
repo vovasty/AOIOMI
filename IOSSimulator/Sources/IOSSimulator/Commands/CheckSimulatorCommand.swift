@@ -22,8 +22,8 @@ struct CheckSimulatorCommand: Command {
         parameters = ["list"]
     }
 
-    func parse(stdout: [String]) throws -> SimctlList.DeviceState {
-        guard let data = stdout.joined(separator: "\n").data(using: .utf8) else {
+    func parse(stdout: String) throws -> SimctlList.DeviceState {
+        guard let data = stdout.data(using: .utf8) else {
             throw Error.invalidData
         }
         let result = try JSONDecoder().decode(SimctlList.self, from: data)
