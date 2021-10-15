@@ -52,7 +52,7 @@ function install_ca {
     shift 1
     
     for CERT in "$@"; do
-        ${ROOT}/install_cert.py "${NAME}" "${CERT}"
+        ${SIMULATOR} keychain "${NAME}" add-root-cert "${CERT}" || ${ROOT}/install_cert.py "${NAME}" "${CERT}"
     done
 }
 
