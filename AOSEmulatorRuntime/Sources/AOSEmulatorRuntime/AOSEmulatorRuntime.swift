@@ -4,7 +4,7 @@ import SwiftShell
 
 public class AOSEmulatorRuntime: ObservableObject {
     public enum State {
-        case installed, checking, installing, notInstalled(Swift.Error?), unknown
+        case installed, checking, installing, notInstalled(Swift.Error?), updating, unknown
     }
 
     public enum Error: Swift.Error {
@@ -67,6 +67,25 @@ public class AOSEmulatorRuntime: ObservableObject {
                     self.process = nil
                 }
             }
+    }
+
+    public func update() {
+        guard process == nil else { return }
+        state = .updating
+        process = context.runAsync(helper, "update")
+            .onCompletion { process in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.state = process.exitcode() == 0 ? .installed : .notInstalled(nil)
+                    self.process = nil
+                }
+            }
+//        process?.stderror.onStringOutput { line in
+//            print("[err]", line)
+//        }
+//        process?.stdout.onStringOutput { line in
+//            print("[out]", line)
+//        }
     }
 }
 

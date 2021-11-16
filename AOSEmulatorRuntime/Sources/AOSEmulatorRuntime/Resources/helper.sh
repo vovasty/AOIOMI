@@ -50,6 +50,11 @@ function install {
     echo yes | "${ANDROID_SDK_MANGER}" --install ${ANDROID_PACKAGE}
 }
 
+function update {
+    debug $@
+    ${ANDROID_SDK_MANGER} --update
+}
+
 function check {
     debug $@
     package=$(${ANDROID_SDK_MANGER} --list_installed | grep "${ANDROID_PACKAGE}")

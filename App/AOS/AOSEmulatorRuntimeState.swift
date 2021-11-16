@@ -19,6 +19,8 @@ extension AOSEmulatorRuntime.State {
             return .busy("AOS Runtime Is Installed")
         case .installing:
             return .busy("Installing AOS Runtime...")
+        case .updating:
+            return .busy("Updating AOS Runtime...")
         case let .notInstalled(error):
             if let error = error {
                 return .error("AOS Runtime is Not Installed", error)

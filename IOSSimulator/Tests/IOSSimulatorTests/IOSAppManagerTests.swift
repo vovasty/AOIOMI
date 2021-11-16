@@ -75,7 +75,7 @@ final class IOSAppManagerTests: XCTestCase, StatesTestCase {
             CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: containerURL.path),
         ],
         expected: [.notInstalled(nil), .starting, .checking, .installed(error: nil, defaults: ["some": "string"])]) {
-                $0.start()
+            $0.start()
         }
     }
 
@@ -103,7 +103,7 @@ final class IOSAppManagerTests: XCTestCase, StatesTestCase {
             CommanderMock.AllowedCommand(type: ReadDefaultsCommand.self, stdout: containerURL.path),
         ],
         expected: [.notInstalled(nil), .installing, .starting, .checking, .installed(error: CommanderMock.CommanderMockError.disallowedCommand, defaults: ["some": "string"])]) {
-                $0.install(app: URL(fileURLWithPath: "/doesntmatter"), defaults: nil)
+            $0.install(app: URL(fileURLWithPath: "/doesntmatter"), defaults: nil)
         }
     }
 
@@ -119,7 +119,7 @@ final class IOSAppManagerTests: XCTestCase, StatesTestCase {
             CommanderMock.AllowedCommand(type: RunAppCommand.self),
         ],
         expected: [.notInstalled(nil), .installing, .starting, .checking, .installed(error: nil, defaults: ["some": "string"])]) {
-                $0.install(app: URL(fileURLWithPath: "/doesntmatter"), defaults: nil)
+            $0.install(app: URL(fileURLWithPath: "/doesntmatter"), defaults: nil)
         }
     }
 }

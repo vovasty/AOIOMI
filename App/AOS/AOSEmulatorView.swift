@@ -6,6 +6,7 @@
 //
 
 import AOSEmulator
+import AOSEmulatorRuntime
 import HTTPProxyManager
 import SwiftUI
 
@@ -13,10 +14,12 @@ struct AOSEmulatorView: View {
     @Binding var activityState: ActivityView.ActivityState
 
     @EnvironmentObject private var emulator: AOSEmulator
+    @EnvironmentObject private var aosRuntime: AOSEmulatorRuntime
     @EnvironmentObject private var proxyManager: HTTPProxyManager
     @State private var startDisabled = false
     @State private var configureDisabled = false
     @State private var isConfigureDisplayed = false
+    @State private var updateDisabled = false
     @State private var proxy: HTTPProxyManager.Proxy?
 
     var body: some View {
@@ -36,18 +39,25 @@ struct AOSEmulatorView: View {
                     .frame(width: 200)
                     .padding()
             }
+            Button("Update") {
+                aosRuntime.update()
+            }
+            .disabled(updateDisabled)
         }
         .onReceive(emulator.$state) { state in
             switch state {
             case .stopped:
                 startDisabled = false
                 configureDisabled = false
+                updateDisabled = false
             case .configuring, .checking, .started, .stopping, .starting:
                 startDisabled = true
                 configureDisabled = true
+                updateDisabled = true
             case .notConfigured:
                 startDisabled = true
                 configureDisabled = false
+                updateDisabled = true
             }
             activityState = state.activity
         }
