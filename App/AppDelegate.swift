@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .environmentObject(bigBrother.mitmProxy)
             .environmentObject(bigBrother.httpProxyManager)
             .environmentObject(bigBrother.aosRuntime)
+            .environmentObject(bigBrother.migrationManager)
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
@@ -35,7 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
 
-        bigBrother.check()
+        bigBrother.start()
     }
 
     func applicationWillTerminate(_: Notification) {

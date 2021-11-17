@@ -28,6 +28,7 @@ final class BigBrother {
     let userSettings = UserSettings()
     let aosRuntime: AOSEmulatorRuntime
     let httpProxyManager: HTTPProxyManager
+    let migrationManager = MigrationManager()
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -58,9 +59,7 @@ final class BigBrother {
             mitmProxy.upstreamProxyHost = nil
         }
         mitmProxy.allowedHosts = userSettings.proxyAllowedHosts
-        mitmProxy.stopOrphan()
         try? mitmProxy.addonManager.set(addons: userSettings.addons)
-        mitmProxy.start()
 
         httpProxyManager = HTTPProxyManager(charlesProxy: CharlesProxy(), mitmProxy: mitmProxy)
 
@@ -100,11 +99,24 @@ final class BigBrother {
             }
         }
         .store(in: &cancellables)
+
+        migrationManager.$state.sink { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .migrated:
+                self.mitmProxy.start()
+                self.aosRuntime.check()
+                self.simulator.check()
+            default:
+                break
+            }
+        }
+        .store(in: &cancellables)
     }
 
-    func check() {
-        aosRuntime.check()
-        simulator.check()
+    func start() {
+        mitmProxy.stopOrphan()
+        migrationManager.migrate()
     }
 
     func stop() {
