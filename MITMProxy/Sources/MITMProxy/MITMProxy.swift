@@ -32,7 +32,7 @@ public class MITMProxy: ObservableObject {
         params += allowedHosts.map { ["--allow-hosts", $0] }.flatMap { $0 }
 
         if let upstreamProxyPort = upstreamProxyPort, let upstreamProxyHost = upstreamProxyHost {
-            params += ["--mode", "upstream:https://\(upstreamProxyHost):\(upstreamProxyPort)"]
+            params += ["--mode", "upstream:\(upstreamProxyHost):\(upstreamProxyPort)"]
         }
 
         return params
