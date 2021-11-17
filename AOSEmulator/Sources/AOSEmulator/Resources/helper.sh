@@ -81,14 +81,13 @@ function create {
     init
     "$EMULATOR" -avd "$AVD_NAME" -writable-system -no-window -no-snapshot -no-boot-anim -no-audio -nocache&
     wait_booted
-#    make_root_writeable #api 30
+    make_root_writeable
     if [ "$ANDROID_TAG" == "default" ]; then
         install_gapps
     fi
     set_proxy "$1"
     shift 1
     install_ca "$@"
- #   "$ADB" shell avbctl enable-verification #api 30
 #crear trap to avoid erroneous exit code
     trap '' EXIT
     shutdown

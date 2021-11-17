@@ -20,7 +20,7 @@ public class AOSEmulatorRuntime: ObservableObject {
     public private(set) lazy var env: [String: String] = {
         ["ANDROID_HOME": home.path,
          "JAVA_HOME": Bundle.module.url(forResource: "jdk", withExtension: nil)!.path,
-         "AOS_EMULATOR_RUNTIME_VERSION": "28",
+         "AOS_EMULATOR_RUNTIME_VERSION": "30",
          "AOS_EMULATOR_RUNTIME_TAG": "google_apis",
          "AOS_EMULATOR_RUNTIME_PLATFORM": "x86_64"]
     }()
