@@ -33,7 +33,6 @@ public class AOSEmulatorRuntime: ObservableObject {
 
     public init(home: URL) {
         self.home = home
-        try? FileManager.default.createDirectory(at: home, withIntermediateDirectories: true)
         helper = Bundle.module.url(forResource: "helper", withExtension: "sh")!.path
     }
 
