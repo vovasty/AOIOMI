@@ -63,6 +63,7 @@ struct ImageActivityIndicator: View {
                         .foregroundColor(style.color)
                 }
             }
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }
@@ -73,6 +74,8 @@ struct ImageActivityIndicator_Previews: PreviewProvider {
             .frame(width: 40, height: 40)
         ImageActivityIndicator(style: .aos)
             .frame(width: 30, height: 30)
+        ImageActivityIndicator(style: .aos, isAnimating: true)
+            .frame(width: 20, height: 20)
         ImageActivityIndicator(style: .aos, isAnimating: false)
             .frame(width: 20, height: 20)
         ImageActivityIndicator(style: .proxy, isAnimating: true)
