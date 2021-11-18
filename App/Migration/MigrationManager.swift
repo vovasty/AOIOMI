@@ -43,13 +43,22 @@ final class MigrationManager: ObservableObject {
     init() {}
 
     func migrate() {
+        let migrations = self.migrations
+            .filter { $0.version > self.recordedVersion }
+            .sorted(by: { $0.version < $1.version })
+        guard (migrations.last?.version ?? 0) > recordedVersion else {
+            if recordedVersion != bundleVersion {
+                recordedVersion = bundleVersion
+            }
+            state = .migrated(nil)
+            return
+        }
         state = .migrating
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
-            let migrations = self.migrations.sorted(by: { $0.version < $1.version })
             var state: State = .migrated(nil)
+
             for migration in migrations {
-                guard migration.version > self.recordedVersion else { continue }
                 do {
                     try migration.migrate()
                     self.recordedVersion = migration.version
@@ -62,6 +71,20 @@ final class MigrationManager: ObservableObject {
             DispatchQueue.main.async {
                 self.state = state
             }
+        }
+    }
+}
+
+extension MigrationManager.State {
+    var activity: ActivityView.ActivityState {
+        switch self {
+        case .migrating:
+            return .busy("Migrating...")
+        case .migrated:
+            return .busy("Migrated")
+        case .unknown:
+            assertionFailure("unreachable")
+            return .busy("Unknown")
         }
     }
 }

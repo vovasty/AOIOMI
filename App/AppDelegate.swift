@@ -14,6 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let bigBrother = BigBrother()
 
     func applicationDidFinishLaunching(_: Notification) {
+        bigBrother.start()
+
         let contentView = ContentView()
             .environmentObject(bigBrother.userSettings)
             .environmentObject(bigBrother.emulator)
@@ -35,8 +37,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
-
-        bigBrother.start()
     }
 
     func applicationWillTerminate(_: Notification) {
