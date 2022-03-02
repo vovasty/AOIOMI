@@ -16,6 +16,7 @@ struct PayloadView: View {
     @State private var isShowingEdit = false
     @State private var isEditing = false
     @State private var editPayload = ProxyPayload()
+    @State private var editIndex = 0
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -56,10 +57,11 @@ struct PayloadView: View {
                         Button("Edit") {
                             isShowingEdit.toggle()
                             editPayload = userSettings.payloads[index]
+                            editIndex = index
                         }
                         .sheet(isPresented: $isShowingEdit) {
                             DialogView(primaryButton: .default("OK", action: {
-                                userSettings.payloads[index] = editPayload
+                                userSettings.payloads[editIndex] = editPayload
                                 isShowingEdit.toggle()
                             }), secondaryButton: .cancel("Cancel", action: {
                                 isShowingEdit.toggle()
