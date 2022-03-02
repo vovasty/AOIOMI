@@ -42,7 +42,7 @@ public struct ShellCommander: Commander {
                 case let .finished(stdout, _):
                     return try command.parse(stdout: stdout)
                 case .started:
-                    assert(false, "shouldn't be here")
+                    assertionFailure("shouldn't be here")
                     return try command.parse(stdout: "")
                 }
             }

@@ -24,7 +24,8 @@ public class IOSSimulator: ObservableObject {
         let center = NSWorkspace.shared.notificationCenter
         center.addObserver(forName: NSWorkspace.didTerminateApplicationNotification,
                            object: nil, // always NSWorkspace
-                           queue: OperationQueue.main) { [weak self] (notification: Notification) in
+                           queue: OperationQueue.main)
+        { [weak self] (notification: Notification) in
             guard let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else { return }
             guard app.bundleIdentifier == "com.apple.iphonesimulator" else { return }
             self?.state = .stopped(nil)
