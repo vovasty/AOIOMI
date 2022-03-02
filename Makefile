@@ -15,7 +15,7 @@ build:
 	
 .PHONY: export
 export: build
-	xcodebuild -archivePath "$(ARCHIVE_PATH)" -exportArchive -exportPath "$(EXPORT_PATH)" -exportOptionsPlist exportOptions.plist
+	xcodebuild -archivePath "$(ARCHIVE_PATH)" -exportArchive -exportPath "$(EXPORT_PATH)" -exportOptionsPlist ExportOptions.plist
 
 .PHONY: archive
 archive: export
