@@ -10,26 +10,19 @@ import MITMProxy
 import SwiftUI
 
 struct TranslateView: View {
-    @EnvironmentObject private var mitmProxy: MITMProxy
-    @EnvironmentObject private var userSettings: UserSettings
+    @EnvironmentObject private var translatorStore: TranslateStore
 
     var body: some View {
         VStack(alignment: .leading) {
-            Toggle("Translate", isOn: $userSettings.isTranslating)
+            Toggle("Translate", isOn: $translatorStore.isActive)
                 .toggleStyle(SwitchToggleStyle())
-            ForEach(userSettings.translateDefinitions.indices, id: \.self) {
-                Toggle(userSettings.translateDefinitions[$0].name, isOn: self.$userSettings.translateDefinitions[$0].isChecked)
+            ForEach($translatorStore.items) { $item in
+                Toggle(item.name, isOn: $item.isActive)
             }
-            .disabled(!userSettings.isTranslating)
+            .disabled(!translatorStore.isActive)
             Spacer()
         }
         .padding()
-        .onReceive(Just(userSettings.isTranslating)) { _ in
-            try? mitmProxy.addonManager.set(addons: userSettings.addons)
-        }
-        .onReceive(Just(userSettings.translateDefinitions)) { _ in
-            try? mitmProxy.addonManager.set(addons: userSettings.addons)
-        }
     }
 }
 
@@ -37,8 +30,7 @@ struct TranslateView: View {
     struct TranslateView_Previews: PreviewProvider {
         static var previews: some View {
             TranslateView()
-                .environmentObject(UserSettings())
-                .environmentObject(MITMProxy.preview)
+                .environmentObject(ProxyAddonManager.preview)
         }
     }
 #endif

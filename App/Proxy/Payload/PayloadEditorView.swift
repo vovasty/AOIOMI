@@ -11,20 +11,11 @@ struct PayloadEditorView: View {
     @Binding var payload: ProxyPayload
 
     var body: some View {
-        VStack {
-            TextField("Name", text: $payload.id)
+        VStack(spacing: 3) {
+            TextField("Name", text: $payload.name)
             TextField("URL Regex", text: $payload.regex)
-            HStack(alignment: .top) {
-                TextArea(text: $payload.payload)
-                Button("Paste") {
-                    let pasteboard = NSPasteboard.general
-                    if payload.payload.isEmpty, let text = pasteboard.string(forType: .string) {
-                        payload.payload = text
-                    }
-                }
-            }
+            TextArea(text: $payload.payload)
         }
-        .frame(width: 300, height: 150)
     }
 }
 

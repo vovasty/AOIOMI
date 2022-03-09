@@ -9,7 +9,7 @@ import Foundation
 import MITMProxy
 
 public struct TranslatorAddon: Addon {
-    public struct Definition: Codable {
+    public struct Definition: Codable, Equatable {
         public let url: String
         public let paths: [String]
 

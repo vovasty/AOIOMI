@@ -6,81 +6,63 @@
 //
 
 import Combine
-import MITMProxy
 import SwiftUI
 
 struct PayloadView: View {
-    @EnvironmentObject private var mitmProxy: MITMProxy
-    @EnvironmentObject private var userSettings: UserSettings
-    @State private var isShowingAddNew = false
-    @State private var isShowingEdit = false
-    @State private var isEditing = false
-    @State private var editPayload = ProxyPayload()
-    @State private var editIndex = 0
+    @EnvironmentObject private var payloadStore: PayloadStore
+    @State private var selection: UUID?
+    @State private var isShowingError = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                if isEditing {
-                    Button("Done") {
-                        isEditing.toggle()
-                    }
-                    Spacer()
-                    Button("Add New") {
-                        editPayload = ProxyPayload()
-                        isShowingAddNew.toggle()
-                    }
-                    .sheet(isPresented: $isShowingAddNew) {
-                        DialogView(primaryButton: .default("OK", action: {
-                            editPayload.isChecked = true
-                            userSettings.payloads.append(editPayload)
-                            isShowingAddNew.toggle()
-                        }), secondaryButton: .cancel("Cancel", action: {
-                            isShowingAddNew.toggle()
-                        })) {
-                            PayloadEditorView(payload: $editPayload)
-                        }
-                        .padding()
-                    }
-                } else {
-                    Button("Edit") {
-                        isEditing.toggle()
+        NavigationView {
+            VStack(alignment: .leading, spacing: 0) {
+                List($payloadStore.items) { $item in
+                    NavigationLink(destination: PayloadEditorView(payload: $item).padding(EdgeInsets(top: 0, leading: 3, bottom: 0, trailing: 0)),
+                                   tag: item.id,
+                                   selection: $selection) {
+                        Toggle("", isOn: $item.isActive)
+                        Text(item.name)
                     }
                 }
-            }
-            ForEach(userSettings.payloads.indices, id: \.self) { index in
                 HStack {
-                    if isEditing {
-                        Button("Delete") {
-                            userSettings.payloads.remove(at: index)
+                    Button("+") {
+                        let payload = ProxyPayload()
+                        payloadStore.items.append(payload)
+                        DispatchQueue.main.async {
+                            selection = payload.id
                         }
-                        Button("Edit") {
-                            isShowingEdit.toggle()
-                            editPayload = userSettings.payloads[index]
-                            editIndex = index
-                        }
-                        .sheet(isPresented: $isShowingEdit) {
-                            DialogView(primaryButton: .default("OK", action: {
-                                userSettings.payloads[editIndex] = editPayload
-                                isShowingEdit.toggle()
-                            }), secondaryButton: .cancel("Cancel", action: {
-                                isShowingEdit.toggle()
-                            })) {
-                                PayloadEditorView(payload: $editPayload)
-                            }
-                            .padding()
-                        }
-                        Text(userSettings.payloads[index].id)
-                    } else {
-                        Toggle(userSettings.payloads[index].id, isOn: self.$userSettings.payloads[index].isChecked)
                     }
+                    .font(Font.system(size: 16))
+                    .foregroundColor(.gray)
+                    .buttonStyle(.plain)
+                    .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
+
+                    Button("-") {
+                        let selection = selection
+                        payloadStore.items.removeAll { $0.id == selection }
+                        self.selection = payloadStore.items.first?.id
+                    }
+                    .padding(1)
+                    .font(Font.system(size: 16))
+                    .foregroundColor(.gray)
+                    .buttonStyle(.plain)
+                    .disabled(selection == nil)
+                    Spacer()
                 }
+                .background(Color.white)
             }
-            Spacer()
+            Text("Select a Payload")
         }
+        .listStyle(DefaultListStyle())
         .padding()
-        .onReceive(Just(userSettings.payloads)) { _ in
-            try? mitmProxy.addonManager.set(addons: userSettings.addons)
+        .alert(isPresented: $isShowingError) {
+            Alert(
+                title: Text("Error"),
+                message: Text(payloadStore.error?.localizedDescription ?? "Unknown error")
+            )
+        }
+        .onReceive(payloadStore.$error) { error in
+            isShowingError = error != nil
         }
     }
 }
@@ -89,8 +71,7 @@ struct PayloadView: View {
     struct PayloadView_Previews: PreviewProvider {
         static var previews: some View {
             PayloadView()
-                .environmentObject(UserSettings())
-                .environmentObject(MITMProxy.preview)
+                .environmentObject(ProxyAddonManager.preview)
         }
     }
 #endif

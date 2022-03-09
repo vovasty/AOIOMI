@@ -6,17 +6,16 @@
 //
 
 import Foundation
+import KVStore
 
-struct ProxyPayload: Codable, Identifiable {
-    enum CodingKeys: String, CodingKey {
-        case id
-        case isChecked = "checked"
-        case regex
-        case payload
+struct ProxyPayload: StoreItem {
+    static func < (lhs: ProxyPayload, rhs: ProxyPayload) -> Bool {
+        lhs.name > rhs.name
     }
 
-    var id: String = ""
+    var id = UUID()
+    var name: String = ""
     var regex: String = ""
-    var isChecked: Bool = false
+    var isActive: Bool = false
     var payload: String = ""
 }

@@ -15,21 +15,6 @@ import UserDefaults
 
 final class UserSettings: ObservableObject {
     let objectWillChange = PassthroughSubject<Void, Never>()
-
-    @UserDefault("permZones", defaultValue: [])
-    var permZones: [PermZone] {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-    @UserDefault("activePermZone", defaultValue: nil)
-    var activePermZone: PermZone? {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
     @UserDefault("proxyPort", defaultValue: 9999)
     var proxyPort: Int {
         willSet {
@@ -72,25 +57,8 @@ final class UserSettings: ObservableObject {
         }
     }
 
-    @UserDefault("translateDefinitions", defaultValue: [
-        TranslatorDefinition(name: "Search Filter",
-                             definition: TranslatorAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/152/v3/search-filter",
-                                                                    paths: ["rData"])),
-        TranslatorDefinition(name: "Recommended Keywords",
-                             definition: TranslatorAddon.Definition(url: "https://cmapi.coupang.com/modular/v1/endpoints/26/recommended-keywords/list",
-                                                                    paths: ["rData.freshTrendingKeywords.*.keywords.content", "rData.recommendedKeywords.*.content"])),
-        TranslatorDefinition(name: "Hot Keywords",
-                             definition: TranslatorAddon.Definition(url: "https://cmapi.coupang.com/v3/hot-keywords",
-                                                                    paths: ["rData.entityList.*.entity.links.*.nameAttr"])),
-    ])
-    var translateDefinitions: [TranslatorDefinition] {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-    @UserDefault("isTranslating", defaultValue: false)
-    var isTranslating: Bool {
+    @UserDefault("isTranslationActive", defaultValue: false)
+    var isTranslationActive: Bool {
         willSet {
             objectWillChange.send()
         }
@@ -102,47 +70,11 @@ final class UserSettings: ObservableObject {
             objectWillChange.send()
         }
     }
-
-    @UserDefault("payloads", defaultValue: [ProxyPayload]())
-    var payloads: [ProxyPayload] {
-        willSet {
-            objectWillChange.send()
-        }
-    }
 }
 
 extension UserSettings {
-    var addons: [Addon] {
-        var addons = [Addon]()
-        if let activePermZone = activePermZone {
-            addons.append(AddRequestHeadersAddon(headers: activePermZone.headers))
-        }
-
-        if isTranslating {
-            addons.append(TranslatorAddon(definitions: translateDefinitions.filter(\.isChecked).map(\.definition)))
-        }
-
-        let payloads = self.payloads
-            .filter(\.isChecked)
-            .reduce([String: String]()) { result, payload -> [String: String] in
-                var result = result
-                result[payload.regex] = payload.payload
-                return result
-            }
-
-        if !payloads.isEmpty {
-            addons.append(ReplaceResponseContentAddon(payloads: payloads))
-        }
-
-        return addons
-    }
-
     var iosDefaults: IOSAppManager.Defaults? {
         guard let iosProxy = iosProxy else { return nil }
         return IOSAppManager.Defaults(path: ["PROXY_INFO"], data: ["ip": iosProxy.host, "port": iosProxy.port])
-    }
-
-    var isPayloadEnabled: Bool {
-        payloads.contains { $0.isChecked }
     }
 }

@@ -6,12 +6,10 @@
 //
 
 import Combine
-import MITMProxy
 import SwiftUI
 
 struct PermZoneView: View {
-    @EnvironmentObject var userSettings: UserSettings
-    @EnvironmentObject var mitmProxy: MITMProxy
+    @EnvironmentObject private var permzoneStore: PermzoneStore
     @State private var editPermzone = PermZone()
     @State private var isShowingEditor = false
     @State private var editIndex: Int?
@@ -21,11 +19,11 @@ struct PermZoneView: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
-                Picker("Permzone", selection: $userSettings.activePermZone) {
+                Picker("Permzone", selection: $permzoneStore.activePermZone) {
                     Text("Not Set")
                         .tag(nil as PermZone?)
-                    ForEach(userSettings.permZones) {
-                        Text($0.id).tag($0 as PermZone?)
+                    ForEach(permzoneStore.items) {
+                        Text($0.name).tag($0 as PermZone?)
                     }
                 }
                 HStack {
@@ -45,11 +43,11 @@ struct PermZoneView: View {
                                 return
                             }
                             if let editIndex = editIndex {
-                                userSettings.permZones[editIndex] = editPermzone
+                                permzoneStore.items[editIndex] = editPermzone
                             } else {
-                                userSettings.permZones.append(editPermzone)
+                                permzoneStore.items.append(editPermzone)
                             }
-                            userSettings.activePermZone = editPermzone
+                            permzoneStore.activePermZone = editPermzone
                             isShowingEditor.toggle()
                         }), secondaryButton: .cancel("Cancel", action: {
                             isShowingEditor.toggle()
@@ -59,25 +57,22 @@ struct PermZoneView: View {
                         .padding()
                     }
                     Button("Delete") {
-                        userSettings.permZones.removeAll(where: { $0 == userSettings.activePermZone })
-                        userSettings.activePermZone = nil
+                        permzoneStore.items.removeAll(where: { $0 == permzoneStore.activePermZone })
+                        permzoneStore.activePermZone = nil
                     }
-                    .disabled(userSettings.activePermZone == nil)
+                    .disabled(permzoneStore.activePermZone == nil)
                     Button("Edit") {
-                        guard let active = userSettings.activePermZone, let index = userSettings.permZones.firstIndex(of: active) else { return }
+                        guard let active = permzoneStore.activePermZone, let index = permzoneStore.items.firstIndex(of: active) else { return }
                         editIndex = index
                         editPermzone = active
                         isShowingEditor.toggle()
                     }
-                    .disabled(userSettings.activePermZone == nil)
+                    .disabled(permzoneStore.activePermZone == nil)
                 }
             }
             Spacer()
         }
         .padding()
-        .onReceive(Just(userSettings.activePermZone)) { _ in
-            try? mitmProxy.addonManager.set(addons: userSettings.addons)
-        }
     }
 }
 
@@ -85,8 +80,7 @@ struct PermZoneView: View {
     struct PermzoneView_Previews: PreviewProvider {
         static var previews: some View {
             PermZoneView()
-                .environmentObject(UserSettings())
-                .environmentObject(MITMProxy.preview)
+                .environmentObject(ProxyAddonManager.preview)
                 .frame(width: 300, height: 100)
         }
     }

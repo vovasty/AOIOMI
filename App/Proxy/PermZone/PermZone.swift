@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import KVStore
 
 private struct PermZoneDefinition: Decodable {
     struct Host: Decodable {
@@ -16,16 +17,22 @@ private struct PermZoneDefinition: Decodable {
     let hosts: [String: Host]
 }
 
-struct PermZone: Hashable, Identifiable, Codable {
+struct PermZone: StoreItem, Hashable {
+    static func < (lhs: PermZone, rhs: PermZone) -> Bool {
+        lhs.name > rhs.name
+    }
+
     enum ValidationError: Error {
         case emptyId, invalidBody
     }
 
-    var id: String = ""
+    var id = UUID()
+    var name: String = ""
     var body: String = ""
+    var isActive: Bool = false
 
     func validate() throws {
-        guard !id.isEmpty else { throw ValidationError.emptyId }
+        guard !name.isEmpty else { throw ValidationError.emptyId }
         guard let data = body.data(using: .utf8) else { throw ValidationError.invalidBody }
         _ = try JSONDecoder().decode(PermZoneDefinition.self, from: data)
     }

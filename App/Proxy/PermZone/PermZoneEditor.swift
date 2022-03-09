@@ -15,7 +15,7 @@ struct PermZoneEditor: View {
 
     var body: some View {
         VStack {
-            TextField("Name", text: $permZone.id)
+            TextField("Name", text: $permZone.name)
             HStack(alignment: .top) {
                 TextArea(text: $permZone.body)
             }

@@ -14,10 +14,10 @@ struct ContentView: View {
         switch migration.state {
         case .migrated:
             MainView()
-                .frame(minWidth: 400, minHeight: 300)
+                .frame(minWidth: 600, minHeight: 300)
         default:
             MigrationView()
-                .frame(minWidth: 400, minHeight: 300)
+                .frame(minWidth: 600, minHeight: 300)
         }
     }
 }

@@ -12,6 +12,7 @@ import Cocoa
 import Combine
 import HTTPProxyManager
 import IOSSimulator
+import KVStore
 import MITMProxy
 
 final class BigBrother {
@@ -29,6 +30,11 @@ final class BigBrother {
     let aosRuntime: AOSEmulatorRuntime
     let httpProxyManager: HTTPProxyManager
     let migrationManager = MigrationManager()
+    let kvManager: Manager
+    let proxyAddonManager: ProxyAddonManager
+    let payloadStore: PayloadStore
+    let permzoneStore: PermzoneStore
+    let translateStore: TranslateStore
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -59,9 +65,23 @@ final class BigBrother {
             mitmProxy.upstreamProxyHost = nil
         }
         mitmProxy.allowedHosts = userSettings.proxyAllowedHosts
-        try? mitmProxy.addonManager.set(addons: userSettings.addons)
 
         httpProxyManager = HTTPProxyManager(charlesProxy: CharlesProxy(), mitmProxy: mitmProxy)
+
+        kvManager = try! Manager(data: appSupportURL.appendingPathComponent("db"))
+        payloadStore = try! PayloadStore(manager: kvManager)
+        permzoneStore = try! PermzoneStore(manager: kvManager)
+        translateStore = try! TranslateStore(manager: kvManager, userSettings: userSettings)
+
+        proxyAddonManager = ProxyAddonManager(mitmProxy: mitmProxy,
+                                              userSettings: userSettings,
+                                              payloads: payloadStore,
+                                              permzones: permzoneStore,
+                                              translator: translateStore)
+
+        migrationManager.migrations = [Migration15(), Migration18(transtatorStore: translateStore, payloadStore: payloadStore, permzoneStore: permzoneStore)]
+
+        try? proxyAddonManager.update()
 
         aosRuntime.$state
             .sink { [weak self] state in

@@ -6,23 +6,16 @@
 //
 
 import Foundation
-import MITMProxy
+import KVStore
 import TranslatorAddon
 
-struct TranslatorDefinition: Codable {
-    enum CodingKeys: String, CodingKey {
-        case name
-        case isChecked = "checked"
-        case definition
+struct TranslateDefinition: StoreItem {
+    static func < (lhs: TranslateDefinition, rhs: TranslateDefinition) -> Bool {
+        lhs.name > rhs.name
     }
 
-    let name: String
-    var isChecked: Bool = false
-    let definition: TranslatorAddon.Definition
-}
-
-extension TranslatorDefinition: Identifiable {
-    var id: String {
-        name
-    }
+    var id = UUID()
+    var name: String
+    var isActive: Bool = false
+    var definition: TranslatorAddon.Definition
 }

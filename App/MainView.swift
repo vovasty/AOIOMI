@@ -20,6 +20,10 @@ struct MainView: View {
     @EnvironmentObject private var simulator: IOSSimulator
     @EnvironmentObject private var userSettings: UserSettings
     @EnvironmentObject private var mitmProxy: MITMProxy
+    @EnvironmentObject private var addonManager: ProxyAddonManager
+    @EnvironmentObject private var payloadStore: PayloadStore
+    @EnvironmentObject private var permzoneStore: PermzoneStore
+    @EnvironmentObject private var translatorStore: TranslateStore
 
     var body: some View {
         NavigationView {
@@ -54,7 +58,7 @@ struct MainView: View {
                         tag: .permzone,
                         selection: $selection
                     ) {
-                        if userSettings.activePermZone != nil, case MITMProxy.State.started = mitmProxy.state {
+                        if permzoneStore.isActive, case MITMProxy.State.started = mitmProxy.state {
                             Label(text: "Permzone", style: .zone, highlighted: true)
                         } else {
                             Label(text: "Permzone", style: .zone)
@@ -65,7 +69,7 @@ struct MainView: View {
                         tag: .payload,
                         selection: $selection
                     ) {
-                        if userSettings.isPayloadEnabled, case MITMProxy.State.started = mitmProxy.state {
+                        if payloadStore.isActive, case MITMProxy.State.started = mitmProxy.state {
                             Label(text: "Payload", style: .payload, highlighted: true)
                         } else {
                             Label(text: "Payload", style: .payload)
@@ -76,7 +80,7 @@ struct MainView: View {
                         tag: .translator,
                         selection: $selection
                     ) {
-                        if userSettings.isTranslating, case MITMProxy.State.started = mitmProxy.state {
+                        if translatorStore.isActive, case MITMProxy.State.started = mitmProxy.state {
                             Label(text: "Translator", style: .translator, highlighted: true)
                         } else {
                             Label(text: "Translator", style: .translator)

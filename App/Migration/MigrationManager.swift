@@ -25,7 +25,7 @@ final class MigrationManager: ObservableObject {
         return Int(version) ?? 0
     }
 
-    private var migrations: [Migration] = [Migration15()]
+    var migrations: [Migration] = []
 
     private var recordedVersionKey: String {
         "\(Bundle.main.bundleIdentifier ?? "AOIOMI").appversion"
