@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct DialogButton: View {
+public struct DialogButton: View {
     let title: String
     let keyEquivalent: NativeButton.KeyEquivalent
     let disabled: Bool
     let action: () -> Void
 
-    var body: some View {
+    public var body: some View {
         NativeButton(title, keyEquivalent: .escape) {
             action()
         }
@@ -29,16 +29,16 @@ struct DialogButton: View {
     }
 }
 
-struct DialogView<Content: View>: View {
-    let content: Content
+public struct DialogView<Content: View>: View {
+    private let content: Content
     private let buttons: [DialogButton]
 
-    init(primaryButton: DialogButton = .default("OK", action: {}), secondaryButton: DialogButton? = nil, @ViewBuilder content: () -> Content) {
+    public init(primaryButton: DialogButton = .default("OK", action: {}), secondaryButton: DialogButton? = nil, @ViewBuilder content: () -> Content) {
         buttons = [primaryButton, secondaryButton].compactMap { $0 }
         self.content = content()
     }
 
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .center) {
             content
                 .frame(maxWidth: .infinity)

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CommonUI
 import SwiftUI
 
 private struct InstallAppView: View {

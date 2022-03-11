@@ -5,6 +5,7 @@
 //  Created by vlsolome on 4/1/21.
 //
 
+import CommonUI
 import MITMProxy
 import SwiftUI
 

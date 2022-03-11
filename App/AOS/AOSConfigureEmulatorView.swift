@@ -6,6 +6,7 @@
 //
 
 import AOSEmulator
+import CommonUI
 import HTTPProxyManager
 import SwiftUI
 

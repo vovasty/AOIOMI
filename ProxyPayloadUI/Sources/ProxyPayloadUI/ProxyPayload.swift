@@ -14,15 +14,17 @@ public struct ProxyPayload: StoreItem {
     }
 
     public var id = UUID()
-    public var name: String = ""
-    public var regex: String = ""
-    public var isActive: Bool = false
-    public var payload: String = ""
+    public var name = ""
+    public var regex = ""
+    public var isActive = false
+    public var payload = ""
 
-    public init(id _: UUID, name: String, regex: String, isActive _: Bool, payload: String) {
+    public init(id: UUID, name: String, regex: String, isActive: Bool, payload: String) {
+        self.id = id
         self.name = name
         self.regex = regex
         self.payload = payload
+        self.isActive = isActive
     }
 
     public init() {}

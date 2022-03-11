@@ -8,17 +8,15 @@
 import Combine
 import Foundation
 import KVStore
-import MITMProxyAddons
 import MITMProxy
+import MITMProxyAddons
 
-final class PermzoneStore: Store<PermZone> {
-    @Published var activePermZone: PermZone?
-
-    let objectWillChange = PassthroughSubject<Void, Never>()
+public final class PermzoneStore: Store<PermZone> {
+    @Published public var activePermZone: PermZone?
 
     private var sub: AnyCancellable?
 
-    convenience init(manager: Manager) throws {
+    public convenience init(manager: Manager) throws {
         try self.init(database: try manager.database(name: "permzones"))
         activePermZone = items.first(where: \.isActive)
         sub = $activePermZone.sink { [weak self] newValue in
@@ -40,12 +38,21 @@ final class PermzoneStore: Store<PermZone> {
         }
     }
 
-    var addon: Addon? {
+    public var addon: Addon? {
         guard let activePermZone = activePermZone else { return nil }
         return AddRequestHeadersAddon(headers: activePermZone.headers)
     }
 
-    var isActive: Bool {
+    public var isActive: Bool {
         activePermZone != nil
     }
 }
+
+#if DEBUG
+    extension PermzoneStore {
+        static var preview: PermzoneStore {
+            let manager = try! Manager(data: URL(fileURLWithPath: "/tmp/test"))
+            return try! PermzoneStore(manager: manager)
+        }
+    }
+#endif

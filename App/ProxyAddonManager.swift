@@ -7,10 +7,10 @@
 
 import Combine
 import Foundation
-import KVStore
 import MITMProxy
 import MITMProxyAddons
 import ProxyPayloadUI
+import ProxyPermzoneUI
 import TranslatorAddon
 
 final class ProxyAddonManager: ObservableObject {
@@ -66,17 +66,3 @@ final class ProxyAddonManager: ObservableObject {
         [translator.addon, permzones.addon, payloads.addon].compactMap { $0 }
     }
 }
-
-#if DEBUG
-    extension ProxyAddonManager {
-        static var preview: ProxyAddonManager {
-            let manager = try! Manager(data: URL(fileURLWithPath: "/tmp/test"))
-            let userSettings = UserSettings()
-            return try! ProxyAddonManager(mitmProxy: MITMProxy.preview,
-                                          userSettings: userSettings,
-                                          payloads: PayloadStore(manager: manager),
-                                          permzones: PermzoneStore(manager: manager),
-                                          translator: TranslateStore(manager: manager, userSettings: userSettings))
-        }
-    }
-#endif

@@ -6,9 +6,10 @@
 //
 
 import Combine
+import CommonUI
 import SwiftUI
 
-struct PermZoneView: View {
+public struct PermZoneView: View {
     @EnvironmentObject private var permzoneStore: PermzoneStore
     @State private var editPermzone = PermZone()
     @State private var isShowingEditor = false
@@ -16,7 +17,9 @@ struct PermZoneView: View {
     @State private var isShowingError = false
     @State private var error: Error?
 
-    var body: some View {
+    public init() {}
+
+    public var body: some View {
         VStack(alignment: .leading) {
             VStack {
                 Picker("Permzone", selection: $permzoneStore.activePermZone) {
@@ -80,7 +83,7 @@ struct PermZoneView: View {
     struct PermzoneView_Previews: PreviewProvider {
         static var previews: some View {
             PermZoneView()
-                .environmentObject(ProxyAddonManager.preview)
+                .environmentObject(PermzoneStore.preview)
                 .frame(width: 300, height: 100)
         }
     }

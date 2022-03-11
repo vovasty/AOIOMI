@@ -17,8 +17,8 @@ private struct PermZoneDefinition: Decodable {
     let hosts: [String: Host]
 }
 
-struct PermZone: StoreItem, Hashable {
-    static func < (lhs: PermZone, rhs: PermZone) -> Bool {
+public struct PermZone: StoreItem, Hashable {
+    public static func < (lhs: PermZone, rhs: PermZone) -> Bool {
         lhs.name > rhs.name
     }
 
@@ -26,10 +26,19 @@ struct PermZone: StoreItem, Hashable {
         case emptyId, invalidBody
     }
 
-    var id = UUID()
-    var name: String = ""
-    var body: String = ""
-    var isActive: Bool = false
+    public var id = UUID()
+    public var name = ""
+    public var body = ""
+    public var isActive = false
+
+    public init(id: UUID, name: String, body: String, isActive: Bool) {
+        self.id = id
+        self.name = name
+        self.body = body
+        self.isActive = isActive
+    }
+
+    public init() {}
 
     func validate() throws {
         guard !name.isEmpty else { throw ValidationError.emptyId }

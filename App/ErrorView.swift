@@ -5,6 +5,7 @@
 //  Created by vlsolome on 2/11/21.
 //
 
+import CommonUI
 import SwiftUI
 
 private struct ErrorButtonStyle: ButtonStyle {
