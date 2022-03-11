@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CommonUI
 import Foundation
 
 protocol Migration {

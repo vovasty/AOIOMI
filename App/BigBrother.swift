@@ -16,6 +16,7 @@ import KVStore
 import MITMProxy
 import PayloadAddon
 import PermzoneAddon
+import SwiftyUserDefaults
 import TranslatorAddon
 
 final class BigBrother {
@@ -57,17 +58,17 @@ final class BigBrother {
                                       preferencesPath: aosAppPreferencesPath,
                                       env: aosRuntime.env)
 
-        mitmProxy = MITMProxy(port: userSettings.proxyPort,
-                              guiPort: userSettings.proxyGUIPort,
+        mitmProxy = MITMProxy(port: Defaults.proxyPort,
+                              guiPort: Defaults.proxyGUIPort,
                               home: appSupportURL.appendingPathComponent("mitmproxy"))
-        if userSettings.proxyExternalEnabled {
-            mitmProxy.upstreamProxyPort = userSettings.proxyExternalPort
-            mitmProxy.upstreamProxyHost = userSettings.proxyExternalHost
+        if Defaults.proxyExternalEnabled {
+            mitmProxy.upstreamProxyPort = Defaults.proxyExternalPort
+            mitmProxy.upstreamProxyHost = Defaults.proxyExternalHost
         } else {
             mitmProxy.upstreamProxyPort = nil
             mitmProxy.upstreamProxyHost = nil
         }
-        mitmProxy.allowedHosts = userSettings.proxyAllowedHosts
+        mitmProxy.allowedHosts = Defaults.proxyAllowedHosts
 
         httpProxyManager = HTTPProxyManager(charlesProxy: CharlesProxy(), mitmProxy: mitmProxy)
 

@@ -38,10 +38,10 @@ struct Migration18: Migration {
             guard let isChecked = entry["checked"] as? Bool else { return nil }
             guard let payload = entry["payload"] as? String else { return nil }
             return Payload(id: UUID(),
-                                name: name,
-                                regex: regex,
-                                isActive: isChecked,
-                                payload: payload)
+                           name: name,
+                           regex: regex,
+                           isActive: isChecked,
+                           payload: payload)
         }
         payloadStore.items = payloads
     }

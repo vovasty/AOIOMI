@@ -5,6 +5,7 @@
 //  Created by vlsolome on 2/21/21.
 //
 
+import CommonUI
 import IOSSimulator
 
 extension IOSSimulator.State {

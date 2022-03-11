@@ -6,6 +6,7 @@
 //
 
 import AOSEmulator
+import CommonUI
 import Foundation
 
 extension AOSAppManager.State: AppViewManagerState {

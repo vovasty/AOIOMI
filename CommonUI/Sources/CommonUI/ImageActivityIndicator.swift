@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct ImageActivityIndicator: View {
-    enum Style {
+public struct ImageActivityIndicator: View {
+    public enum Style {
         case ios, aos, proxy, zone, translator, payload
 
-        var color: Color {
+        public var color: Color {
             switch self {
             case .aos:
                 return Color("aos")
@@ -28,7 +28,7 @@ struct ImageActivityIndicator: View {
             }
         }
 
-        var image: Image {
+        public var image: Image {
             switch self {
             case .aos:
                 return Image("aos")
@@ -49,7 +49,7 @@ struct ImageActivityIndicator: View {
     let style: Style
     var isAnimating: Bool = false
 
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             ZStack {
                 style.image

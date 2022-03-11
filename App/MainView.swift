@@ -10,6 +10,7 @@ import IOSSimulator
 import MITMProxy
 import PayloadAddon
 import PermzoneAddon
+import ProxyAddon
 import SwiftUI
 import TranslatorAddon
 

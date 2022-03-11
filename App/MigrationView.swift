@@ -5,6 +5,7 @@
 //  Created by vlsolome on 11/17/21.
 //
 
+import CommonUI
 import SwiftUI
 
 struct MigrationView: View {

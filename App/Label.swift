@@ -5,6 +5,7 @@
 //  Created by vlsolome on 2/26/21.
 //
 
+import CommonUI
 import SwiftUI
 
 struct Label: View {

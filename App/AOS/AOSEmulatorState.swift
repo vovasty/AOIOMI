@@ -6,6 +6,7 @@
 //
 
 import AOSEmulator
+import CommonUI
 
 extension AOSEmulator.State {
     var activity: ActivityView.ActivityState {

@@ -6,6 +6,7 @@
 //
 
 import AOSEmulatorRuntime
+import CommonUI
 import Foundation
 
 extension AOSEmulatorRuntime.State {

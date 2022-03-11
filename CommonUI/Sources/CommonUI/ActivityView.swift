@@ -8,8 +8,8 @@
 import Combine
 import SwiftUI
 
-struct ActivityView: View {
-    enum ActivityState {
+public struct ActivityView: View {
+    public enum ActivityState {
         case busy(String), error(String, Error), text(String)
     }
 
@@ -17,12 +17,12 @@ struct ActivityView: View {
     private let state: Binding<ActivityState>
     @State private var isAnimating: Bool = true
 
-    init(style: ImageActivityIndicator.Style, state: Binding<ActivityState>) {
+    public init(style: ImageActivityIndicator.Style, state: Binding<ActivityState>) {
         self.state = state
         self.style = style
     }
 
-    var body: some View {
+    public var body: some View {
         HStack(alignment: .center, spacing: 3) {
             ImageActivityIndicator(style: style, isAnimating: isAnimating)
                 .frame(width: 22, height: 22, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)

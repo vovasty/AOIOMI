@@ -8,14 +8,15 @@
 import CommonUI
 import MITMProxy
 import SwiftUI
+import SwiftyUserDefaults
 
 struct ProxyPortView: View {
-    @EnvironmentObject private var userSettings: UserSettings
     @EnvironmentObject private var mitmProxy: MITMProxy
-    @State private var isShowingPortChange: Bool = false
-    @State private var proxyPort: String = ""
-    @State private var proxyExternalPort: String = ""
-    @State private var proxyExternalHost: String = ""
+    @State private var isShowingPortChange = false
+    @State private var proxyPort = String(Defaults.proxyPort)
+    @State private var proxyExternalPort = String(Defaults.proxyExternalPort ?? 0)
+    @State private var proxyExternalHost = Defaults.proxyExternalHost ?? ""
+    @State private var proxyExternalEnabled = Defaults.proxyExternalEnabled
 
     var body: some View {
         HStack {
@@ -23,17 +24,18 @@ struct ProxyPortView: View {
             Button(action: {
                 isShowingPortChange.toggle()
             }) {
-                Text(String(userSettings.proxyPort))
+                Text(String(Defaults.proxyPort))
             }.sheet(isPresented: $isShowingPortChange) {
                 DialogView(primaryButton: .default("OK", action: {
                     guard let proxyPort = Int(proxyPort) else { return }
-                    userSettings.proxyPort = proxyPort
-                    userSettings.proxyExternalPort = Int(proxyExternalPort)
-                    userSettings.proxyExternalHost = proxyExternalHost
-                    mitmProxy.port = userSettings.proxyPort
-                    if userSettings.proxyExternalEnabled {
-                        mitmProxy.upstreamProxyPort = userSettings.proxyExternalPort
-                        mitmProxy.upstreamProxyHost = userSettings.proxyExternalHost
+                    Defaults.proxyPort = proxyPort
+                    Defaults.proxyExternalPort = Int(proxyExternalPort)
+                    Defaults.proxyExternalHost = proxyExternalHost
+                    Defaults.proxyExternalEnabled = proxyExternalEnabled
+                    mitmProxy.port = Defaults.proxyPort
+                    if Defaults.proxyExternalEnabled {
+                        mitmProxy.upstreamProxyPort = Defaults.proxyExternalPort
+                        mitmProxy.upstreamProxyHost = Defaults.proxyExternalHost
                     } else {
                         mitmProxy.upstreamProxyPort = nil
                         mitmProxy.upstreamProxyHost = nil
@@ -41,31 +43,22 @@ struct ProxyPortView: View {
                     mitmProxy.restart()
                     isShowingPortChange.toggle()
                 }), secondaryButton: .cancel("Cancel", action: {
-                    proxyPort = String(userSettings.proxyPort)
+                    proxyPort = String(Defaults.proxyPort)
                     isShowingPortChange.toggle()
                 })) {
                     VStack(alignment: .leading) {
                         Text("Proxy")
                         TextField("Proxy Port", text: $proxyPort)
                         Text("External Proxy")
-                        Toggle("Enabled", isOn: $userSettings.proxyExternalEnabled)
+                        Toggle("Enabled", isOn: $proxyExternalEnabled)
                         HStack {
                             TextField("Host", text: $proxyExternalHost).frame(minWidth: 120)
                             TextField("Port", text: $proxyExternalPort)
                         }
-                        .disabled(!userSettings.proxyExternalEnabled)
+                        .disabled(!proxyExternalEnabled)
                     }
                 }
                 .padding()
-            }
-        }
-        .onAppear {
-            proxyPort = String(userSettings.proxyPort)
-            if let proxyExternalPort = userSettings.proxyExternalPort {
-                self.proxyExternalPort = String(proxyExternalPort)
-            }
-            if let proxyExternalHost = userSettings.proxyExternalHost {
-                self.proxyExternalHost = proxyExternalHost
             }
         }
     }
@@ -76,7 +69,6 @@ struct ProxyPortView: View {
         static var previews: some View {
             ProxyPortView()
                 .environmentObject(MITMProxy.preview)
-                .environmentObject(UserSettings())
         }
     }
 #endif

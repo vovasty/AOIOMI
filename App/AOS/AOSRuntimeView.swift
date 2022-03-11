@@ -6,6 +6,7 @@
 //
 
 import AOSEmulatorRuntime
+import CommonUI
 import SwiftUI
 
 struct AOSRuntimeView: View {

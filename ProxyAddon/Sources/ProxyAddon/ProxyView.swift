@@ -5,14 +5,17 @@
 //  Created by vlsolome on 3/31/21.
 //
 
+import CommonUI
 import MITMProxy
 import SwiftUI
 
-struct ProxyView: View {
+public struct ProxyView: View {
     @EnvironmentObject private var mitmProxy: MITMProxy
     @State private var activityState: ActivityView.ActivityState = MITMProxy.State.stopped.activity
 
-    var body: some View {
+    public init() {}
+
+    public var body: some View {
         VStack(alignment: .leading) {
             ActivityView(style: .proxy, state: $activityState)
             ProxyPortView()
@@ -32,7 +35,6 @@ struct ProxyView: View {
     struct ProxySettingsView_Previews: PreviewProvider {
         static var previews: some View {
             ProxyView()
-                .environmentObject(UserSettings())
                 .environmentObject(MITMProxy.preview)
         }
     }

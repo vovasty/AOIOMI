@@ -5,6 +5,7 @@
 //  Created by vlsolome on 2/16/21.
 //
 
+import CommonUI
 import Foundation
 import HTTPProxyManager
 import IOSSimulator
