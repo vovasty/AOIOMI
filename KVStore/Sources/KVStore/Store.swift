@@ -9,7 +9,7 @@ open class Store<Value: StoreItem>: ObservableObject {
     public enum State {
         case idle, saving
     }
-    
+
     @Published public var items: [Value]
     @Published public var error: Error?
     @Published public var state = State.idle

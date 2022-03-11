@@ -15,19 +15,16 @@
 		B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B40942C625DB985F005CBEB3 /* AOSEmulator */; };
 		B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */; };
 		B41DA48D27D94015004427C3 /* KVStore in Frameworks */ = {isa = PBXBuildFile; productRef = B41DA48C27D94015004427C3 /* KVStore */; };
-		B41DA48F27D94186004427C3 /* PayloadStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41DA48E27D940FD004427C3 /* PayloadStore.swift */; };
 		B421005727459D5D0053DD32 /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005527459A4A0053DD32 /* MigrationManager.swift */; };
 		B42100592745A0170053DD32 /* Migration15.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42100582745A0170053DD32 /* Migration15.swift */; };
 		B421005B2745A5530053DD32 /* MigrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005A2745A5530053DD32 /* MigrationView.swift */; };
 		B421005D2745B5880053DD32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005C2745B5880053DD32 /* ContentView.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
+		B462CE0127DAEB4F002F281C /* ProxyPayloadUI in Frameworks */ = {isa = PBXBuildFile; productRef = B462CE0027DAEB4F002F281C /* ProxyPayloadUI */; };
 		B468661027D976C40028F800 /* PermzoneStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468660F27D974FA0028F800 /* PermzoneStore.swift */; };
 		B468661227D992980028F800 /* TranslateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468661127D992980028F800 /* TranslateStore.swift */; };
 		B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F3D25E2E0A00090896C /* BigBrother.swift */; };
 		B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */; };
-		B473A5CE261BA8EC00AA639E /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473A5CD261BA8EC00AA639E /* PayloadView.swift */; };
-		B473A5D0261BAA4200AA639E /* ProxyPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473A5CF261BAA4200AA639E /* ProxyPayload.swift */; };
-		B473A5D2261BB5AA00AA639E /* PayloadEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B473A5D1261BB5AA00AA639E /* PayloadEditorView.swift */; };
 		B4773215261908EB000F1245 /* AOSConfigureEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4773214261908EB000F1245 /* AOSConfigureEmulatorView.swift */; };
 		B47C937125E99C8700E19602 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47C937025E99C8700E19602 /* Label.swift */; };
 		B4884EC425DA4CA100FBFAD0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */; };
@@ -48,7 +45,6 @@
 		B4E82DE5261978AF00D0D7D9 /* TranslatorAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B4E82DE4261978AF00D0D7D9 /* TranslatorAddon */; };
 		B4EFC9DB2615317F00483DAD /* PermZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9DA2615317F00483DAD /* PermZoneView.swift */; };
 		B4EFC9E1261537FD00483DAD /* PermZoneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */; };
-		B4EFC9E626153A5800483DAD /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9E526153A5800483DAD /* TextArea.swift */; };
 		B4EFC9FB261544BB00483DAD /* UserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = B4EFC9FA261544BB00483DAD /* UserDefaults */; };
 		B4EFC9FF261544CF00483DAD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9FE261544CF00483DAD /* UserSettings.swift */; };
 		B4EFCA032615459400483DAD /* PermZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFCA022615459400483DAD /* PermZone.swift */; };
@@ -89,19 +85,16 @@
 		B40942C325DB97F8005CBEB3 /* AOSEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulator; sourceTree = "<group>"; };
 		B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureView.swift; sourceTree = "<group>"; };
 		B41DA48B27D93FF2004427C3 /* KVStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = KVStore; sourceTree = "<group>"; };
-		B41DA48E27D940FD004427C3 /* PayloadStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadStore.swift; sourceTree = "<group>"; };
 		B421005527459A4A0053DD32 /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
 		B42100582745A0170053DD32 /* Migration15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration15.swift; sourceTree = "<group>"; };
 		B421005A2745A5530053DD32 /* MigrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationView.swift; sourceTree = "<group>"; };
 		B421005C2745B5880053DD32 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
+		B462CDFF27DAEB0E002F281C /* ProxyPayloadUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ProxyPayloadUI; sourceTree = "<group>"; };
 		B468660F27D974FA0028F800 /* PermzoneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermzoneStore.swift; sourceTree = "<group>"; };
 		B468661127D992980028F800 /* TranslateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateStore.swift; sourceTree = "<group>"; };
 		B4687F3D25E2E0A00090896C /* BigBrother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigBrother.swift; sourceTree = "<group>"; };
 		B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSimulatorState.swift; sourceTree = "<group>"; };
-		B473A5CD261BA8EC00AA639E /* PayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadView.swift; sourceTree = "<group>"; };
-		B473A5CF261BAA4200AA639E /* ProxyPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyPayload.swift; sourceTree = "<group>"; };
-		B473A5D1261BB5AA00AA639E /* PayloadEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadEditorView.swift; sourceTree = "<group>"; };
 		B4773214261908EB000F1245 /* AOSConfigureEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSConfigureEmulatorView.swift; sourceTree = "<group>"; };
 		B47C937025E99C8700E19602 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -126,7 +119,6 @@
 		B4E82DE12619765E00D0D7D9 /* Translator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Translator; sourceTree = "<group>"; };
 		B4EFC9DA2615317F00483DAD /* PermZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermZoneView.swift; sourceTree = "<group>"; };
 		B4EFC9E0261537FD00483DAD /* PermZoneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermZoneEditor.swift; sourceTree = "<group>"; };
-		B4EFC9E526153A5800483DAD /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
 		B4EFC9F72615449300483DAD /* UserDefaults */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UserDefaults; sourceTree = "<group>"; };
 		B4EFC9FE261544CF00483DAD /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B4EFCA022615459400483DAD /* PermZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermZone.swift; sourceTree = "<group>"; };
@@ -160,6 +152,7 @@
 				B4E82DE5261978AF00D0D7D9 /* TranslatorAddon in Frameworks */,
 				B4EFC9FB261544BB00483DAD /* UserDefaults in Frameworks */,
 				B40800C52617BCBD009ED902 /* HTTPProxyManager in Frameworks */,
+				B462CE0127DAEB4F002F281C /* ProxyPayloadUI in Frameworks */,
 				B41DA48D27D94015004427C3 /* KVStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,6 +187,7 @@
 				B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */,
 				B40942C325DB97F8005CBEB3 /* AOSEmulator */,
 				B41DA48B27D93FF2004427C3 /* KVStore */,
+				B462CDFF27DAEB0E002F281C /* ProxyPayloadUI */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -239,17 +233,6 @@
 			path = Proxy;
 			sourceTree = "<group>";
 		};
-		B473A5CC261BA78C00AA639E /* Payload */ = {
-			isa = PBXGroup;
-			children = (
-				B41DA48E27D940FD004427C3 /* PayloadStore.swift */,
-				B473A5CD261BA8EC00AA639E /* PayloadView.swift */,
-				B473A5D1261BB5AA00AA639E /* PayloadEditorView.swift */,
-				B473A5CF261BAA4200AA639E /* ProxyPayload.swift */,
-			);
-			path = Payload;
-			sourceTree = "<group>";
-		};
 		B4A97690253114D100962CC1 = {
 			isa = PBXGroup;
 			children = (
@@ -284,7 +267,6 @@
 				B4F3F18525D5EE22006ADB7A /* iOS */,
 				B4F7E26325D9D3EF007D118D /* ActivityView.swift */,
 				B47C937025E99C8700E19602 /* Label.swift */,
-				B4EFC9E526153A5800483DAD /* TextArea.swift */,
 				B4884EC325DA4CA100FBFAD0 /* ActivityIndicator.swift */,
 				B4F10B5925DCE5A500D23AFD /* AppView.swift */,
 				B40800BC2617AB15009ED902 /* ProxyTypeView.swift */,
@@ -319,7 +301,6 @@
 		B4EFC9D92615315A00483DAD /* Proxy */ = {
 			isa = PBXGroup;
 			children = (
-				B473A5CC261BA78C00AA639E /* Payload */,
 				B473A5CA261BA10000AA639E /* PermZone */,
 				B473A5CB261BA12900AA639E /* Proxy */,
 				B473A5C9261B955400AA639E /* Translate */,
@@ -367,6 +348,7 @@
 				B4E82DE2261978A900D0D7D9 /* MITMProxyAddons */,
 				B4E82DE4261978AF00D0D7D9 /* TranslatorAddon */,
 				B41DA48C27D94015004427C3 /* KVStore */,
+				B462CE0027DAEB4F002F281C /* ProxyPayloadUI */,
 			);
 			productName = AOIOMI;
 			productReference = B4A97699253114D100962CC1 /* AOIOMI.app */;
@@ -426,15 +408,12 @@
 				B4F10B6E25DCF4EF00D23AFD /* AOSAppViewManagerConformance.swift in Sources */,
 				B4AF109A2616B98D00808341 /* AOSEmulatorRuntimeState.swift in Sources */,
 				B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */,
-				B473A5CE261BA8EC00AA639E /* PayloadView.swift in Sources */,
 				B4EFC9E1261537FD00483DAD /* PermZoneEditor.swift in Sources */,
-				B473A5D2261BB5AA00AA639E /* PayloadEditorView.swift in Sources */,
 				B4B4FBCA27DA8CAF009F1CBB /* Migration18.swift in Sources */,
 				B4EFCA262616710700483DAD /* TranslateDefinition.swift in Sources */,
 				B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */,
 				B4F3F18025D5E974006ADB7A /* IOSView.swift in Sources */,
 				B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */,
-				B4EFC9E626153A5800483DAD /* TextArea.swift in Sources */,
 				B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */,
 				B4EFCA2E261672BC00483DAD /* TranslateView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* MainView.swift in Sources */,
@@ -450,7 +429,6 @@
 				B4EFCA032615459400483DAD /* PermZone.swift in Sources */,
 				B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */,
 				B4DC381925E2F11000E6206A /* DialogView.swift in Sources */,
-				B41DA48F27D94186004427C3 /* PayloadStore.swift in Sources */,
 				B4EFC9DB2615317F00483DAD /* PermZoneView.swift in Sources */,
 				B421005D2745B5880053DD32 /* ContentView.swift in Sources */,
 				B421005B2745A5530053DD32 /* MigrationView.swift in Sources */,
@@ -459,7 +437,6 @@
 				B42100592745A0170053DD32 /* Migration15.swift in Sources */,
 				B4EFCA0D2615534000483DAD /* ProxyView.swift in Sources */,
 				B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */,
-				B473A5D0261BAA4200AA639E /* ProxyPayload.swift in Sources */,
 				B49DD3D927D96A23003BD0FE /* ProxyAddonManager.swift in Sources */,
 				B4AF10942616B8E100808341 /* AOSRuntimeView.swift in Sources */,
 				B4EFCA1C26165C6700483DAD /* ProxyPortView.swift in Sources */,
@@ -697,6 +674,10 @@
 		B41DA48C27D94015004427C3 /* KVStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KVStore;
+		};
+		B462CE0027DAEB4F002F281C /* ProxyPayloadUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ProxyPayloadUI;
 		};
 		B4E82DE2261978A900D0D7D9 /* MITMProxyAddons */ = {
 			isa = XCSwiftPackageProductDependency;

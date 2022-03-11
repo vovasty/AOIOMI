@@ -7,31 +7,35 @@
 
 import SwiftUI
 
-struct TextArea: NSViewRepresentable {
-    @Binding var text: String
+public struct TextArea: NSViewRepresentable {
+    private var text: Binding<String>
 
-    func makeNSView(context: Context) -> NSScrollView {
+    public init(text: Binding<String>) {
+        self.text = text
+    }
+
+    public func makeNSView(context: Context) -> NSScrollView {
         context.coordinator.createTextViewStack()
     }
 
-    func updateNSView(_ nsView: NSScrollView, context _: Context) {
-        if let textArea = nsView.documentView as? NSTextView, textArea.string != text {
-            textArea.string = text
+    public func updateNSView(_ nsView: NSScrollView, context _: Context) {
+        if let textArea = nsView.documentView as? NSTextView, textArea.string != text.wrappedValue {
+            textArea.string = text.wrappedValue
         }
     }
 
-    func makeCoordinator() -> Coordinator {
-        Coordinator(text: $text)
+    public func makeCoordinator() -> Coordinator {
+        Coordinator(text: text)
     }
 
-    class Coordinator: NSObject, NSTextViewDelegate {
+    public class Coordinator: NSObject, NSTextViewDelegate {
         var text: Binding<String>
 
         init(text: Binding<String>) {
             self.text = text
         }
 
-        func textView(_ textView: NSTextView, shouldChangeTextIn range: NSRange, replacementString text: String?) -> Bool {
+        public func textView(_ textView: NSTextView, shouldChangeTextIn range: NSRange, replacementString text: String?) -> Bool {
             defer {
                 self.text.wrappedValue = (textView.string as NSString).replacingCharacters(in: range, with: text!)
             }

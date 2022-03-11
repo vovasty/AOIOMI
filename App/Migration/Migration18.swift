@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ProxyPayloadUI
 import TranslatorAddon
 
 struct Migration18: Migration {

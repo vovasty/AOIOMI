@@ -10,6 +10,7 @@ import Foundation
 import KVStore
 import MITMProxy
 import MITMProxyAddons
+import ProxyPayloadUI
 import TranslatorAddon
 
 final class ProxyAddonManager: ObservableObject {

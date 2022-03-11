@@ -7,15 +7,15 @@
 
 import Foundation
 import KVStore
-import MITMProxyAddons
 import MITMProxy
+import MITMProxyAddons
 
-final class PayloadStore: Store<ProxyPayload> {
-    convenience init(manager: Manager) throws {
+public final class PayloadStore: Store<ProxyPayload> {
+    public convenience init(manager: Manager) throws {
         try self.init(database: try manager.database(name: "payloads"))
     }
 
-    var addon: Addon? {
+    public var addon: Addon? {
         let payloads = items
             .filter(\.isActive)
             .reduce([String: String]()) { result, payload -> [String: String] in
@@ -27,7 +27,16 @@ final class PayloadStore: Store<ProxyPayload> {
         return payloads.isEmpty ? nil : ReplaceResponseContentAddon(payloads: payloads)
     }
 
-    var isActive: Bool {
+    public var isActive: Bool {
         items.contains { $0.isActive }
     }
 }
+
+#if DEBUG
+    extension PayloadStore {
+        static var preview: PayloadStore {
+            let manager = try! Manager(data: URL(fileURLWithPath: "/tmp/test"))
+            return try! PayloadStore(manager: manager)
+        }
+    }
+#endif

@@ -8,12 +8,14 @@
 import Combine
 import SwiftUI
 
-struct PayloadView: View {
+public struct PayloadView: View {
     @EnvironmentObject private var payloadStore: PayloadStore
     @State private var selection: UUID?
     @State private var isShowingError = false
 
-    var body: some View {
+    public init() {}
+
+    public var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
                 List($payloadStore.items) { $item in
@@ -71,7 +73,7 @@ struct PayloadView: View {
     struct PayloadView_Previews: PreviewProvider {
         static var previews: some View {
             PayloadView()
-                .environmentObject(ProxyAddonManager.preview)
+                .environmentObject(PayloadStore.preview)
         }
     }
 #endif

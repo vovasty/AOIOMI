@@ -14,6 +14,7 @@ import HTTPProxyManager
 import IOSSimulator
 import KVStore
 import MITMProxy
+import ProxyPayloadUI
 
 final class BigBrother {
     let simulatorId = "AOIOMI"

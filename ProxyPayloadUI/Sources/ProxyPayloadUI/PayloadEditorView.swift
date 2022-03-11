@@ -5,6 +5,7 @@
 //  Created by vlsolome on 4/5/21.
 //
 
+import CommonUI
 import SwiftUI
 
 struct PayloadEditorView: View {

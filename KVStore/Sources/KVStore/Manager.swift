@@ -13,7 +13,7 @@ public class Manager {
 
     public init(data: URL) throws {
         try? FileManager.default.createDirectory(at: data, withIntermediateDirectories: true, attributes: nil)
-        environment = try Environment(path: data.path, flags: [], maxDBs: 8, maxReaders: 32, mapSize: 1024*1024*1024)
+        environment = try Environment(path: data.path, flags: [], maxDBs: 8, maxReaders: 32, mapSize: 1024 * 1024 * 1024)
     }
 
     public func open<Value: Codable>(name: String) throws -> Store<Value> {
