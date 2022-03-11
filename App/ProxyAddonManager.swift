@@ -8,7 +8,6 @@
 import Combine
 import Foundation
 import MITMProxy
-import MITMProxyAddons
 import PayloadAddon
 import PermzoneAddon
 import TranslatorAddon

@@ -16,13 +16,13 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../KVStore"),
-        .package(path: "../MITMProxyAddons"),
         .package(path: "../CommonUI"),
+        .package(path: "../MITMProxy"),
     ],
     targets: [
         .target(
             name: "PayloadAddon",
-            dependencies: ["KVStore", "MITMProxyAddons", "CommonUI"],
+            dependencies: ["KVStore", "MITMProxy", "CommonUI"],
             resources: [
                 .copy("Resources/replaceresponsecontentaddon"),
             ]

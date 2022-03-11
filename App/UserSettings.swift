@@ -9,7 +9,6 @@ import Combine
 import HTTPProxyManager
 import IOSSimulator
 import MITMProxy
-import MITMProxyAddons
 import TranslatorAddon
 import UserDefaults
 

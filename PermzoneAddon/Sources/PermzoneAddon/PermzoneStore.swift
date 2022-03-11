@@ -9,7 +9,6 @@ import Combine
 import Foundation
 import KVStore
 import MITMProxy
-import MITMProxyAddons
 
 public final class PermzoneStore: Store<PermZone> {
     @Published public var activePermZone: PermZone?

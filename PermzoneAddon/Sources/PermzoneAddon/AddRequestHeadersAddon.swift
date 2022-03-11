@@ -21,7 +21,7 @@ public struct AddRequestHeadersAddon: Addon {
         .joined(separator: ",")
         constructorString =
             """
-            AddRequestHeadersAddon({\(headersString)})
+                AddRequestHeadersAddon.AddRequestHeadersAddon({\(headersString)})
             """
         sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.path
     }

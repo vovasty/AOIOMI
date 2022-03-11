@@ -8,7 +8,6 @@
 import Foundation
 import KVStore
 import MITMProxy
-import MITMProxyAddons
 
 public final class PayloadStore: Store<ProxyPayload> {
     public convenience init(manager: Manager) throws {

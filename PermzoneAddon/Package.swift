@@ -17,12 +17,15 @@ let package = Package(
     dependencies: [
         .package(path: "../KVStore"),
         .package(path: "../CommonUI"),
-        .package(path: "../MITMProxyAddons"),
+        .package(path: "../MITMProxy"),
     ],
     targets: [
         .target(
             name: "PermzoneAddon",
-            dependencies: ["KVStore", "CommonUI", "MITMProxyAddons"]
+            dependencies: ["KVStore", "CommonUI", "MITMProxy"],
+            resources: [
+                .copy("Resources/addrequestheadersaddon"),
+            ]
         ),
     ]
 )

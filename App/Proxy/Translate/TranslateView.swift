@@ -26,11 +26,11 @@ struct TranslateView: View {
     }
 }
 
-//#if DEBUG
+// #if DEBUG
 //    struct TranslateView_Previews: PreviewProvider {
 //        static var previews: some View {
 //            TranslateView()
 //                .environmentObject(ProxyAddonManager.preview)
 //        }
 //    }
-//#endif
+// #endif
