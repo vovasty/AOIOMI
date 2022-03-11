@@ -30,7 +30,7 @@
 		B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */; };
 		B4773215261908EB000F1245 /* AOSConfigureEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4773214261908EB000F1245 /* AOSConfigureEmulatorView.swift */; };
 		B47C937125E99C8700E19602 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47C937025E99C8700E19602 /* Label.swift */; };
-		B49DD3D927D96A23003BD0FE /* ProxyAddonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49DD3D827D96974003BD0FE /* ProxyAddonManager.swift */; };
+		B49DD3D927D96A23003BD0FE /* AddonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49DD3D827D96974003BD0FE /* AddonManager.swift */; };
 		B4A9769D253114D100962CC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769C253114D100962CC1 /* AppDelegate.swift */; };
 		B4A9769F253114D100962CC1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A9769E253114D100962CC1 /* MainView.swift */; };
 		B4A976A1253114D200962CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4A976A0253114D200962CC1 /* Assets.xcassets */; };
@@ -85,7 +85,7 @@
 		B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSimulatorState.swift; sourceTree = "<group>"; };
 		B4773214261908EB000F1245 /* AOSConfigureEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSConfigureEmulatorView.swift; sourceTree = "<group>"; };
 		B47C937025E99C8700E19602 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
-		B49DD3D827D96974003BD0FE /* ProxyAddonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyAddonManager.swift; sourceTree = "<group>"; };
+		B49DD3D827D96974003BD0FE /* AddonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddonManager.swift; sourceTree = "<group>"; };
 		B4A97699253114D100962CC1 /* AOIOMI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AOIOMI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A9769C253114D100962CC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4A9769E253114D100962CC1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 				B4A9769E253114D100962CC1 /* MainView.swift */,
 				B421005C2745B5880053DD32 /* ContentView.swift */,
 				B421005A2745A5530053DD32 /* MigrationView.swift */,
-				B49DD3D827D96974003BD0FE /* ProxyAddonManager.swift */,
+				B49DD3D827D96974003BD0FE /* AddonManager.swift */,
 				B41E5A8D27DBFD5C00C6722E /* DefaultsKeys.swift */,
 				B41E5A8E27DBFEB200C6722E /* IOSAppManager.swift */,
 				B403452725D71B9800C2146D /* AOS */,
@@ -354,7 +354,7 @@
 				B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */,
 				B42100592745A0170053DD32 /* Migration15.swift in Sources */,
 				B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */,
-				B49DD3D927D96A23003BD0FE /* ProxyAddonManager.swift in Sources */,
+				B49DD3D927D96A23003BD0FE /* AddonManager.swift in Sources */,
 				B4AF10942616B8E100808341 /* AOSRuntimeView.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */,
 				B421005727459D5D0053DD32 /* MigrationManager.swift in Sources */,

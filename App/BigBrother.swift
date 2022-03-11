@@ -34,7 +34,7 @@ final class BigBrother {
     let httpProxyManager: HTTPProxyManager
     let migrationManager = MigrationManager()
     let kvManager: Manager
-    let proxyAddonManager: ProxyAddonManager
+    let proxyAddonManager: AddonManager
     let payloadStore: PayloadStore
     let permzoneStore: PermzoneStore
     let translatorStore: TranslatorStore
@@ -76,7 +76,7 @@ final class BigBrother {
         permzoneStore = try! PermzoneStore(manager: kvManager)
         translatorStore = try! TranslatorStore(manager: kvManager)
 
-        proxyAddonManager = ProxyAddonManager(mitmProxy: mitmProxy,
+        proxyAddonManager = AddonManager(mitmProxy: mitmProxy,
                                               payloads: payloadStore,
                                               permzones: permzoneStore,
                                               translator: translatorStore)

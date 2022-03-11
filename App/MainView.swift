@@ -23,7 +23,7 @@ struct MainView: View {
     @EnvironmentObject private var emulator: AOSEmulator
     @EnvironmentObject private var simulator: IOSSimulator
     @EnvironmentObject private var mitmProxy: MITMProxy
-    @EnvironmentObject private var addonManager: ProxyAddonManager
+    @EnvironmentObject private var addonManager: AddonManager
     @EnvironmentObject private var payloadStore: PayloadStore
     @EnvironmentObject private var permzoneStore: PermzoneStore
     @EnvironmentObject private var translatorStore: TranslatorStore

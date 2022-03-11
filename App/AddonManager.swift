@@ -1,5 +1,5 @@
 //
-//  ProxyAddonManager.swift
+//  AddonManager.swift
 //  AOIOMI
 //
 //  Created by vlsolome on 3/9/22.
@@ -12,7 +12,7 @@ import PayloadAddon
 import PermzoneAddon
 import TranslatorAddon
 
-final class ProxyAddonManager: ObservableObject {
+final class AddonManager: ObservableObject {
     private let payloads: PayloadStore
     private let permzones: PermzoneStore
     private let translator: TranslatorStore
