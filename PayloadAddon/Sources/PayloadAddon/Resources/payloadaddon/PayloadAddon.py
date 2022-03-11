@@ -4,7 +4,7 @@ from mitmproxy import http
 import json
 import re
 
-class ReplaceResponseContentAddon:
+class PayloadAddon:
     def __init__(self, config):
         with open(config, 'rb') as file:
             data = json.load(file)
@@ -18,6 +18,5 @@ class ReplaceResponseContentAddon:
         url = flow.request.pretty_url
         for (regex, value) in self.config:
             matched = not regex.match(url) is None
-            ctx.log.debug(f"ReplaceResponseContentAddon: {url} ~= {regex} {matched}")
             if matched:
                 flow.response.content = value

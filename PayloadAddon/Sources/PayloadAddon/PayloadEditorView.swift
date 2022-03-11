@@ -9,7 +9,7 @@ import CommonUI
 import SwiftUI
 
 struct PayloadEditorView: View {
-    @Binding var payload: ProxyPayload
+    @Binding var payload: Payload
 
     var body: some View {
         VStack(spacing: 3) {
@@ -22,7 +22,7 @@ struct PayloadEditorView: View {
 
 #if DEBUG
     struct PayloadEditorView_Previews: PreviewProvider {
-        @State static var payload = ProxyPayload()
+        @State static var payload = Payload()
 
         static var previews: some View {
             PayloadEditorView(payload: $payload)

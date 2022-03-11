@@ -9,7 +9,7 @@ import Foundation
 import KVStore
 import MITMProxy
 
-public final class PayloadStore: Store<ProxyPayload> {
+public final class PayloadStore: Store<Payload> {
     public convenience init(manager: Manager) throws {
         try self.init(database: try manager.database(name: "payloads"))
     }
@@ -23,7 +23,7 @@ public final class PayloadStore: Store<ProxyPayload> {
                 return result
             }
 
-        return payloads.isEmpty ? nil : ReplaceResponseContentAddon(payloads: payloads)
+        return payloads.isEmpty ? nil : PayloadAddon(payloads: payloads)
     }
 
     public var isActive: Bool {

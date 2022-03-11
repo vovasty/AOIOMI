@@ -28,7 +28,7 @@ public struct PayloadView: View {
                 }
                 HStack {
                     Button("+") {
-                        let payload = ProxyPayload()
+                        let payload = Payload()
                         payloadStore.items.append(payload)
                         DispatchQueue.main.async {
                             selection = payload.id

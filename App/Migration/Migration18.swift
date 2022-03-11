@@ -32,12 +32,12 @@ struct Migration18: Migration {
 
     private func migratePayloads() {
         guard let entries = getJSON(key: "payloads") as? [[String: Any]] else { return }
-        let payloads: [ProxyPayload] = entries.compactMap { entry in
+        let payloads: [Payload] = entries.compactMap { entry in
             guard let name = entry["id"] as? String else { return nil }
             guard let regex = entry["regex"] as? String else { return nil }
             guard let isChecked = entry["checked"] as? Bool else { return nil }
             guard let payload = entry["payload"] as? String else { return nil }
-            return ProxyPayload(id: UUID(),
+            return Payload(id: UUID(),
                                 name: name,
                                 regex: regex,
                                 isActive: isChecked,

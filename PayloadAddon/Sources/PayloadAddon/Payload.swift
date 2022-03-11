@@ -8,8 +8,8 @@
 import Foundation
 import KVStore
 
-public struct ProxyPayload: StoreItem {
-    public static func < (lhs: ProxyPayload, rhs: ProxyPayload) -> Bool {
+public struct Payload: StoreItem {
+    public static func < (lhs: Payload, rhs: Payload) -> Bool {
         lhs.name > rhs.name
     }
 

@@ -24,7 +24,7 @@ let package = Package(
             name: "PayloadAddon",
             dependencies: ["KVStore", "MITMProxy", "CommonUI"],
             resources: [
-                .copy("Resources/replaceresponsecontentaddon"),
+                .copy("Resources/payloadaddon"),
             ]
         ),
     ]
