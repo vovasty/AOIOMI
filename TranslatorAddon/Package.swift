@@ -18,11 +18,12 @@ let package = Package(
         .package(path: "../KVStore"),
         .package(path: "../CommonUI"),
         .package(path: "../MITMProxy"),
+        .package(url: "https://github.com/sunshinejr/SwiftyUserDefaults", from: "5.0.0"),
     ],
     targets: [
         .target(
             name: "TranslatorAddon",
-            dependencies: ["KVStore", "CommonUI", "MITMProxy"],
+            dependencies: ["KVStore", "CommonUI", "MITMProxy", "SwiftyUserDefaults"],
             resources: [
                 .copy("Resources/translatoraddon"),
                 .process("Resources/translatoraddon/libTranslator.dylib"),

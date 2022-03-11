@@ -9,9 +9,9 @@ import Combine
 import Foundation
 import KVStore
 import MITMProxy
+import SwiftyUserDefaults
 
 public final class TranslatorStore: Store<Definition> {
-    private let userDefaults = UserDefaults.standard
     @Published public var isActive: Bool
     public var addon: Addon? {
         guard isActive else { return nil }
@@ -23,13 +23,13 @@ public final class TranslatorStore: Store<Definition> {
     private var sub: AnyCancellable?
 
     public init(manager: Manager) throws {
-        isActive = userDefaults.bool(forKey: "TranslatorStore.isTranslationActive")
+        isActive = Defaults.isTranslationActive
         try super.init(database: try manager.database(name: "translator"))
         if items.isEmpty {
             items = defaults
         }
-        sub = $isActive.sink { [weak self] value in
-            self?.userDefaults.set(value, forKey: "TranslatorStore.isTranslationActive")
+        sub = $isActive.sink {
+            Defaults.isTranslationActive = $0
         }
     }
 
