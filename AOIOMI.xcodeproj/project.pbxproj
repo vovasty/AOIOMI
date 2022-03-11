@@ -16,10 +16,11 @@
 		B41E5A6E27DBCC1A00C6722E /* PayloadAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A6D27DBCC1A00C6722E /* PayloadAddon */; };
 		B41E5A7127DBCCF100C6722E /* PermzoneAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A7027DBCCF100C6722E /* PermzoneAddon */; };
 		B41E5A7427DBDAC100C6722E /* TranslatorAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A7327DBDAC100C6722E /* TranslatorAddon */; };
-		B41E5A7727DBDB4C00C6722E /* UserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A7627DBDB4C00C6722E /* UserDefaults */; };
 		B41E5A8627DBE5F900C6722E /* ProxyAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A8527DBE5F900C6722E /* ProxyAddon */; };
 		B41E5A8927DBEE8300C6722E /* CommonUI in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A8827DBEE8300C6722E /* CommonUI */; };
 		B41E5A8C27DBF27100C6722E /* SwiftyUserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A8B27DBF27100C6722E /* SwiftyUserDefaults */; };
+		B41E5A8F27DBFF7400C6722E /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5A8D27DBFD5C00C6722E /* DefaultsKeys.swift */; };
+		B41E5A9027DBFF7600C6722E /* IOSAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5A8E27DBFEB200C6722E /* IOSAppManager.swift */; };
 		B421005727459D5D0053DD32 /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005527459A4A0053DD32 /* MigrationManager.swift */; };
 		B42100592745A0170053DD32 /* Migration15.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42100582745A0170053DD32 /* Migration15.swift */; };
 		B421005B2745A5530053DD32 /* MigrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005A2745A5530053DD32 /* MigrationView.swift */; };
@@ -39,7 +40,6 @@
 		B4AF109A2616B98D00808341 /* AOSEmulatorRuntimeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */; };
 		B4B4FBCA27DA8CAF009F1CBB /* Migration18.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B4FBC927DA8CAF009F1CBB /* Migration18.swift */; };
 		B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */; };
-		B4EFC9FF261544CF00483DAD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EFC9FE261544CF00483DAD /* UserSettings.swift */; };
 		B4EFCA142615573100483DAD /* MITMProxy in Frameworks */ = {isa = PBXBuildFile; productRef = B4EFCA132615573100483DAD /* MITMProxy */; };
 		B4F10B5A25DCE5A500D23AFD /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5925DCE5A500D23AFD /* AppView.swift */; };
 		B4F10B5E25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */; };
@@ -72,9 +72,10 @@
 		B41E5A6C27DBCBFE00C6722E /* PayloadAddon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PayloadAddon; sourceTree = "<group>"; };
 		B41E5A6F27DBCCD100C6722E /* PermzoneAddon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PermzoneAddon; sourceTree = "<group>"; };
 		B41E5A7227DBD87A00C6722E /* TranslatorAddon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = TranslatorAddon; sourceTree = "<group>"; };
-		B41E5A7527DBDB4400C6722E /* UserDefaults */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserDefaults; sourceTree = "<group>"; };
 		B41E5A8427DBE5B800C6722E /* ProxyAddon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ProxyAddon; sourceTree = "<group>"; };
 		B41E5A8727DBEE6B00C6722E /* CommonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CommonUI; sourceTree = "<group>"; };
+		B41E5A8D27DBFD5C00C6722E /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		B41E5A8E27DBFEB200C6722E /* IOSAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppManager.swift; sourceTree = "<group>"; };
 		B421005527459A4A0053DD32 /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
 		B42100582745A0170053DD32 /* Migration15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration15.swift; sourceTree = "<group>"; };
 		B421005A2745A5530053DD32 /* MigrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationView.swift; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorRuntimeState.swift; sourceTree = "<group>"; };
 		B4B4FBC927DA8CAF009F1CBB /* Migration18.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration18.swift; sourceTree = "<group>"; };
 		B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorState.swift; sourceTree = "<group>"; };
-		B4EFC9FE261544CF00483DAD /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B4EFCA102615572900483DAD /* MITMProxy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MITMProxy; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		B4F10B5D25DCE94D00D23AFD /* IOSAppViewManagerConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAppViewManagerConformance.swift; sourceTree = "<group>"; };
@@ -126,7 +126,6 @@
 				B41E5A8C27DBF27100C6722E /* SwiftyUserDefaults in Frameworks */,
 				B41E5A6E27DBCC1A00C6722E /* PayloadAddon in Frameworks */,
 				B40800C52617BCBD009ED902 /* HTTPProxyManager in Frameworks */,
-				B41E5A7727DBDB4C00C6722E /* UserDefaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +158,6 @@
 				B41E5A6C27DBCBFE00C6722E /* PayloadAddon */,
 				B41E5A6F27DBCCD100C6722E /* PermzoneAddon */,
 				B41E5A7227DBD87A00C6722E /* TranslatorAddon */,
-				B41E5A7527DBDB4400C6722E /* UserDefaults */,
 				B41E5A8427DBE5B800C6722E /* ProxyAddon */,
 				B41E5A8727DBEE6B00C6722E /* CommonUI */,
 			);
@@ -203,8 +201,9 @@
 				B4A9769E253114D100962CC1 /* MainView.swift */,
 				B421005C2745B5880053DD32 /* ContentView.swift */,
 				B421005A2745A5530053DD32 /* MigrationView.swift */,
-				B4EFC9FE261544CF00483DAD /* UserSettings.swift */,
 				B49DD3D827D96974003BD0FE /* ProxyAddonManager.swift */,
+				B41E5A8D27DBFD5C00C6722E /* DefaultsKeys.swift */,
+				B41E5A8E27DBFEB200C6722E /* IOSAppManager.swift */,
 				B403452725D71B9800C2146D /* AOS */,
 				B4F3F18525D5EE22006ADB7A /* iOS */,
 				B47C937025E99C8700E19602 /* Label.swift */,
@@ -273,7 +272,6 @@
 				B41E5A6D27DBCC1A00C6722E /* PayloadAddon */,
 				B41E5A7027DBCCF100C6722E /* PermzoneAddon */,
 				B41E5A7327DBDAC100C6722E /* TranslatorAddon */,
-				B41E5A7627DBDB4C00C6722E /* UserDefaults */,
 				B41E5A8527DBE5F900C6722E /* ProxyAddon */,
 				B41E5A8827DBEE8300C6722E /* CommonUI */,
 				B41E5A8B27DBF27100C6722E /* SwiftyUserDefaults */,
@@ -345,6 +343,7 @@
 				B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */,
 				B4A9769F253114D100962CC1 /* MainView.swift in Sources */,
 				B4DC381125E2E93400E6206A /* AOSEmulatorState.swift in Sources */,
+				B41E5A8F27DBFF7400C6722E /* DefaultsKeys.swift in Sources */,
 				B47C937125E99C8700E19602 /* Label.swift in Sources */,
 				B4F3F17C25D5E8F2006ADB7A /* AOSView.swift in Sources */,
 				B40800BD2617AB15009ED902 /* ProxyTypeView.swift in Sources */,
@@ -358,8 +357,8 @@
 				B49DD3D927D96A23003BD0FE /* ProxyAddonManager.swift in Sources */,
 				B4AF10942616B8E100808341 /* AOSRuntimeView.swift in Sources */,
 				B4F3F19425D5FBE5006ADB7A /* IOSSimulatorView.swift in Sources */,
-				B4EFC9FF261544CF00483DAD /* UserSettings.swift in Sources */,
 				B421005727459D5D0053DD32 /* MigrationManager.swift in Sources */,
+				B41E5A9027DBFF7600C6722E /* IOSAppManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,10 +607,6 @@
 		B41E5A7327DBDAC100C6722E /* TranslatorAddon */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TranslatorAddon;
-		};
-		B41E5A7627DBDB4C00C6722E /* UserDefaults */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = UserDefaults;
 		};
 		B41E5A8527DBE5F900C6722E /* ProxyAddon */ = {
 			isa = XCSwiftPackageProductDependency;

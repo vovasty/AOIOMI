@@ -22,7 +22,6 @@ struct MainView: View {
     @State private var selection: Page?
     @EnvironmentObject private var emulator: AOSEmulator
     @EnvironmentObject private var simulator: IOSSimulator
-    @EnvironmentObject private var userSettings: UserSettings
     @EnvironmentObject private var mitmProxy: MITMProxy
     @EnvironmentObject private var addonManager: ProxyAddonManager
     @EnvironmentObject private var payloadStore: PayloadStore
@@ -120,7 +119,6 @@ struct MainView: View {
                 .environmentObject(AOSEmulator.preview(state: .configuring))
                 .environmentObject(IOSSimulator.preview(state: .started))
                 .environmentObject(MITMProxy.preview)
-                .environmentObject(UserSettings())
         }
     }
 #endif

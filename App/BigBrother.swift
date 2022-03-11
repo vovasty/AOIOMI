@@ -30,7 +30,6 @@ final class BigBrother {
     let iosAppManager: IOSAppManager
     let aosAppManager: AOSAppManager
     let mitmProxy: MITMProxy
-    let userSettings = UserSettings()
     let aosRuntime: AOSEmulatorRuntime
     let httpProxyManager: HTTPProxyManager
     let migrationManager = MigrationManager()
@@ -78,7 +77,6 @@ final class BigBrother {
         translatorStore = try! TranslatorStore(manager: kvManager)
 
         proxyAddonManager = ProxyAddonManager(mitmProxy: mitmProxy,
-                                              userSettings: userSettings,
                                               payloads: payloadStore,
                                               permzones: permzoneStore,
                                               translator: translatorStore)

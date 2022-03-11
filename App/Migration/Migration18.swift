@@ -23,11 +23,16 @@ struct Migration18: Migration {
         cleanupTranslateDefinitions()
         cleanupPayloads()
         cleanupPermzones()
+        cleanupProxy()
     }
 
     private func cleanupTranslateDefinitions() {
         df.removeObject(forKey: "translateDefinitions")
         df.removeObject(forKey: "isTranslating")
+    }
+
+    private func cleanupProxy() {
+        df.removeObject(forKey: "iosProxy")
     }
 
     private func migratePayloads() {

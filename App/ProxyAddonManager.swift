@@ -13,7 +13,6 @@ import PermzoneAddon
 import TranslatorAddon
 
 final class ProxyAddonManager: ObservableObject {
-    private let userSettings: UserSettings
     private let payloads: PayloadStore
     private let permzones: PermzoneStore
     private let translator: TranslatorStore
@@ -21,9 +20,8 @@ final class ProxyAddonManager: ObservableObject {
     private var tokens = Set<AnyCancellable>()
     let objectWillChange = PassthroughSubject<Void, Never>()
 
-    init(mitmProxy: MITMProxy, userSettings: UserSettings, payloads: PayloadStore, permzones: PermzoneStore, translator: TranslatorStore) {
+    init(mitmProxy: MITMProxy, payloads: PayloadStore, permzones: PermzoneStore, translator: TranslatorStore) {
         self.payloads = payloads
-        self.userSettings = userSettings
         self.mitmProxy = mitmProxy
         self.permzones = permzones
         self.translator = translator

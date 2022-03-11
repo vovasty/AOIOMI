@@ -9,11 +9,11 @@ import CommonUI
 import HTTPProxyManager
 import IOSSimulator
 import SwiftUI
+import SwiftyUserDefaults
 
 struct IOSConfigureView: View {
     var isDisplayed: Binding<Bool>
     @EnvironmentObject private var simulator: IOSSimulator
-    @EnvironmentObject private var userSettings: UserSettings
     @EnvironmentObject private var httpProxyManager: HTTPProxyManager
     @State private var deviceType: SimctlList.DeviceType = .empty
     @State private var proxy: HTTPProxyManager.Proxy?
@@ -31,7 +31,8 @@ struct IOSConfigureView: View {
     var body: some View {
         DialogView(primaryButton: .default("Configure", disabled: deviceType == .empty, action: {
             guard deviceType != .empty else { return } // WTF????
-            userSettings.iosProxy = proxy
+            Defaults.iosProxyHost = proxy?.host
+            Defaults.iosProxyPort = proxy?.port
             simulator.configure(deviceType: deviceType, caURL: httpProxyManager.caPaths)
             isDisplayed.wrappedValue.toggle()
         }), secondaryButton: cancelButton) {
@@ -51,7 +52,6 @@ struct IOSConfigureView: View {
         static var previews: some View {
             IOSConfigureView(isDisplayed: .constant(true), isCancellable: false)
                 .environmentObject(HTTPProxyManager.preview())
-                .environmentObject(UserSettings())
                 .environmentObject(IOSSimulator.preview(deviceTypes: [
                     SimctlList.DeviceType(name: "iPhone"),
                     SimctlList.DeviceType(name: "iPad"),

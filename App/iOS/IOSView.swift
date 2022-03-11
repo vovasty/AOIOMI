@@ -12,7 +12,6 @@ import SwiftUI
 struct IOSView: View {
     @EnvironmentObject private var simulator: IOSSimulator
     @EnvironmentObject private var appManager: IOSAppManager
-    @EnvironmentObject private var userSettings: UserSettings
     @State private var activityState = ActivityView.ActivityState.text("")
 
     var body: some View {
@@ -30,7 +29,7 @@ struct IOSView: View {
                         activityState: $activityState,
                         installTitle: "Choose an App to Install",
                         fileExtensions: ["app"]) { url in
-                    appManager.install(app: url, defaults: userSettings.iosDefaults)
+                    appManager.install(app: url, defaults: appManager.iosDefaults)
                 }
             case .stopped, .starting, .stopping, .configuring, .checking:
                 IOSSimulatorView(activityState: $activityState)

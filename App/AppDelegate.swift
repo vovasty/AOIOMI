@@ -17,7 +17,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         bigBrother.start()
 
         let contentView = ContentView()
-            .environmentObject(bigBrother.userSettings)
             .environmentObject(bigBrother.emulator)
             .environmentObject(bigBrother.simulator)
             .environmentObject(bigBrother.iosAppManager)
