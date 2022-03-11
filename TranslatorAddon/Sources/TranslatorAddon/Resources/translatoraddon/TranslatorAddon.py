@@ -1,7 +1,7 @@
 from mitmproxy import ctx
 from mitmproxy import flow
 from mitmproxy import http
-from translator import Translator
+from translatoraddon.translator import Translator
 
 class TranslatorAddon:
     def __init__(self, definitions):

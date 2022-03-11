@@ -16,12 +16,12 @@ final class ProxyAddonManager: ObservableObject {
     private let userSettings: UserSettings
     private let payloads: PayloadStore
     private let permzones: PermzoneStore
-    private let translator: TranslateStore
+    private let translator: TranslatorStore
     private let mitmProxy: MITMProxy
     private var tokens = Set<AnyCancellable>()
     let objectWillChange = PassthroughSubject<Void, Never>()
 
-    init(mitmProxy: MITMProxy, userSettings: UserSettings, payloads: PayloadStore, permzones: PermzoneStore, translator: TranslateStore) {
+    init(mitmProxy: MITMProxy, userSettings: UserSettings, payloads: PayloadStore, permzones: PermzoneStore, translator: TranslatorStore) {
         self.payloads = payloads
         self.userSettings = userSettings
         self.mitmProxy = mitmProxy

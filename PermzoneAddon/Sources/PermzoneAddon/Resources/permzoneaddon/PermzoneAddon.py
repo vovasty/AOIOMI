@@ -1,7 +1,7 @@
 from mitmproxy import flow
 from mitmproxy import http
 
-class AddRequestHeadersAddon:
+class PermzoneAddon:
     def __init__(self, headers):
         self.headers = headers
 

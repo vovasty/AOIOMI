@@ -1,4 +1,3 @@
 .DS_Store
 .build
 *.swp
-/Sources/TranslatorAddon/Resources/python/libTranslator.dylib

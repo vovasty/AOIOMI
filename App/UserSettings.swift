@@ -56,13 +56,6 @@ final class UserSettings: ObservableObject {
         }
     }
 
-    @UserDefault("isTranslationActive", defaultValue: false)
-    var isTranslationActive: Bool {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
     @UserDefault("iosProxy", defaultValue: nil)
     var iosProxy: HTTPProxyManager.Proxy? {
         willSet {

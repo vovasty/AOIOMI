@@ -1,5 +1,5 @@
 //
-//  TranslateView.swift
+//  TranslatorView.swift
 //  AOIOMI
 //
 //  Created by vlsolome on 4/1/21.
@@ -9,10 +9,12 @@ import Combine
 import MITMProxy
 import SwiftUI
 
-struct TranslateView: View {
-    @EnvironmentObject private var translatorStore: TranslateStore
+public struct TranslatorView: View {
+    @EnvironmentObject private var translatorStore: TranslatorStore
 
-    var body: some View {
+    public init() {}
+
+    public var body: some View {
         VStack(alignment: .leading) {
             Toggle("Translate", isOn: $translatorStore.isActive)
                 .toggleStyle(SwitchToggleStyle())

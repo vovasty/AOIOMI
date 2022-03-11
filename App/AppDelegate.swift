@@ -29,7 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .environmentObject(bigBrother.proxyAddonManager)
             .environmentObject(bigBrother.payloadStore)
             .environmentObject(bigBrother.permzoneStore)
-            .environmentObject(bigBrother.translateStore)
+            .environmentObject(bigBrother.translatorStore)
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),

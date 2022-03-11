@@ -13,7 +13,7 @@ import TranslatorAddon
 struct Migration18: Migration {
     var version: Int = 18
     private let df = UserDefaults.standard
-    let transtatorStore: TranslateStore
+    let transtatorStore: TranslatorStore
     let payloadStore: PayloadStore
     let permzoneStore: PermzoneStore
 

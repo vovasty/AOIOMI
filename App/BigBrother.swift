@@ -16,6 +16,7 @@ import KVStore
 import MITMProxy
 import PayloadAddon
 import PermzoneAddon
+import TranslatorAddon
 
 final class BigBrother {
     let simulatorId = "AOIOMI"
@@ -36,7 +37,7 @@ final class BigBrother {
     let proxyAddonManager: ProxyAddonManager
     let payloadStore: PayloadStore
     let permzoneStore: PermzoneStore
-    let translateStore: TranslateStore
+    let translatorStore: TranslatorStore
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -73,15 +74,15 @@ final class BigBrother {
         kvManager = try! Manager(data: appSupportURL.appendingPathComponent("db"))
         payloadStore = try! PayloadStore(manager: kvManager)
         permzoneStore = try! PermzoneStore(manager: kvManager)
-        translateStore = try! TranslateStore(manager: kvManager, userSettings: userSettings)
+        translatorStore = try! TranslatorStore(manager: kvManager)
 
         proxyAddonManager = ProxyAddonManager(mitmProxy: mitmProxy,
                                               userSettings: userSettings,
                                               payloads: payloadStore,
                                               permzones: permzoneStore,
-                                              translator: translateStore)
+                                              translator: translatorStore)
 
-        migrationManager.migrations = [Migration15(), Migration18(transtatorStore: translateStore, payloadStore: payloadStore, permzoneStore: permzoneStore)]
+        migrationManager.migrations = [Migration15(), Migration18(transtatorStore: translatorStore, payloadStore: payloadStore, permzoneStore: permzoneStore)]
 
         try? proxyAddonManager.update()
 

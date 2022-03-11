@@ -11,6 +11,7 @@ import MITMProxy
 import PayloadAddon
 import PermzoneAddon
 import SwiftUI
+import TranslatorAddon
 
 struct MainView: View {
     enum Page: Int {
@@ -25,7 +26,7 @@ struct MainView: View {
     @EnvironmentObject private var addonManager: ProxyAddonManager
     @EnvironmentObject private var payloadStore: PayloadStore
     @EnvironmentObject private var permzoneStore: PermzoneStore
-    @EnvironmentObject private var translatorStore: TranslateStore
+    @EnvironmentObject private var translatorStore: TranslatorStore
 
     var body: some View {
         NavigationView {
@@ -78,7 +79,7 @@ struct MainView: View {
                         }
                     }
                     NavigationLink(
-                        destination: TranslateView().frame(maxWidth: .infinity, alignment: .leading),
+                        destination: TranslatorView().frame(maxWidth: .infinity, alignment: .leading),
                         tag: .translator,
                         selection: $selection
                     ) {

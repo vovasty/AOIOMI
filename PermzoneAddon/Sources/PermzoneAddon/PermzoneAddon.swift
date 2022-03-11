@@ -23,7 +23,7 @@ public struct AddRequestHeadersAddon: Addon {
             """
                 AddRequestHeadersAddon.AddRequestHeadersAddon({\(headersString)})
             """
-        sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.path
+        sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.deletingLastPathComponent().path
     }
 
     public func constructor(dataDir _: URL) -> String {

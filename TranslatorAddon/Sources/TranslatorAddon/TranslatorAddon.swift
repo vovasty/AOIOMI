@@ -34,9 +34,9 @@ public struct TranslatorAddon: Addon {
 
         constructorString =
             """
-            TranslatorAddon({\(definitionsString)})
+                TranslatorAddon.TranslatorAddon({\(definitionsString)})
             """
-        sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.path
+        sysPath = Bundle.module.url(forResource: "translatoraddon", withExtension: "")?.deletingLastPathComponent().path
     }
 
     public func constructor(dataDir _: URL) -> String {
