@@ -15,13 +15,13 @@
 		B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */ = {isa = PBXBuildFile; productRef = B40942C625DB985F005CBEB3 /* AOSEmulator */; };
 		B4113DC625DB2A1900B92783 /* IOSConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */; };
 		B41DA48D27D94015004427C3 /* KVStore in Frameworks */ = {isa = PBXBuildFile; productRef = B41DA48C27D94015004427C3 /* KVStore */; };
+		B41E5A6E27DBCC1A00C6722E /* PayloadAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A6D27DBCC1A00C6722E /* PayloadAddon */; };
+		B41E5A7127DBCCF100C6722E /* PermzoneAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B41E5A7027DBCCF100C6722E /* PermzoneAddon */; };
 		B421005727459D5D0053DD32 /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005527459A4A0053DD32 /* MigrationManager.swift */; };
 		B42100592745A0170053DD32 /* Migration15.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42100582745A0170053DD32 /* Migration15.swift */; };
 		B421005B2745A5530053DD32 /* MigrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005A2745A5530053DD32 /* MigrationView.swift */; };
 		B421005D2745B5880053DD32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005C2745B5880053DD32 /* ContentView.swift */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
-		B462CE0127DAEB4F002F281C /* ProxyPayloadUI in Frameworks */ = {isa = PBXBuildFile; productRef = B462CE0027DAEB4F002F281C /* ProxyPayloadUI */; };
-		B462CE0527DAF2D1002F281C /* ProxyPermzoneUI in Frameworks */ = {isa = PBXBuildFile; productRef = B462CE0427DAF2D1002F281C /* ProxyPermzoneUI */; };
 		B468661227D992980028F800 /* TranslateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468661127D992980028F800 /* TranslateStore.swift */; };
 		B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F3D25E2E0A00090896C /* BigBrother.swift */; };
 		B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */; };
@@ -80,13 +80,13 @@
 		B40942C325DB97F8005CBEB3 /* AOSEmulator */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AOSEmulator; sourceTree = "<group>"; };
 		B4113DC525DB2A1900B92783 /* IOSConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSConfigureView.swift; sourceTree = "<group>"; };
 		B41DA48B27D93FF2004427C3 /* KVStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = KVStore; sourceTree = "<group>"; };
+		B41E5A6C27DBCBFE00C6722E /* PayloadAddon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PayloadAddon; sourceTree = "<group>"; };
+		B41E5A6F27DBCCD100C6722E /* PermzoneAddon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PermzoneAddon; sourceTree = "<group>"; };
 		B421005527459A4A0053DD32 /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
 		B42100582745A0170053DD32 /* Migration15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration15.swift; sourceTree = "<group>"; };
 		B421005A2745A5530053DD32 /* MigrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationView.swift; sourceTree = "<group>"; };
 		B421005C2745B5880053DD32 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorView.swift; sourceTree = "<group>"; };
-		B462CDFF27DAEB0E002F281C /* ProxyPayloadUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ProxyPayloadUI; sourceTree = "<group>"; };
-		B462CE0227DAF06B002F281C /* ProxyPermzoneUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ProxyPermzoneUI; sourceTree = "<group>"; };
 		B468661127D992980028F800 /* TranslateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateStore.swift; sourceTree = "<group>"; };
 		B4687F3D25E2E0A00090896C /* BigBrother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigBrother.swift; sourceTree = "<group>"; };
 		B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSimulatorState.swift; sourceTree = "<group>"; };
@@ -136,14 +136,14 @@
 				B4EFCA142615573100483DAD /* MITMProxy in Frameworks */,
 				B4E82DE3261978A900D0D7D9 /* MITMProxyAddons in Frameworks */,
 				B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */,
-				B462CE0527DAF2D1002F281C /* ProxyPermzoneUI in Frameworks */,
 				B4FC830225DB9B54000E47A7 /* IOSSimulator in Frameworks */,
 				B40800B926179FB8009ED902 /* AOSEmulatorRuntime in Frameworks */,
 				B40800C22617B821009ED902 /* CharlesProxy in Frameworks */,
 				B4E82DE5261978AF00D0D7D9 /* TranslatorAddon in Frameworks */,
+				B41E5A7127DBCCF100C6722E /* PermzoneAddon in Frameworks */,
+				B41E5A6E27DBCC1A00C6722E /* PayloadAddon in Frameworks */,
 				B4EFC9FB261544BB00483DAD /* UserDefaults in Frameworks */,
 				B40800C52617BCBD009ED902 /* HTTPProxyManager in Frameworks */,
-				B462CE0127DAEB4F002F281C /* ProxyPayloadUI in Frameworks */,
 				B41DA48D27D94015004427C3 /* KVStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,8 +178,8 @@
 				B4FC82FC25DB9AF4000E47A7 /* IOSSimulator */,
 				B40942C325DB97F8005CBEB3 /* AOSEmulator */,
 				B41DA48B27D93FF2004427C3 /* KVStore */,
-				B462CDFF27DAEB0E002F281C /* ProxyPayloadUI */,
-				B462CE0227DAF06B002F281C /* ProxyPermzoneUI */,
+				B41E5A6C27DBCBFE00C6722E /* PayloadAddon */,
+				B41E5A6F27DBCCD100C6722E /* PermzoneAddon */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -326,8 +326,8 @@
 				B4E82DE2261978A900D0D7D9 /* MITMProxyAddons */,
 				B4E82DE4261978AF00D0D7D9 /* TranslatorAddon */,
 				B41DA48C27D94015004427C3 /* KVStore */,
-				B462CE0027DAEB4F002F281C /* ProxyPayloadUI */,
-				B462CE0427DAF2D1002F281C /* ProxyPermzoneUI */,
+				B41E5A6D27DBCC1A00C6722E /* PayloadAddon */,
+				B41E5A7027DBCCF100C6722E /* PermzoneAddon */,
 			);
 			productName = AOIOMI;
 			productReference = B4A97699253114D100962CC1 /* AOIOMI.app */;
@@ -648,13 +648,13 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = KVStore;
 		};
-		B462CE0027DAEB4F002F281C /* ProxyPayloadUI */ = {
+		B41E5A6D27DBCC1A00C6722E /* PayloadAddon */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = ProxyPayloadUI;
+			productName = PayloadAddon;
 		};
-		B462CE0427DAF2D1002F281C /* ProxyPermzoneUI */ = {
+		B41E5A7027DBCCF100C6722E /* PermzoneAddon */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = ProxyPermzoneUI;
+			productName = PermzoneAddon;
 		};
 		B4E82DE2261978A900D0D7D9 /* MITMProxyAddons */ = {
 			isa = XCSwiftPackageProductDependency;

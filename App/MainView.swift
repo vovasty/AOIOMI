@@ -8,8 +8,8 @@
 import AOSEmulator
 import IOSSimulator
 import MITMProxy
-import ProxyPayloadUI
-import ProxyPermzoneUI
+import PayloadAddon
+import PermzoneAddon
 import SwiftUI
 
 struct MainView: View {

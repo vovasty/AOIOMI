@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import ProxyPayloadUI
-import ProxyPermzoneUI
+import PayloadAddon
+import PermzoneAddon
 import TranslatorAddon
 
 struct Migration18: Migration {

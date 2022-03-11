@@ -1,3 +1,3 @@
-# ProxyPermzoneUI
+# PermzoneAddon
 
 A description of this package.

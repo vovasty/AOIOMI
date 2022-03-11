@@ -4,29 +4,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "ProxyPermzoneUI",
+    name: "PayloadAddon",
     platforms: [
         .macOS(.v10_15),
     ],
     products: [
         .library(
-            name: "ProxyPermzoneUI",
-            targets: ["ProxyPermzoneUI"]
-        ),
+            name: "PayloadAddon",
+            targets: ["PayloadAddon"]),
     ],
     dependencies: [
         .package(path: "../KVStore"),
-        .package(path: "../CommonUI"),
         .package(path: "../MITMProxyAddons"),
+        .package(path: "../CommonUI"),
     ],
     targets: [
         .target(
-            name: "ProxyPermzoneUI",
-            dependencies: ["KVStore", "CommonUI", "MITMProxyAddons"]
-        ),
-        .testTarget(
-            name: "ProxyPermzoneUITests",
-            dependencies: ["ProxyPermzoneUI"]
-        ),
+            name: "PayloadAddon",
+            dependencies: ["KVStore", "MITMProxyAddons", "CommonUI"]),
     ]
 )

@@ -9,8 +9,8 @@ import Combine
 import Foundation
 import MITMProxy
 import MITMProxyAddons
-import ProxyPayloadUI
-import ProxyPermzoneUI
+import PayloadAddon
+import PermzoneAddon
 import TranslatorAddon
 
 final class ProxyAddonManager: ObservableObject {
