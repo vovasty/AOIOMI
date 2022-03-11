@@ -16,7 +16,7 @@ public struct ReplaceResponseContentAddon: Addon {
 
     public init(payloads: [String: String]) {
         self.payloads = payloads
-        sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.path
+        sysPath = Bundle.module.url(forResource: "replaceresponsecontentaddon", withExtension: "")?.deletingLastPathComponent().path
     }
 
     public func constructor(dataDir: URL) -> String {
@@ -25,7 +25,7 @@ public struct ReplaceResponseContentAddon: Addon {
         try! data.write(to: path)
 
         return """
-        ReplaceResponseContentAddon('\(path.path)')
+        ReplaceResponseContentAddon.ReplaceResponseContentAddon('\(path.path)')
         """
     }
 }

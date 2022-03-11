@@ -11,7 +11,8 @@ let package = Package(
     products: [
         .library(
             name: "PayloadAddon",
-            targets: ["PayloadAddon"]),
+            targets: ["PayloadAddon"]
+        ),
     ],
     dependencies: [
         .package(path: "../KVStore"),
@@ -21,6 +22,10 @@ let package = Package(
     targets: [
         .target(
             name: "PayloadAddon",
-            dependencies: ["KVStore", "MITMProxyAddons", "CommonUI"]),
+            dependencies: ["KVStore", "MITMProxyAddons", "CommonUI"],
+            resources: [
+                .copy("Resources/replaceresponsecontentaddon"),
+            ]
+        ),
     ]
 )
