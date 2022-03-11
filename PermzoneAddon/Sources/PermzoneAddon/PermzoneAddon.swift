@@ -8,10 +8,10 @@
 import Foundation
 import MITMProxy
 
-public struct AddRequestHeadersAddon: Addon {
+public struct PermzoneAddon: Addon {
     public var sysPath: String?
-    public let id = "addRequestHeaderAddon"
-    public let importString = "from addrequestheadersaddon import AddRequestHeadersAddon"
+    public let id = "PermzoneAddon"
+    public let importString = "from permzoneaddon import PermzoneAddon"
     private let constructorString: String
 
     public init(headers: [String: String]) {
@@ -21,9 +21,9 @@ public struct AddRequestHeadersAddon: Addon {
         .joined(separator: ",")
         constructorString =
             """
-                AddRequestHeadersAddon.AddRequestHeadersAddon({\(headersString)})
+                PermzoneAddon.PermzoneAddon({\(headersString)})
             """
-        sysPath = Bundle.module.url(forResource: "python", withExtension: "")?.deletingLastPathComponent().path
+        sysPath = Bundle.module.url(forResource: "permzoneaddon", withExtension: "")?.deletingLastPathComponent().path
     }
 
     public func constructor(dataDir _: URL) -> String {

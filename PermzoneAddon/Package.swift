@@ -24,7 +24,7 @@ let package = Package(
             name: "PermzoneAddon",
             dependencies: ["KVStore", "CommonUI", "MITMProxy"],
             resources: [
-                .copy("Resources/addrequestheadersaddon"),
+                .copy("Resources/permzoneaddon"),
             ]
         ),
     ]

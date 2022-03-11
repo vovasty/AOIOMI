@@ -39,7 +39,7 @@ public final class PermzoneStore: Store<PermZone> {
 
     public var addon: Addon? {
         guard let activePermZone = activePermZone else { return nil }
-        return AddRequestHeadersAddon(headers: activePermZone.headers)
+        return PermzoneAddon(headers: activePermZone.headers)
     }
 
     public var isActive: Bool {
