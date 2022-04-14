@@ -47,6 +47,10 @@ function run_app {
     ${SIMULATOR} launch "$1" "$2"
 }
 
+function simulator {
+    ${SIMULATOR} $@
+}
+
 function install_ca {
     NAME=$1
     shift 1

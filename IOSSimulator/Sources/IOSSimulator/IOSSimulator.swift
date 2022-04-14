@@ -10,8 +10,8 @@ public class IOSSimulator: ObservableObject {
     @Published public private(set) var state: State = .stopped(nil)
     @Published public private(set) var deviceTypes: [SimctlList.DeviceType] = []
     public private(set) var simulatorName: String
-    private var cancellables = Set<AnyCancellable>()
-    private let commander: Commander
+    public var cancellables = Set<AnyCancellable>()
+    public let commander: Commander
 
     public convenience init(simulatorName: String) {
         self.init(simulatorName: simulatorName,
