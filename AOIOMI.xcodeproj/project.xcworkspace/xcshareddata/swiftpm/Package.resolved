@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "mustache",
+        "repositoryURL": "https://github.com/AlwaysRightInstitute/mustache",
+        "state": {
+          "branch": null,
+          "revision": "880e0eeb5c42f088cbdb6fa6aa313fa41c15bca8",
+          "version": "1.0.1"
+        }
+      },
+      {
         "package": "SwiftLMDB",
         "repositoryURL": "https://github.com/agisboye/SwiftLMDB.git",
         "state": {

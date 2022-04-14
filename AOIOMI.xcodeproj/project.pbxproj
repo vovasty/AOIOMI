@@ -25,6 +25,7 @@
 		B42100592745A0170053DD32 /* Migration15.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42100582745A0170053DD32 /* Migration15.swift */; };
 		B421005B2745A5530053DD32 /* MigrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005A2745A5530053DD32 /* MigrationView.swift */; };
 		B421005D2745B5880053DD32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B421005C2745B5880053DD32 /* ContentView.swift */; };
+		B433B7AE2807728C00BF0553 /* LinksAddon in Frameworks */ = {isa = PBXBuildFile; productRef = B433B7AD2807728C00BF0553 /* LinksAddon */; };
 		B452EB1D25336CB6003968FC /* AOSEmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EB1C25336CB6003968FC /* AOSEmulatorView.swift */; };
 		B4687F3E25E2E0A00090896C /* BigBrother.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F3D25E2E0A00090896C /* BigBrother.swift */; };
 		B4687F4225E2E61C0090896C /* IOSSimulatorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4687F4125E2E61C0090896C /* IOSSimulatorState.swift */; };
@@ -98,6 +99,7 @@
 		B4AF10932616B8E100808341 /* AOSRuntimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSRuntimeView.swift; sourceTree = "<group>"; };
 		B4AF10992616B98D00808341 /* AOSEmulatorRuntimeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorRuntimeState.swift; sourceTree = "<group>"; };
 		B4B4FBC927DA8CAF009F1CBB /* Migration18.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration18.swift; sourceTree = "<group>"; };
+		B4BEF809280635F200CF9C14 /* LinksAddon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LinksAddon; sourceTree = "<group>"; };
 		B4DC381025E2E93400E6206A /* AOSEmulatorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSEmulatorState.swift; sourceTree = "<group>"; };
 		B4EFCA102615572900483DAD /* MITMProxy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MITMProxy; sourceTree = "<group>"; };
 		B4F10B5925DCE5A500D23AFD /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4EFCA142615573100483DAD /* MITMProxy in Frameworks */,
+				B433B7AE2807728C00BF0553 /* LinksAddon in Frameworks */,
 				B41E5A8927DBEE8300C6722E /* CommonUI in Frameworks */,
 				B40942C725DB985F005CBEB3 /* AOSEmulator in Frameworks */,
 				B41E5A8627DBE5F900C6722E /* ProxyAddon in Frameworks */,
@@ -160,6 +163,7 @@
 				B41E5A7227DBD87A00C6722E /* TranslatorAddon */,
 				B41E5A8427DBE5B800C6722E /* ProxyAddon */,
 				B41E5A8727DBEE6B00C6722E /* CommonUI */,
+				B4BEF809280635F200CF9C14 /* LinksAddon */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -275,6 +279,7 @@
 				B41E5A8527DBE5F900C6722E /* ProxyAddon */,
 				B41E5A8827DBEE8300C6722E /* CommonUI */,
 				B41E5A8B27DBF27100C6722E /* SwiftyUserDefaults */,
+				B433B7AD2807728C00BF0553 /* LinksAddon */,
 			);
 			productName = AOIOMI;
 			productReference = B4A97699253114D100962CC1 /* AOIOMI.app */;
@@ -621,6 +626,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B41E5A8A27DBF27100C6722E /* XCRemoteSwiftPackageReference "SwiftyUserDefaults" */;
 			productName = SwiftyUserDefaults;
+		};
+		B433B7AD2807728C00BF0553 /* LinksAddon */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LinksAddon;
 		};
 		B4EFCA132615573100483DAD /* MITMProxy */ = {
 			isa = XCSwiftPackageProductDependency;

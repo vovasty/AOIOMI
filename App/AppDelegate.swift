@@ -29,6 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .environmentObject(bigBrother.payloadStore)
             .environmentObject(bigBrother.permzoneStore)
             .environmentObject(bigBrother.translatorStore)
+            .environmentObject(bigBrother.linkStore)
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),

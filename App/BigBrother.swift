@@ -13,6 +13,7 @@ import Combine
 import HTTPProxyManager
 import IOSSimulator
 import KVStore
+import LinksAddon
 import MITMProxy
 import PayloadAddon
 import PermzoneAddon
@@ -38,6 +39,7 @@ final class BigBrother {
     let payloadStore: PayloadStore
     let permzoneStore: PermzoneStore
     let translatorStore: TranslatorStore
+    let linkStore: LinkStore
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -77,11 +79,13 @@ final class BigBrother {
         translatorStore = try! TranslatorStore(manager: kvManager)
 
         proxyAddonManager = AddonManager(mitmProxy: mitmProxy,
-                                              payloads: payloadStore,
-                                              permzones: permzoneStore,
-                                              translator: translatorStore)
+                                         payloads: payloadStore,
+                                         permzones: permzoneStore,
+                                         translator: translatorStore)
 
         migrationManager.migrations = [Migration15(), Migration18(transtatorStore: translatorStore, payloadStore: payloadStore, permzoneStore: permzoneStore)]
+
+        linkStore = try! LinkStore(manager: kvManager)
 
         try? proxyAddonManager.update()
 

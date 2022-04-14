@@ -7,6 +7,7 @@
 
 import AOSEmulator
 import IOSSimulator
+import LinksAddon
 import MITMProxy
 import PayloadAddon
 import PermzoneAddon
@@ -16,7 +17,7 @@ import TranslatorAddon
 
 struct MainView: View {
     enum Page: Int {
-        case aos, ios, permzone, translator, settings, payload
+        case aos, ios, permzone, translator, settings, payload, links
     }
 
     @State private var selection: Page?
@@ -88,6 +89,13 @@ struct MainView: View {
                         } else {
                             Label(text: "Translator", style: .translator)
                         }
+                    }
+                    NavigationLink(
+                        destination: LinksView().frame(maxWidth: .infinity, alignment: .leading),
+                        tag: .links,
+                        selection: $selection
+                    ) {
+                        Label(text: "Links", style: .links)
                     }
                     NavigationLink(
                         destination: ProxyView().frame(maxWidth: .infinity, alignment: .leading),
