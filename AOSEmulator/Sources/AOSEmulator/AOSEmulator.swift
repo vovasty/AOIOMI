@@ -27,8 +27,8 @@ public class AOSEmulator: ObservableObject {
     }
 
     @Published public private(set) var state: State = .stopped(nil)
-    private let commander: Commander
-    private var cancellables = Set<AnyCancellable>()
+    public let commander: Commander
+    public var cancellables = Set<AnyCancellable>()
     private var process: AnyCancellable?
 
     public convenience init(env: [String: String]) {
