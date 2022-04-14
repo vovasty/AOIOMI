@@ -79,6 +79,7 @@ public struct LinksView: View {
     }
 }
 
+#if DEBUG
 struct LinksView_Previews: PreviewProvider {
     static var previews: some View {
         LinksView()
@@ -86,3 +87,4 @@ struct LinksView_Previews: PreviewProvider {
             .frame(width: 300, height: 100)
     }
 }
+#endif
