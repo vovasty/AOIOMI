@@ -25,3 +25,13 @@ public class Manager {
         try environment.openDatabase(named: name, flags: [.create])
     }
 }
+
+#if DEBUG
+    public extension Manager {
+        static var preview: Manager = {
+            let tmp = FileManager.default.temporaryDirectory.appendingPathComponent("aoiomi")
+            try! FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
+            return try! Manager(data: tmp)
+        }()
+    }
+#endif
