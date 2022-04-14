@@ -95,7 +95,11 @@ struct MainView: View {
                         tag: .links,
                         selection: $selection
                     ) {
-                        Label(text: "Links", style: .links)
+                        if simulator.state == .started || emulator.state == .started {
+                            Label(text: "Links", style: .links, highlighted: true)
+                        } else {
+                            Label(text: "Links", style: .links)
+                        }
                     }
                     NavigationLink(
                         destination: ProxyView().frame(maxWidth: .infinity, alignment: .leading),

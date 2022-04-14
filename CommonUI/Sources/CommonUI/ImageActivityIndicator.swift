@@ -26,7 +26,7 @@ public struct ImageActivityIndicator: View {
             case .payload:
                 return Color("payload")
             case .links:
-                return .black
+                return Color("links")
             }
         }
 
