@@ -26,6 +26,9 @@ public final class PermzoneStore: Store<PermZone> {
             }
 
             if let index = newItems.firstIndex(where: { $0.id == newValue?.id }) {
+                if let newValue = newValue {
+                    newItems[index] = newValue
+                }
                 newItems[index].isActive = true
             }
             self.items = newItems
@@ -45,13 +48,20 @@ public final class PermzoneStore: Store<PermZone> {
     public var isActive: Bool {
         activePermZone != nil
     }
+
+    public func deleteActivePermzone() {
+        guard let activePermZone = activePermZone else {
+            return
+        }
+        try? delete(item: activePermZone)
+        self.activePermZone = nil
+    }
 }
 
 #if DEBUG
     extension PermzoneStore {
         static var preview: PermzoneStore {
-            let manager = try! Manager(data: URL(fileURLWithPath: "/tmp/test"))
-            return try! PermzoneStore(manager: manager)
+            try! PermzoneStore(manager: Manager.preview)
         }
     }
 #endif

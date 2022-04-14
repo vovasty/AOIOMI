@@ -60,8 +60,7 @@ public struct PermZoneView: View {
                         .padding()
                     }
                     Button("Delete") {
-                        permzoneStore.items.removeAll(where: { $0 == permzoneStore.activePermZone })
-                        permzoneStore.activePermZone = nil
+                        permzoneStore.deleteActivePermzone()
                     }
                     .disabled(permzoneStore.activePermZone == nil)
                     Button("Edit") {

@@ -59,6 +59,10 @@ open class Store<Value: StoreItem>: ObservableObject {
         }
     }
 
+    public func delete(item: Value) throws {
+        items.removeAll(where: { $0 == item })
+    }
+
     private func put(value: Value, for key: String) throws {
         let data = try encoder.encode(value)
         try database.put(value: data, forKey: key)
