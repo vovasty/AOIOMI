@@ -2,10 +2,7 @@ export INSTALL_DIR = Sources/MITMProxy/Resources
 
 
 .PHONY: bootstrap
-bootstrap:
-ifndef SOURCE_PACKAGES
-    $(error SOURCE_PACKAGES is not set)
-endif
+bootstrap: guard-SOURCE_PACKAGES
 	rm -f /tmp/mitm*
 	tar -zxf $(SOURCE_PACKAGES)/mitmproxy-*-osx.tar.gz -C /tmp
 	install /tmp/mitmweb "$(INSTALL_DIR)"/mitmweb
@@ -13,3 +10,9 @@ endif
 .PHONY: clean
 clean:
 	rm -f "$(INSTALL_DIR)"/mitmweb
+
+guard-%:
+	@ if [ "${${*}}" = "" ]; then \
+	    echo "Environment variable $* not set"; \
+	    exit 1; \
+	fi
